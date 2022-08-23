@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EF74BBF328B4D5C200E09450 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF74BBF228B4D5C200E09450 /* HomeScreen.swift */; };
 		EF8FF25D28B4D0B100C053B7 /* HeyLocalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8FF25C28B4D0B100C053B7 /* HeyLocalApp.swift */; };
 		EF8FF26128B4D0B300C053B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF8FF26028B4D0B300C053B7 /* Assets.xcassets */; };
 		EF8FF26428B4D0B300C053B7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF8FF26328B4D0B300C053B7 /* Preview Assets.xcassets */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EF74BBF228B4D5C200E09450 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		EF8FF25928B4D0B100C053B7 /* HeyLocal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HeyLocal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF8FF25C28B4D0B100C053B7 /* HeyLocalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeyLocalApp.swift; sourceTree = "<group>"; };
 		EF8FF26028B4D0B300C053B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -32,6 +34,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EF74BBF128B4D55A00E09450 /* HomeScreen */ = {
+			isa = PBXGroup;
+			children = (
+				EF74BBF228B4D5C200E09450 /* HomeScreen.swift */,
+			);
+			path = HomeScreen;
+			sourceTree = "<group>";
+		};
 		EF8FF25028B4D0B100C053B7 = {
 			isa = PBXGroup;
 			children = (
@@ -105,6 +115,7 @@
 		EF8FF26E28B4D1C400C053B7 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				EF74BBF128B4D55A00E09450 /* HomeScreen */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -195,6 +206,7 @@
 			files = (
 				EF8FF27428B4D2D100C053B7 /* Main.swift in Sources */,
 				EF8FF25D28B4D0B100C053B7 /* HeyLocalApp.swift in Sources */,
+				EF74BBF328B4D5C200E09450 /* HomeScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
