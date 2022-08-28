@@ -18,6 +18,10 @@
 		EF8FF26128B4D0B300C053B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF8FF26028B4D0B300C053B7 /* Assets.xcassets */; };
 		EF8FF26428B4D0B300C053B7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF8FF26328B4D0B300C053B7 /* Preview Assets.xcassets */; };
 		EF8FF27428B4D2D100C053B7 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8FF27328B4D2D100C053B7 /* Main.swift */; };
+		EFAA2AC328BBC30E00B56A3C /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA2AC228BBC30E00B56A3C /* AuthRepository.swift */; };
+		EFAA2AC528BBC48400B56A3C /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA2AC428BBC48400B56A3C /* AuthService.swift */; };
+		EFAA2AC928BBCF6E00B56A3C /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA2AC828BBCF6E00B56A3C /* Auth.swift */; };
+		EFAA2ACD28BBD19400B56A3C /* SignInScreenTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA2ACC28BBD19400B56A3C /* SignInScreenTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +38,10 @@
 		EF8FF26028B4D0B300C053B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EF8FF26328B4D0B300C053B7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EF8FF27328B4D2D100C053B7 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
+		EFAA2AC228BBC30E00B56A3C /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
+		EFAA2AC428BBC48400B56A3C /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		EFAA2AC828BBCF6E00B56A3C /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
+		EFAA2ACC28BBD19400B56A3C /* SignInScreenTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreenTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +58,7 @@
 		A813CA2C28B4EE13000F0ADF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */,
 				A813CA2D28B4EE2B000F0ADF /* ScreenSize.swift */,
 			);
 			path = Utils;
@@ -59,16 +68,9 @@
 			isa = PBXGroup;
 			children = (
 				A8794B2E28B4E93A00959D56 /* SignUpScreen.swift */,
+				EFAA2ACC28BBD19400B56A3C /* SignInScreenTest.swift */,
 			);
 			path = AuthScreen;
-			sourceTree = "<group>";
-		};
-		EF66D0DB28BBB50800A97761 /* Networking */ = {
-			isa = PBXGroup;
-			children = (
-				EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */,
-			);
-			path = Networking;
 			sourceTree = "<group>";
 		};
 		EF74BBF128B4D55A00E09450 /* HomeScreen */ = {
@@ -99,7 +101,6 @@
 			isa = PBXGroup;
 			children = (
 				EF1E4CD028B5426F00D985E3 /* Info.plist */,
-				EF66D0DB28BBB50800A97761 /* Networking */,
 				A813CA2C28B4EE13000F0ADF /* Utils */,
 				EF8FF26D28B4D1B400C053B7 /* UI */,
 				EF8FF26C28B4D1A800C053B7 /* Services */,
@@ -123,6 +124,7 @@
 		EF8FF26A28B4D15600C053B7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				EFAA2AC828BBCF6E00B56A3C /* Auth.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -130,6 +132,7 @@
 		EF8FF26B28B4D16300C053B7 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				EFAA2AC228BBC30E00B56A3C /* AuthRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -137,6 +140,7 @@
 		EF8FF26C28B4D1A800C053B7 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				EFAA2AC428BBC48400B56A3C /* AuthService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -252,7 +256,11 @@
 				A813CA2E28B4EE2B000F0ADF /* ScreenSize.swift in Sources */,
 				A813CA3028B4F033000F0ADF /* SNSButtonStyle.swift in Sources */,
 				EF8FF27428B4D2D100C053B7 /* Main.swift in Sources */,
+				EFAA2AC328BBC30E00B56A3C /* AuthRepository.swift in Sources */,
 				EF8FF25D28B4D0B100C053B7 /* HeyLocalApp.swift in Sources */,
+				EFAA2ACD28BBD19400B56A3C /* SignInScreenTest.swift in Sources */,
+				EFAA2AC528BBC48400B56A3C /* AuthService.swift in Sources */,
+				EFAA2AC928BBCF6E00B56A3C /* Auth.swift in Sources */,
 				EF74BBF328B4D5C200E09450 /* HomeScreen.swift in Sources */,
 				A8794B3128B4EB5900959D56 /* BasicButtonStyle.swift in Sources */,
 				EF1E4CCF28B53A6200D985E3 /* NetworkAgent.swift in Sources */,

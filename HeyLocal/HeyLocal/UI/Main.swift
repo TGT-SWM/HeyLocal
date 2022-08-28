@@ -50,7 +50,7 @@ struct Main: View {
 			
 			// 내 정보 탭
 			// TODO: 내 정보 화면 뷰로 대체
-			HomeScreen()
+			SignInScreenTest()
 				.tag(Tab.home)
 				.tabItem {
 					Image(systemName: "person")
