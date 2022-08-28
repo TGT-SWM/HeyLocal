@@ -11,6 +11,7 @@
 		A813CA3028B4F033000F0ADF /* SNSButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A813CA2F28B4F033000F0ADF /* SNSButtonStyle.swift */; };
 		A8794B2F28B4E93A00959D56 /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8794B2E28B4E93A00959D56 /* SignUpScreen.swift */; };
 		A8794B3128B4EB5900959D56 /* BasicButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8794B3028B4EB5900959D56 /* BasicButtonStyle.swift */; };
+		EF1E4CCF28B53A6200D985E3 /* NetworkAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */; };
 		EF74BBF328B4D5C200E09450 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF74BBF228B4D5C200E09450 /* HomeScreen.swift */; };
 		EF74BBF928B52CF200E09450 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */; };
 		EF8FF25D28B4D0B100C053B7 /* HeyLocalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8FF25C28B4D0B100C053B7 /* HeyLocalApp.swift */; };
@@ -24,6 +25,8 @@
 		A813CA2F28B4F033000F0ADF /* SNSButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSButtonStyle.swift; sourceTree = "<group>"; };
 		A8794B2E28B4E93A00959D56 /* SignUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpScreen.swift; sourceTree = "<group>"; };
 		A8794B3028B4EB5900959D56 /* BasicButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicButtonStyle.swift; sourceTree = "<group>"; };
+		EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAgent.swift; sourceTree = "<group>"; };
+		EF1E4CD028B5426F00D985E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		EF74BBF228B4D5C200E09450 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EF8FF25928B4D0B100C053B7 /* HeyLocal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HeyLocal.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,6 +63,14 @@
 			path = AuthScreen;
 			sourceTree = "<group>";
 		};
+		EF66D0DB28BBB50800A97761 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		EF74BBF128B4D55A00E09450 /* HomeScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -87,6 +98,8 @@
 		EF8FF25B28B4D0B100C053B7 /* HeyLocal */ = {
 			isa = PBXGroup;
 			children = (
+				EF1E4CD028B5426F00D985E3 /* Info.plist */,
+				EF66D0DB28BBB50800A97761 /* Networking */,
 				A813CA2C28B4EE13000F0ADF /* Utils */,
 				EF8FF26D28B4D1B400C053B7 /* UI */,
 				EF8FF26C28B4D1A800C053B7 /* Services */,
@@ -242,6 +255,7 @@
 				EF8FF25D28B4D0B100C053B7 /* HeyLocalApp.swift in Sources */,
 				EF74BBF328B4D5C200E09450 /* HomeScreen.swift in Sources */,
 				A8794B3128B4EB5900959D56 /* BasicButtonStyle.swift in Sources */,
+				EF1E4CCF28B53A6200D985E3 /* NetworkAgent.swift in Sources */,
 				A8794B2F28B4E93A00959D56 /* SignUpScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -375,6 +389,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"HeyLocal/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HeyLocal/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "현지야";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -407,6 +422,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"HeyLocal/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HeyLocal/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "현지야";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
