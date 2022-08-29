@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A813CA2E28B4EE2B000F0ADF /* ScreenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A813CA2D28B4EE2B000F0ADF /* ScreenSize.swift */; };
 		A813CA3028B4F033000F0ADF /* SNSButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A813CA2F28B4F033000F0ADF /* SNSButtonStyle.swift */; };
+		A84E841228B8C28600128D9B /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84E841128B8C28600128D9B /* SignInScreen.swift */; };
 		A8794B2F28B4E93A00959D56 /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8794B2E28B4E93A00959D56 /* SignUpScreen.swift */; };
 		A8794B3128B4EB5900959D56 /* BasicButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8794B3028B4EB5900959D56 /* BasicButtonStyle.swift */; };
 		EF1E4CCF28B53A6200D985E3 /* NetworkAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */; };
@@ -27,6 +28,7 @@
 /* Begin PBXFileReference section */
 		A813CA2D28B4EE2B000F0ADF /* ScreenSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSize.swift; sourceTree = "<group>"; };
 		A813CA2F28B4F033000F0ADF /* SNSButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSButtonStyle.swift; sourceTree = "<group>"; };
+		A84E841128B8C28600128D9B /* SignInScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
 		A8794B2E28B4E93A00959D56 /* SignUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpScreen.swift; sourceTree = "<group>"; };
 		A8794B3028B4EB5900959D56 /* BasicButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicButtonStyle.swift; sourceTree = "<group>"; };
 		EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAgent.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				A8794B2E28B4E93A00959D56 /* SignUpScreen.swift */,
+				A84E841128B8C28600128D9B /* SignInScreen.swift */,
 				EFAA2ACC28BBD19400B56A3C /* SignInScreenTest.swift */,
 			);
 			path = AuthScreen;
@@ -262,6 +265,7 @@
 				EFAA2AC528BBC48400B56A3C /* AuthService.swift in Sources */,
 				EFAA2AC928BBCF6E00B56A3C /* Auth.swift in Sources */,
 				EF74BBF328B4D5C200E09450 /* HomeScreen.swift in Sources */,
+				A84E841228B8C28600128D9B /* SignInScreen.swift in Sources */,
 				A8794B3128B4EB5900959D56 /* BasicButtonStyle.swift in Sources */,
 				EF1E4CCF28B53A6200D985E3 /* NetworkAgent.swift in Sources */,
 				A8794B2F28B4E93A00959D56 /* SignUpScreen.swift in Sources */,
