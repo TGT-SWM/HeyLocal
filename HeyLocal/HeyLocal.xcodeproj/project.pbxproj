@@ -12,12 +12,17 @@
 		A84E841228B8C28600128D9B /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84E841128B8C28600128D9B /* SignInScreen.swift */; };
 		A8794B2F28B4E93A00959D56 /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8794B2E28B4E93A00959D56 /* SignUpScreen.swift */; };
 		A8794B3128B4EB5900959D56 /* BasicButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8794B3028B4EB5900959D56 /* BasicButtonStyle.swift */; };
+		EF1E4CCF28B53A6200D985E3 /* NetworkAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */; };
 		EF74BBF328B4D5C200E09450 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF74BBF228B4D5C200E09450 /* HomeScreen.swift */; };
 		EF74BBF928B52CF200E09450 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */; };
 		EF8FF25D28B4D0B100C053B7 /* HeyLocalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8FF25C28B4D0B100C053B7 /* HeyLocalApp.swift */; };
 		EF8FF26128B4D0B300C053B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF8FF26028B4D0B300C053B7 /* Assets.xcassets */; };
 		EF8FF26428B4D0B300C053B7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF8FF26328B4D0B300C053B7 /* Preview Assets.xcassets */; };
 		EF8FF27428B4D2D100C053B7 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8FF27328B4D2D100C053B7 /* Main.swift */; };
+		EFAA2AC328BBC30E00B56A3C /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA2AC228BBC30E00B56A3C /* AuthRepository.swift */; };
+		EFAA2AC528BBC48400B56A3C /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA2AC428BBC48400B56A3C /* AuthService.swift */; };
+		EFAA2AC928BBCF6E00B56A3C /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA2AC828BBCF6E00B56A3C /* Auth.swift */; };
+		EFAA2ACD28BBD19400B56A3C /* SignInScreenTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA2ACC28BBD19400B56A3C /* SignInScreenTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +31,8 @@
 		A84E841128B8C28600128D9B /* SignInScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
 		A8794B2E28B4E93A00959D56 /* SignUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpScreen.swift; sourceTree = "<group>"; };
 		A8794B3028B4EB5900959D56 /* BasicButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicButtonStyle.swift; sourceTree = "<group>"; };
+		EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAgent.swift; sourceTree = "<group>"; };
+		EF1E4CD028B5426F00D985E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		EF74BBF228B4D5C200E09450 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EF8FF25928B4D0B100C053B7 /* HeyLocal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HeyLocal.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -33,6 +40,10 @@
 		EF8FF26028B4D0B300C053B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EF8FF26328B4D0B300C053B7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EF8FF27328B4D2D100C053B7 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
+		EFAA2AC228BBC30E00B56A3C /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
+		EFAA2AC428BBC48400B56A3C /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		EFAA2AC828BBCF6E00B56A3C /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
+		EFAA2ACC28BBD19400B56A3C /* SignInScreenTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreenTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +60,7 @@
 		A813CA2C28B4EE13000F0ADF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */,
 				A813CA2D28B4EE2B000F0ADF /* ScreenSize.swift */,
 			);
 			path = Utils;
@@ -59,6 +71,7 @@
 			children = (
 				A8794B2E28B4E93A00959D56 /* SignUpScreen.swift */,
 				A84E841128B8C28600128D9B /* SignInScreen.swift */,
+				EFAA2ACC28BBD19400B56A3C /* SignInScreenTest.swift */,
 			);
 			path = AuthScreen;
 			sourceTree = "<group>";
@@ -90,6 +103,7 @@
 		EF8FF25B28B4D0B100C053B7 /* HeyLocal */ = {
 			isa = PBXGroup;
 			children = (
+				EF1E4CD028B5426F00D985E3 /* Info.plist */,
 				A813CA2C28B4EE13000F0ADF /* Utils */,
 				EF8FF26D28B4D1B400C053B7 /* UI */,
 				EF8FF26C28B4D1A800C053B7 /* Services */,
@@ -113,6 +127,7 @@
 		EF8FF26A28B4D15600C053B7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				EFAA2AC828BBCF6E00B56A3C /* Auth.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -120,6 +135,7 @@
 		EF8FF26B28B4D16300C053B7 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				EFAA2AC228BBC30E00B56A3C /* AuthRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -127,6 +143,7 @@
 		EF8FF26C28B4D1A800C053B7 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				EFAA2AC428BBC48400B56A3C /* AuthService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -242,10 +259,15 @@
 				A813CA2E28B4EE2B000F0ADF /* ScreenSize.swift in Sources */,
 				A813CA3028B4F033000F0ADF /* SNSButtonStyle.swift in Sources */,
 				EF8FF27428B4D2D100C053B7 /* Main.swift in Sources */,
+				EFAA2AC328BBC30E00B56A3C /* AuthRepository.swift in Sources */,
 				EF8FF25D28B4D0B100C053B7 /* HeyLocalApp.swift in Sources */,
+				EFAA2ACD28BBD19400B56A3C /* SignInScreenTest.swift in Sources */,
+				EFAA2AC528BBC48400B56A3C /* AuthService.swift in Sources */,
+				EFAA2AC928BBCF6E00B56A3C /* Auth.swift in Sources */,
 				EF74BBF328B4D5C200E09450 /* HomeScreen.swift in Sources */,
 				A84E841228B8C28600128D9B /* SignInScreen.swift in Sources */,
 				A8794B3128B4EB5900959D56 /* BasicButtonStyle.swift in Sources */,
+				EF1E4CCF28B53A6200D985E3 /* NetworkAgent.swift in Sources */,
 				A8794B2F28B4E93A00959D56 /* SignUpScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -379,6 +401,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"HeyLocal/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HeyLocal/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "현지야";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -411,6 +434,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"HeyLocal/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HeyLocal/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "현지야";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
