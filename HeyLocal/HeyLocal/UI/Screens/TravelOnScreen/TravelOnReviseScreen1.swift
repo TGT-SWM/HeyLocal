@@ -17,6 +17,7 @@ struct TravelOnReviseScreen1: View {
     @State var accom_price: Price = .ten
     @State var trans: Trans = .ownCar
     
+    @State var firstNavLinkActive = false
     
     enum With: String, CaseIterable {
         case alone = "혼자"
@@ -236,7 +237,7 @@ struct TravelOnReviseScreen1: View {
                 
                 
                 // Next Button
-                NavigationLink(destination: HomeScreen()){
+                NavigationLink(destination: TravelOnReviseScreen2(firstNavLinkActive: $firstNavLinkActive), isActive: $firstNavLinkActive){
                     Text("다음   >")
                 }
             } // end of ScrollView

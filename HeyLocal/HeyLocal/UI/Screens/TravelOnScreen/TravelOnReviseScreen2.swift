@@ -11,12 +11,11 @@ struct TravelOnReviseScreen2: View {
     @State var favFood: Food = .korean
     @State var favDrink: Drink = .soju
     @State var favTavel: TravelFav = .fav
-    
     @State var foodPrice: Price = .ten
     @State var drinkPrice: Price = .ten
-    
     @State var description: String = ""
 
+    @Binding var firstNavLinkActive: Bool
     
     enum Food: String, CaseIterable {
         case korean = "한식"
@@ -215,9 +214,11 @@ struct TravelOnReviseScreen2: View {
             Group {
                 HStack {
                     // Prev Button
-                    NavigationLink(destination: TravelOnReviseScreen1()){
+                    Button(action: {
+                        firstNavLinkActive = false
+                    }, label: {
                         Text("<   이전")
-                    }
+                    })
                     
                     Spacer()
                     
@@ -234,6 +235,6 @@ struct TravelOnReviseScreen2: View {
 
 struct TravelOnReviseScreen2_Previews: PreviewProvider {
     static var previews: some View {
-        TravelOnReviseScreen2()
+        TravelOnReviseScreen2(firstNavLinkActive: .constant(true))
     }
 }
