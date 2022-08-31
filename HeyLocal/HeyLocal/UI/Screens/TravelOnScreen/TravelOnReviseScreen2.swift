@@ -8,15 +8,13 @@
 import SwiftUI
 
 struct TravelOnReviseScreen2: View {
-    @State var favFood: Food = .korean
-    @State var favDrink: Drink = .soju
+    @State var favFood: [Food] = [Food.korean]
+    @State var favDrink: [Drink] = [Drink.soju]
     @State var favTavel: TravelFav = .fav
     @State var foodPrice: Price = .ten
     @State var drinkPrice: Price = .ten
     @State var description: String = ""
 
-    @Binding var firstNavLinkActive: Bool
-    
     enum Food: String, CaseIterable {
         case korean = "한식"
         case western = "양식"
@@ -53,6 +51,12 @@ struct TravelOnReviseScreen2: View {
         var id: String { self.rawValue }
     }
     
+    enum TravelType {
+        case likePopular(yes: Bool)
+        case isDiligent(yes: Bool)
+        case doSNS(yes: Bool)
+    }
+    
     var body: some View {
         ScrollView {
             // Food
@@ -82,19 +86,19 @@ struct TravelOnReviseScreen2: View {
                     .frame(width: ScreenSize.width * 0.9)
                     
                     HStack {
-                        CheckedValue(id: Food.korean.rawValue, label: Food.korean.rawValue)
+                        CheckedValue(label: Food.korean.rawValue)
                         
-                        CheckedValue(id: Food.western.rawValue, label: Food.western.rawValue)
+                        CheckedValue(label: Food.western.rawValue)
                             .padding()
                         
-                        CheckedValue(id: Food.chinese.rawValue, label: Food.chinese.rawValue)
+                        CheckedValue(label: Food.chinese.rawValue)
                     }
                     .frame(width: ScreenSize.width * 0.9)
                    
                     HStack {
-                        CheckedValue(id: Food.japanese.rawValue, label: Food.japanese.rawValue)
+                        CheckedValue(label: Food.japanese.rawValue)
                         
-                        CheckedValue(id: Food.world.rawValue, label: Food.world.rawValue)
+                        CheckedValue(label: Food.world.rawValue)
                             .padding()
                     }
                     .frame(width: ScreenSize.width * 0.9, alignment: .leading)
@@ -131,21 +135,21 @@ struct TravelOnReviseScreen2: View {
                     .frame(width: ScreenSize.width * 0.9)
                     
                     HStack {
-                        CheckedValue(id: Drink.soju.rawValue, label: Drink.soju.rawValue)
+                        CheckedValue(label: Drink.soju.rawValue)
                         
-                        CheckedValue(id: Drink.beer.rawValue, label: Drink.beer.rawValue)
+                        CheckedValue(label: Drink.beer.rawValue)
                             .padding()
                         
-                        CheckedValue(id: Drink.wine.rawValue, label: Drink.wine.rawValue)
+                        CheckedValue(label: Drink.wine.rawValue)
                     }
                     .frame(width: ScreenSize.width * 0.9)
                    
                     HStack {
-                        CheckedValue(id: Drink.makgeolli.rawValue, label: Drink.makgeolli.rawValue)
+                        CheckedValue(label: Drink.makgeolli.rawValue)
                         
-                        CheckedValue(id: Drink.cocktail.rawValue, label: Drink.cocktail.rawValue)
+                        CheckedValue(label: Drink.cocktail.rawValue)
                             .padding()
-                        CheckedValue(id: Drink.noDrink.rawValue, label: Drink.noDrink.rawValue)
+                        CheckedValue(label: Drink.noDrink.rawValue)
                     }
                     .frame(width: ScreenSize.width * 0.9)
                 }
@@ -165,26 +169,26 @@ struct TravelOnReviseScreen2: View {
                     
                     
                     HStack {
-                        CheckedValue(id: TravelFav.fav.rawValue, label: TravelFav.fav.rawValue)
+                        CheckedValue(label: TravelFav.fav.rawValue)
                             .padding()
                         
-                        CheckedValue(id: TravelFav.nonFav.rawValue, label: TravelFav.nonFav.rawValue)
+                        CheckedValue(label: TravelFav.nonFav.rawValue)
                     }
                     .frame(width: ScreenSize.width * 0.9, alignment: .leading)
                     
                     HStack {
-                        CheckedValue(id: TravelFav.diligent.rawValue, label: TravelFav.diligent.rawValue)
+                        CheckedValue(label: TravelFav.diligent.rawValue)
                             .padding()
                         
-                        CheckedValue(id: TravelFav.lazy.rawValue, label: TravelFav.lazy.rawValue)
+                        CheckedValue(label: TravelFav.lazy.rawValue)
                     }
                     .frame(width: ScreenSize.width * 0.9, alignment: .leading)
                     
                     HStack {
-                        CheckedValue(id: TravelFav.sns.rawValue, label: TravelFav.sns.rawValue)
+                        CheckedValue(label: TravelFav.sns.rawValue)
                             .padding()
                         
-                        CheckedValue(id: TravelFav.nonSNS.rawValue, label: TravelFav.nonSNS.rawValue)
+                        CheckedValue(label: TravelFav.nonSNS.rawValue)
                     }
                     .frame(width: ScreenSize.width * 0.9, alignment: .leading)
                    
@@ -214,11 +218,15 @@ struct TravelOnReviseScreen2: View {
             Group {
                 HStack {
                     // Prev Button
-                    Button(action: {
-                        firstNavLinkActive = false
-                    }, label: {
+//                    Button(action: {
+//                        firstNavLinkActive = false
+//                    }, label: {
+//                        Text("<   이전")
+//                    })
+                    
+                    NavigationLink(destination: TravelOnReviseScreen1()){
                         Text("<   이전")
-                    })
+                    }
                     
                     Spacer()
                     
@@ -235,6 +243,6 @@ struct TravelOnReviseScreen2: View {
 
 struct TravelOnReviseScreen2_Previews: PreviewProvider {
     static var previews: some View {
-        TravelOnReviseScreen2(firstNavLinkActive: .constant(true))
+        TravelOnReviseScreen2()
     }
 }
