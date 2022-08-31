@@ -18,4 +18,19 @@ struct TravelOn: Codable, Identifiable {
     
     var numOfViews: Int
     var numOfComments: Int
+    
+    /*
+     
+     startDate
+     endDate
+     
+     with
+     accomadation
+     transportation
+     favFood
+     favDrink
+     favTravel
+     
+     description ?
+     */
 }

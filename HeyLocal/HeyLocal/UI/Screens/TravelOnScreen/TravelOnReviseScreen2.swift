@@ -86,19 +86,19 @@ struct TravelOnReviseScreen2: View {
                     .frame(width: ScreenSize.width * 0.9)
                     
                     HStack {
-                        CheckedValue(label: Food.korean.rawValue)
+                        CheckedValue(value: false, label: Food.korean.rawValue)
                         
-                        CheckedValue(label: Food.western.rawValue)
+                        CheckedValue(value: false, label: Food.western.rawValue)
                             .padding()
                         
-                        CheckedValue(label: Food.chinese.rawValue)
+                        CheckedValue(value: false, label: Food.chinese.rawValue)
                     }
                     .frame(width: ScreenSize.width * 0.9)
                    
                     HStack {
-                        CheckedValue(label: Food.japanese.rawValue)
+                        CheckedValue(value: false, label: Food.japanese.rawValue)
                         
-                        CheckedValue(label: Food.world.rawValue)
+                        CheckedValue(value: false, label: Food.world.rawValue)
                             .padding()
                     }
                     .frame(width: ScreenSize.width * 0.9, alignment: .leading)
@@ -135,21 +135,21 @@ struct TravelOnReviseScreen2: View {
                     .frame(width: ScreenSize.width * 0.9)
                     
                     HStack {
-                        CheckedValue(label: Drink.soju.rawValue)
+                        CheckedValue(value: false, label: Drink.soju.rawValue)
                         
-                        CheckedValue(label: Drink.beer.rawValue)
+                        CheckedValue(value: false, label: Drink.beer.rawValue)
                             .padding()
                         
-                        CheckedValue(label: Drink.wine.rawValue)
+                        CheckedValue(value: false, label: Drink.wine.rawValue)
                     }
                     .frame(width: ScreenSize.width * 0.9)
                    
                     HStack {
-                        CheckedValue(label: Drink.makgeolli.rawValue)
+                        CheckedValue(value: false, label: Drink.makgeolli.rawValue)
                         
-                        CheckedValue(label: Drink.cocktail.rawValue)
+                        CheckedValue(value: false, label: Drink.cocktail.rawValue)
                             .padding()
-                        CheckedValue(label: Drink.noDrink.rawValue)
+                        CheckedValue(value: false, label: Drink.noDrink.rawValue)
                     }
                     .frame(width: ScreenSize.width * 0.9)
                 }
@@ -169,26 +169,26 @@ struct TravelOnReviseScreen2: View {
                     
                     
                     HStack {
-                        CheckedValue(label: TravelFav.fav.rawValue)
+                        CheckedValue(value: false, label: TravelFav.fav.rawValue)
                             .padding()
                         
-                        CheckedValue(label: TravelFav.nonFav.rawValue)
+                        CheckedValue(value: false, label: TravelFav.nonFav.rawValue)
                     }
                     .frame(width: ScreenSize.width * 0.9, alignment: .leading)
                     
                     HStack {
-                        CheckedValue(label: TravelFav.diligent.rawValue)
+                        CheckedValue(value: false, label: TravelFav.diligent.rawValue)
                             .padding()
                         
-                        CheckedValue(label: TravelFav.lazy.rawValue)
+                        CheckedValue(value: false, label: TravelFav.lazy.rawValue)
                     }
                     .frame(width: ScreenSize.width * 0.9, alignment: .leading)
                     
                     HStack {
-                        CheckedValue(label: TravelFav.sns.rawValue)
+                        CheckedValue(value: false, label: TravelFav.sns.rawValue)
                             .padding()
                         
-                        CheckedValue(label: TravelFav.nonSNS.rawValue)
+                        CheckedValue(value: false, label: TravelFav.nonSNS.rawValue)
                     }
                     .frame(width: ScreenSize.width * 0.9, alignment: .leading)
                    

@@ -129,22 +129,22 @@ struct TravelOnReviseScreen1: View {
                             .frame(maxWidth: ScreenSize.width * 0.9, alignment: .leading)
                         
                         HStack {
-                            CheckedValue(label: With.alone.rawValue)
+                            CheckedValue(value: false, label: With.alone.rawValue)
                             
-                            CheckedValue(label: With.child.rawValue)
+                            CheckedValue(value: false, label: With.child.rawValue)
                                 .padding()
                             
-                            CheckedValue(label: With.parent.rawValue)
+                            CheckedValue(value: false, label: With.parent.rawValue)
                         }
                         .frame(width: ScreenSize.width * 0.9)
                        
                         HStack {
-                            CheckedValue(label: With.couple.rawValue)
+                            CheckedValue(value: false, label: With.couple.rawValue)
                             
-                            CheckedValue(label: With.friend.rawValue)
+                            CheckedValue(value: false, label: With.friend.rawValue)
                                 .padding()
                             
-                            CheckedValue(label: With.pet.rawValue)
+                            CheckedValue(value: false, label: With.pet.rawValue)
                         }
                         .frame(width: ScreenSize.width * 0.9)
                     }
@@ -185,22 +185,22 @@ struct TravelOnReviseScreen1: View {
                         .frame(width: ScreenSize.width * 0.9)
                         
                         HStack {
-                            CheckedValue(label: Accom.hotel.rawValue)
+                            CheckedValue(value: false, label: Accom.hotel.rawValue)
                             
-                            CheckedValue(label: Accom.pension.rawValue)
+                            CheckedValue(value: false, label: Accom.pension.rawValue)
                                 .padding()
                             
-                            CheckedValue(label: Accom.camping.rawValue)
+                            CheckedValue(value: false, label: Accom.camping.rawValue)
                         }
                         .frame(width: ScreenSize.width * 0.9)
                        
                         HStack {
-                            CheckedValue(label: Accom.guestHouse.rawValue)
+                            CheckedValue(value: false, label: Accom.guestHouse.rawValue)
                             
-                            CheckedValue(label: Accom.resort.rawValue)
+                            CheckedValue(value: false, label: Accom.resort.rawValue)
                                 .padding()
                             
-                            CheckedValue(label: Accom.etc.rawValue)
+                            CheckedValue(value: false, label: Accom.etc.rawValue)
                         }
                         .frame(width: ScreenSize.width * 0.9)
                         
@@ -221,12 +221,12 @@ struct TravelOnReviseScreen1: View {
                             .frame(maxWidth: ScreenSize.width * 0.9, alignment: .leading)
                         
                         HStack {
-                            CheckedValue(label: Trans.ownCar.rawValue)
+                            CheckedValue(value: false, label: Trans.ownCar.rawValue)
                             
-                            CheckedValue(label: Trans.rentCar.rawValue)
+                            CheckedValue(value: false, label: Trans.rentCar.rawValue)
                                 .padding()
                             
-                            CheckedValue(label: Trans.noCar.rawValue)
+                            CheckedValue(value: false, label: Trans.noCar.rawValue)
                         }
                         .frame(width: ScreenSize.width * 0.9)
                     }
@@ -242,34 +242,6 @@ struct TravelOnReviseScreen1: View {
        // } // end of NavigationView
     }
 }
-
-struct CheckedValue: View {
-    let label: String
-    
-    init (label: String) {
-        self.label = label
-    }
-    
-    @State var isMarked: Bool = false
-    var body: some View {
-        Button(action: {
-            self.isMarked.toggle()
-        }) {
-            ZStack {
-                Rectangle()
-                    .fill(isMarked ? Color(red: 255 / 255, green: 209 / 255, blue: 120 / 255) : Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-                    .frame(width: ScreenSize.width * 0.26, height: ScreenSize.height * 0.05)
-                    .cornerRadius(90)
-                
-                Text(label)
-                    .font(.system(size: 18))
-                    .foregroundColor(Color.black)
-                
-            }
-        }
-    }
-}
-
 
 struct TravelOnReviseScreen1_Previews: PreviewProvider {
     static var previews: some View {

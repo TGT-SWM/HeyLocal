@@ -8,40 +8,52 @@
 import SwiftUI
 
 struct TravelOnListScreen: View {
+    enum Category: String, CaseIterable, Identifiable {
+        case recent = "최신순"
+        case manyViews = "조회순"
+        case manyComments = "많은 답변순"
+        
+        var id: String { self.rawValue }
+    }
+    
+    @State var ceee: Category = .recent
+    
+    
+    @State private var showCommentOnly = false
+    @State private var showNonCommentOnly = false
+    
     var body: some View {
+        
         NavigationView {
             ScrollView {
-                VStack {
-                    
+                VStack{
+                    Picker("정렬", selection: $ceee){
+                        ForEach(Category.allCases) { c in
+                            Text(c.rawValue)
+                        }
+                    }
                     // Picker
-                    HStack {
-                        CheckedValue(label: "지역" )
+                    HStack(spacing: 0) {
+                        CheckedValue(value: false, label: "지역" )
                         
-                        CheckedValue(label: "답변 있는 것만")
+                        CheckedValued(value: $showCommentOnly, label: "답변 있는 것만")
                             .padding()
                         
-                        CheckedValue(label: "답변 없는 것만")
+                        CheckedValued(value: $showNonCommentOnly, label: "답변 없는 것만")
                     }
                     
+                    // TravelOnLists · WriteButton
                     ZStack {
-                        TravelOnList()
+                        TravelOnList(showCommentOnly: $showCommentOnly, showNonCommentOnly: $showNonCommentOnly)
                         
-                        // write button
-                        VStack {
+                        HStack {
                             Spacer()
-                                .frame(height: 400)
                             
-                            HStack {
-                                Spacer()
-                                
-                                
-                                NavigationLink(destination: TravelOnReviseScreen1()) {
-                                    Text("+")
-                                }
-                                .buttonStyle(WriteButtonStyle())
-                                
-                                Spacer()
-                            }
+                            NavigationLink(destination: TravelOnReviseScreen1()) {
+                                Text("+")
+                            }                            .buttonStyle(WriteButtonStyle())
+                                .offset(y: -130)
+                                .frame(height: ScreenSize.height * 0.7, alignment: .bottom)
                         }
                     }
                 }

@@ -8,12 +8,34 @@
 import SwiftUI
 
 struct TravelOnList: View {
+    @Binding var showCommentOnly: Bool
+    @Binding var showNonCommentOnly: Bool
+    
     @StateObject var viewModel = ViewModel()
+    
+    var filteredTravelOns: [TravelOn] {
+        var resultTravelOns: [TravelOn] = viewModel.travelOns
+        
+        if showCommentOnly {
+            resultTravelOns = viewModel.travelOns.filter { travelon in
+                (travelon.numOfComments > 0)
+            }
+        }
+        
+        else if showNonCommentOnly {
+            resultTravelOns = viewModel.travelOns.filter { travelon in
+                (travelon.numOfComments == 0)
+            }
+        }
+        
+        return resultTravelOns
+    }
     
     var body: some View {
         VStack {
-            ForEach(viewModel.travelOns) { travelOn in
+            ForEach(filteredTravelOns) { travelOn in
                 TravelOnComponent(travelOn: travelOn)
+                    .padding()
             }
         }
     }
@@ -51,16 +73,18 @@ struct TravelOnComponent: View {
                     
                 }
                 
-                Text("\(travelOn.numOfViews)")
-                Text("\(travelOn.numOfComments)")
+                Text("조회수 : \(travelOn.numOfViews)")
+                Text("답변수 : \(travelOn.numOfComments)")
                 
             }
         }
     }
 }
-
-struct TravelOnList_Previews: PreviewProvider {
-    static var previews: some View {
-        TravelOnList()
-    }
-}
+//
+//struct TravelOnList_Previews: PreviewProvider {
+//    @State var showComm: Bool = false
+//
+//    static var previews: some View {
+//        TravelOnList(showCommentOnly: $showComm)
+//    }
+//}
