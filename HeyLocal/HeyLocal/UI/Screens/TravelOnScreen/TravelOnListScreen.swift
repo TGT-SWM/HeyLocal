@@ -8,30 +8,37 @@
 import SwiftUI
 
 struct TravelOnListScreen: View {
-    enum Category: String, CaseIterable, Identifiable {
-        case recent = "최신순"
-        case manyViews = "조회순"
-        case manyComments = "많은 답변순"
+    enum SortType: Int, CaseIterable, Identifiable {
+        case byDate = 0
+        case byViews = 1
+        case byComments = 2
         
-        var id: String { self.rawValue }
+        var id: Int { self.rawValue }
     }
-    
-    @State var ceee: Category = .recent
-    
     
     @State private var showCommentOnly = false
     @State private var showNonCommentOnly = false
-    
+    @State private var sortedType: Int = 0
     var body: some View {
         
         NavigationView {
             ScrollView {
                 VStack{
-                    Picker("정렬", selection: $ceee){
-                        ForEach(Category.allCases) { c in
-                            Text(c.rawValue)
+                    Picker("정렬 방법", selection: $sortedType) {
+                        ForEach(SortType.allCases) { s in
+                            switch s {
+                            case .byDate:
+                                Text("최신순")
+                                
+                            case .byViews:
+                                Text("조회순")
+                                
+                            case .byComments:
+                                Text("답변 많은 순")
+                            }
                         }
                     }
+                    
                     // Picker
                     HStack(spacing: 0) {
                         CheckedValue(value: false, label: "지역" )
@@ -44,7 +51,7 @@ struct TravelOnListScreen: View {
                     
                     // TravelOnLists · WriteButton
                     ZStack {
-                        TravelOnList(showCommentOnly: $showCommentOnly, showNonCommentOnly: $showNonCommentOnly)
+                        TravelOnList(showCommentOnly: $showCommentOnly, showNonCommentOnly: $showNonCommentOnly, sortedType: $sortedType)
                         
                         HStack {
                             Spacer()

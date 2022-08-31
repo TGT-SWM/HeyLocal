@@ -10,30 +10,54 @@ import SwiftUI
 struct TravelOnList: View {
     @Binding var showCommentOnly: Bool
     @Binding var showNonCommentOnly: Bool
+    @Binding var sortedType: Int
     
     @StateObject var viewModel = ViewModel()
     
+    // TravleOn 필터링
     var filteredTravelOns: [TravelOn] {
         var resultTravelOns: [TravelOn] = viewModel.travelOns
         
+        // 답변 있는 것만 보기
         if showCommentOnly {
             resultTravelOns = viewModel.travelOns.filter { travelon in
                 (travelon.numOfComments > 0)
             }
         }
         
+        // 답변 없는 것만 보기
         else if showNonCommentOnly {
             resultTravelOns = viewModel.travelOns.filter { travelon in
                 (travelon.numOfComments == 0)
             }
         }
+        return resultTravelOns
+    }
+    
+    // TravelOn 정렬
+    var sortedTravelOns: [TravelOn] {
+        var resultTravelOns: [TravelOn] = filteredTravelOns
         
+        // 최신순
+        if sortedType == 0 {
+            resultTravelOns = filteredTravelOns.sorted(by: {$0.uploadDate > $1.uploadDate})
+        }
+        
+        // 조회순
+        else if sortedType == 1 {
+            resultTravelOns = filteredTravelOns.sorted(by: {$0.numOfViews > $1.numOfViews})
+        }
+        
+        // 답변 많은 순
+        else {
+            resultTravelOns = filteredTravelOns.sorted(by: {$0.numOfComments > $1.numOfComments})
+        }
         return resultTravelOns
     }
     
     var body: some View {
         VStack {
-            ForEach(filteredTravelOns) { travelOn in
+            ForEach(sortedTravelOns) { travelOn in
                 TravelOnComponent(travelOn: travelOn)
                     .padding()
             }
@@ -80,11 +104,3 @@ struct TravelOnComponent: View {
         }
     }
 }
-//
-//struct TravelOnList_Previews: PreviewProvider {
-//    @State var showComm: Bool = false
-//
-//    static var previews: some View {
-//        TravelOnList(showCommentOnly: $showComm)
-//    }
-//}
