@@ -10,6 +10,6 @@ import SwiftUI
 
 extension PlanDetailScreen {
 	class ViewModel: ObservableObject {
-		@State var showMapView = false
+		@Published var showMapView = false
 	}
 }

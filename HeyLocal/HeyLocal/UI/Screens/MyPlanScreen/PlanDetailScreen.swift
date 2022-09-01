@@ -15,7 +15,11 @@ struct PlanDetailScreen: View {
     var body: some View {
 		VStack {
 			header
-			Spacer()
+			if (viewModel.showMapView) {
+				mapView
+			} else {
+				placesView
+			}
 		}
 		.padding()
 		.navigationTitle("마이 플랜")
@@ -45,6 +49,18 @@ struct PlanDetailScreen: View {
 				Image(systemName: viewModel.showMapView ? "map.fill" : "map")
 					.font(.system(size: 24))
 			}
+		}
+	}
+	
+	var placesView: some View {
+		ScrollView {
+			Text("스케줄 화면입니다.")
+		}
+	}
+	
+	var mapView: some View {
+		ScrollView {
+			Text("지도 화면입니다.")
 		}
 	}
 }
