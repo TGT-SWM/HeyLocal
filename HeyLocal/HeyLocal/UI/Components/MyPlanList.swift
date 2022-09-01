@@ -12,9 +12,15 @@ struct MyPlanList: View {
 	
     var body: some View {
 		VStack {
-			planList(title: "지금 여행 중", plans: viewModel.myPlans.ongoing)
-			planList(title: "다가오는 여행", plans: viewModel.myPlans.upcoming)
-			planList(title: "지난 여행", plans: viewModel.myPlans.past)
+			if (!viewModel.myPlans.ongoing.isEmpty) {
+				planList(title: "지금 여행 중", plans: viewModel.myPlans.ongoing)
+			}
+			if (!viewModel.myPlans.upcoming.isEmpty) {
+				planList(title: "다가오는 여행", plans: viewModel.myPlans.upcoming)
+			}
+			if (!viewModel.myPlans.past.isEmpty) {
+				planList(title: "지난 여행", plans: viewModel.myPlans.past)
+			}
 		}
 		.padding()
 		.onAppear {
