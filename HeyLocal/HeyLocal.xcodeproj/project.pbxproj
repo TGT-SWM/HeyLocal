@@ -13,6 +13,7 @@
 		A8794B2F28B4E93A00959D56 /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8794B2E28B4E93A00959D56 /* SignUpScreen.swift */; };
 		A8794B3128B4EB5900959D56 /* BasicButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8794B3028B4EB5900959D56 /* BasicButtonStyle.swift */; };
 		EF1E4CCF28B53A6200D985E3 /* NetworkAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */; };
+		EF26CD8828C0E9DA006D0D27 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF26CD8728C0E9DA006D0D27 /* Config.swift */; };
 		EF74BBF328B4D5C200E09450 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF74BBF228B4D5C200E09450 /* HomeScreen.swift */; };
 		EF74BBF928B52CF200E09450 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */; };
 		EF8FF25D28B4D0B100C053B7 /* HeyLocalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8FF25C28B4D0B100C053B7 /* HeyLocalApp.swift */; };
@@ -35,6 +36,7 @@
 		A8794B3028B4EB5900959D56 /* BasicButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicButtonStyle.swift; sourceTree = "<group>"; };
 		EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAgent.swift; sourceTree = "<group>"; };
 		EF1E4CD028B5426F00D985E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		EF26CD8728C0E9DA006D0D27 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		EF74BBF228B4D5C200E09450 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EF89F5D928C07FEE001401FE /* Authorization.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Authorization.xcconfig; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 			children = (
 				EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */,
 				A813CA2D28B4EE2B000F0ADF /* ScreenSize.swift */,
+				EF26CD8728C0E9DA006D0D27 /* Config.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				A84E841228B8C28600128D9B /* SignInScreen.swift in Sources */,
 				A8794B3128B4EB5900959D56 /* BasicButtonStyle.swift in Sources */,
 				EF1E4CCF28B53A6200D985E3 /* NetworkAgent.swift in Sources */,
+				EF26CD8828C0E9DA006D0D27 /* Config.swift in Sources */,
 				A8794B2F28B4E93A00959D56 /* SignUpScreen.swift in Sources */,
 				EFDC441D28C073E000E8747C /* Plan.swift in Sources */,
 			);

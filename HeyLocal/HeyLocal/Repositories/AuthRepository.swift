@@ -11,7 +11,7 @@ import Combine
 struct AuthRepository {
 	private let agent = NetworkAgent()
 	
-	private let signInURL = "http://test.heylocal.p-e.kr/signin"
+	private let signInURL = "\(Config.apiURL)/signin"
 	
 	func signIn(accountId: String, password: String) -> AnyPublisher<SignInInfo, Error> {
 		// URLRequest 객체 생성
