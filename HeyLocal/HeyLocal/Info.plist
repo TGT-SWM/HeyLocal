@@ -10,6 +10,8 @@
 	<string>${REFRESH_TOKEN}</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>ko_KR</string>
+	<key>CFBundleIconName</key>
+	<string>AppIcon</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
