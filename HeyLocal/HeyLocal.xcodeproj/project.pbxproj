@@ -23,6 +23,8 @@
 		EFAA2AC528BBC48400B56A3C /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA2AC428BBC48400B56A3C /* AuthService.swift */; };
 		EFAA2AC928BBCF6E00B56A3C /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA2AC828BBCF6E00B56A3C /* Auth.swift */; };
 		EFAA2ACD28BBD19400B56A3C /* SignInScreenTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA2ACC28BBD19400B56A3C /* SignInScreenTest.swift */; };
+		EFDC441B28C0735400E8747C /* PlanRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFDC441A28C0735400E8747C /* PlanRepository.swift */; };
+		EFDC441D28C073E000E8747C /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFDC441C28C073E000E8747C /* Plan.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +37,8 @@
 		EF1E4CD028B5426F00D985E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		EF74BBF228B4D5C200E09450 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		EF89F5D928C07FEE001401FE /* Authorization.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Authorization.xcconfig; sourceTree = "<group>"; };
+		EF89F5DB28C08103001401FE /* Main.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Main.xcconfig; sourceTree = "<group>"; };
 		EF8FF25928B4D0B100C053B7 /* HeyLocal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HeyLocal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF8FF25C28B4D0B100C053B7 /* HeyLocalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeyLocalApp.swift; sourceTree = "<group>"; };
 		EF8FF26028B4D0B300C053B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -44,6 +48,8 @@
 		EFAA2AC428BBC48400B56A3C /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		EFAA2AC828BBCF6E00B56A3C /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		EFAA2ACC28BBD19400B56A3C /* SignInScreenTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreenTest.swift; sourceTree = "<group>"; };
+		EFDC441A28C0735400E8747C /* PlanRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanRepository.swift; sourceTree = "<group>"; };
+		EFDC441C28C073E000E8747C /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +90,15 @@
 			path = HomeScreen;
 			sourceTree = "<group>";
 		};
+		EF89F5DA28C08092001401FE /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				EF89F5D928C07FEE001401FE /* Authorization.xcconfig */,
+				EF89F5DB28C08103001401FE /* Main.xcconfig */,
+			);
+			path = Configurations;
+			sourceTree = "<group>";
+		};
 		EF8FF25028B4D0B100C053B7 = {
 			isa = PBXGroup;
 			children = (
@@ -104,12 +119,13 @@
 			isa = PBXGroup;
 			children = (
 				EF1E4CD028B5426F00D985E3 /* Info.plist */,
-				A813CA2C28B4EE13000F0ADF /* Utils */,
-				EF8FF26D28B4D1B400C053B7 /* UI */,
-				EF8FF26C28B4D1A800C053B7 /* Services */,
-				EF8FF26B28B4D16300C053B7 /* Repositories */,
-				EF8FF25C28B4D0B100C053B7 /* HeyLocalApp.swift */,
 				EF8FF26A28B4D15600C053B7 /* Models */,
+				EF8FF26B28B4D16300C053B7 /* Repositories */,
+				EF8FF26C28B4D1A800C053B7 /* Services */,
+				EF8FF26D28B4D1B400C053B7 /* UI */,
+				A813CA2C28B4EE13000F0ADF /* Utils */,
+				EF8FF25C28B4D0B100C053B7 /* HeyLocalApp.swift */,
+				EF89F5DA28C08092001401FE /* Configurations */,
 				EF8FF26028B4D0B300C053B7 /* Assets.xcassets */,
 				EF8FF26228B4D0B300C053B7 /* Preview Content */,
 			);
@@ -128,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				EFAA2AC828BBCF6E00B56A3C /* Auth.swift */,
+				EFDC441C28C073E000E8747C /* Plan.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -136,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				EFAA2AC228BBC30E00B56A3C /* AuthRepository.swift */,
+				EFDC441A28C0735400E8747C /* PlanRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -151,11 +169,11 @@
 		EF8FF26D28B4D1B400C053B7 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				EF8FF27028B4D1ED00C053B7 /* Styles */,
 				EF8FF26F28B4D1D000C053B7 /* Components */,
-				EF8FF26E28B4D1C400C053B7 /* Screens */,
-				EF8FF27328B4D2D100C053B7 /* Main.swift */,
 				EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */,
+				EF8FF27328B4D2D100C053B7 /* Main.swift */,
+				EF8FF26E28B4D1C400C053B7 /* Screens */,
+				EF8FF27028B4D1ED00C053B7 /* Styles */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -260,6 +278,7 @@
 				A813CA3028B4F033000F0ADF /* SNSButtonStyle.swift in Sources */,
 				EF8FF27428B4D2D100C053B7 /* Main.swift in Sources */,
 				EFAA2AC328BBC30E00B56A3C /* AuthRepository.swift in Sources */,
+				EFDC441B28C0735400E8747C /* PlanRepository.swift in Sources */,
 				EF8FF25D28B4D0B100C053B7 /* HeyLocalApp.swift in Sources */,
 				EFAA2ACD28BBD19400B56A3C /* SignInScreenTest.swift in Sources */,
 				EFAA2AC528BBC48400B56A3C /* AuthService.swift in Sources */,
@@ -269,6 +288,7 @@
 				A8794B3128B4EB5900959D56 /* BasicButtonStyle.swift in Sources */,
 				EF1E4CCF28B53A6200D985E3 /* NetworkAgent.swift in Sources */,
 				A8794B2F28B4E93A00959D56 /* SignUpScreen.swift in Sources */,
+				EFDC441D28C073E000E8747C /* Plan.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,12 +413,14 @@
 		};
 		EF8FF26828B4D0B300C053B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EF89F5DB28C08103001401FE /* Main.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"HeyLocal/Preview Content\"";
+				DEVELOPMENT_TEAM = 3X3P9744G9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HeyLocal/Info.plist;
@@ -426,12 +448,14 @@
 		};
 		EF8FF26928B4D0B300C053B7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EF89F5DB28C08103001401FE /* Main.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"HeyLocal/Preview Content\"";
+				DEVELOPMENT_TEAM = 3X3P9744G9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HeyLocal/Info.plist;
