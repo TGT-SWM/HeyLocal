@@ -23,6 +23,8 @@ struct TravelOnList: View {
             resultTravelOns = viewModel.travelOns.filter { travelon in
                 (travelon.numOfComments > 0)
             }
+            
+//            resultTravelOns = viewModel.showOnlyComments()
         }
         
         // 답변 없는 것만 보기
@@ -30,27 +32,39 @@ struct TravelOnList: View {
             resultTravelOns = viewModel.travelOns.filter { travelon in
                 (travelon.numOfComments == 0)
             }
+            
+//            resultTravelOns = viewModel.showOnlyNonComments()
         }
         return resultTravelOns
     }
     
     // TravelOn 정렬
     var sortedTravelOns: [TravelOn] {
-        var resultTravelOns: [TravelOn] = filteredTravelOns
+        var resultTravelOns: [TravelOn] = viewModel.travelOns
         
         // 최신순
         if sortedType == 0 {
             resultTravelOns = filteredTravelOns.sorted(by: {$0.uploadDate > $1.uploadDate})
+//            viewModel.fetchTravelOns()
+//            resultTravelOns = viewModel.travelOns
+            
+//            resultTravelOns = viewModel.travelOns
         }
         
         // 조회순
         else if sortedType == 1 {
             resultTravelOns = filteredTravelOns.sorted(by: {$0.numOfViews > $1.numOfViews})
+//            viewModel.orderedByViews()
+//            resultTravelOns = viewModel.travelOns
+            
+//            resultTravelOns = viewModel.orderedByViews()
         }
         
         // 답변 많은 순
         else {
             resultTravelOns = filteredTravelOns.sorted(by: {$0.numOfComments > $1.numOfComments})
+//            viewModel.orderedByComments()
+//            resultTravelOns = viewModel.travelOns
         }
         return resultTravelOns
     }
@@ -104,3 +118,4 @@ struct TravelOnComponent: View {
         }
     }
 }
+

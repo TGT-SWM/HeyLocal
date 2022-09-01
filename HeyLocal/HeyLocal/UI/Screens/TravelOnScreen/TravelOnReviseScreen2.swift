@@ -232,7 +232,7 @@ struct TravelOnReviseScreen2: View {
                     
                     // Next Button
                     NavigationLink(destination: HomeScreen()){
-                        Text("다음   >")
+                        Text("완료   >")
                     }
                 }
             }
