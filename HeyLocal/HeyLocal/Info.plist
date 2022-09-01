@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>API_URL</key>
+	<string>${API_URL}</string>
+	<key>ACCESS_TOKEN</key>
+	<string>${ACCESS_TOKEN}</string>
+	<key>REFRESH_TOKEN</key>
+	<string>${REFRESH_TOKEN}</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>ko_KR</string>
 	<key>NSAppTransportSecurity</key>
