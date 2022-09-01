@@ -21,7 +21,6 @@ extension MyPlanList {
 				.sink(receiveCompletion: { _ in
 				}, receiveValue: { myPlans in
 					self.myPlans = myPlans
-					print(self.myPlans)
 				})
 		}
 		
