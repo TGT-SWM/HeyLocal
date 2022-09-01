@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct PlanListEntity: Decodable {
-	var past: [PlanListItemEntity]
-	var ongoing: [PlanListItemEntity]
-	var upcoming: [PlanListItemEntity]
+struct MyPlans: Decodable {
+	var past: [Plan]
+	var ongoing: [Plan]
+	var upcoming: [Plan]
 }
 
-struct PlanListItemEntity: Decodable {
+struct Plan: Decodable {
 	var id: Int
 	var regionId: Int
 	var regionState: String
