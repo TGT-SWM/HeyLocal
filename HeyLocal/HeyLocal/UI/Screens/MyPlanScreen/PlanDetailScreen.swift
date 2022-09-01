@@ -16,7 +16,10 @@ struct PlanDetailScreen: View {
 		VStack {
 			header
 			Spacer()
-		}.padding()
+		}
+		.padding()
+		.navigationTitle("마이 플랜")
+		.navigationBarTitleDisplayMode(.inline)
     }
 	
 	var header: some View {
