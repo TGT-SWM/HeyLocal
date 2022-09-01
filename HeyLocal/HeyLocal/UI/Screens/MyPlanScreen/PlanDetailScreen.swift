@@ -24,6 +24,9 @@ struct PlanDetailScreen: View {
 		.padding()
 		.navigationTitle("마이 플랜")
 		.navigationBarTitleDisplayMode(.inline)
+		.onAppear {
+			viewModel.fetchPlaces()
+		}
     }
 	
 	var header: some View {
@@ -38,7 +41,7 @@ struct PlanDetailScreen: View {
 			Spacer()
 			
 			VStack(alignment: .center) {
-				Text("2일차")
+				Text("\(viewModel.currentDay)일차")
 				Text("(16일)")
 			}.padding(.trailing, 5)
 			
@@ -54,18 +57,39 @@ struct PlanDetailScreen: View {
 	
 	var placesView: some View {
 		ScrollView {
+			// 장소 추가 버튼
 			Button {
-				
 			} label: {
 				Text("해당 일자에 장소 추가하기")
 			}.padding()
-			PlaceList(planId: 1)
+			
+			// 해당 일자 장소 리스트
+			PlaceList(places: viewModel.currentDayPlaces)
+			
+			// 일자 변경 버튼
+			dayControl
 		}
 	}
 	
 	var mapView: some View {
 		ScrollView {
 			Text("지도 화면입니다.")
+		}
+	}
+	
+	var dayControl: some View {
+		HStack {
+			Button {
+				viewModel.goPrevDay()
+			} label: {
+				Text("이전")
+			}.disabled(viewModel.isFirstDay)
+			
+			Button {
+				viewModel.goNextDay()
+			} label: {
+				Text("다음")
+			}.disabled(viewModel.isLastDay)
 		}
 	}
 }

@@ -8,41 +8,19 @@
 import SwiftUI
 
 struct PlaceList: View {
-	var planId: Int
-	@ObservedObject var viewModel = ViewModel()
+	var places: [Place]
 	
     var body: some View {
 		VStack {
-			if (viewModel.currentPlaces.isEmpty) {
+			if (places.isEmpty) {
 				Text("등록된 장소가 없습니다. 장소를 추가해보세요.")
 			} else {
-				ForEach(viewModel.currentPlaces.indices, id: \.self) { idx in
-					listItem(order: idx, place: viewModel.currentPlaces[idx])
+				ForEach(places.indices, id: \.self) { idx in
+					listItem(order: idx, place: places[idx])
 				}
-				
-				dayControl
 			}
-		}
-		.onAppear {
-			viewModel.fetchPlaces()
 		}
     }
-	
-	var dayControl: some View {
-		HStack {
-			Button {
-				viewModel.prevDay()
-			} label: {
-				Text("이전")
-			}
-			
-			Button {
-				viewModel.nextDay()
-			} label: {
-				Text("다음")
-			}
-		}
-	}
 	
 	func listItem(order: Int, place: Place) -> some View {
 		HStack {
@@ -65,6 +43,12 @@ struct PlaceList: View {
 
 struct PlaceList_Previews: PreviewProvider {
     static var previews: some View {
-        PlaceList(planId: 1)
+        PlaceList(places: [
+			Place(id: 1, name: "해운대"),
+			Place(id: 2, name: "부산꼼장어"),
+			Place(id: 3, name: "감천 문화마을"),
+			Place(id: 4, name: "광안대교"),
+			Place(id: 5, name: "시그니엘 부산")
+		])
     }
 }
