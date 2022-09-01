@@ -23,7 +23,7 @@ struct Main: View {
 			
 			// 여행 On 탭
 			// TODO: 여행 On 화면 뷰로 대체
-			SignUpScreen()
+			TravelOnListScreen()
 				.tag(Tab.home)
 				.tabItem {
 					Image(systemName: "note.text")

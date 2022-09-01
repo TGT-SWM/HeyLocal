@@ -8,6 +8,8 @@
 	<string>${ACCESS_TOKEN}</string>
 	<key>REFRESH_TOKEN</key>
 	<string>${REFRESH_TOKEN}</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>ko_KR</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

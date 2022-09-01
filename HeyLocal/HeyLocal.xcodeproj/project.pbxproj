@@ -7,11 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A80213D028BF293F00B6359E /* TravelOnList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80213CF28BF293F00B6359E /* TravelOnList.swift */; };
+		A80213D328BF2C2100B6359E /* TravelOnViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80213D228BF2C2100B6359E /* TravelOnViewModel.swift */; };
+		A80213D528BF2C4900B6359E /* TravelOnRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80213D428BF2C4900B6359E /* TravelOnRepository.swift */; };
+		A80213D728BF2C9800B6359E /* TravelOn.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80213D628BF2C9800B6359E /* TravelOn.swift */; };
+		A80213D928BF2D6C00B6359E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80213D828BF2D6C00B6359E /* User.swift */; };
+		A80213DB28BF2EA100B6359E /* TravelOnService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80213DA28BF2EA100B6359E /* TravelOnService.swift */; };
+		A80213DD28BF326D00B6359E /* WebImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80213DC28BF326D00B6359E /* WebImage.swift */; };
 		A813CA2E28B4EE2B000F0ADF /* ScreenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A813CA2D28B4EE2B000F0ADF /* ScreenSize.swift */; };
 		A813CA3028B4F033000F0ADF /* SNSButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A813CA2F28B4F033000F0ADF /* SNSButtonStyle.swift */; };
+		A83F100928BCAE8800978711 /* TravelOnReviseScreen1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83F100828BCAE8800978711 /* TravelOnReviseScreen1.swift */; };
+		A83F100B28BCC5FC00978711 /* TravelOnReviseScreen2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83F100A28BCC5FC00978711 /* TravelOnReviseScreen2.swift */; };
+		A83F100D28BCCCE000978711 /* TravelOnListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83F100C28BCCCE000978711 /* TravelOnListScreen.swift */; };
 		A84E841228B8C28600128D9B /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84E841128B8C28600128D9B /* SignInScreen.swift */; };
+		A8647C3A28BDA48B00D284B6 /* WriteButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8647C3928BDA48B00D284B6 /* WriteButtonStyle.swift */; };
 		A8794B2F28B4E93A00959D56 /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8794B2E28B4E93A00959D56 /* SignUpScreen.swift */; };
 		A8794B3128B4EB5900959D56 /* BasicButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8794B3028B4EB5900959D56 /* BasicButtonStyle.swift */; };
+		A8A1999728BF59EF006119C4 /* CheckedValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A1999628BF59EF006119C4 /* CheckedValue.swift */; };
 		EF1E4CCF28B53A6200D985E3 /* NetworkAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */; };
 		EF26CD8828C0E9DA006D0D27 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF26CD8728C0E9DA006D0D27 /* Config.swift */; };
 		EF26CD8A28C0EECA006D0D27 /* PlanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF26CD8928C0EECA006D0D27 /* PlanService.swift */; };
@@ -34,11 +46,23 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A80213CF28BF293F00B6359E /* TravelOnList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOnList.swift; sourceTree = "<group>"; };
+		A80213D228BF2C2100B6359E /* TravelOnViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOnViewModel.swift; sourceTree = "<group>"; };
+		A80213D428BF2C4900B6359E /* TravelOnRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOnRepository.swift; sourceTree = "<group>"; };
+		A80213D628BF2C9800B6359E /* TravelOn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOn.swift; sourceTree = "<group>"; };
+		A80213D828BF2D6C00B6359E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		A80213DA28BF2EA100B6359E /* TravelOnService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOnService.swift; sourceTree = "<group>"; };
+		A80213DC28BF326D00B6359E /* WebImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImage.swift; sourceTree = "<group>"; };
 		A813CA2D28B4EE2B000F0ADF /* ScreenSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSize.swift; sourceTree = "<group>"; };
 		A813CA2F28B4F033000F0ADF /* SNSButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSButtonStyle.swift; sourceTree = "<group>"; };
+		A83F100828BCAE8800978711 /* TravelOnReviseScreen1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOnReviseScreen1.swift; sourceTree = "<group>"; };
+		A83F100A28BCC5FC00978711 /* TravelOnReviseScreen2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOnReviseScreen2.swift; sourceTree = "<group>"; };
+		A83F100C28BCCCE000978711 /* TravelOnListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOnListScreen.swift; sourceTree = "<group>"; };
 		A84E841128B8C28600128D9B /* SignInScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
+		A8647C3928BDA48B00D284B6 /* WriteButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteButtonStyle.swift; sourceTree = "<group>"; };
 		A8794B2E28B4E93A00959D56 /* SignUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpScreen.swift; sourceTree = "<group>"; };
 		A8794B3028B4EB5900959D56 /* BasicButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicButtonStyle.swift; sourceTree = "<group>"; };
+		A8A1999628BF59EF006119C4 /* CheckedValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckedValue.swift; sourceTree = "<group>"; };
 		EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAgent.swift; sourceTree = "<group>"; };
 		EF1E4CD028B5426F00D985E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		EF26CD8728C0E9DA006D0D27 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
@@ -75,6 +99,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A80213D128BF2C0700B6359E /* TravelOnList */ = {
+			isa = PBXGroup;
+			children = (
+				A80213CF28BF293F00B6359E /* TravelOnList.swift */,
+				A80213D228BF2C2100B6359E /* TravelOnViewModel.swift */,
+			);
+			path = TravelOnList;
+			sourceTree = "<group>";
+		};
 		A813CA2C28B4EE13000F0ADF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -84,6 +117,16 @@
 				EF26CD9428C0FF12006D0D27 /* DateFormat.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		A83F100728BC4E6A00978711 /* TravelOnScreen */ = {
+			isa = PBXGroup;
+			children = (
+				A83F100C28BCCCE000978711 /* TravelOnListScreen.swift */,
+				A83F100828BCAE8800978711 /* TravelOnReviseScreen1.swift */,
+				A83F100A28BCC5FC00978711 /* TravelOnReviseScreen2.swift */,
+			);
+			path = TravelOnScreen;
 			sourceTree = "<group>";
 		};
 		A8794B2D28B4E92400959D56 /* AuthScreen */ = {
@@ -157,6 +200,8 @@
 				A813CA2C28B4EE13000F0ADF /* Utils */,
 				EF8FF25C28B4D0B100C053B7 /* HeyLocalApp.swift */,
 				EF89F5DA28C08092001401FE /* Configurations */,
+				EF8FF26A28B4D15600C053B7 /* Models */,
+				EF8FF25C28B4D0B100C053B7 /* HeyLocalApp.swift */,
 				EF8FF26028B4D0B300C053B7 /* Assets.xcassets */,
 				EF8FF26228B4D0B300C053B7 /* Preview Content */,
 			);
@@ -176,6 +221,8 @@
 			children = (
 				EFAA2AC828BBCF6E00B56A3C /* Auth.swift */,
 				EFDC441C28C073E000E8747C /* Plan.swift */,
+				A80213D828BF2D6C00B6359E /* User.swift */,
+				A80213D628BF2C9800B6359E /* TravelOn.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -185,6 +232,7 @@
 			children = (
 				EFAA2AC228BBC30E00B56A3C /* AuthRepository.swift */,
 				EFDC441A28C0735400E8747C /* PlanRepository.swift */,
+				A80213D428BF2C4900B6359E /* TravelOnRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -194,6 +242,7 @@
 			children = (
 				EFAA2AC428BBC48400B56A3C /* AuthService.swift */,
 				EF26CD8928C0EECA006D0D27 /* PlanService.swift */,
+				A80213DA28BF2EA100B6359E /* TravelOnService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -202,6 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				EF8FF27328B4D2D100C053B7 /* Main.swift */,
+				A80213DC28BF326D00B6359E /* WebImage.swift */,
 				EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */,
 				EF8FF26F28B4D1D000C053B7 /* Components */,
 				EF8FF26E28B4D1C400C053B7 /* Screens */,
@@ -213,6 +263,7 @@
 		EF8FF26E28B4D1C400C053B7 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				A83F100728BC4E6A00978711 /* TravelOnScreen */,
 				EF74BBF128B4D55A00E09450 /* HomeScreen */,
 				A8794B2D28B4E92400959D56 /* AuthScreen */,
 				EF26CD8B28C0F0EA006D0D27 /* MyPlanScreen */,
@@ -224,6 +275,8 @@
 			isa = PBXGroup;
 			children = (
 				EF26CD9628C10869006D0D27 /* MyPlanList */,
+				A80213D128BF2C0700B6359E /* TravelOnList */,
+				A8A1999628BF59EF006119C4 /* CheckedValue.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -233,6 +286,7 @@
 			children = (
 				A8794B3028B4EB5900959D56 /* BasicButtonStyle.swift */,
 				A813CA2F28B4F033000F0ADF /* SNSButtonStyle.swift */,
+				A8647C3928BDA48B00D284B6 /* WriteButtonStyle.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -308,24 +362,36 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A83F100B28BCC5FC00978711 /* TravelOnReviseScreen2.swift in Sources */,
+				A80213D328BF2C2100B6359E /* TravelOnViewModel.swift in Sources */,
+				A80213DD28BF326D00B6359E /* WebImage.swift in Sources */,
+				A8647C3A28BDA48B00D284B6 /* WriteButtonStyle.swift in Sources */,
+				A83F100928BCAE8800978711 /* TravelOnReviseScreen1.swift in Sources */,
 				A813CA2E28B4EE2B000F0ADF /* ScreenSize.swift in Sources */,
 				A813CA3028B4F033000F0ADF /* SNSButtonStyle.swift in Sources */,
 				EF26CD9128C0F153006D0D27 /* MyPlanList.swift in Sources */,
+				A80213DB28BF2EA100B6359E /* TravelOnService.swift in Sources */,
 				EF8FF27428B4D2D100C053B7 /* Main.swift in Sources */,
 				EFAA2AC328BBC30E00B56A3C /* AuthRepository.swift in Sources */,
 				EF26CD9328C0F15E006D0D27 /* MyPlanListViewModel.swift in Sources */,
 				EFDC441B28C0735400E8747C /* PlanRepository.swift in Sources */,
 				EF8FF25D28B4D0B100C053B7 /* HeyLocalApp.swift in Sources */,
+				A80213D028BF293F00B6359E /* TravelOnList.swift in Sources */,
+				A80213D928BF2D6C00B6359E /* User.swift in Sources */,
 				EFAA2ACD28BBD19400B56A3C /* SignInScreenTest.swift in Sources */,
 				EFAA2AC528BBC48400B56A3C /* AuthService.swift in Sources */,
 				EFAA2AC928BBCF6E00B56A3C /* Auth.swift in Sources */,
+				A83F100D28BCCCE000978711 /* TravelOnListScreen.swift in Sources */,
+				A80213D728BF2C9800B6359E /* TravelOn.swift in Sources */,
 				EF74BBF328B4D5C200E09450 /* HomeScreen.swift in Sources */,
+				A8A1999728BF59EF006119C4 /* CheckedValue.swift in Sources */,
 				A84E841228B8C28600128D9B /* SignInScreen.swift in Sources */,
 				EF26CD8A28C0EECA006D0D27 /* PlanService.swift in Sources */,
 				EF26CD8D28C0F102006D0D27 /* MyPlanScreen.swift in Sources */,
 				A8794B3128B4EB5900959D56 /* BasicButtonStyle.swift in Sources */,
 				EF1E4CCF28B53A6200D985E3 /* NetworkAgent.swift in Sources */,
 				EF26CD8828C0E9DA006D0D27 /* Config.swift in Sources */,
+				A80213D528BF2C4900B6359E /* TravelOnRepository.swift in Sources */,
 				A8794B2F28B4E93A00959D56 /* SignUpScreen.swift in Sources */,
 				EFDC441D28C073E000E8747C /* Plan.swift in Sources */,
 				EF26CD9528C0FF12006D0D27 /* DateFormat.swift in Sources */,
