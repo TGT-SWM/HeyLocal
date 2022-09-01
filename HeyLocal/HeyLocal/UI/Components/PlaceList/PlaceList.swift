@@ -19,12 +19,30 @@ struct PlaceList: View {
 				ForEach(viewModel.currentPlaces.indices, id: \.self) { idx in
 					listItem(order: idx, place: viewModel.currentPlaces[idx])
 				}
+				
+				dayControl
 			}
 		}
 		.onAppear {
 			viewModel.fetchPlaces()
 		}
     }
+	
+	var dayControl: some View {
+		HStack {
+			Button {
+				viewModel.prevDay()
+			} label: {
+				Text("이전")
+			}
+			
+			Button {
+				viewModel.nextDay()
+			} label: {
+				Text("다음")
+			}
+		}
+	}
 	
 	func listItem(order: Int, place: Place) -> some View {
 		HStack {

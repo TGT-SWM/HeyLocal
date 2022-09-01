@@ -44,5 +44,13 @@ extension PlaceList {
 		var currentPlaces: [Place] {
 			places[currentDay]
 		}
+		
+		func nextDay() {
+			currentDay = min(currentDay + 1, places.count - 1)
+		}
+		
+		func prevDay() {
+			currentDay = max(currentDay - 1, 0)
+		}
 	}
 }
