@@ -13,51 +13,51 @@ struct ProfileComponent: View {
             Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255)
             
             VStack {
-//                    NavigationLink(destination: SettingScreen(), label: {
-//                        Image(systemName: "gearshape")
-//                            .resizable()
-//                            .foregroundColor(Color.black)
-//                            .frame(width: 15, height: 15)
-//                    })
-//                    
                 HStack {
-                    WebImage(url: "https://cdna.artstation.com/p/assets/images/images/034/457/374/large/shin-min-jeong-.jpg?1612345113")
-                        .scaledToFill()
-                        .frame(width: ScreenSize.width * 0.2, height: ScreenSize.width * 0.2)
-                        .clipped()
-                        .cornerRadius(.infinity)
-                    
-                    
-                    
-                    VStack {
-                        HStack {
-                            Text("김현지")
-                                .font(.system(size: 23))
-                                .fontWeight(.bold)
-                            
-                            // 수정버튼
-//                                NavigationLink(destination: ProfileReviseScreen(), label: {
-//                                    Image(systemName: "pencil")
-//                                        .resizable()
-//                                        .foregroundColor(Color.black)
-//                                        .frame(width: 15, height: 15)
-//                                })
-                        }
-                        
-                        HStack {
-                            Text("내 노하우")
-                            Text("500하우")
-                        }
-                        
-                        HStack {
-                            Text("내 랭킹")
-                            Text("350위")
-                        }
-                        
+                    // User Image
+                    Group {
+                        WebImage(url: "https://cdna.artstation.com/p/assets/images/images/034/457/380/large/shin-min-jeong-.jpg?1612345128")
+                            .scaledToFill()
+                            .frame(width: 100, height: 100)
+                            .clipped()
+                            .cornerRadius(.infinity)
                     }
-                }
-            }
-        }
+                    
+                    Spacer()
+                        .frame(width: 30)
+                    
+                    // User Information
+                    Group {
+                        VStack(alignment: .leading) {
+                            HStack {
+                                Text("김현지")
+                                    .font(.system(size: 23))
+                                    .fontWeight(.bold)
+                            }
+                            
+                            Spacer()
+                                .frame(height: 15)
+                            
+                            HStack {
+                                Text("노하우")
+                                    .fontWeight(.semibold)
+                                Text("500하우")
+                            }
+                            
+                            Spacer()
+                                .frame(height: 5)
+                            
+                            HStack {
+                                Text("랭킹")
+                                    .fontWeight(.semibold)
+                                Text("350위")
+                            }
+                        } // end of VStack
+                    } // end of Group
+                } // end of HStack
+            } // end of VStack
+            .frame(width: ScreenSize.width * 0.8, alignment: .leading)
+        } // end of ZStack
         .frame(height: ScreenSize.height * 0.2)
     }
 }

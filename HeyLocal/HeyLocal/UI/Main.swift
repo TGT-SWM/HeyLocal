@@ -22,7 +22,6 @@ struct Main: View {
 				}
 			
 			// 여행 On 탭
-			// TODO: 여행 On 화면 뷰로 대체
 			TravelOnListScreen()
 				.tag(Tab.home)
 				.tabItem {
@@ -49,8 +48,7 @@ struct Main: View {
 				}
 			
 			// 내 정보 탭
-			// TODO: 내 정보 화면 뷰로 대체
-			HomeScreen()
+            MyProfileScreen()
 				.tag(Tab.home)
 				.tabItem {
 					Image(systemName: "person")

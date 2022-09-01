@@ -19,6 +19,7 @@ struct TravelOnListScreen: View {
     @State private var showCommentOnly = false
     @State private var showNonCommentOnly = false
     @State private var sortedType: Int = 0
+    @State private var user_id: String = ""
     var body: some View {
         
         NavigationView {
@@ -51,7 +52,7 @@ struct TravelOnListScreen: View {
                     
                     // TravelOnLists · WriteButton
                     ZStack {
-                        TravelOnList(showCommentOnly: $showCommentOnly, showNonCommentOnly: $showNonCommentOnly, sortedType: $sortedType)
+                        TravelOnList(showCommentOnly: $showCommentOnly, showNonCommentOnly: $showNonCommentOnly, sortedType: $sortedType, user_id: $user_id)
                         
                         HStack {
                             Spacer()

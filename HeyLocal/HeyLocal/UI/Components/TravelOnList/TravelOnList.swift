@@ -11,16 +11,29 @@ struct TravelOnList: View {
     @Binding var showCommentOnly: Bool
     @Binding var showNonCommentOnly: Bool
     @Binding var sortedType: Int
+    @Binding var user_id: String
     
     @StateObject var viewModel = ViewModel()
+    
+    var userTravelOn: [TravelOn] {
+        var resultTravelOns: [TravelOn] = viewModel.travelOns
+        
+        if user_id != "" {
+            resultTravelOns = viewModel.travelOns.filter { travelon in
+                (travelon.writer.user_id == user_id)
+            }
+        }
+        return resultTravelOns
+    }
     
     // TravleOn 필터링
     var filteredTravelOns: [TravelOn] {
         var resultTravelOns: [TravelOn] = viewModel.travelOns
         
+        resultTravelOns = userTravelOn
         // 답변 있는 것만 보기
         if showCommentOnly {
-            resultTravelOns = viewModel.travelOns.filter { travelon in
+            resultTravelOns = userTravelOn.filter { travelon in
                 (travelon.numOfComments > 0)
             }
             
@@ -29,7 +42,7 @@ struct TravelOnList: View {
         
         // 답변 없는 것만 보기
         else if showNonCommentOnly {
-            resultTravelOns = viewModel.travelOns.filter { travelon in
+            resultTravelOns = userTravelOn.filter { travelon in
                 (travelon.numOfComments == 0)
             }
             
