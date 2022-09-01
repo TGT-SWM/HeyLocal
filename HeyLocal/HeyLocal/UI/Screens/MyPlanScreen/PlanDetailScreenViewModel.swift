@@ -43,22 +43,27 @@ extension PlanDetailScreen {
 			]
 		}
 		
+		/// 현재 일자에 해당하는 장소 배열
 		var currentDayPlaces: [Place] {
 			places[currentDay - 1]
 		}
 		
+		/// 현재 일자가 여행 첫째 날인지
 		var isFirstDay: Bool {
 			currentDay == 1
 		}
 		
+		/// 현재 일자가 여행 마지막 날인지
 		var isLastDay: Bool {
 			currentDay == places.count
 		}
 		
+		/// 다음 일자로 이동
 		func goNextDay() {
 			currentDay = min(currentDay + 1, places.count)
 		}
 		
+		/// 이전 일자로 이동
 		func goPrevDay() {
 			currentDay = max(currentDay - 1, 1)
 		}
