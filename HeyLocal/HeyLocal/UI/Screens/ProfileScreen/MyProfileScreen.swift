@@ -14,7 +14,25 @@ struct MyProfileScreen: View {
     var body: some View {
         NavigationView {
             VStack {
-                ProfileComponent()
+                ZStack {
+                    ProfileComponent()
+                    
+                    HStack{
+                        NavigationLink(destination: SettingScreen(), label: {
+                            Image(systemName: "gearshape")
+                                .resizable()
+                                .foregroundColor(Color.black)
+                                .frame(width: 15, height: 15)
+                        })
+                        
+                        NavigationLink(destination: ProfileReviseScreen(), label: {
+                            Image(systemName: "pencil")
+                                .resizable()
+                                .foregroundColor(Color.black)
+                                .frame(width: 15, height: 15)
+                        })
+                    }
+                }
                 
                 GeometryReader { geo in
                     VStack {

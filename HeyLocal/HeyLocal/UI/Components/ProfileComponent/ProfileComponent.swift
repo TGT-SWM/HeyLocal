@@ -13,13 +13,13 @@ struct ProfileComponent: View {
             Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255)
             
             VStack {
-                Button(action: {}) {
-                    Image(systemName: "gearshape")
-                        .resizable()
-                        .foregroundColor(Color.black)
-                        .frame(width: 15, height: 15)
-                }
-                
+//                    NavigationLink(destination: SettingScreen(), label: {
+//                        Image(systemName: "gearshape")
+//                            .resizable()
+//                            .foregroundColor(Color.black)
+//                            .frame(width: 15, height: 15)
+//                    })
+//                    
                 HStack {
                     WebImage(url: "https://cdna.artstation.com/p/assets/images/images/034/457/374/large/shin-min-jeong-.jpg?1612345113")
                         .scaledToFill()
@@ -36,12 +36,12 @@ struct ProfileComponent: View {
                                 .fontWeight(.bold)
                             
                             // 수정버튼
-                            Button(action: {}) {
-                                Image(systemName: "pencil")
-                                    .resizable()
-                                    .foregroundColor(Color.black)
-                                    .frame(width: 15, height: 15)
-                            }
+//                                NavigationLink(destination: ProfileReviseScreen(), label: {
+//                                    Image(systemName: "pencil")
+//                                        .resizable()
+//                                        .foregroundColor(Color.black)
+//                                        .frame(width: 15, height: 15)
+//                                })
                         }
                         
                         HStack {
