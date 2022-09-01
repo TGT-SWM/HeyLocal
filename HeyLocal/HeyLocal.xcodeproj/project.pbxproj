@@ -104,6 +104,15 @@
 			path = MyPlanScreen;
 			sourceTree = "<group>";
 		};
+		EF26CD9628C10869006D0D27 /* MyPlanList */ = {
+			isa = PBXGroup;
+			children = (
+				EF26CD9028C0F153006D0D27 /* MyPlanList.swift */,
+				EF26CD9228C0F15E006D0D27 /* MyPlanListViewModel.swift */,
+			);
+			path = MyPlanList;
+			sourceTree = "<group>";
+		};
 		EF74BBF128B4D55A00E09450 /* HomeScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -192,9 +201,9 @@
 		EF8FF26D28B4D1B400C053B7 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				EF8FF26F28B4D1D000C053B7 /* Components */,
-				EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */,
 				EF8FF27328B4D2D100C053B7 /* Main.swift */,
+				EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */,
+				EF8FF26F28B4D1D000C053B7 /* Components */,
 				EF8FF26E28B4D1C400C053B7 /* Screens */,
 				EF8FF27028B4D1ED00C053B7 /* Styles */,
 			);
@@ -214,8 +223,7 @@
 		EF8FF26F28B4D1D000C053B7 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				EF26CD9028C0F153006D0D27 /* MyPlanList.swift */,
-				EF26CD9228C0F15E006D0D27 /* MyPlanListViewModel.swift */,
+				EF26CD9628C10869006D0D27 /* MyPlanList */,
 			);
 			path = Components;
 			sourceTree = "<group>";
