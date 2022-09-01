@@ -8,9 +8,9 @@
 import Foundation
 
 struct MyPlans: Decodable {
-	var past: [Plan]
-	var ongoing: [Plan]
-	var upcoming: [Plan]
+	var past: [Plan] = []
+	var ongoing: [Plan] = []
+	var upcoming: [Plan] = []
 }
 
 struct Plan: Decodable {
