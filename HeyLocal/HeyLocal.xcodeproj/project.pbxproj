@@ -33,6 +33,7 @@
 		EF26CD9528C0FF12006D0D27 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF26CD9428C0FF12006D0D27 /* DateFormat.swift */; };
 		EF3FCF1528C12A3900D48F9E /* PlanDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3FCF1428C12A3900D48F9E /* PlanDetailScreen.swift */; };
 		EF3FCF1728C12D0800D48F9E /* PlanDetailScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3FCF1628C12D0800D48F9E /* PlanDetailScreenViewModel.swift */; };
+		EF3FCF1928C1345C00D48F9E /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3FCF1828C1345C00D48F9E /* Place.swift */; };
 		EF74BBF328B4D5C200E09450 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF74BBF228B4D5C200E09450 /* HomeScreen.swift */; };
 		EF74BBF928B52CF200E09450 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */; };
 		EF8FF25D28B4D0B100C053B7 /* HeyLocalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8FF25C28B4D0B100C053B7 /* HeyLocalApp.swift */; };
@@ -75,6 +76,7 @@
 		EF26CD9428C0FF12006D0D27 /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
 		EF3FCF1428C12A3900D48F9E /* PlanDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailScreen.swift; sourceTree = "<group>"; };
 		EF3FCF1628C12D0800D48F9E /* PlanDetailScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailScreenViewModel.swift; sourceTree = "<group>"; };
+		EF3FCF1828C1345C00D48F9E /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		EF74BBF228B4D5C200E09450 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EF89F5D928C07FEE001401FE /* Authorization.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Authorization.xcconfig; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 				EFDC441C28C073E000E8747C /* Plan.swift */,
 				A80213D828BF2D6C00B6359E /* User.swift */,
 				A80213D628BF2C9800B6359E /* TravelOn.swift */,
+				EF3FCF1828C1345C00D48F9E /* Place.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 				EFAA2AC328BBC30E00B56A3C /* AuthRepository.swift in Sources */,
 				EF26CD9328C0F15E006D0D27 /* MyPlanListViewModel.swift in Sources */,
 				EFDC441B28C0735400E8747C /* PlanRepository.swift in Sources */,
+				EF3FCF1928C1345C00D48F9E /* Place.swift in Sources */,
 				EF8FF25D28B4D0B100C053B7 /* HeyLocalApp.swift in Sources */,
 				A80213D028BF293F00B6359E /* TravelOnList.swift in Sources */,
 				A80213D928BF2D6C00B6359E /* User.swift in Sources */,
