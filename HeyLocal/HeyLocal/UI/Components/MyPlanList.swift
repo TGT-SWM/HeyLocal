@@ -12,14 +12,10 @@ struct MyPlanList: View {
 	
     var body: some View {
 		VStack {
-			if (!viewModel.myPlans.ongoing.isEmpty) {
-				planList(title: "지금 여행 중", plans: viewModel.myPlans.ongoing)
-			}
-			if (!viewModel.myPlans.upcoming.isEmpty) {
-				planList(title: "다가오는 여행", plans: viewModel.myPlans.upcoming)
-			}
-			if (!viewModel.myPlans.past.isEmpty) {
-				planList(title: "지난 여행", plans: viewModel.myPlans.past)
+			if (viewModel.isMyPlanEmpty) {
+				emptyView
+			} else {
+				contentView
 			}
 		}
 		.padding()
@@ -27,6 +23,26 @@ struct MyPlanList: View {
 			viewModel.fetchMyPlans()
 		}
     }
+	
+	/// 마이 플랜이 없을 때 출력되는 뷰
+	var emptyView: some View {
+		Text("플랜이 존재하지 않습니다.")
+	}
+	
+	// 마이 플랜이 있을 때 출력되는 뷰
+	var contentView: some View {
+		Group {
+			if (!viewModel.ongoing.isEmpty) {
+				planList(title: "지금 여행 중", plans: viewModel.ongoing)
+			}
+			if (!viewModel.upcoming.isEmpty) {
+				planList(title: "다가오는 여행", plans: viewModel.upcoming)
+			}
+			if (!viewModel.past.isEmpty) {
+				planList(title: "지난 여행", plans: viewModel.past)
+			}
+		}
+	}
 	
 	/// Plan에 대한 리스트 및 리스트의 제목
 	func planList(title: String, plans: [Plan]) -> some View {
