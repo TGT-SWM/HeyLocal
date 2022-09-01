@@ -23,6 +23,8 @@
 		A8647C3A28BDA48B00D284B6 /* WriteButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8647C3928BDA48B00D284B6 /* WriteButtonStyle.swift */; };
 		A8794B2F28B4E93A00959D56 /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8794B2E28B4E93A00959D56 /* SignUpScreen.swift */; };
 		A8794B3128B4EB5900959D56 /* BasicButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8794B3028B4EB5900959D56 /* BasicButtonStyle.swift */; };
+		A87F6C9D28C099EE0076046E /* MyProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6C9C28C099EE0076046E /* MyProfileScreen.swift */; };
+		A87F6C9F28C0A1050076046E /* TobTabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6C9E28C0A1050076046E /* TobTabs.swift */; };
 		A8A1999728BF59EF006119C4 /* CheckedValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A1999628BF59EF006119C4 /* CheckedValue.swift */; };
 		EF1E4CCF28B53A6200D985E3 /* NetworkAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */; };
 		EF74BBF328B4D5C200E09450 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF74BBF228B4D5C200E09450 /* HomeScreen.swift */; };
@@ -54,6 +56,8 @@
 		A8647C3928BDA48B00D284B6 /* WriteButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteButtonStyle.swift; sourceTree = "<group>"; };
 		A8794B2E28B4E93A00959D56 /* SignUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpScreen.swift; sourceTree = "<group>"; };
 		A8794B3028B4EB5900959D56 /* BasicButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicButtonStyle.swift; sourceTree = "<group>"; };
+		A87F6C9C28C099EE0076046E /* MyProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileScreen.swift; sourceTree = "<group>"; };
+		A87F6C9E28C0A1050076046E /* TobTabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobTabs.swift; sourceTree = "<group>"; };
 		A8A1999628BF59EF006119C4 /* CheckedValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckedValue.swift; sourceTree = "<group>"; };
 		EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAgent.swift; sourceTree = "<group>"; };
 		EF1E4CD028B5426F00D985E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -117,6 +121,14 @@
 				EFAA2ACC28BBD19400B56A3C /* SignInScreenTest.swift */,
 			);
 			path = AuthScreen;
+			sourceTree = "<group>";
+		};
+		A87F6C9B28C099940076046E /* ProfileScreen */ = {
+			isa = PBXGroup;
+			children = (
+				A87F6C9C28C099EE0076046E /* MyProfileScreen.swift */,
+			);
+			path = ProfileScreen;
 			sourceTree = "<group>";
 		};
 		EF74BBF128B4D55A00E09450 /* HomeScreen */ = {
@@ -211,6 +223,7 @@
 		EF8FF26E28B4D1C400C053B7 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				A87F6C9B28C099940076046E /* ProfileScreen */,
 				A83F100728BC4E6A00978711 /* TravelOnScreen */,
 				EF74BBF128B4D55A00E09450 /* HomeScreen */,
 				A8794B2D28B4E92400959D56 /* AuthScreen */,
@@ -223,6 +236,7 @@
 			children = (
 				A80213D128BF2C0700B6359E /* TravelOnList */,
 				A8A1999628BF59EF006119C4 /* CheckedValue.swift */,
+				A87F6C9E28C0A1050076046E /* TobTabs.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -314,6 +328,7 @@
 				A8647C3A28BDA48B00D284B6 /* WriteButtonStyle.swift in Sources */,
 				A83F100928BCAE8800978711 /* TravelOnReviseScreen1.swift in Sources */,
 				A813CA2E28B4EE2B000F0ADF /* ScreenSize.swift in Sources */,
+				A87F6C9F28C0A1050076046E /* TobTabs.swift in Sources */,
 				A813CA3028B4F033000F0ADF /* SNSButtonStyle.swift in Sources */,
 				A80213DB28BF2EA100B6359E /* TravelOnService.swift in Sources */,
 				EF8FF27428B4D2D100C053B7 /* Main.swift in Sources */,
@@ -321,6 +336,7 @@
 				EF8FF25D28B4D0B100C053B7 /* HeyLocalApp.swift in Sources */,
 				A80213D028BF293F00B6359E /* TravelOnList.swift in Sources */,
 				A80213D928BF2D6C00B6359E /* User.swift in Sources */,
+				A87F6C9D28C099EE0076046E /* MyProfileScreen.swift in Sources */,
 				EFAA2ACD28BBD19400B56A3C /* SignInScreenTest.swift in Sources */,
 				EFAA2AC528BBC48400B56A3C /* AuthService.swift in Sources */,
 				EFAA2AC928BBCF6E00B56A3C /* Auth.swift in Sources */,
