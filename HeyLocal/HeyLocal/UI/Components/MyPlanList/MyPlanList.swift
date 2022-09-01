@@ -56,18 +56,20 @@ struct MyPlanList: View {
 	
 	/// List 내의 각 Plan에 해당하는 항목
 	func listItem(plan: Plan) -> some View {
-		HStack {
-			Circle()
-				.frame(width: 50, height: 50)
-				.foregroundColor(.gray)
-			
-			Text(plan.regionState + " " + plan.regionCity)
-				.fontWeight(.bold)
-			Spacer()
-			
-			Text(DateFormat.format(plan.startDate) + " ~ " + DateFormat.format(plan.endDate))
-				.font(.subheadline)
-		}.padding(.bottom, 10)
+		NavigationLink(destination: PlanDetailScreen(plan: plan)) {
+			HStack {
+				Circle()
+					.frame(width: 50, height: 50)
+					.foregroundColor(.gray)
+				
+				Text(plan.regionState + " " + plan.regionCity)
+					.fontWeight(.bold)
+				Spacer()
+				
+				Text(DateFormat.format(plan.startDate) + " ~ " + DateFormat.format(plan.endDate))
+					.font(.subheadline)
+			}.padding(.bottom, 10)
+		}.buttonStyle(PlainButtonStyle())
 	}
 }
 
