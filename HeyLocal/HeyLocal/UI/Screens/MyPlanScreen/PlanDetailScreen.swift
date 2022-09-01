@@ -54,7 +54,12 @@ struct PlanDetailScreen: View {
 	
 	var placesView: some View {
 		ScrollView {
-			Text("스케줄 화면입니다.")
+			Button {
+				
+			} label: {
+				Text("해당 일자에 장소 추가하기")
+			}.padding()
+			PlaceList(planId: 1)
 		}
 	}
 	
