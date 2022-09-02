@@ -15,13 +15,15 @@ struct MyProfileScreen: View {
     @State private var showNonCommentOnly = false
     @State private var sortedType: Int = 0
     @State private var user_id: String = "kimhyeonji"
+    @State var navLinkActive: Bool = false
+    
     var body: some View {
         NavigationView {
             VStack {
                 ZStack {
                     ProfileComponent()
                     
-                    HStack(alignment: .top){
+                    VStack (spacing: 30) {
                         NavigationLink(destination: SettingScreen(), label: {
                             Image(systemName: "gearshape")
                                 .resizable()
@@ -29,13 +31,15 @@ struct MyProfileScreen: View {
                                 .frame(width: 15, height: 15)
                         })
                         
-                        NavigationLink(destination: ProfileReviseScreen(), label: {
+                        
+                        NavigationLink(destination: ProfileReviseScreen(navLinkActive: $navLinkActive), isActive: $navLinkActive) {
                             Image(systemName: "pencil")
                                 .resizable()
                                 .foregroundColor(Color.black)
                                 .frame(width: 15, height: 15)
-                        })
+                        }
                     }
+                    .frame(width: ScreenSize.width, height: ScreenSize.height * 0.2, alignment: .trailing)
                 }
                 
                 GeometryReader { geo in
@@ -48,7 +52,7 @@ struct MyProfileScreen: View {
                                     .tag(0)
                             }
                             
-                            
+                            // TODO: 내 답변 뷰로 대체
                             SignUpScreen()
                                 .tag(1)
                         })

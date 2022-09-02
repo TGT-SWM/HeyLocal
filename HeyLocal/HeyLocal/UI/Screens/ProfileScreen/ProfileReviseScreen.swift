@@ -8,13 +8,36 @@
 import SwiftUI
 
 struct ProfileReviseScreen: View {
+    @Binding var navLinkActive: Bool
     var body: some View {
-        Text("PROFILE REVISE")
+        VStack {
+            Group {
+                Text(" USER IMAGE ")
+            }
+            
+            Group {
+                Text(" USER NICKNAME ")
+            }
+            
+            Group {
+                HStack {
+                    Button(action: {
+                        navLinkActive = false
+                    }, label: {
+                        Text("취소")
+                    })
+                    
+                    Button(action: {}) {
+                        Text("확인")
+                    }
+                }
+            }
+        }
     }
 }
-
-struct ProfileReviseScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileReviseScreen()
-    }
-}
+//
+//struct ProfileReviseScreen_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ProfileReviseScreen()
+//    }
+//}

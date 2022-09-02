@@ -15,76 +15,9 @@ struct TravelOnList: View {
     
     @StateObject var viewModel = ViewModel()
     
-    var userTravelOn: [TravelOn] {
-        var resultTravelOns: [TravelOn] = viewModel.travelOns
-        
-        if user_id != "" {
-            resultTravelOns = viewModel.travelOns.filter { travelon in
-                (travelon.writer.user_id == user_id)
-            }
-        }
-        return resultTravelOns
-    }
-    
-    // TravleOn 필터링
-    var filteredTravelOns: [TravelOn] {
-        var resultTravelOns: [TravelOn] = viewModel.travelOns
-        
-        resultTravelOns = userTravelOn
-        // 답변 있는 것만 보기
-        if showCommentOnly {
-            resultTravelOns = userTravelOn.filter { travelon in
-                (travelon.numOfComments > 0)
-            }
-            
-//            resultTravelOns = viewModel.showOnlyComments()
-        }
-        
-        // 답변 없는 것만 보기
-        else if showNonCommentOnly {
-            resultTravelOns = userTravelOn.filter { travelon in
-                (travelon.numOfComments == 0)
-            }
-            
-//            resultTravelOns = viewModel.showOnlyNonComments()
-        }
-        return resultTravelOns
-    }
-    
-    // TravelOn 정렬
-    var sortedTravelOns: [TravelOn] {
-        var resultTravelOns: [TravelOn] = viewModel.travelOns
-        
-        // 최신순
-        if sortedType == 0 {
-            resultTravelOns = filteredTravelOns.sorted(by: {$0.uploadDate > $1.uploadDate})
-//            viewModel.fetchTravelOns()
-//            resultTravelOns = viewModel.travelOns
-            
-//            resultTravelOns = viewModel.travelOns
-        }
-        
-        // 조회순
-        else if sortedType == 1 {
-            resultTravelOns = filteredTravelOns.sorted(by: {$0.numOfViews > $1.numOfViews})
-//            viewModel.orderedByViews()
-//            resultTravelOns = viewModel.travelOns
-            
-//            resultTravelOns = viewModel.orderedByViews()
-        }
-        
-        // 답변 많은 순
-        else {
-            resultTravelOns = filteredTravelOns.sorted(by: {$0.numOfComments > $1.numOfComments})
-//            viewModel.orderedByComments()
-//            resultTravelOns = viewModel.travelOns
-        }
-        return resultTravelOns
-    }
-    
     var body: some View {
         VStack {
-            ForEach(sortedTravelOns) { travelOn in
+            ForEach(viewModel.jungin(user_id: user_id, showCommentOnly: showCommentOnly, showNonCommentOnly: showNonCommentOnly, sortedType: sortedType)) { travelOn in
                 TravelOnComponent(travelOn: travelOn)
                     .padding()
             }
