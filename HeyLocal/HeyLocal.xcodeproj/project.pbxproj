@@ -165,6 +165,8 @@
 				A87F6CA128C0A22B0076046E /* ProfileComponent.swift */,
 			);
 			path = ProfileComponent;
+			sourceTree = "<group>";
+		};
 		EF26CD8B28C0F0EA006D0D27 /* MyPlanScreen */ = {
 			isa = PBXGroup;
 			children = (
