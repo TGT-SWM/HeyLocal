@@ -10,7 +10,12 @@ import SwiftUI
 struct PlanDetailScreen: View {
 	var plan: Plan
 	
-	@ObservedObject var viewModel = ViewModel()
+	@ObservedObject var viewModel: ViewModel
+	
+	init(plan: Plan) {
+		self.plan = plan
+		self.viewModel = ViewModel(plan: plan)
+	}
 	
     var body: some View {
 		VStack {
@@ -36,14 +41,14 @@ struct PlanDetailScreen: View {
 				Text("\(plan.regionState) \(plan.regionCity) 여행")
 					.font(.title2)
 					.fontWeight(.bold)
-				Text(DateFormat.format(plan.startDate, "M월 d일") + " ~ " + DateFormat.format(plan.endDate, "M월 d일"))
+				Text(DateFormat.format(plan.startDate, from: "yyyy-MM-dd", to: "M월 d일") + " ~ " + DateFormat.format(plan.endDate, from: "yyyy-MM-dd", to: "M월 d일"))
 					.font(.subheadline)
 			}
 			Spacer()
 			
 			VStack(alignment: .center) {
 				Text("\(viewModel.currentDay)일차")
-				Text("(16일)")
+				Text("(\(viewModel.currentDate)일)")
 			}.padding(.trailing, 5)
 			
 			Button {

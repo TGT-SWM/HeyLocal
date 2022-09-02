@@ -10,9 +10,15 @@ import SwiftUI
 
 extension PlanDetailScreen {
 	class ViewModel: ObservableObject {
+		var plan: Plan
+		
 		@Published var showMapView = false
 		@Published var currentDay = 1
 		@Published var places: [[Place]] = [[]]
+		
+		init(plan: Plan) {
+			self.plan = plan
+		}
 		
 		func fetchPlaces() {
 			places = [
@@ -41,6 +47,13 @@ extension PlanDetailScreen {
 				
 				]
 			]
+		}
+		
+		/// 현재 날짜
+		var currentDate: String {
+			let startDate = DateFormat.strToDate(plan.startDate, "yyyy-MM-dd")
+			let advancedDate = startDate.advanced(by: currentDay - 1)
+			return DateFormat.dateToStr(advancedDate, "d")
 		}
 		
 		/// 현재 일자에 해당하는 장소 배열

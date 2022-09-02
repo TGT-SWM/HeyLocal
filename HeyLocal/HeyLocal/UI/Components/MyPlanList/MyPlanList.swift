@@ -66,7 +66,8 @@ struct MyPlanList: View {
 					.fontWeight(.bold)
 				Spacer()
 				
-				Text(DateFormat.format(plan.startDate, "M월 d일") + " ~ " + DateFormat.format(plan.endDate, "M월 d일"))
+				Text(DateFormat.format(plan.startDate, from: "yyyy-MM-dd", to: "M월 d일")
+					 + " ~ " + DateFormat.format(plan.endDate, from: "yyyy-MM-dd", to: "M월 d일"))
 					.font(.subheadline)
 			}.padding(.bottom, 10)
 		}.buttonStyle(PlainButtonStyle())
