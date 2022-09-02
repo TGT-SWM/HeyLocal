@@ -8,16 +8,21 @@
 import Foundation
 
 struct DateFormat {
-	/// 날짜 포맷팅 (yyyy-MM-dd -> M월 d일)
-	static func format(_ dateStr: String) -> String {
-		// String -> Date
+	/// yyyy-MM-dd 문자열을 Date로 변환
+	static func dateFrom(_ from: String) -> Date {
 		let strToDate = DateFormatter()
 		strToDate.dateFormat = "yyyy-MM-dd"
-		let date = strToDate.date(from: dateStr)!
+		return strToDate.date(from: from)!
+	}
+	
+	/// 날짜 포맷팅
+	static func format(_ dateStr: String, _ dateFormat: String) -> String {
+		// String -> Date
+		let date = dateFrom(dateStr)
 		
 		// Date -> String
 		let dateToStr = DateFormatter()
-		dateToStr.dateFormat = "M월 d일"
+		dateToStr.dateFormat = dateFormat
 		return dateToStr.string(from: date)
 	}
 }

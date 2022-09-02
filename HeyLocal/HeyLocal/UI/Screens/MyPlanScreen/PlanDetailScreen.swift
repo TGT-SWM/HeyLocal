@@ -36,7 +36,7 @@ struct PlanDetailScreen: View {
 				Text("\(plan.regionState) \(plan.regionCity) 여행")
 					.font(.title2)
 					.fontWeight(.bold)
-				Text(DateFormat.format(plan.startDate) + " ~ " + DateFormat.format(plan.endDate))
+				Text(DateFormat.format(plan.startDate, "M월 d일") + " ~ " + DateFormat.format(plan.endDate, "M월 d일"))
 					.font(.subheadline)
 			}
 			Spacer()
