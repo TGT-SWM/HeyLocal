@@ -30,8 +30,7 @@ struct Main: View {
 				}
 			
 			// 마이플랜 탭
-			// TODO: 마이플랜 화면 뷰로 대체
-			HomeScreen()
+			MyPlanScreen()
 				.tag(Tab.home)
 				.tabItem {
 					Image(systemName: "suitcase.cart.fill")

@@ -1,0 +1,8 @@
+//
+//  Main.xcconfig
+//  HeyLocal
+//
+//  Copyright (c) 2022 TGT All rights reserved.
+//
+
+#include "Authorization.xcconfig"
