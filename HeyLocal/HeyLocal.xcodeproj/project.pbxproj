@@ -23,6 +23,11 @@
 		A8647C3A28BDA48B00D284B6 /* WriteButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8647C3928BDA48B00D284B6 /* WriteButtonStyle.swift */; };
 		A8794B2F28B4E93A00959D56 /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8794B2E28B4E93A00959D56 /* SignUpScreen.swift */; };
 		A8794B3128B4EB5900959D56 /* BasicButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8794B3028B4EB5900959D56 /* BasicButtonStyle.swift */; };
+		A87F6C9D28C099EE0076046E /* MyProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6C9C28C099EE0076046E /* MyProfileScreen.swift */; };
+		A87F6C9F28C0A1050076046E /* TobTabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6C9E28C0A1050076046E /* TobTabs.swift */; };
+		A87F6CA228C0A22B0076046E /* ProfileComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA128C0A22B0076046E /* ProfileComponent.swift */; };
+		A87F6CA428C0A37A0076046E /* ProfileReviseScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA328C0A37A0076046E /* ProfileReviseScreen.swift */; };
+		A87F6CA628C0A3AB0076046E /* SettingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA528C0A3AB0076046E /* SettingScreen.swift */; };
 		A8A1999728BF59EF006119C4 /* CheckedValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A1999628BF59EF006119C4 /* CheckedValue.swift */; };
 		EF1E4CCF28B53A6200D985E3 /* NetworkAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */; };
 		EF26CD8828C0E9DA006D0D27 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF26CD8728C0E9DA006D0D27 /* Config.swift */; };
@@ -62,6 +67,11 @@
 		A8647C3928BDA48B00D284B6 /* WriteButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteButtonStyle.swift; sourceTree = "<group>"; };
 		A8794B2E28B4E93A00959D56 /* SignUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpScreen.swift; sourceTree = "<group>"; };
 		A8794B3028B4EB5900959D56 /* BasicButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicButtonStyle.swift; sourceTree = "<group>"; };
+		A87F6C9C28C099EE0076046E /* MyProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileScreen.swift; sourceTree = "<group>"; };
+		A87F6C9E28C0A1050076046E /* TobTabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobTabs.swift; sourceTree = "<group>"; };
+		A87F6CA128C0A22B0076046E /* ProfileComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileComponent.swift; sourceTree = "<group>"; };
+		A87F6CA328C0A37A0076046E /* ProfileReviseScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileReviseScreen.swift; sourceTree = "<group>"; };
+		A87F6CA528C0A3AB0076046E /* SettingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingScreen.swift; sourceTree = "<group>"; };
 		A8A1999628BF59EF006119C4 /* CheckedValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckedValue.swift; sourceTree = "<group>"; };
 		EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAgent.swift; sourceTree = "<group>"; };
 		EF1E4CD028B5426F00D985E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -139,6 +149,22 @@
 			path = AuthScreen;
 			sourceTree = "<group>";
 		};
+		A87F6C9B28C099940076046E /* ProfileScreen */ = {
+			isa = PBXGroup;
+			children = (
+				A87F6C9C28C099EE0076046E /* MyProfileScreen.swift */,
+				A87F6CA328C0A37A0076046E /* ProfileReviseScreen.swift */,
+				A87F6CA528C0A3AB0076046E /* SettingScreen.swift */,
+			);
+			path = ProfileScreen;
+			sourceTree = "<group>";
+		};
+		A87F6CA028C0A1EE0076046E /* ProfileComponent */ = {
+			isa = PBXGroup;
+			children = (
+				A87F6CA128C0A22B0076046E /* ProfileComponent.swift */,
+			);
+			path = ProfileComponent;
 		EF26CD8B28C0F0EA006D0D27 /* MyPlanScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -263,6 +289,7 @@
 		EF8FF26E28B4D1C400C053B7 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				A87F6C9B28C099940076046E /* ProfileScreen */,
 				A83F100728BC4E6A00978711 /* TravelOnScreen */,
 				EF74BBF128B4D55A00E09450 /* HomeScreen */,
 				A8794B2D28B4E92400959D56 /* AuthScreen */,
@@ -274,9 +301,11 @@
 		EF8FF26F28B4D1D000C053B7 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				A87F6CA028C0A1EE0076046E /* ProfileComponent */,
 				EF26CD9628C10869006D0D27 /* MyPlanList */,
 				A80213D128BF2C0700B6359E /* TravelOnList */,
 				A8A1999628BF59EF006119C4 /* CheckedValue.swift */,
+				A87F6C9E28C0A1050076046E /* TobTabs.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -368,6 +397,7 @@
 				A8647C3A28BDA48B00D284B6 /* WriteButtonStyle.swift in Sources */,
 				A83F100928BCAE8800978711 /* TravelOnReviseScreen1.swift in Sources */,
 				A813CA2E28B4EE2B000F0ADF /* ScreenSize.swift in Sources */,
+				A87F6C9F28C0A1050076046E /* TobTabs.swift in Sources */,
 				A813CA3028B4F033000F0ADF /* SNSButtonStyle.swift in Sources */,
 				EF26CD9128C0F153006D0D27 /* MyPlanList.swift in Sources */,
 				A80213DB28BF2EA100B6359E /* TravelOnService.swift in Sources */,
@@ -378,12 +408,16 @@
 				EF8FF25D28B4D0B100C053B7 /* HeyLocalApp.swift in Sources */,
 				A80213D028BF293F00B6359E /* TravelOnList.swift in Sources */,
 				A80213D928BF2D6C00B6359E /* User.swift in Sources */,
+				A87F6C9D28C099EE0076046E /* MyProfileScreen.swift in Sources */,
 				EFAA2ACD28BBD19400B56A3C /* SignInScreenTest.swift in Sources */,
 				EFAA2AC528BBC48400B56A3C /* AuthService.swift in Sources */,
 				EFAA2AC928BBCF6E00B56A3C /* Auth.swift in Sources */,
+				A87F6CA428C0A37A0076046E /* ProfileReviseScreen.swift in Sources */,
 				A83F100D28BCCCE000978711 /* TravelOnListScreen.swift in Sources */,
 				A80213D728BF2C9800B6359E /* TravelOn.swift in Sources */,
 				EF74BBF328B4D5C200E09450 /* HomeScreen.swift in Sources */,
+				A87F6CA628C0A3AB0076046E /* SettingScreen.swift in Sources */,
+				A87F6CA228C0A22B0076046E /* ProfileComponent.swift in Sources */,
 				A8A1999728BF59EF006119C4 /* CheckedValue.swift in Sources */,
 				A84E841228B8C28600128D9B /* SignInScreen.swift in Sources */,
 				EF26CD8A28C0EECA006D0D27 /* PlanService.swift in Sources */,
