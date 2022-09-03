@@ -57,7 +57,7 @@ struct TravelOnListScreen: View {
                         HStack {
                             Spacer()
                             
-                            NavigationLink(destination: TravelOnReviseScreen1()) {
+                            NavigationLink(destination: TravelOnReviseScreen()) {
                                 Text("+")
                             }                            .buttonStyle(WriteButtonStyle())
                                 .offset(y: -130)
