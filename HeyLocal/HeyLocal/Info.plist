@@ -8,6 +8,8 @@
 	<string>${ACCESS_TOKEN}</string>
 	<key>REFRESH_TOKEN</key>
 	<string>${REFRESH_TOKEN}</string>
+	<key>KAKAO_APP_KEY</key>
+	<string>${KAKAO_APP_KEY}</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>ko_KR</string>
 	<key>CFBundleIconName</key>
