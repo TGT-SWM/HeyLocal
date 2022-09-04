@@ -13,7 +13,7 @@ struct MyPlanScreen: View {
 			ScrollView {
 				MyPlanList()
 			}.navigationTitle("마이 플랜")
-		}
+		}.navigationViewStyle(.stack)
     }
 }
 
