@@ -7,7 +7,10 @@
 
 import Foundation
 
-struct Place {
+// 장소
+struct Place: Decodable {
 	var id: Int
 	var name: String
+	var address: String
+	var roadAddress: String
 }
