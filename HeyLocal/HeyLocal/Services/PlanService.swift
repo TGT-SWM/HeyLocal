@@ -19,4 +19,8 @@ struct PlanService {
 		// API 요청
 		return planRepository.findMyPlans(userId: userId)
 	}
+	
+	func getSchedules(planId: Int) -> AnyPublisher<[DaySchedule], Error> {
+		return planRepository.findSchedules(planId: planId)
+	}
 }
