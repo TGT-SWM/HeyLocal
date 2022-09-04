@@ -52,7 +52,8 @@ extension PlanDetailScreen {
 		/// 현재 날짜
 		var currentDate: String {
 			let startDate = DateFormat.strToDate(plan.startDate, "yyyy-MM-dd")
-			let advancedDate = startDate.advanced(by: currentDay - 1)
+			let advancedSeconds = (currentDay - 1) * 24 * 60 * 60
+			let advancedDate = startDate.advanced(by: TimeInterval(advancedSeconds))
 			return DateFormat.dateToStr(advancedDate, "d")
 		}
 		
