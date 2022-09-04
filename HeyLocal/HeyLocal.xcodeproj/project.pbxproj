@@ -83,6 +83,9 @@
 		EFF9F3B528C5530C00E9FCB3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFF9F3B428C5530C00E9FCB3 /* SystemConfiguration.framework */; };
 		EFF9F3B728C5531300E9FCB3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFF9F3B628C5531300E9FCB3 /* CoreLocation.framework */; };
 		EFF9F3B928C5531B00E9FCB3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFF9F3B828C5531B00E9FCB3 /* QuartzCore.framework */; };
+		EFF9F3BD28C5545700E9FCB3 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EFF9F3BA28C5532000E9FCB3 /* libc++.tbd */; };
+		EFF9F3BE28C5546400E9FCB3 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EFF9F3BB28C5532800E9FCB3 /* libxml2.tbd */; };
+		EFF9F3BF28C5546A00E9FCB3 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EFF9F3BC28C5533100E9FCB3 /* libsqlite3.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -184,8 +187,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFF9F3BD28C5545700E9FCB3 /* libc++.tbd in Frameworks */,
 				EFF9F3B928C5531B00E9FCB3 /* QuartzCore.framework in Frameworks */,
+				EFF9F3BF28C5546A00E9FCB3 /* libsqlite3.tbd in Frameworks */,
 				EFF9F3B728C5531300E9FCB3 /* CoreLocation.framework in Frameworks */,
+				EFF9F3BE28C5546400E9FCB3 /* libxml2.tbd in Frameworks */,
 				EFF9F3B028C5523200E9FCB3 /* DaumMap.framework in Frameworks */,
 				EFF9F3B528C5530C00E9FCB3 /* SystemConfiguration.framework in Frameworks */,
 				EFF9F3B328C552EF00E9FCB3 /* OpenGLES.framework in Frameworks */,
