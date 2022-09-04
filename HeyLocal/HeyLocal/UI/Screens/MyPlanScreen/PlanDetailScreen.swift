@@ -75,7 +75,9 @@ struct PlanDetailScreen: View {
 					placesViewOf(day: idx + 1)
 						.tag(idx + 1)
 				}
-			}.tabViewStyle(.page(indexDisplayMode: .never))
+			}
+			.tabViewStyle(.page(indexDisplayMode: .never))
+			.animation(.easeInOut)
 			
 			// 일자 변경 버튼
 			dayControl
