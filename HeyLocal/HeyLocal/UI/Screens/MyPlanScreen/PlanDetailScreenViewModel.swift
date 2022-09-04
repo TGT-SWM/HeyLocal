@@ -6,47 +6,29 @@
 //
 
 import Foundation
-import SwiftUI
+import Combine
 
 extension PlanDetailScreen {
 	class ViewModel: ObservableObject {
+		let planService = PlanService()
 		var plan: Plan
+		
+		var cancellable: AnyCancellable?
 		
 		@Published var showMapView = false
 		@Published var currentDay = 1
-		@Published var places: [[Place]] = [[]]
+		@Published var schedules: [DaySchedule] = []
 		
 		init(plan: Plan) {
 			self.plan = plan
 		}
 		
 		func fetchPlaces() {
-			places = [
-				// 1일차
-				[
-					Place(id: 1, name: "해운대"),
-					Place(id: 2, name: "부산꼼장어"),
-					Place(id: 3, name: "감천 문화마을"),
-					Place(id: 4, name: "광안대교"),
-					Place(id: 5, name: "시그니엘 부산")
-				],
-				// 2일차
-				[
-					Place(id: 5, name: "시그니엘 부산"),
-					Place(id: 1, name: "해운대"),
-					Place(id: 8, name: "해운대 돼지국밥"),
-					Place(id: 1, name: "해운대"),
-					Place(id: 8, name: "해운대 돼지국밥"),
-					Place(id: 5, name: "시그니엘 부산")
-				],
-				// 3일차
-				[
-					Place(id: 5, name: "시그니엘 부산"),
-					Place(id: 1, name: "해운대"),
-					Place(id: 13, name: "부산터미널")
-				
-				]
-			]
+			cancellable = planService.getSchedules(planId: plan.id)
+				.sink(receiveCompletion: { _ in
+				}, receiveValue: { schedules in
+					self.schedules = schedules
+				})
 		}
 		
 		/// 현재 날짜
@@ -59,7 +41,12 @@ extension PlanDetailScreen {
 		
 		/// 현재 일자에 해당하는 장소 배열
 		var currentDayPlaces: [Place] {
-			places[currentDay - 1]
+			let idx = currentDay - 1
+			if idx < schedules.count {
+				return schedules[idx].places
+			}
+			
+			return []
 		}
 		
 		/// 현재 일자가 여행 첫째 날인지
@@ -69,12 +56,12 @@ extension PlanDetailScreen {
 		
 		/// 현재 일자가 여행 마지막 날인지
 		var isLastDay: Bool {
-			currentDay == places.count
+			currentDay >= schedules.count
 		}
 		
 		/// 다음 일자로 이동
 		func goNextDay() {
-			currentDay = min(currentDay + 1, places.count)
+			currentDay = min(currentDay + 1, schedules.count)
 		}
 		
 		/// 이전 일자로 이동

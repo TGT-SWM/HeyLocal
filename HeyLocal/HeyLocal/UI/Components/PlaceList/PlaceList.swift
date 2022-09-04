@@ -44,11 +44,11 @@ struct PlaceList: View {
 struct PlaceList_Previews: PreviewProvider {
     static var previews: some View {
         PlaceList(places: [
-			Place(id: 1, name: "해운대"),
-			Place(id: 2, name: "부산꼼장어"),
-			Place(id: 3, name: "감천 문화마을"),
-			Place(id: 4, name: "광안대교"),
-			Place(id: 5, name: "시그니엘 부산")
+			Place(id: 1, name: "해운대", address: "", roadAddress: ""),
+			Place(id: 2, name: "부산꼼장어", address: "", roadAddress: ""),
+			Place(id: 3, name: "감천 문화마을", address: "", roadAddress: ""),
+			Place(id: 4, name: "광안대교", address: "", roadAddress: ""),
+			Place(id: 5, name: "시그니엘 부산", address: "", roadAddress: "")
 		])
     }
 }

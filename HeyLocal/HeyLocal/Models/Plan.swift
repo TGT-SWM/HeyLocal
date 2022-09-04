@@ -27,5 +27,5 @@ struct Plan: Decodable {
 /// 플랜 내 하루 스케줄
 struct DaySchedule: Decodable {
 	var date: String
-	var places: [Place]
+	var places: [Place] = []
 }
