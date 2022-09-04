@@ -7,12 +7,14 @@
 
 import Foundation
 
+/// 마이 플랜 목록
 struct MyPlans: Decodable {
 	var past: [Plan] = []
 	var ongoing: [Plan] = []
 	var upcoming: [Plan] = []
 }
 
+/// 플랜
 struct Plan: Decodable {
 	var id: Int
 	var regionId: Int
@@ -20,4 +22,10 @@ struct Plan: Decodable {
 	var regionCity: String
 	var startDate: String
 	var endDate: String
+}
+
+/// 플랜 내 하루 스케줄
+struct DaySchedule: Decodable {
+	var date: String
+	var places: [Place] = []
 }
