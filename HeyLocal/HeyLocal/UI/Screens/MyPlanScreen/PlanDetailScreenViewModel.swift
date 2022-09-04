@@ -39,16 +39,6 @@ extension PlanDetailScreen {
 			return DateFormat.dateToStr(advancedDate, "d")
 		}
 		
-		/// 현재 일자에 해당하는 장소 배열
-		var currentDayPlaces: [Place] {
-			let idx = currentDay - 1
-			if idx < schedules.count {
-				return schedules[idx].places
-			}
-			
-			return []
-		}
-		
 		/// 현재 일자가 여행 첫째 날인지
 		var isFirstDay: Bool {
 			currentDay == 1
@@ -67,6 +57,16 @@ extension PlanDetailScreen {
 		/// 이전 일자로 이동
 		func goPrevDay() {
 			currentDay = max(currentDay - 1, 1)
+		}
+		
+		/// 특정 일자의 스케줄
+		func placesOf(day: Int) -> [Place] {
+			let idx = day - 1
+			if idx < 0 || idx >= schedules.count {
+				return []
+			}
+			
+			return schedules[idx].places
 		}
 	}
 }

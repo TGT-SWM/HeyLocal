@@ -23,7 +23,12 @@ struct PlanDetailScreen: View {
 			if (viewModel.showMapView) {
 				mapView
 			} else {
-				placesView
+				TabView(selection: $viewModel.currentDay) {
+					ForEach(viewModel.schedules.indices, id: \.self) { idx in
+						placesViewOf(day: idx + 1)
+							.tag(idx + 1)
+					}
+				}.tabViewStyle(.page(indexDisplayMode: .never))
 			}
 		}
 		.padding()
@@ -61,7 +66,7 @@ struct PlanDetailScreen: View {
 	}
 	
 	/// 스케줄 모드에서 출력되는 뷰입니다.
-	var placesView: some View {
+	func placesViewOf(day: Int) -> some View {
 		ScrollView {
 			// 장소 추가 버튼
 			Button {
@@ -70,7 +75,7 @@ struct PlanDetailScreen: View {
 			}.padding()
 			
 			// 해당 일자 장소 리스트
-			PlaceList(places: viewModel.currentDayPlaces)
+			PlaceList(places: viewModel.placesOf(day: day))
 			
 			// 일자 변경 버튼
 			dayControl
