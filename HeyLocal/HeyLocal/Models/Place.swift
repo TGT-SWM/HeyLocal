@@ -13,4 +13,6 @@ struct Place: Decodable {
 	var name: String
 	var address: String
 	var roadAddress: String
+	var lat: Double
+	var lng: Double
 }
