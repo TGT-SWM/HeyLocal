@@ -86,6 +86,7 @@
 		EFF9F3BD28C5545700E9FCB3 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EFF9F3BA28C5532000E9FCB3 /* libc++.tbd */; };
 		EFF9F3BE28C5546400E9FCB3 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EFF9F3BB28C5532800E9FCB3 /* libxml2.tbd */; };
 		EFF9F3BF28C5546A00E9FCB3 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EFF9F3BC28C5533100E9FCB3 /* libsqlite3.tbd */; };
+		EFF9F3C728C5C8DA00E9FCB3 /* KakaoMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF9F3C628C5C8DA00E9FCB3 /* KakaoMap.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -181,6 +182,7 @@
 		EFF9F3BB28C5532800E9FCB3 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		EFF9F3BC28C5533100E9FCB3 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		EFF9F3C428C558E300E9FCB3 /* HeyLocal-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HeyLocal-Bridging-Header.h"; sourceTree = "<group>"; };
+		EFF9F3C628C5C8DA00E9FCB3 /* KakaoMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMap.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -406,6 +408,7 @@
 		EF8FF26F28B4D1D000C053B7 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				EFF9F3C528C5C8C100E9FCB3 /* KakaoMap */,
 				EF3FCF1A28C135A700D48F9E /* PlaceList */,
 				A87F6CA028C0A1EE0076046E /* ProfileComponent */,
 				EF26CD9628C10869006D0D27 /* MyPlanList */,
@@ -498,6 +501,14 @@
 				EFF9F36E28C5523200E9FCB3 /* DaumMap.embeddedframework */,
 			);
 			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		EFF9F3C528C5C8C100E9FCB3 /* KakaoMap */ = {
+			isa = PBXGroup;
+			children = (
+				EFF9F3C628C5C8DA00E9FCB3 /* KakaoMap.swift */,
+			);
+			path = KakaoMap;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -610,6 +621,7 @@
 				A87F6C9F28C0A1050076046E /* TobTabs.swift in Sources */,
 				A813CA3028B4F033000F0ADF /* SNSButtonStyle.swift in Sources */,
 				EF26CD9128C0F153006D0D27 /* MyPlanList.swift in Sources */,
+				EFF9F3C728C5C8DA00E9FCB3 /* KakaoMap.swift in Sources */,
 				A80213DB28BF2EA100B6359E /* TravelOnService.swift in Sources */,
 				EF8FF27428B4D2D100C053B7 /* Main.swift in Sources */,
 				EFAA2AC328BBC30E00B56A3C /* AuthRepository.swift in Sources */,
@@ -775,6 +787,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"HeyLocal/Preview Content\"";
 				DEVELOPMENT_TEAM = 3X3P9744G9;
 				ENABLE_PREVIEWS = YES;
+				EXCLUDED_ARCHS = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/DaumMap.embeddedframework",
@@ -817,6 +831,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"HeyLocal/Preview Content\"";
 				DEVELOPMENT_TEAM = 3X3P9744G9;
 				ENABLE_PREVIEWS = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/DaumMap.embeddedframework",

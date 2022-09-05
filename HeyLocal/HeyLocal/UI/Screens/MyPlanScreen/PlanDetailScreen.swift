@@ -93,9 +93,7 @@ struct PlanDetailScreen: View {
 	
 	/// 지도 모드에서 출력되는 뷰입니다.
 	var mapView: some View {
-		ScrollView {
-			Text("지도 화면입니다.")
-		}
+		KakaoMap()
 	}
 	
 	/// 일자 이동을 위한 버튼입니다.
