@@ -61,7 +61,7 @@ struct PlanDetailScreen: View {
 	
 	/// 지도 모드에서 출력되는 뷰입니다.
 	var mapView: some View {
-		KakaoMap()
+		KakaoMap(places: viewModel.placesOf(day: viewModel.currentDay))
 	}
 	
 	/// 스케줄 모드에서 출력되는 뷰입니다.
