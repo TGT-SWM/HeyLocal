@@ -25,8 +25,9 @@ struct PlanDetailScreen: View {
 			} else {
 				placesView
 			}
+			dayControl
+				.padding()
 		}
-		.padding()
 		.navigationTitle("마이 플랜")
 		.navigationBarTitleDisplayMode(.inline)
 		.onAppear {
@@ -57,12 +58,17 @@ struct PlanDetailScreen: View {
 				Image(systemName: viewModel.showMapView ? "map.fill" : "map")
 					.font(.system(size: 24))
 			}
-		}
+		}.padding()
+	}
+	
+	/// 지도 모드에서 출력되는 뷰입니다.
+	var mapView: some View {
+		KakaoMap(places: $viewModel.schedules[viewModel.currentDay - 1].places)
 	}
 	
 	/// 스케줄 모드에서 출력되는 뷰입니다.
 	var placesView: some View {
-		Group {
+		VStack {
 			// 장소 추가 버튼
 			Button {
 			} label: {
@@ -78,9 +84,6 @@ struct PlanDetailScreen: View {
 			}
 			.tabViewStyle(.page(indexDisplayMode: .never))
 			.animation(.easeInOut)
-			
-			// 일자 변경 버튼
-			dayControl
 		}
 	}
 	
@@ -88,14 +91,7 @@ struct PlanDetailScreen: View {
 	func placesViewOf(day: Int) -> some View {
 		ScrollView {
 			PlaceList(places: viewModel.placesOf(day: day))
-		}
-	}
-	
-	/// 지도 모드에서 출력되는 뷰입니다.
-	var mapView: some View {
-		ScrollView {
-			Text("지도 화면입니다.")
-		}
+		}.padding(.horizontal)
 	}
 	
 	/// 일자 이동을 위한 버튼입니다.
