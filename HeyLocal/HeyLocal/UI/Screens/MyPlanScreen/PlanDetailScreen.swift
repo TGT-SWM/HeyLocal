@@ -25,6 +25,8 @@ struct PlanDetailScreen: View {
 			} else {
 				placesView
 			}
+			dayControl
+				.padding()
 		}
 		.navigationTitle("마이 플랜")
 		.navigationBarTitleDisplayMode(.inline)
@@ -82,10 +84,6 @@ struct PlanDetailScreen: View {
 			}
 			.tabViewStyle(.page(indexDisplayMode: .never))
 			.animation(.easeInOut)
-			
-			// 일자 변경 버튼
-			dayControl
-				.padding()
 		}.padding(.horizontal)
 	}
 	
