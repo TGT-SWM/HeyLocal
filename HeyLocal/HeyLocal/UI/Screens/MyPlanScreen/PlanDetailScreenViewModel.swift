@@ -68,10 +68,5 @@ extension PlanDetailScreen {
 			
 			return schedules[idx].places
 		}
-		
-		// 오늘 스케줄
-		func placesOfCurrentDay() -> [Place] {
-			placesOf(day: currentDay)
-		}
 	}
 }
