@@ -59,6 +59,11 @@ struct KakaoMap: UIViewRepresentable {
 	
 	/// 장소들을 모두 보여줄 수 있는 센터와 줌 레벨 값을 반환합니다.
 	func setMapCenter(_ mapView: MTMapView) {
+		// 장소가 있을 때만 동작해야 함
+		if places.isEmpty {
+			return
+		}
+		
 		let coords: [(Double, Double)] = places.map({ ($0.lat, $0.lng )})
 		
 		// 평균값 계산
