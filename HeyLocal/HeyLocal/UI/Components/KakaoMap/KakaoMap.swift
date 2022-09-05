@@ -19,7 +19,10 @@ struct KakaoMap: UIViewRepresentable {
 		view.showCurrentLocationMarker = true
 		
 		// 마커 추가
-		addMarkers(mapView: view)
+		addMarkers(view)
+		
+		// 지도 센터와 줌 레벨 설정
+		setMapCenter(view)
 		
 		return view
 	}
@@ -28,7 +31,8 @@ struct KakaoMap: UIViewRepresentable {
 		
 	}
 	
-	func addMarkers(mapView: MTMapView) {
+	/// 지도에 마커를 추가합니다.
+	func addMarkers(_ mapView: MTMapView) {
 		for idx in places.indices {
 			let place = places[idx]
 			let marker = MTMapPOIItem()
@@ -44,5 +48,31 @@ struct KakaoMap: UIViewRepresentable {
 			
 			mapView.add(marker)
 		}
+	}
+	
+	/// 장소들을 모두 보여줄 수 있는 센터와 줌 레벨 값을 반환합니다.
+	func setMapCenter(_ mapView: MTMapView) {
+		let coords: [(Double, Double)] = places.map({ ($0.lat, $0.lng )})
+		
+		// 평균값 계산
+		var sumOfLats: Double = 0
+		var sumOfLngs: Double = 0
+		for (lat, lng) in coords {
+			sumOfLats += lat
+			sumOfLngs += lng
+		}
+		
+		let centerLat = sumOfLats / Double(coords.count)
+		let centerLng = sumOfLngs / Double(coords.count)
+		
+		// 줌 레벨
+		let zoomLevel: MTMapZoomLevel = 3
+		
+		// 적용
+		mapView.setMapCenter(
+			MTMapPoint(geoCoord: MTMapPointGeo(latitude: centerLat, longitude: centerLng)),
+			zoomLevel: zoomLevel,
+			animated: true
+		)
 	}
 }
