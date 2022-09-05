@@ -58,12 +58,12 @@ struct PlanDetailScreen: View {
 				Image(systemName: viewModel.showMapView ? "map.fill" : "map")
 					.font(.system(size: 24))
 			}
-		}.padding(.horizontal)
+		}.padding()
 	}
 	
 	/// 지도 모드에서 출력되는 뷰입니다.
 	var mapView: some View {
-		KakaoMap(places: viewModel.placesOf(day: viewModel.currentDay))
+		KakaoMap(places: viewModel.placesOfCurrentDay())
 	}
 	
 	/// 스케줄 모드에서 출력되는 뷰입니다.
@@ -84,14 +84,14 @@ struct PlanDetailScreen: View {
 			}
 			.tabViewStyle(.page(indexDisplayMode: .never))
 			.animation(.easeInOut)
-		}.padding(.horizontal)
+		}
 	}
 	
 	/// 해당 일자 장소 리스트
 	func placesViewOf(day: Int) -> some View {
 		ScrollView {
 			PlaceList(places: viewModel.placesOf(day: day))
-		}
+		}.padding(.horizontal)
 	}
 	
 	/// 일자 이동을 위한 버튼입니다.
