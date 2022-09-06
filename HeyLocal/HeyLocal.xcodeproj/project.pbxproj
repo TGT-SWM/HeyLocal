@@ -16,13 +16,14 @@
 		A80213DD28BF326D00B6359E /* WebImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80213DC28BF326D00B6359E /* WebImage.swift */; };
 		A813CA2E28B4EE2B000F0ADF /* ScreenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A813CA2D28B4EE2B000F0ADF /* ScreenSize.swift */; };
 		A813CA3028B4F033000F0ADF /* SNSButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A813CA2F28B4F033000F0ADF /* SNSButtonStyle.swift */; };
+		A836925828C6F48D00DBDB06 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A836925728C6F48D00DBDB06 /* SearchBar.swift */; };
 		A83F100D28BCCCE000978711 /* TravelOnListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83F100C28BCCCE000978711 /* TravelOnListScreen.swift */; };
 		A84E841228B8C28600128D9B /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84E841128B8C28600128D9B /* SignInScreen.swift */; };
 		A8647C3A28BDA48B00D284B6 /* WriteButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8647C3928BDA48B00D284B6 /* WriteButtonStyle.swift */; };
 		A8794B2F28B4E93A00959D56 /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8794B2E28B4E93A00959D56 /* SignUpScreen.swift */; };
 		A8794B3128B4EB5900959D56 /* BasicButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8794B3028B4EB5900959D56 /* BasicButtonStyle.swift */; };
 		A87F6C9D28C099EE0076046E /* MyProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6C9C28C099EE0076046E /* MyProfileScreen.swift */; };
-		A87F6C9F28C0A1050076046E /* TobTabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6C9E28C0A1050076046E /* TobTabs.swift */; };
+		A87F6C9F28C0A1050076046E /* TopTabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6C9E28C0A1050076046E /* TopTabs.swift */; };
 		A87F6CA228C0A22B0076046E /* ProfileComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA128C0A22B0076046E /* ProfileComponent.swift */; };
 		A87F6CA428C0A37A0076046E /* ProfileReviseScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA328C0A37A0076046E /* ProfileReviseScreen.swift */; };
 		A87F6CA628C0A3AB0076046E /* SettingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA528C0A3AB0076046E /* SettingScreen.swift */; };
@@ -99,6 +100,7 @@
 		A80213DC28BF326D00B6359E /* WebImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImage.swift; sourceTree = "<group>"; };
 		A813CA2D28B4EE2B000F0ADF /* ScreenSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSize.swift; sourceTree = "<group>"; };
 		A813CA2F28B4F033000F0ADF /* SNSButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSButtonStyle.swift; sourceTree = "<group>"; };
+		A836925728C6F48D00DBDB06 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		A83F100C28BCCCE000978711 /* TravelOnListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOnListScreen.swift; sourceTree = "<group>"; };
 		A84E841128B8C28600128D9B /* SignInScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
 		A8525DFC28C1B0C90085B36A /* Authorization.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Authorization.xcconfig; sourceTree = "<group>"; };
@@ -106,7 +108,7 @@
 		A8794B2E28B4E93A00959D56 /* SignUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpScreen.swift; sourceTree = "<group>"; };
 		A8794B3028B4EB5900959D56 /* BasicButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicButtonStyle.swift; sourceTree = "<group>"; };
 		A87F6C9C28C099EE0076046E /* MyProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileScreen.swift; sourceTree = "<group>"; };
-		A87F6C9E28C0A1050076046E /* TobTabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobTabs.swift; sourceTree = "<group>"; };
+		A87F6C9E28C0A1050076046E /* TopTabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabs.swift; sourceTree = "<group>"; };
 		A87F6CA128C0A22B0076046E /* ProfileComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileComponent.swift; sourceTree = "<group>"; };
 		A87F6CA328C0A37A0076046E /* ProfileReviseScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileReviseScreen.swift; sourceTree = "<group>"; };
 		A87F6CA528C0A3AB0076046E /* SettingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingScreen.swift; sourceTree = "<group>"; };
@@ -414,7 +416,8 @@
 				EF26CD9628C10869006D0D27 /* MyPlanList */,
 				A80213D128BF2C0700B6359E /* TravelOnList */,
 				A8A1999628BF59EF006119C4 /* CheckedValue.swift */,
-				A87F6C9E28C0A1050076046E /* TobTabs.swift */,
+				A87F6C9E28C0A1050076046E /* TopTabs.swift */,
+				A836925728C6F48D00DBDB06 /* SearchBar.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -618,7 +621,7 @@
 				A80213DD28BF326D00B6359E /* WebImage.swift in Sources */,
 				A8647C3A28BDA48B00D284B6 /* WriteButtonStyle.swift in Sources */,
 				A813CA2E28B4EE2B000F0ADF /* ScreenSize.swift in Sources */,
-				A87F6C9F28C0A1050076046E /* TobTabs.swift in Sources */,
+				A87F6C9F28C0A1050076046E /* TopTabs.swift in Sources */,
 				A813CA3028B4F033000F0ADF /* SNSButtonStyle.swift in Sources */,
 				EF26CD9128C0F153006D0D27 /* MyPlanList.swift in Sources */,
 				EFF9F3C728C5C8DA00E9FCB3 /* KakaoMap.swift in Sources */,
@@ -648,6 +651,7 @@
 				EF26CD8D28C0F102006D0D27 /* MyPlanScreen.swift in Sources */,
 				A8794B3128B4EB5900959D56 /* BasicButtonStyle.swift in Sources */,
 				EF1E4CCF28B53A6200D985E3 /* NetworkAgent.swift in Sources */,
+				A836925828C6F48D00DBDB06 /* SearchBar.swift in Sources */,
 				EF26CD8828C0E9DA006D0D27 /* Config.swift in Sources */,
 				A80213D528BF2C4900B6359E /* TravelOnRepository.swift in Sources */,
 				EF3FCF1C28C135B200D48F9E /* PlaceList.swift in Sources */,

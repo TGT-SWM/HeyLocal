@@ -6,17 +6,26 @@
 //
 
 import Foundation
+import Combine
 
 extension TravelOnList {
     class ViewModel: ObservableObject {
         private var travelOnService = TravelOnService()
         @Published final var travelOns = [TravelOn]()
         
+        var cancellable: AnyCancellable?
+        
         init() {
             fetchTravelOns()
         }
         
-        
+        func fetchTravelOn() {
+            cancellable = travelOnService.getTravelOns()
+                .sink(receiveCompletion: { _ in
+                }, receiveValue: { travelOns in
+                    self.travelOns = travelOns
+                })
+        }
         
         func jungin(user_id: String, showCommentOnly: Bool, showNonCommentOnly: Bool, sortedType: Int) -> [TravelOn]
         {

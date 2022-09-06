@@ -6,8 +6,25 @@
 //
 
 import Foundation
+import Combine
 
 struct TravelOnRepository {
+    private let agent = NetworkAgent()
+    private let travelonUrl =  "\(Config.apiURL)/travel-ons"
+    
+
+    func getTravelOns() -> AnyPublisher<[TravelOn], Error> {
+        let url = URL(string: travelonUrl)!
+        var request = URLRequest(url: url)
+        
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+        
+        return agent.run(request)
+    }
+    
     func load() -> [TravelOn] {
         
         let formatter = DateFormatter()

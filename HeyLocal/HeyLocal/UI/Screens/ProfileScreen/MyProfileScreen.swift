@@ -17,6 +17,8 @@ struct MyProfileScreen: View {
     @State private var user_id: String = "kimhyeonji"
     @State var navLinkActive: Bool = false
     
+    @State var nickname: String = "김현지"
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -32,7 +34,7 @@ struct MyProfileScreen: View {
                         })
                         
                         
-                        NavigationLink(destination: ProfileReviseScreen(navLinkActive: $navLinkActive), isActive: $navLinkActive) {
+                        NavigationLink(destination: ProfileReviseScreen(navLinkActive: $navLinkActive, nickname: $nickname), isActive: $navLinkActive) {
                             Image(systemName: "pencil")
                                 .resizable()
                                 .foregroundColor(Color.black)

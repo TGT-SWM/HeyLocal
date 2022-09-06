@@ -17,6 +17,23 @@ struct TravelOnList: View {
     
     var body: some View {
         VStack {
+            // 비어있는지 확인
+            
+            // 아니면 출력
+            contentView
+        }
+        .padding()
+        .onAppear() {
+            viewModel.fetchTravelOns()
+        }
+    }
+    
+    var emptyView: some View {
+        Text("여행 On이 존재하지 않습니다.")
+    }
+    
+    var contentView: some View {
+        VStack {
             ForEach(viewModel.jungin(user_id: user_id, showCommentOnly: showCommentOnly, showNonCommentOnly: showNonCommentOnly, sortedType: sortedType)) { travelOn in
                 TravelOnComponent(travelOn: travelOn)
                     .padding()

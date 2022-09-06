@@ -20,52 +20,53 @@ struct TravelOnListScreen: View {
     @State private var showNonCommentOnly = false
     @State private var sortedType: Int = 0
     @State private var user_id: String = ""
+    @State var search: String = ""
     var body: some View {
-        
         NavigationView {
-            ScrollView {
-                VStack{
-                    Picker("정렬 방법", selection: $sortedType) {
-                        ForEach(SortType.allCases) { s in
-                            switch s {
-                            case .byDate:
-                                Text("최신순")
-                                
-                            case .byViews:
-                                Text("조회순")
-                                
-                            case .byComments:
-                                Text("답변 많은 순")
-                            }
-                        }
-                    }
-                    
-                    // Picker
-                    HStack(spacing: 0) {
-                        CheckedValue(value: false, label: "지역" )
-                        
-                        CheckedValued(value: $showCommentOnly, label: "답변 있는 것만")
-                            .padding()
-                        
-                        CheckedValued(value: $showNonCommentOnly, label: "답변 없는 것만")
-                    }
-                    
-                    // TravelOnLists · WriteButton
-                    ZStack {
-                        TravelOnList(showCommentOnly: $showCommentOnly, showNonCommentOnly: $showNonCommentOnly, sortedType: $sortedType, user_id: $user_id)
-                        
-                        HStack {
-                            Spacer()
+            VStack{
+                Picker("정렬 방법", selection: $sortedType) {
+                    ForEach(SortType.allCases) { s in
+                        switch s {
+                        case .byDate:
+                            Text("최신순")
                             
-                            NavigationLink(destination: TravelOnReviseScreen()) {
-                                Text("+")
-                            }                            .buttonStyle(WriteButtonStyle())
-                                .offset(y: -130)
-                                .frame(height: ScreenSize.height * 0.7, alignment: .bottom)
+                        case .byViews:
+                            Text("조회순")
+                            
+                        case .byComments:
+                            Text("답변 많은 순")
                         }
                     }
                 }
-            } // end of ScrollView
+                
+                SearchBar("검색", text: $search)
+                
+                // Picker
+                HStack(spacing: 0) {
+                    CheckedValue(value: false, label: "지역" )
+                    
+                    CheckedValued(value: $showCommentOnly, label: "답변 있는 것만")
+                        .padding()
+                    
+                    CheckedValued(value: $showNonCommentOnly, label: "답변 없는 것만")
+                }
+                
+                ZStack {
+                    // TravelOn List 출력
+                    ScrollView {
+                        TravelOnList(showCommentOnly: $showCommentOnly, showNonCommentOnly: $showNonCommentOnly, sortedType: $sortedType, user_id: $user_id)
+                    }
+                    
+                    // 글쓰기 Floating Button
+                    NavigationLink(destination: TravelOnReviseScreen()) {
+                        Text("+")
+                    }
+                    .buttonStyle(WriteButtonStyle())
+                    .frame(height: ScreenSize.height * 0.6, alignment: .bottom)
+                    .padding()
+                    
+                }
+            }
         } // end of NavigationView
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)

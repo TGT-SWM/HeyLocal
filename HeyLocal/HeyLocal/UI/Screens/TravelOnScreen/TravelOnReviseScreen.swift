@@ -5,6 +5,42 @@
 //  Copyright (c) 2022 TGT All rights reserved.
 //
 
+
+
+/*
+{
+  "accommodationMaxCost": 0,
+  "accommodationTypeSet": [
+    "ALL"
+  ],
+  "description": "string",
+  "drinkMaxCost": 0,
+  "drinkTypeSet": [
+    "BEER"
+  ],
+  "foodMaxCost": 0,
+  "foodTypeSet": [
+    "CHINESE"
+  ],
+  "memberTypeSet": [
+    "ALONE"
+  ],
+  "region": {
+    "city": "string",
+    "state": "string"
+  },
+  "title": "string",
+  "transportationType": "OWN_CAR",
+  "travelEndDate": "2022-09-03",
+  "travelStartDate": "2022-09-03",
+  "travelTypeGroup": {
+    "activityTasteType": "HARD",
+    "placeTasteType": "FAMOUS",
+    "snsTasteType": "NO"
+  }
+}
+*/
+
 import SwiftUI
 
 struct TravelOnReviseScreen: View {
