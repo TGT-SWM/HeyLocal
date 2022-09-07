@@ -15,8 +15,10 @@ struct PlaceList: View {
 			if (places.isEmpty) {
 				Text("등록된 장소가 없습니다. 장소를 추가해보세요.")
 			} else {
-				ForEach(places.indices, id: \.self) { idx in
-					listItem(order: idx, place: places[idx])
+				List {
+					ForEach(places.indices, id: \.self) { idx in
+						listItem(order: idx, place: places[idx])
+					}
 				}
 			}
 		}

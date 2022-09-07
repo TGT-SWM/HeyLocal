@@ -95,9 +95,8 @@ struct PlanDetailScreen: View {
 	
 	/// 해당 일자 장소 리스트
 	func placesViewOf(day: Int) -> some View {
-		ScrollView {
-			PlaceList(places: viewModel.placesOf(day: day))
-		}.padding(.horizontal)
+		PlaceList(places: viewModel.placesOf(day: day))
+			.padding(.horizontal)
 	}
 	
 	/// 일자 이동을 위한 버튼입니다.
