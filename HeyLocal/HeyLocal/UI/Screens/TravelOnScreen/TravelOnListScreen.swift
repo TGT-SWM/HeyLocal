@@ -8,22 +8,23 @@
 import SwiftUI
 
 struct TravelOnListScreen: View {
-    enum SortType: Int, CaseIterable, Identifiable {
-        case byDate = 0
-        case byViews = 1
-        case byComments = 2
+    
+    enum SortType: String, CaseIterable, Identifiable {
+        case byDate = "DATE"
+        case byViews = "VIEWS"
+        case byComments = "OPINIONS"
         
-        var id: Int { self.rawValue }
+        var id: String { self.rawValue }
     }
     
-    @State private var showCommentOnly = false
-    @State private var showNonCommentOnly = false
-    @State private var sortedType: Int = 0
-    @State private var user_id: String = ""
+    @State private var withOpionions : Bool = false
+    @State private var sortedType: SortType = .byDate
+    
     @State var search: String = ""
     var body: some View {
         NavigationView {
             VStack{
+                // 정렬
                 Picker("정렬 방법", selection: $sortedType) {
                     ForEach(SortType.allCases) { s in
                         switch s {
@@ -39,22 +40,23 @@ struct TravelOnListScreen: View {
                     }
                 }
                 
+                // 검색
                 SearchBar("검색", text: $search)
                 
-                // Picker
+                // Toggle
                 HStack(spacing: 0) {
                     CheckedValue(value: false, label: "지역" )
                     
-                    CheckedValued(value: $showCommentOnly, label: "답변 있는 것만")
+                    CheckedValued(value: $withOpionions, label: "답변 있는 것만")
                         .padding()
                     
-                    CheckedValued(value: $showNonCommentOnly, label: "답변 없는 것만")
+                    CheckedValued(value: $withOpionions, label: "답변 없는 것만")
                 }
                 
                 ZStack {
                     // TravelOn List 출력
                     ScrollView {
-                        TravelOnList(showCommentOnly: $showCommentOnly, showNonCommentOnly: $showNonCommentOnly, sortedType: $sortedType, user_id: $user_id)
+                        TravelOnList(sortBy: sortedType.rawValue)
                     }
                     
                     // 글쓰기 Floating Button

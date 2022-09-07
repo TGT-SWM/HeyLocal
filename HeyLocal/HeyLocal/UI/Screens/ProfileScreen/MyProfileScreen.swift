@@ -18,12 +18,13 @@ struct MyProfileScreen: View {
     @State var navLinkActive: Bool = false
     
     @State var nickname: String = "김현지"
+    @State var user: User = User(userId: "kimhyeonji", nickname: "김현지", imageURL: "", knowHow: 10, ranking: 3)
     
     var body: some View {
         NavigationView {
             VStack {
                 ZStack {
-                    ProfileComponent()
+                    ProfileComponent(user: user)
                     
                     VStack (spacing: 30) {
                         NavigationLink(destination: SettingScreen(), label: {
@@ -34,7 +35,7 @@ struct MyProfileScreen: View {
                         })
                         
                         
-                        NavigationLink(destination: ProfileReviseScreen(navLinkActive: $navLinkActive, nickname: $nickname), isActive: $navLinkActive) {
+                        NavigationLink(destination: ProfileReviseScreen(navLinkActive: $navLinkActive, nickname: $user.nickname), isActive: $navLinkActive) {
                             Image(systemName: "pencil")
                                 .resizable()
                                 .foregroundColor(Color.black)
@@ -50,7 +51,7 @@ struct MyProfileScreen: View {
                         
                         TabView(selection: $selectedTab, content: {
                             ScrollView {
-                                TravelOnList(showCommentOnly: $showCommentOnly, showNonCommentOnly: $showNonCommentOnly, sortedType: $sortedType, user_id: $user_id)
+                                TravelOnList()
                                     .tag(0)
                             }
                             

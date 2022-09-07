@@ -11,11 +11,7 @@ import Combine
 struct TravelOnService {
     private var travelOnRepository = TravelOnRepository()
     
-    func load() -> [TravelOn] {
-        return travelOnRepository.load()
-    }
-    
-    func getTravelOns() -> AnyPublisher<[TravelOn], Error> {
-        return travelOnRepository.getTravelOns()
+    func getTravelOns(lastItemId: Int?, pageSize: Int, regionId: Int?, sortBy: String, withOpinions: Bool?) -> AnyPublisher<[TravelOn], Error> {
+        return travelOnRepository.getTravelOns(lastItemId: lastItemId, pageSize: pageSize, regionId: regionId, sortBy: sortBy, withOpinions: withOpinions)
     }
 }

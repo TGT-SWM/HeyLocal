@@ -17,6 +17,7 @@
 		A813CA2E28B4EE2B000F0ADF /* ScreenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A813CA2D28B4EE2B000F0ADF /* ScreenSize.swift */; };
 		A813CA3028B4F033000F0ADF /* SNSButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A813CA2F28B4F033000F0ADF /* SNSButtonStyle.swift */; };
 		A836925828C6F48D00DBDB06 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A836925728C6F48D00DBDB06 /* SearchBar.swift */; };
+		A836925A28C72A0500DBDB06 /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = A836925928C72A0500DBDB06 /* Region.swift */; };
 		A83F100D28BCCCE000978711 /* TravelOnListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83F100C28BCCCE000978711 /* TravelOnListScreen.swift */; };
 		A84E841228B8C28600128D9B /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84E841128B8C28600128D9B /* SignInScreen.swift */; };
 		A8647C3A28BDA48B00D284B6 /* WriteButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8647C3928BDA48B00D284B6 /* WriteButtonStyle.swift */; };
@@ -101,6 +102,7 @@
 		A813CA2D28B4EE2B000F0ADF /* ScreenSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSize.swift; sourceTree = "<group>"; };
 		A813CA2F28B4F033000F0ADF /* SNSButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSButtonStyle.swift; sourceTree = "<group>"; };
 		A836925728C6F48D00DBDB06 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		A836925928C72A0500DBDB06 /* Region.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Region.swift; sourceTree = "<group>"; };
 		A83F100C28BCCCE000978711 /* TravelOnListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOnListScreen.swift; sourceTree = "<group>"; };
 		A84E841128B8C28600128D9B /* SignInScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
 		A8525DFC28C1B0C90085B36A /* Authorization.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Authorization.xcconfig; sourceTree = "<group>"; };
@@ -358,6 +360,7 @@
 				A80213D828BF2D6C00B6359E /* User.swift */,
 				A80213D628BF2C9800B6359E /* TravelOn.swift */,
 				EF3FCF1828C1345C00D48F9E /* Place.swift */,
+				A836925928C72A0500DBDB06 /* Region.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -615,6 +618,7 @@
 				EF3FCF1728C12D0800D48F9E /* PlanDetailScreenViewModel.swift in Sources */,
 				A80213D328BF2C2100B6359E /* TravelOnViewModel.swift in Sources */,
 				A80213DD28BF326D00B6359E /* WebImage.swift in Sources */,
+				A836925A28C72A0500DBDB06 /* Region.swift in Sources */,
 				A8647C3A28BDA48B00D284B6 /* WriteButtonStyle.swift in Sources */,
 				EF3FCF1528C12A3900D48F9E /* PlanDetailScreen.swift in Sources */,
 				A80213D328BF2C2100B6359E /* TravelOnViewModel.swift in Sources */,

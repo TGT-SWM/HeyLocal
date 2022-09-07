@@ -8,36 +8,24 @@
 import SwiftUI
 
 struct TravelOnList: View {
-    @Binding var showCommentOnly: Bool
-    @Binding var showNonCommentOnly: Bool
-    @Binding var sortedType: Int
-    @Binding var user_id: String
-    
     @StateObject var viewModel = ViewModel()
+    
+    @State var lastItemId: Int? = nil
+    @State var pageSize: Int = 10
+    @State var regionId: Int? = nil
+    @State var sortBy: String = "DATE"
+    @State var withOpinions: Bool? = nil
     
     var body: some View {
         VStack {
-            // 비어있는지 확인
-            
-            // 아니면 출력
-            contentView
-        }
-        .padding()
-        .onAppear() {
-            viewModel.fetchTravelOns()
-        }
-    }
-    
-    var emptyView: some View {
-        Text("여행 On이 존재하지 않습니다.")
-    }
-    
-    var contentView: some View {
-        VStack {
-            ForEach(viewModel.jungin(user_id: user_id, showCommentOnly: showCommentOnly, showNonCommentOnly: showNonCommentOnly, sortedType: sortedType)) { travelOn in
+            ForEach(viewModel.travelOns) { travelOn in
                 TravelOnComponent(travelOn: travelOn)
                     .padding()
             }
+        }
+        .padding()
+        .onAppear {
+            viewModel.fetchTravelOn(lastItemId: lastItemId, pageSize: pageSize, regionId: regionId, sortBy: sortBy, withOpinions: withOpinions)
         }
     }
 }
@@ -59,26 +47,32 @@ struct TravelOnComponent: View {
             
             VStack {
                 Text(travelOn.title)
-                Text(travelOn.region)
+                Text("\(travelOn.region.city)  \(travelOn.region.state)")
                 
-                Text("\(travelOn.uploadDate, formatter: dateFormatter)")
+                Text("\(travelOn.modifiedDate, formatter: dateFormatter)")
                 
                 HStack {
-                    WebImage(url: travelOn.writer.imageURL)
+                    WebImage(url: travelOn.userProfile.imageURL)
                         .scaledToFill()
                         .frame(width: 40, height: 40)
                         .clipped()
                         .cornerRadius(.infinity)
                     
-                    Text(travelOn.writer.name)
+                    Text(travelOn.userProfile.nickname)
                     
                 }
                 
-                Text("조회수 : \(travelOn.numOfViews)")
-                Text("답변수 : \(travelOn.numOfComments)")
+                Text("조회수 : \(travelOn.views)")
+                Text("답변수 : \(travelOn.opinionQuantity)")
                 
             }
         }
     }
 }
 
+
+struct TravelOnList_Previews: PreviewProvider {
+    static var previews: some View {
+        TravelOnList()
+    }
+}
