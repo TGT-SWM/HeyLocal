@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ProfileComponent: View {
+    @State var user: User
+    
     var body: some View {
         ZStack {
             Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255)
@@ -16,7 +18,7 @@ struct ProfileComponent: View {
                 HStack {
                     // User Image
                     Group {
-                        WebImage(url: "https://cdna.artstation.com/p/assets/images/images/034/457/380/large/shin-min-jeong-.jpg?1612345128")
+                        WebImage(url: user.imageUrl)
                             .scaledToFill()
                             .frame(width: 100, height: 100)
                             .clipped()
@@ -30,7 +32,7 @@ struct ProfileComponent: View {
                     Group {
                         VStack(alignment: .leading) {
                             HStack {
-                                Text("김현지")
+                                Text("\(user.nickname)")
                                     .font(.system(size: 23))
                                     .fontWeight(.bold)
                             }
@@ -41,7 +43,7 @@ struct ProfileComponent: View {
                             HStack {
                                 Text("노하우")
                                     .fontWeight(.semibold)
-                                Text("500하우")
+                                Text("\(user.knowHow)하우")
                             }
                             
                             Spacer()
@@ -50,7 +52,7 @@ struct ProfileComponent: View {
                             HStack {
                                 Text("랭킹")
                                     .fontWeight(.semibold)
-                                Text("350위")
+                                Text("\(user.ranking)위")
                             }
                         } // end of VStack
                     } // end of Group
@@ -64,6 +66,6 @@ struct ProfileComponent: View {
 
 struct ProfileComponent_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileComponent()
+        ProfileComponent(user: User(nickname: "김현지", imageUrl: "", knowHow: 100, ranking: 20))
     }
 }
