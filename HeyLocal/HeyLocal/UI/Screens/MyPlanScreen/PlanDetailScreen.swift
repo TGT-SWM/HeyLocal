@@ -95,7 +95,7 @@ struct PlanDetailScreen: View {
 	
 	/// 해당 일자 장소 리스트
 	func placesViewOf(day: Int) -> some View {
-		PlaceList(places: viewModel.placesOf(day: day))
+		PlaceList(places: $viewModel.schedules[day - 1].places)
 			.padding(.horizontal)
 	}
 	
