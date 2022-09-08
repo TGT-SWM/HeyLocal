@@ -13,7 +13,8 @@ struct TravelOnRepository {
     private let agent = NetworkAgent()
     private let travelonUrl =  "\(Config.apiURL)/travel-ons"
     
-    func getTravelOns(lastItemId: Int?, pageSize: Int, regionId: Int?, sortBy: String, withOpinions: Bool?) -> AnyPublisher<[TravelOn], Error> {
+    // TravelOn 전체 목록 조회
+    func getTravelOnLists(lastItemId: Int?, pageSize: Int, regionId: Int?, sortBy: String, withOpinions: Bool?) -> AnyPublisher<[TravelOn], Error> {
         var components = URLComponents(string: travelonUrl)
         var queryItem: [URLQueryItem] = []
         
@@ -58,6 +59,23 @@ struct TravelOnRepository {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
         
+        
+        // Publisher 반환
+        return agent.run(request)
+    }
+    
+    // TravelOn 상세조회
+    func getTravelOn(travelOnId: Int) -> AnyPublisher<TravelOnDetail, Error> {
+        // URLRequest 객체 생성
+        let urlString = "\(travelonUrl)/\(travelOnId)"
+        let url = URL(string: urlString)!
+        var request = URLRequest(url: url)
+        
+        // HTTP 헤더 구성
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
         
         // Publisher 반환
         return agent.run(request)

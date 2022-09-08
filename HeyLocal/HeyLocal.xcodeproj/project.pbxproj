@@ -7,13 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A80213D028BF293F00B6359E /* TravelOnList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80213CF28BF293F00B6359E /* TravelOnList.swift */; };
 		A80213D328BF2C2100B6359E /* TravelOnViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80213D228BF2C2100B6359E /* TravelOnViewModel.swift */; };
 		A80213D528BF2C4900B6359E /* TravelOnRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80213D428BF2C4900B6359E /* TravelOnRepository.swift */; };
 		A80213D728BF2C9800B6359E /* TravelOn.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80213D628BF2C9800B6359E /* TravelOn.swift */; };
 		A80213D928BF2D6C00B6359E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80213D828BF2D6C00B6359E /* User.swift */; };
 		A80213DB28BF2EA100B6359E /* TravelOnService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80213DA28BF2EA100B6359E /* TravelOnService.swift */; };
 		A80213DD28BF326D00B6359E /* WebImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80213DC28BF326D00B6359E /* WebImage.swift */; };
+		A80B903628C9EA200026866A /* TravelOnDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B903528C9EA200026866A /* TravelOnDetailScreen.swift */; };
+		A80B903A28CA0FFB0026866A /* ToggleButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B903928CA0FFB0026866A /* ToggleButtonStyle.swift */; };
+		A80B903C28CA105F0026866A /* TravelOnComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B903B28CA105F0026866A /* TravelOnComponent.swift */; };
 		A813CA2E28B4EE2B000F0ADF /* ScreenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A813CA2D28B4EE2B000F0ADF /* ScreenSize.swift */; };
 		A813CA3028B4F033000F0ADF /* SNSButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A813CA2F28B4F033000F0ADF /* SNSButtonStyle.swift */; };
 		A836925828C6F48D00DBDB06 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A836925728C6F48D00DBDB06 /* SearchBar.swift */; };
@@ -92,13 +94,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A80213CF28BF293F00B6359E /* TravelOnList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOnList.swift; sourceTree = "<group>"; };
 		A80213D228BF2C2100B6359E /* TravelOnViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOnViewModel.swift; sourceTree = "<group>"; };
 		A80213D428BF2C4900B6359E /* TravelOnRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOnRepository.swift; sourceTree = "<group>"; };
 		A80213D628BF2C9800B6359E /* TravelOn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOn.swift; sourceTree = "<group>"; };
 		A80213D828BF2D6C00B6359E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A80213DA28BF2EA100B6359E /* TravelOnService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOnService.swift; sourceTree = "<group>"; };
 		A80213DC28BF326D00B6359E /* WebImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImage.swift; sourceTree = "<group>"; };
+		A80B903528C9EA200026866A /* TravelOnDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOnDetailScreen.swift; sourceTree = "<group>"; };
+		A80B903928CA0FFB0026866A /* ToggleButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleButtonStyle.swift; sourceTree = "<group>"; };
+		A80B903B28CA105F0026866A /* TravelOnComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOnComponent.swift; sourceTree = "<group>"; };
 		A813CA2D28B4EE2B000F0ADF /* ScreenSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSize.swift; sourceTree = "<group>"; };
 		A813CA2F28B4F033000F0ADF /* SNSButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSButtonStyle.swift; sourceTree = "<group>"; };
 		A836925728C6F48D00DBDB06 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
@@ -211,8 +215,7 @@
 		A80213D128BF2C0700B6359E /* TravelOnList */ = {
 			isa = PBXGroup;
 			children = (
-				A80213CF28BF293F00B6359E /* TravelOnList.swift */,
-				A80213D228BF2C2100B6359E /* TravelOnViewModel.swift */,
+				A80B903B28CA105F0026866A /* TravelOnComponent.swift */,
 			);
 			path = TravelOnList;
 			sourceTree = "<group>";
@@ -233,6 +236,8 @@
 			children = (
 				A83F100C28BCCCE000978711 /* TravelOnListScreen.swift */,
 				A8C957E628C2E1EB0009E10B /* TravelOnReviseScreen.swift */,
+				A80B903528C9EA200026866A /* TravelOnDetailScreen.swift */,
+				A80213D228BF2C2100B6359E /* TravelOnViewModel.swift */,
 			);
 			path = TravelOnScreen;
 			sourceTree = "<group>";
@@ -431,6 +436,7 @@
 				A8794B3028B4EB5900959D56 /* BasicButtonStyle.swift */,
 				A813CA2F28B4F033000F0ADF /* SNSButtonStyle.swift */,
 				A8647C3928BDA48B00D284B6 /* WriteButtonStyle.swift */,
+				A80B903928CA0FFB0026866A /* ToggleButtonStyle.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -634,10 +640,11 @@
 				EFAA2AC328BBC30E00B56A3C /* AuthRepository.swift in Sources */,
 				EF26CD9328C0F15E006D0D27 /* MyPlanListViewModel.swift in Sources */,
 				A8C957E728C2E1EB0009E10B /* TravelOnReviseScreen.swift in Sources */,
+				A80B903628C9EA200026866A /* TravelOnDetailScreen.swift in Sources */,
+				A80B903C28CA105F0026866A /* TravelOnComponent.swift in Sources */,
 				EFDC441B28C0735400E8747C /* PlanRepository.swift in Sources */,
 				EF3FCF1928C1345C00D48F9E /* Place.swift in Sources */,
 				EF8FF25D28B4D0B100C053B7 /* HeyLocalApp.swift in Sources */,
-				A80213D028BF293F00B6359E /* TravelOnList.swift in Sources */,
 				A80213D928BF2D6C00B6359E /* User.swift in Sources */,
 				A87F6C9D28C099EE0076046E /* MyProfileScreen.swift in Sources */,
 				EFAA2ACD28BBD19400B56A3C /* SignInScreenTest.swift in Sources */,
@@ -654,6 +661,7 @@
 				EF26CD8A28C0EECA006D0D27 /* PlanService.swift in Sources */,
 				EF26CD8D28C0F102006D0D27 /* MyPlanScreen.swift in Sources */,
 				A8794B3128B4EB5900959D56 /* BasicButtonStyle.swift in Sources */,
+				A80B903A28CA0FFB0026866A /* ToggleButtonStyle.swift in Sources */,
 				EF1E4CCF28B53A6200D985E3 /* NetworkAgent.swift in Sources */,
 				A836925828C6F48D00DBDB06 /* SearchBar.swift in Sources */,
 				EF26CD8828C0E9DA006D0D27 /* Config.swift in Sources */,

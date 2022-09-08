@@ -12,42 +12,58 @@ struct TravelOn: Decodable, Identifiable {
     var title: String
     var region: Region
     var modifiedDate: String
-    var userProfile: User
+    var user: User
     var views: Int
     var opinionQuantity: Int
     
-//    enum CodingKeys: String, CodingKey {
-//        case id = "id"
-//        case title = "title"
-//        case region = "region"
-//        case uploadDate = "modifiedDate"
-//        case writer = "userProfile"
-//        case numOfViews = "views"
-//        case numOfComments = "opinionQuantity"
-//    }
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case title = "title"
+        case region = "region"
+        case modifiedDate = "modifiedDate"
+        case user = "userProfile"
+        case views = "views"
+        case opinionQuantity = "opinionQuantity"
+    }
 }
 
+struct TravelOnDetail: Decodable, Identifiable {
+    var id: Int
+    var title: String
+    var views: Int
+    var region: Region
+    var author: User
+    
+    var travelStartDate: String
+    var travelEndDate: String
+    var createdDateTime: String
+    var modifiedDate: String
+    
+    var transportationType: String
+    
+    var travelMemberSet: [HopeType]
+    
+    var accomodationMaxCost: Int
+    var hopeAccomodationSet: [HopeType]
+    
+    var foodMaxCost: Int
+    var hopeFoodSet: [HopeType]
+    
+    var drinkMaxCost: Int
+    var hopeDrinkSet: [HopeType]
+    
+    var travelTypeGroup: TravelType
+}
 
+struct HopeType: Decodable {
+    var id: Int
+    var type: String
+}
 
-/*
- {
-    "createdDateTime": "2022-09-06T07:14:26.074Z",
-    "description": "string",
-    "id": 0,
-    "modifiedDate": "2022-09-06T07:14:26.074Z",
-    "opinionQuantity": 0,
-    "region": {
-      "city": "string",
-      "id": 0,
-      "state": "string"
-    },
-    "title": "string",
-    "userProfile": {
-      "imageUrl": "string",
-      "knowHow": 0,
-      "nickname": "string",
-      "ranking": 0
-    },
-    "views": 0
-  }
- */
+struct TravelType: Decodable {
+    var id: Int
+    var placeTasteType: String
+    var activityTasteType: String
+    var snsTasteType: String
+}

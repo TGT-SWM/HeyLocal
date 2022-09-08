@@ -52,7 +52,7 @@ struct ProfileComponent: View {
                             HStack {
                                 Text("랭킹")
                                     .fontWeight(.semibold)
-                                Text("\(user.ranking)위")
+//                                Text("\(user.ranking)위")
                             }
                         } // end of VStack
                     } // end of Group

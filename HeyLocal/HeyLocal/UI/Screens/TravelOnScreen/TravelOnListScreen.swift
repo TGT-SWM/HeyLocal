@@ -22,6 +22,7 @@ struct TravelOnListScreen: View {
     @State var withNonOpinions : Bool = false
     @State var search: String = ""
 
+    @StateObject var viewModel = ViewModel()
     var body: some View {
         VStack {
             // sort By
@@ -41,7 +42,9 @@ struct TravelOnListScreen: View {
                             .tag(value)
                     }
                 }
-            }
+            }.onChange(of: sortType, perform: { value in
+                viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 3, regionId: nil, sortBy: value.rawValue, withOpinions: withOpinions, withNonOpinions: withNonOpinions)
+            })
             
             // Search Bar
             SearchBar("검색", text: $search)
@@ -50,16 +53,34 @@ struct TravelOnListScreen: View {
             HStack(spacing: 0) {
                 CheckedValue(value: false, label: "지역" )
                 
-                CheckedValued(value: $withOpinions, label: "답변 있는 것만")
+                Button(action: {
+                    withOpinions.toggle()
+                    viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 3, regionId: nil, sortBy: sortType.rawValue, withOpinions: withOpinions, withNonOpinions: withNonOpinions)
+                    
+                }) {
+                    Text("답변 있는 것만")
+                }
+                .buttonStyle(ToggleButtonStyle(value: $withOpinions))
                     .padding()
                 
-                CheckedValued(value: $withNonOpinions, label: "답변 없는 것만")
+                Button(action: {
+                    withNonOpinions.toggle()
+                    viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 3, regionId: nil, sortBy: sortType.rawValue, withOpinions: withOpinions, withNonOpinions: withNonOpinions)
+                }) {
+                    Text("답변 없는 것만")
+                }
+                .buttonStyle(ToggleButtonStyle(value: $withNonOpinions))
             }
             
             ZStack {
                 // content
                 ScrollView {
-                    TravelOnList(sortBy: $sortType, withOpinions: $withOpinions, withNonOpinions: $withNonOpinions)
+                    VStack {
+                        ForEach(viewModel.travelOns) { travelOn in
+                            TravelOnComponent(travelOn: travelOn)
+                                .padding()
+                        }
+                    }
                 }
                 
                 // write Button
