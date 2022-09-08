@@ -18,7 +18,7 @@ struct ProfileComponent: View {
                 HStack {
                     // User Image
                     Group {
-                        WebImage(url: user.imageURL)
+                        WebImage(url: user.imageUrl)
                             .scaledToFill()
                             .frame(width: 100, height: 100)
                             .clipped()
@@ -66,6 +66,6 @@ struct ProfileComponent: View {
 
 struct ProfileComponent_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileComponent(user: User(userId: "kimhyeonji", nickname: "김현지", imageURL: "", knowHow: 100, ranking: 20))
+        ProfileComponent(user: User(nickname: "김현지", imageUrl: "", knowHow: 100, ranking: 20))
     }
 }

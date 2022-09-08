@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct TravelOnList: View {
     @StateObject var viewModel = ViewModel()
@@ -13,32 +14,59 @@ struct TravelOnList: View {
     @State var lastItemId: Int? = nil
     @State var pageSize: Int = 10
     @State var regionId: Int? = nil
-    @State var sortBy: String = "DATE"
-    @State var withOpinions: Bool? = nil
-    
+    @Binding var sortBy: SortType
+    @Binding var withOpinions: Bool
+    @Binding var withNonOpinions: Bool
+
+    @ViewBuilder
     var body: some View {
+        content
+    }
+    
+    @ViewBuilder private var content: some View {
+        switch sortBy{
+        case .byDate:
+            changeView
+        case .byViews:
+            changeView
+        case .byComments:
+            changeView
+        }
+        
+        switch withOpinions{
+        case false:
+            changeView
+        case true:
+            changeView
+        }
+        
+        switch withNonOpinions{
+        case false:
+            changeView
+        case true:
+            changeView
+        }
+    }
+}
+
+
+private extension TravelOnList {
+    var changeView: some View {
         VStack {
             ForEach(viewModel.travelOns) { travelOn in
                 TravelOnComponent(travelOn: travelOn)
                     .padding()
             }
         }
-        .padding()
         .onAppear {
-            viewModel.fetchTravelOn(lastItemId: lastItemId, pageSize: pageSize, regionId: regionId, sortBy: sortBy, withOpinions: withOpinions)
+            viewModel.fetchTravelOn(lastItemId: lastItemId, pageSize: pageSize, regionId: regionId, sortBy: sortBy.rawValue, withOpinions: withOpinions, withNonOpinions: withNonOpinions)
         }
     }
 }
 
 struct TravelOnComponent: View {
     var travelOn: TravelOn
-    
-    var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "YYYY년 M월 d일"
-        return formatter
-    }()
-    
+
     var body: some View {
         ZStack {
             Rectangle()
@@ -46,13 +74,16 @@ struct TravelOnComponent: View {
                 .frame(width: ScreenSize.width * 0.9, height: ScreenSize.height * 0.25)
             
             VStack {
-                Text(travelOn.title)
-                Text("\(travelOn.region.city)  \(travelOn.region.state)")
+                Text("\(travelOn.title)")
+                Text("\(travelOn.region.state)")
                 
-                Text("\(travelOn.modifiedDate, formatter: dateFormatter)")
+                
+                let printDate = travelOn.modifiedDate.components(separatedBy: "T")
+                let yyyymmdd = printDate[0].components(separatedBy: "-")
+                Text("\(yyyymmdd[0])년 \(yyyymmdd[1])월 \(yyyymmdd[2])일")
                 
                 HStack {
-                    WebImage(url: travelOn.userProfile.imageURL)
+                    WebImage(url: travelOn.userProfile.imageUrl)
                         .scaledToFill()
                         .frame(width: 40, height: 40)
                         .clipped()
@@ -67,12 +98,5 @@ struct TravelOnComponent: View {
                 
             }
         }
-    }
-}
-
-
-struct TravelOnList_Previews: PreviewProvider {
-    static var previews: some View {
-        TravelOnList()
     }
 }

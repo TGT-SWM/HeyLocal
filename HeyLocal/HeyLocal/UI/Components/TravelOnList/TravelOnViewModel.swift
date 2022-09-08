@@ -11,16 +11,29 @@ import Combine
 extension TravelOnList {
     class ViewModel: ObservableObject {
         private var travelOnService = TravelOnService()
-        @Published final var travelOns = [TravelOn]()
+        @Published var travelOns = [TravelOn]()
         
         var cancellable: AnyCancellable?
-
-        func fetchTravelOn(lastItemId: Int?, pageSize: Int, regionId: Int?, sortBy: String, withOpinions: Bool?) {
-            cancellable = travelOnService.getTravelOns(lastItemId: lastItemId, pageSize: pageSize, regionId: regionId, sortBy: sortBy, withOpinions: withOpinions)
+        init() {
+            cancellable = travelOnService.getTravelOns(lastItemId: nil, pageSize: 3, regionId: nil, sortBy: "DATE", withOpinions: nil)
                 .sink(receiveCompletion: { _ in
                 }, receiveValue: { travelOns in
                     self.travelOns = travelOns
-                    print("Dddddd")
+                })
+        }
+        
+        func fetchTravelOn(lastItemId: Int?, pageSize: Int, regionId: Int?, sortBy: String, withOpinions: Bool, withNonOpinions: Bool) {
+            
+            // withOpinions 값
+            var with_opinons: Bool? = nil
+            if (withOpinions != withNonOpinions) {
+                with_opinons = withOpinions
+            }
+            
+            cancellable = travelOnService.getTravelOns(lastItemId: lastItemId, pageSize: pageSize, regionId: regionId, sortBy: sortBy, withOpinions: with_opinons)
+                .sink(receiveCompletion: { _ in
+                }, receiveValue: { travelOns in
+                    self.travelOns = travelOns
                 })
         }
     }

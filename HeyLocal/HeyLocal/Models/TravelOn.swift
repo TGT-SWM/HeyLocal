@@ -11,7 +11,7 @@ struct TravelOn: Decodable, Identifiable {
     var id: Int
     var title: String
     var region: Region
-    var modifiedDate: Date
+    var modifiedDate: String
     var userProfile: User
     var views: Int
     var opinionQuantity: Int

@@ -18,7 +18,7 @@ struct MyProfileScreen: View {
     @State var navLinkActive: Bool = false
     
     @State var nickname: String = "김현지"
-    @State var user: User = User(userId: "kimhyeonji", nickname: "김현지", imageURL: "", knowHow: 10, ranking: 3)
+    @State var user: User = User(nickname: "김현지", imageUrl: "", knowHow: 10, ranking: 3)
     
     var body: some View {
         NavigationView {
@@ -51,8 +51,8 @@ struct MyProfileScreen: View {
                         
                         TabView(selection: $selectedTab, content: {
                             ScrollView {
-                                TravelOnList()
-                                    .tag(0)
+//                                TravelOnList(sortBy: "DATE", withOpinions: false, withNonOpinions: false)
+//                                    .tag(0)
                             }
                             
                             // TODO: 내 답변 뷰로 대체
