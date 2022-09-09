@@ -11,11 +11,12 @@ struct TravelOnComponent: View {
     var travelOn: TravelOn
 
     var body: some View {
+       
         ZStack {
             Rectangle()
                 .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
                 .frame(width: ScreenSize.width * 0.9, height: ScreenSize.height * 0.25)
-            
+             
             VStack {
                 Text("\(travelOn.title)")
                 Text("\(travelOn.region.state)")
@@ -41,5 +42,6 @@ struct TravelOnComponent: View {
                 
             }
         }
+        .foregroundColor(Color.black)
     }
 }

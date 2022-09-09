@@ -11,6 +11,7 @@ import SwiftUI
 struct Main: View {
 	@State private var tabSelection = Tab.home
     
+    // 탭바 배경색 설정
     init() {
         UITabBar.appearance().backgroundColor = UIColor.white
     }
