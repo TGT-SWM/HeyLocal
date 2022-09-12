@@ -28,8 +28,6 @@ struct TravelOnListScreen: View {
     @State private var action: Int? = 0
     var body: some View {
         VStack{
-            
-            
             NavigationView {
                 VStack {
                     // sort By
@@ -84,13 +82,10 @@ struct TravelOnListScreen: View {
                         ScrollView {
                             VStack {
                                 ForEach(viewModel.travelOns) { travelOn in
-                                    NavigationLink(destination: TravelOnDetailScreen(travelOnId: travelOn.id, travelOnDetail: viewModel.travelOn)){
+                                    NavigationLink(destination: TravelOnDetailScreen(travelOnId: travelOn.id)){
                                         TravelOnComponent(travelOn: travelOn)
                                             .padding()
                                     }
-//                                    .simultaneousGesture(TapGesture().onEnded({
-//                                        self.fetchTravelOnDetail(travelOnId: travelOn.id)
-//                                    }))
                                 }
                             }
                         }

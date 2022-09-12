@@ -26,9 +26,9 @@ extension TravelOnListScreen {
                                            createdDateTime: "2022-09-01T12:38:43.01024",
                                            modifiedDate: "2022-09-01T12:38:43.01024",
                                            transportationType: "OWN_CAR",
-                                           travelMemberSet: [HopeType(id: 1, type: "ALONE")],
+                                           travelMemberSet: [MemberType(id: 1, memberType: "ALONE")],
                                            accommodationMaxCost: 100000,
-                                           hopeAccomodationSet: [HopeType(id: 1, type: "ALL")],
+                                           hopeAccommodationSet: [HopeType(id: 1, type: "ALL")],
                                            foodMaxCost: 100000,
                                            hopeFoodSet: [HopeType(id: 1, type: "CHINESE")],
                                            drinkMaxCost: 100000,
@@ -36,7 +36,8 @@ extension TravelOnListScreen {
                                            travelTypeGroup: TravelType(id: 1,
                                                                        placeTasteType: "FAMOUS",
                                                                        activityTasteType: "HARD",
-                                                                       snsTasteType: "NO"))
+                                                                       snsTasteType: "NO"),
+                                           description: "string")
             
             
             cancellable = travelOnService.getTravelOnLists(lastItemId: nil, pageSize: 5, regionId: nil, sortBy: "DATE", withOpinions: nil)
@@ -67,8 +68,6 @@ extension TravelOnListScreen {
             cancellable = travelOnService.getTravelOn(travelOnId: travelOnId)
                 .sink(receiveCompletion: { _ in
                 }, receiveValue: { travelOn in
-                    print(travelOn.region!.state)
-                    print(travelOn.region!.city)
                     self.travelOn = travelOn
                 })
         }

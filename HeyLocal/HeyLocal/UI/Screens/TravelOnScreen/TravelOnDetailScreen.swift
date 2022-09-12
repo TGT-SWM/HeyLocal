@@ -10,19 +10,101 @@ import SwiftUI
 struct TravelOnDetailScreen: View {
     @State var travelOnId: Int
     @StateObject var viewModel = TravelOnListScreen.ViewModel()
-    @State var travelOnDetail: TravelOnDetail
     
-    enum Trans: String, CaseIterable {
-        case ownCar = "OWN_CAR"
-        case rentCar = "렌트카"
-        case noCar = "대중교통"
+    func memToString(mem: String) -> String {
+        switch mem {
+        case "ALONE":
+            return "혼자"
+        case "CHILD":
+            return "아이와"
+        case "PARENT":
+            return "부모님과"
+        case "COUPLE":
+            return "연인과"
+        case "FRIEND":
+            return "친구와"
+        case "PET":
+            return "반려동물과"
+        default:
+            return ""
+        }
+    }
+    
+    func accomToString(accom: String) -> String {
+//        [ ALL, CAMPING, GUEST_HOUSE, HOTEL, PENSION, RESORT ]
+        switch accom {
+        case "HOTEL":
+            return "호텔"
+        case "PENSION":
+            return "펜션"
+        case "CAMPING":
+            return "캠핑/글램핑"
+        case "GUEST_HOUSE":
+            return "게스트하우스"
+        case "RESORT":
+            return "리조트"
+        case "ALL":
+            return "상관 없어요"
+        default:
+            return ""
+        }
+    }
+    
+    func transToString(trans: String) -> String {
+        switch trans {
+        case "OWN_CAR":
+            return "자가용"
+        case "RENT_CAR":
+            return "렌트카"
+        case "PUBLIC":
+            return "대중교통"
+        default:
+            return ""
+        }
+    }
+    
+    func foodToString(food: String) -> String {
+//        [ CHINESE, GLOBAL, JAPANESE, KOREAN, WESTERN ]
+        switch food {
+        case "KOREAN":
+            return "한식"
+        case "WESTERN":
+            return "양식"
+        case "CHINESE":
+            return "중식"
+        case "JAPANESE":
+            return "일식"
+        case "GLOBAL":
+            return "세계음식"
+        default:
+            return ""
+        }
+    }
+    
+    func drinkToString(drink: String) -> String {
+//        [ BEER, LIQUOR, MAKGEOLLI, NO_ALCOHOL, SOJU, WINE ]
+        switch drink {
+        case "SOJU":
+            return "소주"
+        case "BEER":
+            return "맥주"
+        case "WINE":
+            return "와인"
+        case "MAKGEOLLI":
+            return "막걸리"
+        case "LIQUOR":
+            return "칵테일"
+        case "NO_ALCOHOL":
+            return "술 안마셔요"
+        default:
+            return ""
+        }
     }
     
     var body: some View {
         ScrollView {
-            Text("\(travelOnId)")
-            
             content
+        
             
             Spacer()
                 .frame(height: 30)
@@ -68,8 +150,6 @@ struct TravelOnDetailScreen: View {
                 Spacer()
                     .frame(height: 20)
             }
-            
-            
             
             // Region
             Group {
@@ -119,10 +199,26 @@ struct TravelOnDetailScreen: View {
                 }
                 Spacer()
                     .frame(height: 20)
+                
+                HStack {
+                    ForEach(viewModel.travelOn.travelMemberSet!) { member in
+                        ZStack {
+                            Rectangle()
+                                .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                .frame(width: ScreenSize.width * 0.26, height: ScreenSize.height * 0.05)
+                                .cornerRadius(90)
+                            
+                            Text("\(memToString(mem: member.memberType!))")
+                        }
+                        .frame(maxWidth: ScreenSize.width * 0.9, alignment: .leading)
+                    }
+                }
             }
+            
             
             // Accomodation
             Group {
+                
                 VStack {
                     HStack {
                         Text("숙소")
@@ -139,6 +235,21 @@ struct TravelOnDetailScreen: View {
                 }
                 Spacer()
                     .frame(height: 20)
+                
+                
+                HStack {
+                    ForEach(viewModel.travelOn.hopeAccommodationSet!) { accom in
+                        ZStack {
+                            Rectangle()
+                                .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                .frame(width: ScreenSize.width * 0.26, height: ScreenSize.height * 0.05)
+                                .cornerRadius(90)
+                            
+                            Text("\(accomToString(accom: accom.type!))")
+                        }
+                        .frame(maxWidth: ScreenSize.width * 0.9, alignment: .leading)
+                    }
+                }
             }
             
             // Transportation
@@ -152,22 +263,14 @@ struct TravelOnDetailScreen: View {
                 Spacer()
                     .frame(height: 20)
                 
+                
                 ZStack {
                     Rectangle()
                         .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
                         .frame(width: ScreenSize.width * 0.26, height: ScreenSize.height * 0.05)
                         .cornerRadius(90)
                     
-                    switch travelOnDetail.transportationType {
-                    case "OWN_CAR":
-                        Text("자가용")
-                    case "RENT_CAR":
-                        Text("렌트카")
-                    case "NO_CAR":
-                        Text("대중교통")
-                    default:
-                        Text("")
-                    }
+                    Text("\(transToString(trans: viewModel.travelOn.transportationType!))")
                 }
                 .frame(maxWidth: ScreenSize.width * 0.9, alignment: .leading)
             }
@@ -190,6 +293,20 @@ struct TravelOnDetailScreen: View {
                 }
                 Spacer()
                     .frame(height: 20)
+                
+                HStack {
+                    ForEach(viewModel.travelOn.hopeFoodSet!) { food in
+                        ZStack {
+                            Rectangle()
+                                .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                .frame(width: ScreenSize.width * 0.26, height: ScreenSize.height * 0.05)
+                                .cornerRadius(90)
+                            
+                            Text("\(foodToString(food: food.type!))")
+                        }
+                        .frame(maxWidth: ScreenSize.width * 0.9, alignment: .leading)
+                    }
+                }
             }
             
             // Drink
@@ -209,6 +326,20 @@ struct TravelOnDetailScreen: View {
                     .frame(maxWidth: ScreenSize.width * 0.9, alignment: .leading)
                     
                     
+                    HStack {
+                        ForEach(viewModel.travelOn.hopeDrinkSet!) { drink in
+                            ZStack {
+                                Rectangle()
+                                    .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                    .frame(width: ScreenSize.width * 0.26, height: ScreenSize.height * 0.05)
+                                    .cornerRadius(90)
+                                
+                                Text("\(drinkToString(drink: drink.type!))")
+                            }
+                        }
+                    }
+                    .frame(maxWidth: ScreenSize.width * 0.9, alignment: .leading)
+                    
                 }
                 Spacer()
                     .frame(height: 20)
@@ -222,6 +353,59 @@ struct TravelOnDetailScreen: View {
                         .fontWeight(.bold)
                         .frame(maxWidth: ScreenSize.width * 0.9, alignment: .leading)
                     
+                    HStack {
+                        // 인기 있는 곳 VS 참신한 곳
+                        ZStack {
+                            Rectangle()
+                                .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                .frame(width: ScreenSize.width * 0.26, height: ScreenSize.height * 0.05)
+                                .cornerRadius(90)
+                            
+                            switch viewModel.travelOn.travelTypeGroup.placeTasteType! {
+                            case "FAMOUS":
+                                Text("인기 있는 곳")
+                            case "FRESH":
+                                Text("참신한 곳")
+                            default:
+                                Text("")
+                            }
+                        }
+                        
+                        // 부지런 VS 느긋한
+                        ZStack {
+                            Rectangle()
+                                .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                .frame(width: ScreenSize.width * 0.26, height: ScreenSize.height * 0.05)
+                                .cornerRadius(90)
+                            
+                            switch viewModel.travelOn.travelTypeGroup.activityTasteType! {
+                            case "HARD":
+                                Text("부지런")
+                            case "LAZY":
+                                Text("느긋한")
+                            default:
+                                Text("")
+                            }
+                        }
+                        
+                        // SNS 유명장소 VS SNS는 안해요
+                        ZStack {
+                            Rectangle()
+                                .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                .frame(width: ScreenSize.width * 0.26, height: ScreenSize.height * 0.05)
+                                .cornerRadius(90)
+                            
+                            switch viewModel.travelOn.travelTypeGroup.snsTasteType! {
+                            case "YES":
+                                Text("SNS 유명장소")
+                            case "NO":
+                                Text("SNS는 안해요")
+                            default:
+                                Text("")
+                            }
+                        }
+                    }
+                    .frame(maxWidth: ScreenSize.width * 0.9, alignment: .leading)
                     
                 }
                 Spacer()
@@ -235,6 +419,9 @@ struct TravelOnDetailScreen: View {
                         .font(.system(size: 22))
                         .fontWeight(.bold)
                         .frame(maxWidth: ScreenSize.width * 0.9, alignment: .leading)
+                    
+                    Text(viewModel.travelOn.description!)
+                        .frame(maxWidth: ScreenSize.width * 0.9, alignment: .leading)
                 }
             }
         }
@@ -244,11 +431,11 @@ struct TravelOnDetailScreen: View {
         viewModel.fetchTravelOn(travelOnId: travelOnId)
     }
 }
-//
-//struct TravelOnDetailScreen_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TravelOnDetailScreen(travelOnId: 0)
-//    }
-//}
+
+struct TravelOnDetailScreen_Previews: PreviewProvider {
+    static var previews: some View {
+        TravelOnDetailScreen(travelOnId: 0)
+    }
+}
 
 

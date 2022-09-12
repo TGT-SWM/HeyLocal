@@ -22,7 +22,7 @@ struct TravelOn: Decodable, Identifiable {
         case title = "title"
         case region = "region"
         case modifiedDate = "modifiedDate"
-        case user = "userProfile"
+        case user = "author"
         case views = "views"
         case opinionQuantity = "opinionQuantity"
     }
@@ -42,10 +42,10 @@ struct TravelOnDetail: Decodable, Identifiable {
     
     var transportationType: String?
     
-    var travelMemberSet: [HopeType]?
+    var travelMemberSet: [MemberType]?
     
     var accommodationMaxCost: Int?
-    var hopeAccomodationSet: [HopeType]?
+    var hopeAccommodationSet: [HopeType]?
     
     var foodMaxCost: Int?
     var hopeFoodSet: [HopeType]?
@@ -54,9 +54,10 @@ struct TravelOnDetail: Decodable, Identifiable {
     var hopeDrinkSet: [HopeType]?
     
     var travelTypeGroup: TravelType
+    var description: String?
 }
 
-struct HopeType: Decodable {
+struct HopeType: Decodable, Identifiable {
     var id: Int?
     var type: String?
 }
@@ -68,62 +69,7 @@ struct TravelType: Decodable {
     var snsTasteType: String?
 }
 
-/*
- 
- {
-   "accommodationMaxCost": 0,
-   "author": {
-     "accountId": "string",
-     "id": 0,
-     "imageUrl": "string",
-     "knowHow": 0,
-     "nickname": "string"
-   },
-   "createdDateTime": "2022-09-09T07:59:25.299Z",
-   "drinkMaxCost": 0,
-   "foodMaxCost": 0,
-   "hopeAccommodationSet": [
-     {
-       "id": 0,
-       "type": "ALL"
-     }
-   ],
-   "hopeDrinkSet": [
-     {
-       "id": 0,
-       "type": "BEER"
-     }
-   ],
-   "hopeFoodSet": [
-     {
-       "id": 0,
-       "type": "CHINESE"
-     }
-   ],
-   "id": 0,
-   "modifiedDate": "2022-09-09T07:59:25.299Z",
-   "region": {
-     "city": "string",
-     "id": 0,
-     "state": "string"
-   },
-   "title": "string",
-   "transportationType": "OWN_CAR",
-   "travelEndDate": "2022-09-09",
-   "travelMemberSet": [
-     {
-       "id": 0,
-       "memberType": "ALONE"
-     }
-   ],
-   "travelStartDate": "2022-09-09",
-   "travelTypeGroup": {
-     "activityTasteType": "HARD",
-     "id": 0,
-     "placeTasteType": "FAMOUS",
-     "snsTasteType": "NO"
-   },
-   "views": 0
- }
- 
- */
+struct MemberType: Decodable, Identifiable {
+    var id: Int?
+    var memberType: String?
+}

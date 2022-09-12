@@ -235,8 +235,8 @@
 			isa = PBXGroup;
 			children = (
 				A83F100C28BCCCE000978711 /* TravelOnListScreen.swift */,
-				A8C957E628C2E1EB0009E10B /* TravelOnReviseScreen.swift */,
 				A80B903528C9EA200026866A /* TravelOnDetailScreen.swift */,
+				A8C957E628C2E1EB0009E10B /* TravelOnReviseScreen.swift */,
 				A80213D228BF2C2100B6359E /* TravelOnViewModel.swift */,
 			);
 			path = TravelOnScreen;
