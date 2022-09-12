@@ -7,71 +7,103 @@
 
 import SwiftUI
 
-enum SortType: String, CaseIterable, Identifiable {
-    case byDate = "DATE"
-    case byViews = "VIEWS"
-    case byComments = "OPINIONS"
-    
-    var id: String { self.rawValue }
-}
-
 struct TravelOnListScreen: View {
-    @State var sortType: SortType = .byDate
+    enum SortType: String, CaseIterable, Identifiable {
+        case byDate = "DATE"
+        case byViews = "VIEWS"
+        case byComments = "OPINIONS"
+        
+        var id: String { self.rawValue }
+    }
+    
+    @State var lastItemId: Int? = nil
+    @State var pageSize: Int = 5
     @State var regionId: Int? = nil
+    @State var sortType: SortType = .byDate
     @State var withOpinions : Bool = false
     @State var withNonOpinions : Bool = false
+    
     @State var search: String = ""
-
+    @StateObject var viewModel = ViewModel()
+    @State private var action: Int? = 0
     var body: some View {
-        VStack {
-            // sort By
-            Picker("sort By", selection: $sortType) {
-                ForEach(SortType.allCases, id:\.id) { value in
-                    switch value {
-                    case .byDate:
-                        Text("최신순")
-                            .tag(value)
+        VStack{
+            NavigationView {
+                VStack {
+                    // sort By
+                    Picker("sort By", selection: $sortType) {
+                        ForEach(SortType.allCases, id:\.id) { value in
+                            switch value {
+                            case .byDate:
+                                Text("최신순")
+                                    .tag(value)
+                                
+                            case .byViews:
+                                Text("조회순")
+                                    .tag(value)
+                                
+                            case .byComments:
+                                Text("답변순")
+                                    .tag(value)
+                            }
+                        }
+                    }.onChange(of: sortType, perform: { value in
+                        viewModel.fetchTravelOnList(lastItemId: lastItemId, pageSize: pageSize, regionId: regionId, sortBy: value.rawValue, withOpinions: withOpinions, withNonOpinions: withNonOpinions)
+                    })
+                    
+                    // Search Bar
+                    SearchBar("검색", text: $search)
+                    
+                    // filter By
+                    HStack(spacing: 0) {
+                        CheckedValue(value: false, label: "지역" )
                         
-                    case .byViews:
-                        Text("조회순")
-                            .tag(value)
+                        Button(action: {
+                            withOpinions.toggle()
+                            viewModel.fetchTravelOnList(lastItemId: lastItemId, pageSize: pageSize, regionId: regionId, sortBy: sortType.rawValue, withOpinions: withOpinions, withNonOpinions: withNonOpinions)
+                            
+                        }) {
+                            Text("답변 있는 것만")
+                        }
+                        .buttonStyle(ToggleButtonStyle(value: $withOpinions))
+                            .padding()
                         
-                    case .byComments:
-                        Text("답변순")
-                            .tag(value)
+                        Button(action: {
+                            withNonOpinions.toggle()
+                            viewModel.fetchTravelOnList(lastItemId: lastItemId, pageSize: pageSize, regionId: regionId, sortBy: sortType.rawValue, withOpinions: withOpinions, withNonOpinions: withNonOpinions)
+                        }) {
+                            Text("답변 없는 것만")
+                        }
+                        .buttonStyle(ToggleButtonStyle(value: $withNonOpinions))
+                    }
+                    
+                    ZStack {
+                        // content
+                        ScrollView {
+                            VStack {
+                                ForEach(viewModel.travelOns) { travelOn in
+                                    NavigationLink(destination: TravelOnDetailScreen(travelOnId: travelOn.id)){
+                                        TravelOnComponent(travelOn: travelOn)
+                                            .padding()
+                                    }
+                                }
+                            }
+                        }
+                        
+                        // write Button
+                        NavigationLink(destination: TravelOnReviseScreen()) {
+                            Text("+")
+                        }
+                        .buttonStyle(WriteButtonStyle())
+                        .frame(height: ScreenSize.height * 0.6, alignment: .bottom)
+                        .padding()
                     }
                 }
             }
             
-            // Search Bar
-            SearchBar("검색", text: $search)
-            
-            // filter By
-            HStack(spacing: 0) {
-                CheckedValue(value: false, label: "지역" )
-                
-                CheckedValued(value: $withOpinions, label: "답변 있는 것만")
-                    .padding()
-                
-                CheckedValued(value: $withNonOpinions, label: "답변 없는 것만")
-            }
-            
-            ZStack {
-                // content
-                ScrollView {
-                    TravelOnList(sortBy: $sortType, withOpinions: $withOpinions, withNonOpinions: $withNonOpinions)
-                }
-                
-                // write Button
-                NavigationLink(destination: TravelOnReviseScreen()) {
-                    Text("+")
-                }
-                .buttonStyle(WriteButtonStyle())
-                .frame(height: ScreenSize.height * 0.6, alignment: .bottom)
-                .padding()
-            }
         }
     }
+        
     
 }
 
