@@ -10,6 +10,7 @@ import SwiftUI
 struct TravelOnDetailScreen: View {
     @State var travelOnId: Int
     @StateObject var viewModel = TravelOnListScreen.ViewModel()
+    @State private var showingAlert = false
     
     func memToString(mem: String) -> String {
         switch mem {
@@ -142,11 +143,31 @@ struct TravelOnDetailScreen: View {
         VStack {
             // Title
             Group {
-                Text("\(viewModel.travelOn.title!)")
-                    .font(.system(size: 25))
-                    .fontWeight(.bold)
-                    .frame(maxWidth: ScreenSize.width * 0.9, alignment: .leading)
-                
+                HStack {
+                    Text("\(viewModel.travelOn.title!)")
+                        .font(.system(size: 25))
+                        .fontWeight(.bold)
+
+                    Spacer()
+                    
+                    Button(action: {}) {
+                        Text("수정")
+                    }
+                    
+                    // 삭제 클릭 시, 팝업 창 출려
+                    Button("삭제") {
+                        self.showingAlert = true
+                    }
+                    .alert(isPresented: $showingAlert) {
+                        Alert(title: Text(""),
+                              message: Text("정말 삭제하시겠습니까?"),
+                              primaryButton: .destructive(Text("삭제"), action: {}),
+                              secondaryButton: .cancel(Text("취소")))
+                        
+                    }
+                    
+                }
+                .frame(maxWidth: ScreenSize.width * 0.9, alignment: .leading)
                 Spacer()
                     .frame(height: 20)
             }
