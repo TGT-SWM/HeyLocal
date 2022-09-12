@@ -71,5 +71,9 @@ extension TravelOnListScreen {
                     self.travelOn = travelOn
                 })
         }
+        
+        func deleteTravelOn(travelOnId: Int) {
+            travelOnService.deleteTravelOn(travelOnId: travelOnId)
+        }
     }
 }

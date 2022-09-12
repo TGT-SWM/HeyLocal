@@ -161,7 +161,8 @@ struct TravelOnDetailScreen: View {
                     .alert(isPresented: $showingAlert) {
                         Alert(title: Text(""),
                               message: Text("정말 삭제하시겠습니까?"),
-                              primaryButton: .destructive(Text("삭제"), action: {}),
+                              primaryButton: .destructive(Text("삭제"),
+                                                          action: {viewModel.deleteTravelOn(travelOnId: viewModel.travelOn.id!)}),
                               secondaryButton: .cancel(Text("취소")))
                         
                     }

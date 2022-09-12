@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import SwiftUI
 
+
 struct TravelOnRepository {
     private let agent = NetworkAgent()
     private let travelonUrl =  "\(Config.apiURL)/travel-ons"
@@ -79,5 +80,55 @@ struct TravelOnRepository {
         
         // Publisher 반환
         return agent.run(request)
+    }
+    
+    func deleteTravelOn(travelOnId: Int) {
+        let urlString = "\(travelonUrl)/\(travelOnId)"
+        let url = URL(string: urlString)!
+        var request = URLRequest(url: url)
+        
+        request.httpMethod = "DELETE"
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+        
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard error == nil else {
+                print("ERROR: error calling DELETE")
+                return
+            }
+            
+            guard let data = data else {
+                print("ERROR: Did not receive data")
+                return
+            }
+            
+            guard let response = response as? HTTPURLResponse, (200 ..< 299) ~= response.statusCode else {
+                print("ERROR: HTTP request failed")
+                print("\(request.httpMethod!) + \(request)")
+                print("\(response)")
+                return
+            }
+            do {
+                guard let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String:Any] else {
+                    print("ERROR: Cannot convert data to JSON")
+                    return
+                }
+                
+                guard let prettyJsonData = try? JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted) else {
+                    print("ERROR: Cannot convert JSON object to Pretty JSON data")
+                    return
+                }
+                
+                guard let prettyPrintedJson = String(data: prettyJsonData, encoding: .utf8) else {
+                    print("ERROR: Could print JSON in String")
+                    return
+                }
+                print(prettyPrintedJson)
+            } catch {
+                print("ERROR : Trying to convert JSON data to string")
+                return
+            }
+        }.resume()
     }
 }

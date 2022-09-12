@@ -18,4 +18,8 @@ struct TravelOnService {
     func getTravelOn(travelOnId: Int) -> AnyPublisher<TravelOnDetail, Error> {
         return travelOnRepository.getTravelOn(travelOnId: travelOnId)
     }
+    
+    func deleteTravelOn(travelOnId: Int) {
+        return travelOnRepository.deleteTravelOn(travelOnId: travelOnId)
+    }
 }
