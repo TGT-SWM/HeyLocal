@@ -19,7 +19,7 @@ struct Plan: Decodable {
 	var id: Int
 	var regionId: Int
 	var regionState: String
-	var regionCity: String
+	var regionCity: String?
 	var startDate: String
 	var endDate: String
 }
