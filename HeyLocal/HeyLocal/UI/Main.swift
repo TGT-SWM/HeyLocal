@@ -10,7 +10,12 @@ import SwiftUI
 /// `TabView`를 보여주기 위한 뷰입니다.
 struct Main: View {
 	@State private var tabSelection = Tab.home
-	
+    
+    // 탭바 배경색 설정
+    init() {
+        UITabBar.appearance().backgroundColor = UIColor.white
+    }
+    
 	var body: some View {
 		TabView(selection: $tabSelection) {
 			// 홈 탭

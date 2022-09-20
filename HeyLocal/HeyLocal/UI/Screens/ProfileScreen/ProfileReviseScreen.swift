@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ProfileReviseScreen: View {
     @Binding var navLinkActive: Bool
+    @Binding var nickname: String
+    
     var body: some View {
         VStack {
             Group {
@@ -16,7 +18,8 @@ struct ProfileReviseScreen: View {
             }
             
             Group {
-                Text(" USER NICKNAME ")
+                Text(" \(nickname) ")
+                TextField("", text: $nickname)
             }
             
             Group {
@@ -35,9 +38,9 @@ struct ProfileReviseScreen: View {
         }
     }
 }
-//
-//struct ProfileReviseScreen_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ProfileReviseScreen()
-//    }
-//}
+
+struct ProfileReviseScreen_Previews: PreviewProvider {
+    static var previews: some View {
+        ProfileReviseScreen(navLinkActive: .constant(true), nickname: .constant("dd"))
+    }
+}

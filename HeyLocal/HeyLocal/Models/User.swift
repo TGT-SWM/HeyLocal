@@ -8,7 +8,10 @@
 import Foundation
 
 struct User: Codable {
-    var user_id: String
-    var name: String
-    var imageURL: String
+    var id: Int?
+    var accountId: String?
+    var nickname: String = ""
+    var imageUrl: String = ""
+    var knowHow: Int = 0
+    var ranking: Int?
 }

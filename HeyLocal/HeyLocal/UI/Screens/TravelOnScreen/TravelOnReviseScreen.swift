@@ -4,7 +4,6 @@
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //
-
 import SwiftUI
 
 struct TravelOnReviseScreen: View {

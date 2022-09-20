@@ -6,49 +6,78 @@
 //
 
 import Foundation
+import Combine
+import SwiftUI
 
 struct TravelOnRepository {
-    func load() -> [TravelOn] {
+    private let agent = NetworkAgent()
+    private let travelonUrl =  "\(Config.apiURL)/travel-ons"
+    
+    // TravelOn 전체 목록 조회
+    func getTravelOnLists(lastItemId: Int?, pageSize: Int, regionId: Int?, sortBy: String, withOpinions: Bool?) -> AnyPublisher<[TravelOn], Error> {
+        var components = URLComponents(string: travelonUrl)
+        var queryItem: [URLQueryItem] = []
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy년MM월dd일"
-        let date1 = formatter.date(from: "2022년08월24일")!
-        let date2 = formatter.date(from: "2022년08월26일")!
-        let date3 = formatter.date(from: "2022년07월17일")!
-        
-        
-        let mockingData = [
-            TravelOn(id: 1,
-                     title: "여행 On 제목1",
-                     region: "부산광역시",
-                     uploadDate: date1,
-                     writer: User(user_id: "kimhyeonji",
-                                  name: "김현지",
-                                  imageURL: "https://cdna.artstation.com/p/assets/images/images/034/457/380/large/shin-min-jeong-.jpg?1612345128"),
-                     numOfViews: 110,
-                     numOfComments: 0),
+        // 옵셔널 바인딩
+        if let last_item_id = lastItemId {
+            print(last_item_id)
+            let lastItemId = URLQueryItem(name: "pageRequest.lastItemId", value: "\(last_item_id)")
+            queryItem.append(lastItemId)
+        } else {
             
-            TravelOn(id: 2,
-                     title: "여행 On 제목2",
-                     region: "인천광역시",
-                     uploadDate: date2,
-                     writer: User(user_id: "nahyeonji",
-                                  name: "나현지",
-                                  imageURL: "https://cdna.artstation.com/p/assets/images/images/034/457/374/large/shin-min-jeong-.jpg?1612345113"),
-                     numOfViews: 10,
-                     numOfComments: 40),
-            
-            TravelOn(id: 3,
-                     title: "여행 On 제목3",
-                     region: "인천광역시",
-                     uploadDate: date3,
-                     writer: User(user_id: "nahyeonji",
-                                  name: "나현지",
-                                  imageURL: "https://cdna.artstation.com/p/assets/images/images/034/457/374/large/shin-min-jeong-.jpg?1612345113"),
-                     numOfViews: 30,
-                     numOfComments: 100)
-        ]
+        }
         
-        return mockingData
+        let pageSize = URLQueryItem(name: "pageRequest.size", value: "\(pageSize)")
+        queryItem.append(pageSize)
+        
+        
+        if let regionId = regionId {
+            print(regionId)
+            let regionId = URLQueryItem(name: "regionId", value: "\(regionId)")
+            queryItem.append(regionId)
+        } else {
+            
+        }
+        
+        let sortBy = URLQueryItem(name: "sortBy", value: sortBy)
+        queryItem.append(sortBy)
+        
+        if let withOpinions = withOpinions {
+            print(withOpinions)
+            let withOpinions = URLQueryItem(name: "withOpinions", value: "\(withOpinions.description)")
+            queryItem.append(withOpinions)
+        } else {
+            
+        }
+        
+        components?.queryItems = queryItem
+        var request = URLRequest(url: (components?.url)!)
+        
+        // HTTP 헤더 구성
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+        
+        
+        // Publisher 반환
+        return agent.run(request)
+    }
+    
+    // TravelOn 상세조회
+    func getTravelOn(travelOnId: Int) -> AnyPublisher<TravelOnDetail, Error> {
+        // URLRequest 객체 생성
+        let urlString = "\(travelonUrl)/\(travelOnId)"
+        let url = URL(string: urlString)!
+        var request = URLRequest(url: url)
+        
+        // HTTP 헤더 구성
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+        
+        // Publisher 반환
+        return agent.run(request)
     }
 }
