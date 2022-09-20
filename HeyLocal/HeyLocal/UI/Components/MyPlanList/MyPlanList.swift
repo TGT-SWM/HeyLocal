@@ -62,7 +62,7 @@ struct MyPlanList: View {
 					.frame(width: 50, height: 50)
 					.foregroundColor(.gray)
 				
-				Text(plan.regionState + " " + plan.regionCity)
+				Text(plan.regionState + " " + (plan.regionCity ?? ""))
 					.fontWeight(.bold)
 				Spacer()
 				

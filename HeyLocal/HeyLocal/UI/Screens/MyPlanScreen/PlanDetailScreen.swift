@@ -39,7 +39,7 @@ struct PlanDetailScreen: View {
 	var header: some View {
 		HStack {
 			VStack(alignment: .leading) {
-				Text("\(plan.regionState) \(plan.regionCity) 여행")
+				Text("\(plan.regionState) \(plan.regionCity ?? "") 여행")
 					.font(.title2)
 					.fontWeight(.bold)
 				Text(DateFormat.format(plan.startDate, from: "yyyy-MM-dd", to: "M월 d일") + " ~ " + DateFormat.format(plan.endDate, from: "yyyy-MM-dd", to: "M월 d일"))
