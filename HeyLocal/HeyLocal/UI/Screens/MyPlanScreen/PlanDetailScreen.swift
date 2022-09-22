@@ -12,6 +12,8 @@ struct PlanDetailScreen: View {
 	
 	@ObservedObject var viewModel: ViewModel
 	
+	@Environment(\.presentationMode) var presentationMode
+	
 	init(plan: Plan) {
 		self.plan = plan
 		self.viewModel = ViewModel(plan: plan)
@@ -32,6 +34,11 @@ struct PlanDetailScreen: View {
 		.navigationBarTitleDisplayMode(.inline)
 		.onAppear {
 			viewModel.fetchPlaces()
+		}
+		.alert(isPresented: $viewModel.showErrorDialog) {
+			Alert(title: Text("에러"), message: Text("플랜을 찾을 수 없습니다."), dismissButton: .default(Text("뒤로 가기"), action: {
+				presentationMode.wrappedValue.dismiss()
+			}))
 		}
     }
 	

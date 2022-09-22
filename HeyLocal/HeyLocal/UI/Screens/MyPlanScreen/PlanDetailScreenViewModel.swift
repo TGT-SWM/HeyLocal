@@ -19,13 +19,21 @@ extension PlanDetailScreen {
 		@Published var currentDay = 1
 		@Published var schedules: [DaySchedule] = []
 		
+		@Published var showErrorDialog = false
+		
 		init(plan: Plan) {
 			self.plan = plan
 		}
 		
 		func fetchPlaces() {
 			cancellable = planService.getSchedules(planId: plan.id)
-				.sink(receiveCompletion: { _ in
+				.sink(receiveCompletion: { completion in
+					if case let .failure(error) = completion {
+//						let apiError: APIError = error as! APIError
+//						print(apiError.code)
+//						print(apiError.description)
+						self.showErrorDialog = true
+					}
 				}, receiveValue: { schedules in
 					self.schedules = schedules
 				})
