@@ -14,6 +14,8 @@ struct PlanDetailScreen: View {
 	
 	@Environment(\.presentationMode) var presentationMode
 	
+	@State var placeListEditing = false
+	
 	init(plan: Plan) {
 		self.plan = plan
 		self.viewModel = ViewModel(plan: plan)
@@ -32,6 +34,12 @@ struct PlanDetailScreen: View {
 		}
 		.navigationTitle("마이 플랜")
 		.navigationBarTitleDisplayMode(.inline)
+		.toolbar {
+			Button(placeListEditing ? "취소" : "수정") {
+				placeListEditing.toggle()
+			}
+		}
+		.environment(\.placeListEditing, placeListEditing)
 		.onAppear {
 			viewModel.fetchPlaces()
 		}
@@ -102,7 +110,9 @@ struct PlanDetailScreen: View {
 	
 	/// 해당 일자 장소 리스트
 	func placesViewOf(day: Int) -> some View {
-		PlaceList(places: $viewModel.schedules[day - 1].places)
+		ScrollView {
+			PlaceList(places: $viewModel.schedules[day - 1].places)
+		}
 	}
 	
 	/// 일자 이동을 위한 버튼입니다.

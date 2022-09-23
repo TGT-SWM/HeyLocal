@@ -8,7 +8,7 @@
 import Foundation
 
 // 장소
-struct Place: Decodable {
+struct Place: Decodable, Hashable {
 	var id: Int
 	var name: String
 	var address: String
