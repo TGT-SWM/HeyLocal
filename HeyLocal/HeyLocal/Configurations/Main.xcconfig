@@ -6,3 +6,6 @@
 //
 
 #include "Authorization.xcconfig"
+
+// 카카오 REST API URL
+KAKAO_REST_URL = https:${SLASH}/dapi.kakao.com
