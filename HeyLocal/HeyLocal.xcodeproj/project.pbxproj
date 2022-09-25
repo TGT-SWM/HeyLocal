@@ -41,6 +41,7 @@
 		EF26CD9528C0FF12006D0D27 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF26CD9428C0FF12006D0D27 /* DateFormat.swift */; };
 		EF3C060C28E0E53F003F3188 /* PlaceSearchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C060B28E0E53F003F3188 /* PlaceSearchScreen.swift */; };
 		EF3C060E28E0E666003F3188 /* PlaceSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C060D28E0E666003F3188 /* PlaceSearchViewModel.swift */; };
+		EF3C061228E0EDC4003F3188 /* KakaoAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C061128E0EDC4003F3188 /* KakaoAPIService.swift */; };
 		EF3FCF1528C12A3900D48F9E /* PlanDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3FCF1428C12A3900D48F9E /* PlanDetailScreen.swift */; };
 		EF3FCF1728C12D0800D48F9E /* PlanDetailScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3FCF1628C12D0800D48F9E /* PlanDetailScreenViewModel.swift */; };
 		EF3FCF1928C1345C00D48F9E /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3FCF1828C1345C00D48F9E /* Place.swift */; };
@@ -132,6 +133,7 @@
 		EF26CD9428C0FF12006D0D27 /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
 		EF3C060B28E0E53F003F3188 /* PlaceSearchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSearchScreen.swift; sourceTree = "<group>"; };
 		EF3C060D28E0E666003F3188 /* PlaceSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSearchViewModel.swift; sourceTree = "<group>"; };
+		EF3C061128E0EDC4003F3188 /* KakaoAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAPIService.swift; sourceTree = "<group>"; };
 		EF3FCF1428C12A3900D48F9E /* PlanDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailScreen.swift; sourceTree = "<group>"; };
 		EF3FCF1628C12D0800D48F9E /* PlanDetailScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailScreenViewModel.swift; sourceTree = "<group>"; };
 		EF3FCF1828C1345C00D48F9E /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
@@ -399,6 +401,7 @@
 				EFAA2AC428BBC48400B56A3C /* AuthService.swift */,
 				EF26CD8928C0EECA006D0D27 /* PlanService.swift */,
 				A80213DA28BF2EA100B6359E /* TravelOnService.swift */,
+				EF3C061128E0EDC4003F3188 /* KakaoAPIService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -673,6 +676,7 @@
 				A87F6CA628C0A3AB0076046E /* SettingScreen.swift in Sources */,
 				A87F6CA228C0A22B0076046E /* ProfileComponent.swift in Sources */,
 				A8A1999728BF59EF006119C4 /* CheckedValue.swift in Sources */,
+				EF3C061228E0EDC4003F3188 /* KakaoAPIService.swift in Sources */,
 				A84E841228B8C28600128D9B /* SignInScreen.swift in Sources */,
 				EF26CD8A28C0EECA006D0D27 /* PlanService.swift in Sources */,
 				EF26CD8D28C0F102006D0D27 /* MyPlanScreen.swift in Sources */,
