@@ -35,7 +35,7 @@ struct PlanDetailScreen: View {
 		.navigationTitle("마이 플랜")
 		.navigationBarTitleDisplayMode(.inline)
 		.toolbar {
-			Button(placeListEditing ? "취소" : "수정") {
+			Button(placeListEditing ? "확인" : "수정") {
 				placeListEditing.toggle()
 			}
 		}
