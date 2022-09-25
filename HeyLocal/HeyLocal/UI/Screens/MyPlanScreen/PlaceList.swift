@@ -21,7 +21,7 @@ struct PlaceList: View {
 						self.draggedItem = places[index]
 						return NSItemProvider(item: nil, typeIdentifier: places[index].name)
 					}
-					.onDrop(of: [places[index].name], delegate: PlaceDropDelegate(currnetItem: places[index], places: $places, draggedItem: $draggedItem, placeListEditing: placeListEditing))
+					.onDrop(of: [places[index].name], delegate: PlaceDropDelegate(currentItem: places[index], places: $places, draggedItem: $draggedItem, placeListEditing: placeListEditing))
 			}
 		}
 		.animation(.easeInOut)
@@ -74,7 +74,7 @@ struct PlaceList: View {
 }
 
 struct PlaceDropDelegate: DropDelegate {
-	let currnetItem: Place
+	let currentItem: Place
 	@Binding var places: [Place]
 	@Binding var draggedItem: Place?
 	
@@ -105,9 +105,9 @@ struct PlaceDropDelegate: DropDelegate {
 		if !placeListEditing { return }
 		guard let draggedItem = self.draggedItem else { return }
 		
-		if draggedItem != currnetItem {
+		if draggedItem != currentItem {
 			let from = places.firstIndex(of: draggedItem)!
-			let to = places.firstIndex(of: currnetItem)!
+			let to = places.firstIndex(of: currentItem)!
 			withAnimation {
 				self.places.move(fromOffsets: IndexSet(integer: from), toOffset: to > from ? to + 1 : to)
 			}
