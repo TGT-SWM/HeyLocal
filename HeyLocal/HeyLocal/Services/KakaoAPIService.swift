@@ -41,7 +41,7 @@ class KakaoAPIService {
 				}
 			}, receiveValue: { (resp: KakaoPlacesResponse) in
 				let newPlaces = resp.documents.map(\.place)
-				places.wrappedValue.append(contentsOf: newPlaces)
+				places.wrappedValue = newPlaces
 			})
 	}
 }

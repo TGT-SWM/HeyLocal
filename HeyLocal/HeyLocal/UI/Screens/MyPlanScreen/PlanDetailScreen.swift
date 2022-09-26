@@ -83,10 +83,10 @@ struct PlanDetailScreen: View {
 	var placesView: some View {
 		VStack {
 			// 장소 추가 버튼
-			Button {
-			} label: {
+			NavigationLink(destination: PlaceSearchScreen()) {
 				Text("해당 일자에 장소 추가하기")
-			}.padding()
+			}
+			.padding()
 			
 			// 장소 리스트
 			TabView(selection: $viewModel.currentDay) {
