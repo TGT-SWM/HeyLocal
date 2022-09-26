@@ -73,7 +73,7 @@ struct KakaoPlacesResponse: Decodable {
 		var roadAddress: String
 		var lat: String
 		var lng: String
-		var kakaoLink: String
+		var link: String
 		
 		enum CodingKeys: String, CodingKey {
 			case id = "id"
@@ -83,7 +83,7 @@ struct KakaoPlacesResponse: Decodable {
 			case roadAddress = "road_address_name"
 			case lat = "y"
 			case lng = "x"
-			case kakaoLink = "place_url"
+			case link = "place_url"
 		}
 		
 		var place: Place {
@@ -95,7 +95,7 @@ struct KakaoPlacesResponse: Decodable {
 				roadAddress: roadAddress,
 				lat: Double(lat) ?? 0.0,
 				lng: Double(lng) ?? 0.0,
-				kakaoLink: kakaoLink
+				link: link
 			)
 		}
 	}

@@ -16,7 +16,7 @@ struct Place: Decodable, Equatable {
 	var roadAddress: String
 	var lat: Double
 	var lng: Double
-	var kakaoLink: String
+	var link: String
 	
 	/// 카테고리의 이름 (ex. 음식점)
 	var categoryName: String {
