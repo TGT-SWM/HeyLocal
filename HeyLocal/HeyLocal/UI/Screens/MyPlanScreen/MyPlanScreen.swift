@@ -12,7 +12,9 @@ struct MyPlanScreen: View {
 		NavigationView {
 			ScrollView {
 				MyPlanList()
-			}.navigationTitle("마이 플랜")
+			}
+			.navigationTitle("마이 플랜")
+			.navigationBarTitleDisplayMode(.inline)
 		}.navigationViewStyle(.stack)
     }
 }
