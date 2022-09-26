@@ -90,10 +90,12 @@ struct KakaoPlacesResponse: Decodable {
 			Place(
 				id: Int(id) ?? 0,
 				name: name,
+				category: category,
 				address: address,
 				roadAddress: roadAddress,
 				lat: Double(lat) ?? 0.0,
-				lng: Double(lng) ?? 0.0
+				lng: Double(lng) ?? 0.0,
+				kakaoLink: kakaoLink
 			)
 		}
 	}

@@ -119,7 +119,7 @@ extension PlaceSearchScreen {
 				Text(item.name) // 이름
 					.font(.title3)
 					.fontWeight(.bold)
-				Text(item.address) // 주소
+				Text("\(item.categoryName) | \(item.address)") // 주소
 					.font(.subheadline)
 			}
 			
