@@ -17,7 +17,7 @@ class KakaoAPIService {
 	var cancellable: AnyCancellable?
 	
 	/// 장소 목록 검색 (페이징)
-	func loadPlaces(query: String, page: Int, pageSize: Int, places: Binding<[Place]>) {
+	func loadPlaces(query: String, page: Int, pageSize: Int, places: Binding<[Place]>, isLastPage: Binding<Bool>) {
 		// URL 구성
 		var components = URLComponents(string: "\(Config.kakaoRestURL)/v2/local/search/keyword.json")!
 		components.queryItems = [
@@ -41,7 +41,8 @@ class KakaoAPIService {
 				}
 			}, receiveValue: { (resp: KakaoPlacesResponse) in
 				let newPlaces = resp.documents.map(\.place)
-				places.wrappedValue = newPlaces
+				places.wrappedValue.append(contentsOf: newPlaces)
+				isLastPage.wrappedValue = resp.meta.isEnd
 			})
 	}
 }

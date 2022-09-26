@@ -37,7 +37,7 @@ extension PlaceSearchScreen {
 				.background(Color.init(red: 0, green: 0, blue: 0, opacity: 0.1))
 				.cornerRadius(5)
 			Button("검색") {
-				viewModel.fetchSearchedItems()
+				viewModel.search()
 			}
 		}
 		.padding()
@@ -84,8 +84,15 @@ extension PlaceSearchScreen {
 extension PlaceSearchScreen {
 	var searchedItemList: some View {
 		ScrollView {
-			VStack(alignment: .leading) {
+			LazyVStack(alignment: .leading) {
 				ForEach(viewModel.searchedItems, id: \.id) { searchedItem($0) }
+				
+				if (!viewModel.searchedItems.isEmpty && !viewModel.isLastPage) {
+					ProgressView()
+						.onAppear {
+							viewModel.loadMore()
+						}
+				}
 			}
 		}
 	}

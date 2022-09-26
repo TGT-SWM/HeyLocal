@@ -17,16 +17,56 @@ extension PlaceSearchScreen {
 		@Published var query = ""
 		@Published var selectedItems = [Place]()
 		@Published var searchedItems = [Place]()
+		@Published var currentPage = 1
+		@Published var isLastPage = false
 		
-		func fetchSearchedItems() {
+		// 검색어가 바뀌고 검색 버튼이 눌리면,
+		// currentPage를 1로 초기화하고
+		// searchedItems를 비워야 함
+		
+		let pageSize = 15
+		
+		func search() {
 			if query.isEmpty { return }
+			
+			// 초기화
+			currentPage = 1
+			searchedItems.removeAll()
+			isLastPage = false
+			
+			// 검색
 			kakaoAPIService.loadPlaces(
 				query: query,
-				page: 1,
-				pageSize: 15,
+				page: currentPage,
+				pageSize: pageSize,
 				places: Binding(
 					get: { self.searchedItems },
 					set: { self.searchedItems = $0 }
+				),
+				isLastPage: Binding(
+					get: { self.isLastPage },
+					set: { self.isLastPage = $0 }
+				)
+			)
+		}
+		
+		func loadMore() {
+			if query.isEmpty { return }
+			if isLastPage { return }
+			
+			currentPage += 1
+			
+			kakaoAPIService.loadPlaces(
+				query: query,
+				page: currentPage,
+				pageSize: pageSize,
+				places: Binding(
+					get: { self.searchedItems },
+					set: { self.searchedItems = $0 }
+				),
+				isLastPage: Binding(
+					get: { self.isLastPage },
+					set: { self.isLastPage = $0 }
 				)
 			)
 		}
