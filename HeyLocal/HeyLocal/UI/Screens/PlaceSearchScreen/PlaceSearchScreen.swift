@@ -17,13 +17,14 @@ struct PlaceSearchScreen: View {
 			searchForm
 			selectedItemList
 			searchedItemList
-			recommendation
+			// recommendation
 		}
 		.navigationTitle("장소 검색")
 		.navigationBarTitleDisplayMode(.inline)
 		.toolbar {
 			Button("완료") {}
 		}
+		.padding()
     }
 }
 
@@ -34,6 +35,8 @@ extension PlaceSearchScreen {
 	var searchForm: some View {
 		HStack {
 			TextField("검색어", text: $viewModel.query)
+				.background(Color.init(red: 0, green: 0, blue: 0, opacity: 0.1))
+				.cornerRadius(5)
 			Button("검색") {
 				viewModel.fetchSearchedItems()
 			}
@@ -73,9 +76,22 @@ extension PlaceSearchScreen {
 	}
 	
 	func searchedItem(_ item: Place) -> some View {
-		HStack {
-			Text(item.name)
+		HStack(alignment: .center) {
+			RoundedRectangle(cornerRadius: 5) // 썸네일 이미지
+				.fill(.gray)
+				.frame(width: 50, height: 50)
+			
+			VStack(alignment: .leading) {
+				Text(item.name) // 이름
+					.font(.title3)
+					.fontWeight(.bold)
+				Text(item.address) // 주소
+					.font(.subheadline)
+			}
+			
+			Spacer()
 		}
+		.frame(height: 70)
 	}
 }
 
