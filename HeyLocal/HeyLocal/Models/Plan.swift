@@ -17,6 +17,7 @@ struct MyPlans: Decodable {
 /// 플랜
 struct Plan: Decodable {
 	var id: Int
+	var title: String
 	var regionId: Int
 	var regionState: String
 	var regionCity: String?
