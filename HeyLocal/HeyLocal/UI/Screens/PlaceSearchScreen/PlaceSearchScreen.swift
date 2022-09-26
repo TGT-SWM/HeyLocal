@@ -85,12 +85,14 @@ extension PlaceSearchScreen {
 	var searchedItemList: some View {
 		ScrollView {
 			LazyVStack(alignment: .leading) {
+				// 검색 결과
 				ForEach(viewModel.searchedItems, id: \.id) { searchedItem($0) }
 				
-				if (!viewModel.searchedItems.isEmpty && !viewModel.isLastPage) {
+				// 스피너가 노출되면 다음 페이지 로드
+				if (!viewModel.isLastPage) {
 					ProgressView()
 						.onAppear {
-							viewModel.loadMore()
+							viewModel.searchNextPage()
 						}
 				}
 			}
