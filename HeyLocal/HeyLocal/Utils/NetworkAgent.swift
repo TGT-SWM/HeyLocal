@@ -14,7 +14,9 @@ struct NetworkAgent {
 	func run<T: Decodable>(_ request: URLRequest) -> AnyPublisher<T, Error> {
 		return session
 			.dataTaskPublisher(for: request)
-			.tryMap(handleAPIError)
+//			.tryMap(handleAPIError)
+			.map(\.data)
+			.handleEvents(receiveOutput: { print(NSString(data: $0, encoding: String.Encoding.utf8.rawValue)!) }) // LOG
 			.decode(type: T.self, decoder: JSONDecoder())
 			.receive(on: DispatchQueue.main)
 			.eraseToAnyPublisher()

@@ -14,6 +14,8 @@ struct PlanDetailScreen: View {
 	
 	@Environment(\.presentationMode) var presentationMode
 	
+	@State var placeSelection: [Place] = []
+	
 	init(plan: Plan) {
 		self.plan = plan
 		self.viewModel = ViewModel(plan: plan)
@@ -32,9 +34,6 @@ struct PlanDetailScreen: View {
 		}
 		.navigationTitle("마이 플랜")
 		.navigationBarTitleDisplayMode(.inline)
-		.onAppear {
-			viewModel.fetchPlaces()
-		}
 		.alert(isPresented: $viewModel.showErrorDialog) {
 			Alert(title: Text("에러"), message: Text("플랜을 찾을 수 없습니다."), dismissButton: .default(Text("뒤로 가기"), action: {
 				presentationMode.wrappedValue.dismiss()
@@ -83,10 +82,12 @@ struct PlanDetailScreen: View {
 	var placesView: some View {
 		VStack {
 			// 장소 추가 버튼
-			Button {
-			} label: {
-				Text("해당 일자에 장소 추가하기")
-			}.padding()
+			if !viewModel.schedules.isEmpty {
+				NavigationLink(destination: PlaceSearchScreen(places: $viewModel.schedules[viewModel.currentDay - 1].places)) {
+					Text("해당 일자에 장소 추가하기")
+				}
+				.padding()
+			}
 			
 			// 장소 리스트
 			TabView(selection: $viewModel.currentDay) {
