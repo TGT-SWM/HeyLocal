@@ -7,55 +7,53 @@
 
 import SwiftUI
 
+// MARK: - MyPlanList (마이플랜 리스트)
+
 struct MyPlanList: View {
 	@ObservedObject var viewModel = ViewModel()
 	
     var body: some View {
 		VStack {
-			if (viewModel.isMyPlanEmpty) {
-				emptyView
-			} else {
-				contentView
-			}
+			if (viewModel.isMyPlanEmpty) { emptyView }
+			else { myPlanList }
 		}
-		.padding()
 		.onAppear {
 			viewModel.fetchMyPlans()
 		}
     }
-	
-	/// 마이 플랜이 없을 때 출력되는 뷰
-	var emptyView: some View {
-		Text("플랜이 존재하지 않습니다.")
+}
+
+
+// MARK: - myPlanList (마이플랜 정보 출력)
+
+extension MyPlanList {
+	var myPlanList: some View {
+		ScrollView {
+			VStack {
+				if (!viewModel.ongoing.isEmpty) {
+					sublist(title: "지금 여행 중", plans: viewModel.ongoing)
+				}
+				if (!viewModel.upcoming.isEmpty) {
+					sublist(title: "다가오는 여행", plans: viewModel.upcoming)
+				}
+				if (!viewModel.past.isEmpty) {
+					sublist(title: "지난 여행", plans: viewModel.past)
+				}
+			}
+		}.padding()
 	}
 	
-	// 마이 플랜이 있을 때 출력되는 뷰
-	var contentView: some View {
-		Group {
-			if (!viewModel.ongoing.isEmpty) {
-				planList(title: "지금 여행 중", plans: viewModel.ongoing)
-			}
-			if (!viewModel.upcoming.isEmpty) {
-				planList(title: "다가오는 여행", plans: viewModel.upcoming)
-			}
-			if (!viewModel.past.isEmpty) {
-				planList(title: "지난 여행", plans: viewModel.past)
-			}
-		}
-	}
-	
-	/// Plan에 대한 리스트 및 리스트의 제목
-	func planList(title: String, plans: [Plan]) -> some View {
+	func sublist(title: String, plans: [Plan]) -> some View {
 		VStack(alignment: .leading) {
 			Text(title)
 				.font(.title2)
 				.fontWeight(.bold)
-			ForEach(plans, id: \.id) { listItem(plan: $0) }
-		}.padding(.bottom, 20)
+			ForEach(plans, id: \.id) { sublistItem(plan: $0) }
+		}
+		.padding(.bottom, 20)
 	}
 	
-	/// List 내의 각 Plan에 해당하는 항목
-	func listItem(plan: Plan) -> some View {
+	func sublistItem(plan: Plan) -> some View {
 		NavigationLink(destination: PlanDetailScreen(plan: plan)) {
 			HStack {
 				Circle()
@@ -73,6 +71,18 @@ struct MyPlanList: View {
 		}.buttonStyle(PlainButtonStyle())
 	}
 }
+
+
+// MARK: - emptyView (마이플랜이 비어 있는 경우에 사용)
+
+extension MyPlanList {
+	var emptyView: some View {
+		Text("플랜이 존재하지 않습니다.")
+	}
+}
+
+
+// MARK: - Previews
 
 struct MyPlanList_Previews: PreviewProvider {
     static var previews: some View {
