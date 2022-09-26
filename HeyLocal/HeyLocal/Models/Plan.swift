@@ -22,6 +22,13 @@ struct Plan: Decodable {
 	var regionCity: String?
 	var startDate: String
 	var endDate: String
+	
+	var regionName: String {
+		if let city = regionCity {
+			return "\(regionState) \(city)"
+		}
+		return regionState
+	}
 }
 
 /// 플랜 내 하루 스케줄
