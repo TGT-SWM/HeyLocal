@@ -30,5 +30,21 @@ extension PlaceSearchScreen {
 				)
 			)
 		}
+		
+		func isSelected(_ item: Place) -> Bool {
+			return self.selectedItems.contains(item)
+		}
+		
+		func addSelectedItem(_ item: Place) {
+			if !isSelected(item) {
+				self.selectedItems.append(item)
+			}
+		}
+		
+		func removeSelectedItem(_ item: Place) {
+			if let index = self.selectedItems.firstIndex(of: item) {
+				self.selectedItems.remove(at: index)
+			}
+		}
 	}
 }

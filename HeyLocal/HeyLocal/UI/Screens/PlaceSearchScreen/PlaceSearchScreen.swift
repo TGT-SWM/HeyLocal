@@ -90,6 +90,15 @@ extension PlaceSearchScreen {
 			}
 			
 			Spacer()
+			
+			if (viewModel.isSelected(item)) {
+				Button("선택") {}
+					.disabled(true)
+			} else {
+				Button("선택") { // 장소 선택 버튼
+					viewModel.addSelectedItem(item)
+				}
+			}
 		}
 		.frame(height: 70)
 	}
