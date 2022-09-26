@@ -84,7 +84,7 @@ extension PlaceSearchScreen {
 extension PlaceSearchScreen {
 	var searchedItemList: some View {
 		ScrollView {
-			LazyVStack(alignment: .leading) {
+			LazyVStack(alignment: .center) {
 				// 검색 결과
 				ForEach(viewModel.searchedItems, id: \.id) { searchedItem($0) }
 				
