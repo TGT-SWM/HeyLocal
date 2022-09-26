@@ -45,7 +45,7 @@ struct PlanDetailScreen: View {
 	var header: some View {
 		HStack {
 			VStack(alignment: .leading) {
-				Text("\(plan.regionState) \(plan.regionCity ?? "") 여행")
+				Text(plan.title)
 					.font(.title2)
 					.fontWeight(.bold)
 				Text(DateFormat.format(plan.startDate, from: "yyyy-MM-dd", to: "M월 d일") + " ~ " + DateFormat.format(plan.endDate, from: "yyyy-MM-dd", to: "M월 d일"))
@@ -128,6 +128,6 @@ struct PlanDetailScreen: View {
 
 struct PlanDetailScreen_Previews: PreviewProvider {
     static var previews: some View {
-		PlanDetailScreen(plan: Plan(id: 1, regionId: 1, regionState: "서울특별시", regionCity: "강남구", startDate: "2022-09-01", endDate: "2022-09-03"))
+		PlanDetailScreen(plan: Plan(id: 1, title: "서울, 서울, 서울!", regionId: 1, regionState: "서울특별시", regionCity: "강남구", startDate: "2022-09-01", endDate: "2022-09-03"))
     }
 }

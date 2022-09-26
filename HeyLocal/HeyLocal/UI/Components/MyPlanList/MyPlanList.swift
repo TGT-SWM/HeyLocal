@@ -67,7 +67,7 @@ extension MyPlanList {
 				
 				VStack(alignment: .leading, spacing: 0) {
 					// 제목
-					Text(plan.regionName)
+					Text(plan.title)
 						.font(.system(size: 16))
 						.fontWeight(.bold)
 					
