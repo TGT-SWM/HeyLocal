@@ -57,9 +57,23 @@ extension PlaceSearchScreen {
 	}
 	
 	func selectedItem(_ item: Place) -> some View {
-		HStack {
-			Text(item.name)
+		ZStack(alignment: .topTrailing) {
+			VStack(alignment: .center) {
+				RoundedRectangle(cornerRadius: 5) // 썸네일 이미지
+					.fill(.gray)
+					.frame(width: 50, height: 50)
+				Text(item.name) // 이름
+					.font(.subheadline)
+			}
+			.frame(width: 50, height: 70)
+			
+			Button { // 선택 취소 버튼
+				viewModel.removeSelectedItem(item)
+			} label: {
+				Image(systemName: "x.circle.fill")
+			}
 		}
+		.frame(width: 60, height: 80)
 	}
 }
 
