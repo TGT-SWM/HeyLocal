@@ -11,6 +11,10 @@ import SwiftUI
 
 struct PlaceSearchScreen: View {
 	@ObservedObject var viewModel = ViewModel()
+	@Environment(\.presentationMode) var presentationMode
+	
+	/// 장소 선택 결과를 반환하기 위한 @Binding 파라미터
+	@Binding var places: [Place]
 	
     var body: some View {
 		VStack {
@@ -22,9 +26,15 @@ struct PlaceSearchScreen: View {
 		.navigationTitle("장소 검색")
 		.navigationBarTitleDisplayMode(.inline)
 		.toolbar {
-			Button("완료") {}
+			Button("완료", action: handleComplete)
 		}
     }
+	
+	/// 완료 버튼 클릭 시 이전 화면으로 Go Back
+	func handleComplete() {
+		places.append(contentsOf: viewModel.selectedItems)
+		presentationMode.wrappedValue.dismiss()
+	}
 }
 
 
@@ -142,6 +152,6 @@ extension PlaceSearchScreen {
 
 struct PlaceSearchScreen_Previews: PreviewProvider {
     static var previews: some View {
-        PlaceSearchScreen()
+		PlaceSearchScreen(places: .constant([]))
     }
 }

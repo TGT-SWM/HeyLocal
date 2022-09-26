@@ -14,6 +14,8 @@ struct PlanDetailScreen: View {
 	
 	@Environment(\.presentationMode) var presentationMode
 	
+	@State var placeSelection: [Place] = []
+	
 	init(plan: Plan) {
 		self.plan = plan
 		self.viewModel = ViewModel(plan: plan)
@@ -83,7 +85,7 @@ struct PlanDetailScreen: View {
 	var placesView: some View {
 		VStack {
 			// 장소 추가 버튼
-			NavigationLink(destination: PlaceSearchScreen()) {
+			NavigationLink(destination: PlaceSearchScreen(places: $viewModel.schedules[viewModel.currentDay - 1].places)) {
 				Text("해당 일자에 장소 추가하기")
 			}
 			.padding()
