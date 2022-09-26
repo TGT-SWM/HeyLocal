@@ -24,7 +24,6 @@ struct PlaceSearchScreen: View {
 		.toolbar {
 			Button("완료") {}
 		}
-		.padding()
     }
 }
 
@@ -41,6 +40,7 @@ extension PlaceSearchScreen {
 				viewModel.fetchSearchedItems()
 			}
 		}
+		.padding()
 	}
 }
 
@@ -54,6 +54,7 @@ extension PlaceSearchScreen {
 				ForEach(viewModel.selectedItems, id: \.id) { selectedItem($0) }
 			}
 		}
+		.padding(.horizontal)
 	}
 	
 	func selectedItem(_ item: Place) -> some View {
@@ -115,6 +116,7 @@ extension PlaceSearchScreen {
 			}
 		}
 		.frame(height: 70)
+		.padding(.horizontal)
 	}
 }
 
