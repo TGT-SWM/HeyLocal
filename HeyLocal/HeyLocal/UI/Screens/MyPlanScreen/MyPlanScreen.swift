@@ -10,9 +10,16 @@ import SwiftUI
 struct MyPlanScreen: View {
     var body: some View {
 		NavigationView {
-			ScrollView {
-				MyPlanList()
+			ZStack(alignment: .bottomTrailing) {
+				ScrollView {
+					MyPlanList()
+				}
+				FAB {
+					print("clicked")
+				}
+				.padding(EdgeInsets(top: 0, leading: 0, bottom: 50, trailing: 20))
 			}
+			.background(Color("lightGray"))
 			.navigationTitle("마이 플랜")
 			.navigationBarTitleDisplayMode(.inline)
 		}.navigationViewStyle(.stack)

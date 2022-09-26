@@ -28,47 +28,63 @@ struct MyPlanList: View {
 
 extension MyPlanList {
 	var myPlanList: some View {
-		ScrollView {
-			VStack {
-				if (!viewModel.ongoing.isEmpty) {
-					sublist(title: "지금 여행 중", plans: viewModel.ongoing)
-				}
-				if (!viewModel.upcoming.isEmpty) {
-					sublist(title: "다가오는 여행", plans: viewModel.upcoming)
-				}
-				if (!viewModel.past.isEmpty) {
-					sublist(title: "지난 여행", plans: viewModel.past)
-				}
+		VStack {
+			if (!viewModel.ongoing.isEmpty) {
+				sublist(title: "지금 여행 중", plans: viewModel.ongoing)
 			}
-		}.padding()
+			if (!viewModel.upcoming.isEmpty) {
+				sublist(title: "다가오는 여행", plans: viewModel.upcoming)
+			}
+			if (!viewModel.past.isEmpty) {
+				sublist(title: "지난 여행", plans: viewModel.past)
+			}
+		}
 	}
 	
 	func sublist(title: String, plans: [Plan]) -> some View {
 		VStack(alignment: .leading) {
+			// 리스트 제목
 			Text(title)
-				.font(.title2)
+				.font(.system(size: 16))
 				.fontWeight(.bold)
+				.padding(.horizontal, 20)
+				.padding(.top, 12)
+			
+			// 플랜 목록
 			ForEach(plans, id: \.id) { sublistItem(plan: $0) }
 		}
-		.padding(.bottom, 20)
+		.background(Color.white)
+		.padding(.bottom, 8)
 	}
 	
 	func sublistItem(plan: Plan) -> some View {
 		NavigationLink(destination: PlanDetailScreen(plan: plan)) {
-			HStack {
-				Circle()
-					.frame(width: 50, height: 50)
-					.foregroundColor(.gray)
+			HStack(alignment: .center) {
+				// 썸네일 이미지
+				WebImage(url: "https://www.busan.go.kr/resource/img/geopark/sub/busantour/busantour1.jpg")
+					.frame(width: 56, height: 56)
+					.cornerRadius(.infinity)
 				
-				Text(plan.regionState + " " + (plan.regionCity ?? ""))
-					.fontWeight(.bold)
+				VStack(alignment: .leading, spacing: 0) {
+					// 제목
+					Text(plan.regionName)
+						.font(.system(size: 16))
+						.fontWeight(.bold)
+					
+					// 여행 기간
+					Text(DateFormat.format(plan.startDate, from: "yyyy-MM-dd", to: "yyyy.MM.dd")
+						 + " ~ " + DateFormat.format(plan.endDate, from: "yyyy-MM-dd", to: "yyyy.MM.dd"))
+						.font(.system(size: 12))
+						.foregroundColor(Color("gray"))
+						.padding(.top, 5)
+				}
+				.padding(.leading, 3)
 				Spacer()
-				
-				Text(DateFormat.format(plan.startDate, from: "yyyy-MM-dd", to: "M월 d일")
-					 + " ~ " + DateFormat.format(plan.endDate, from: "yyyy-MM-dd", to: "M월 d일"))
-					.font(.subheadline)
-			}.padding(.bottom, 10)
-		}.buttonStyle(PlainButtonStyle())
+			}
+			.padding(.horizontal, 20)
+			.frame(height: 80)
+		}
+		.buttonStyle(PlainButtonStyle())
 	}
 }
 
@@ -77,7 +93,10 @@ extension MyPlanList {
 
 extension MyPlanList {
 	var emptyView: some View {
-		Text("플랜이 존재하지 않습니다.")
+		VStack(alignment: .center) {
+			Text("플랜이 존재하지 않습니다.")
+		}
+		
 	}
 }
 
