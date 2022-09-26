@@ -6,12 +6,15 @@
 //
 
 import Foundation
+import Combine
 import SwiftUI
 
 // MARK: - KakaoAPIService (카카오 API 호출 서비스)
 
-struct KakaoAPIService {
+class KakaoAPIService {
 	let agent = NetworkAgent()
+	
+	var cancellable: AnyCancellable?
 	
 	/// 장소 목록 검색 (페이징)
 	func loadPlaces(query: String, page: Int, pageSize: Int, places: Binding<[Place]>) {
@@ -31,7 +34,7 @@ struct KakaoAPIService {
 		request.addValue("KakaoAK \(Config.kakaoRestKey)", forHTTPHeaderField: "Authorization")
 		
 		// 실행
-		var cancellable = agent.run(request)
+		self.cancellable = agent.run(request)
 			.sink(receiveCompletion: { completion in
 				if case let .failure(error) = completion {
 					print(error)
@@ -62,13 +65,13 @@ struct KakaoPlacesResponse: Decodable {
 	}
 	
 	struct Document: Decodable {
-		var id: Int
+		var id: String
 		var name: String
 		var category: String
 		var address: String
 		var roadAddress: String
-		var lat: Double
-		var lng: Double
+		var lat: String
+		var lng: String
 		var kakaoLink: String
 		
 		enum CodingKeys: String, CodingKey {
@@ -83,7 +86,14 @@ struct KakaoPlacesResponse: Decodable {
 		}
 		
 		var place: Place {
-			Place(id: id, name: name, address: address, roadAddress: roadAddress, lat: lat, lng: lng)
+			Place(
+				id: Int(id) ?? 0,
+				name: name,
+				address: address,
+				roadAddress: roadAddress,
+				lat: Double(lat) ?? 0.0,
+				lng: Double(lng) ?? 0.0
+			)
 		}
 	}
 }
