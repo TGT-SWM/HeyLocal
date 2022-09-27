@@ -7,70 +7,114 @@
 
 import SwiftUI
 
-/// `TabView`를 보여주기 위한 뷰입니다.
+// MARK: - Main (뷰의 엔트리 포인트)
+
 struct Main: View {
-	@State private var tabSelection = Tab.home
-    
-    // 탭바 배경색 설정
-    init() {
-        UITabBar.appearance().backgroundColor = UIColor.white
-    }
-    
 	var body: some View {
-        TabView(selection: $tabSelection) {
-            // 홈 탭
-            HomeScreen()
-                .tabItem {
-                    Image(systemName: "house.fill")
-                    Text("홈")
-                }
-                .tag(Tab.home)
-            
-            // 여행 On 탭
-            TravelOnListScreen()
-                .tabItem {
-                    Image(systemName: "note.text")
-                    Text("여행 On")
-                }
-                .tag(Tab.home)
-            
-            // 마이플랜 탭
-            MyPlanScreen()
-                .tabItem {
-                    Image(systemName: "suitcase.cart.fill")
-                    Text("마이플랜")
-                }
-                .tag(Tab.home)
-            
-            // 메시지 탭
-            // TODO: 메시지 화면 뷰로 대체
-            HomeScreen()
-                .tabItem {
-                    Image(systemName: "message.fill")
-                    Text("메시지")
-                }
-                .tag(Tab.home)
-            
-            // 내 정보 탭
-            MyProfileScreen()
-                .tabItem {
-                    Image(systemName: "person")
-                    Text("내 정보")
-                }
-                .tag(Tab.home)
-        }
-	}
-	
-	/// 탭 유형에 대한 열거형입니다.
-	/// `Main` 내부에서만 사용됩니다.
-	private enum Tab {
-		case home
-		case travelOn
-		case myPlan
-		case message
-		case myinfo
+		TabBar()
 	}
 }
+
+
+// MARK: - TabBar (탭 바)
+
+struct TabBar: View {
+	@State private var selection = Tab.home
+	
+	var body: some View {
+		ZStack {
+			baseTabView
+			styledTabView
+		}
+	}
+}
+
+
+// MARK: - Tab (탭의 유형)
+
+extension TabBar {
+	enum Tab: String {
+		case home = "홈"
+		case travelOn = "여행 On"
+		case myPlan = "마이플랜"
+		case message = "메시지"
+		case myInfo = "내 정보"
+		
+		/// 해당 탭의 이름을 문자열로 반환합니다.
+		var name: String {
+			self.rawValue
+		}
+		
+		/// 해당 탭의 아이콘을 이미지로 반환합니다.
+		var icon: Image {
+			switch (self) {
+			case .home:
+				return Image(systemName: "house.fill")
+			case .travelOn:
+				return Image(systemName: "note.text")
+			case .myPlan:
+				return Image(systemName: "suitcase.cart.fill")
+			case .message:
+				return Image(systemName: "message.fill")
+			case .myInfo:
+				return Image(systemName: "person")
+			}
+		}
+	}
+}
+
+
+// MARK: - baseTabView (선택된 탭의 화면을 출력)
+
+extension TabBar {
+	var baseTabView: some View {
+		TabView(selection: $selection) {
+			HomeScreen()
+				.tag(Tab.home)
+			
+			TravelOnListScreen()
+				.tag(Tab.travelOn)
+			
+			MyPlanScreen()
+				.tag(Tab.myPlan)
+			
+			HomeScreen()
+				.tag(Tab.message)
+			
+			MyProfileScreen()
+				.tag(Tab.myInfo)
+		}
+	}
+}
+
+
+// MARK: - styledTabView (탭 바의 디자인)
+
+extension TabBar {
+	var styledTabView: some View {
+		HStack {
+			tabItem(.home)
+			tabItem(.travelOn)
+			tabItem(.myPlan)
+			tabItem(.message)
+			tabItem(.myInfo)
+		}
+	}
+	
+	func tabItem(_ tab: Tab) -> some View {
+		Button {
+			selection = tab
+		} label: {
+			VStack {
+				tab.icon
+				Text(tab.name)
+			}
+		}
+	}
+}
+
+
+// MARK: - Previews
 
 struct Main_Previews: PreviewProvider {
 	static var previews: some View {
