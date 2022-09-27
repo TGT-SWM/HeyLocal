@@ -19,7 +19,9 @@ struct TravelOnComponent: View {
              
             VStack {
                 Text("\(travelOn.title)")
+                // TODO:  travelOn.region.city 옵셔널 확인 후 nil 값이 아니라면 출력
                 Text("\(travelOn.region.state)")
+                // \(travelOn.region.city!)
                 
                 
                 let printDate = travelOn.modifiedDate.components(separatedBy: "T")

@@ -26,7 +26,7 @@ extension TravelOnListScreen {
                                            createdDateTime: "2022-09-01T12:38:43.01024",
                                            modifiedDate: "2022-09-01T12:38:43.01024",
                                            transportationType: "OWN_CAR",
-                                           travelMemberSet: [MemberType(id: 1, memberType: "ALONE")],
+                                           travelMemberSet: [HopeType(id: 1, type: "ALONE")],
                                            accommodationMaxCost: 100000,
                                            hopeAccommodationSet: [HopeType(id: 1, type: "ALL")],
                                            foodMaxCost: 100000,
@@ -74,6 +74,10 @@ extension TravelOnListScreen {
         
         func deleteTravelOn(travelOnId: Int) {
             travelOnService.deleteTravelOn(travelOnId: travelOnId)
+        }
+        
+        func postTravelOn(travelOnData: TravelOnPost) -> Int {
+            return travelOnService.postTravelOn(travelOnData: travelOnData)
         }
     }
 }

@@ -20,6 +20,7 @@
 		A813CA3028B4F033000F0ADF /* SNSButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A813CA2F28B4F033000F0ADF /* SNSButtonStyle.swift */; };
 		A836925828C6F48D00DBDB06 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A836925728C6F48D00DBDB06 /* SearchBar.swift */; };
 		A836925A28C72A0500DBDB06 /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = A836925928C72A0500DBDB06 /* Region.swift */; };
+		A83DAEED28D0475B001F1F5C /* TravelOnWriteScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83DAEEC28D0475B001F1F5C /* TravelOnWriteScreen.swift */; };
 		A83F100D28BCCCE000978711 /* TravelOnListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83F100C28BCCCE000978711 /* TravelOnListScreen.swift */; };
 		A84E841228B8C28600128D9B /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84E841128B8C28600128D9B /* SignInScreen.swift */; };
 		A8647C3A28BDA48B00D284B6 /* WriteButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8647C3928BDA48B00D284B6 /* WriteButtonStyle.swift */; };
@@ -31,6 +32,8 @@
 		A87F6CA428C0A37A0076046E /* ProfileReviseScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA328C0A37A0076046E /* ProfileReviseScreen.swift */; };
 		A87F6CA628C0A3AB0076046E /* SettingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA528C0A3AB0076046E /* SettingScreen.swift */; };
 		A8A1999728BF59EF006119C4 /* CheckedValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A1999628BF59EF006119C4 /* CheckedValue.swift */; };
+		A8AF3DEC28D407E9009B68BE /* RegionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AF3DEB28D407E9009B68BE /* RegionPicker.swift */; };
+		A8AF3DEE28D407F6009B68BE /* RegionPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AF3DED28D407F6009B68BE /* RegionPickerViewModel.swift */; };
 		A8C957E728C2E1EB0009E10B /* TravelOnReviseScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C957E628C2E1EB0009E10B /* TravelOnReviseScreen.swift */; };
 		EF1E4CCF28B53A6200D985E3 /* NetworkAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */; };
 		EF26CD8828C0E9DA006D0D27 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF26CD8728C0E9DA006D0D27 /* Config.swift */; };
@@ -112,6 +115,7 @@
 		A813CA2F28B4F033000F0ADF /* SNSButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSButtonStyle.swift; sourceTree = "<group>"; };
 		A836925728C6F48D00DBDB06 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		A836925928C72A0500DBDB06 /* Region.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Region.swift; sourceTree = "<group>"; };
+		A83DAEEC28D0475B001F1F5C /* TravelOnWriteScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOnWriteScreen.swift; sourceTree = "<group>"; };
 		A83F100C28BCCCE000978711 /* TravelOnListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOnListScreen.swift; sourceTree = "<group>"; };
 		A84E841128B8C28600128D9B /* SignInScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
 		A8525DFC28C1B0C90085B36A /* Authorization.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Authorization.xcconfig; sourceTree = "<group>"; };
@@ -124,6 +128,8 @@
 		A87F6CA328C0A37A0076046E /* ProfileReviseScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileReviseScreen.swift; sourceTree = "<group>"; };
 		A87F6CA528C0A3AB0076046E /* SettingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingScreen.swift; sourceTree = "<group>"; };
 		A8A1999628BF59EF006119C4 /* CheckedValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckedValue.swift; sourceTree = "<group>"; };
+		A8AF3DEB28D407E9009B68BE /* RegionPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionPicker.swift; sourceTree = "<group>"; };
+		A8AF3DED28D407F6009B68BE /* RegionPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionPickerViewModel.swift; sourceTree = "<group>"; };
 		A8C957E628C2E1EB0009E10B /* TravelOnReviseScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOnReviseScreen.swift; sourceTree = "<group>"; };
 		EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAgent.swift; sourceTree = "<group>"; };
 		EF1E4CD028B5426F00D985E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -246,6 +252,7 @@
 			children = (
 				A83F100C28BCCCE000978711 /* TravelOnListScreen.swift */,
 				A80B903528C9EA200026866A /* TravelOnDetailScreen.swift */,
+				A83DAEEC28D0475B001F1F5C /* TravelOnWriteScreen.swift */,
 				A8C957E628C2E1EB0009E10B /* TravelOnReviseScreen.swift */,
 				A80213D228BF2C2100B6359E /* TravelOnViewModel.swift */,
 			);
@@ -278,6 +285,15 @@
 				A87F6CA128C0A22B0076046E /* ProfileComponent.swift */,
 			);
 			path = ProfileComponent;
+			sourceTree = "<group>";
+		};
+		A8AF3DEA28D407D7009B68BE /* RegionPicker */ = {
+			isa = PBXGroup;
+			children = (
+				A8AF3DEB28D407E9009B68BE /* RegionPicker.swift */,
+				A8AF3DED28D407F6009B68BE /* RegionPickerViewModel.swift */,
+			);
+			path = RegionPicker;
 			sourceTree = "<group>";
 		};
 		EF26CD8B28C0F0EA006D0D27 /* MyPlanScreen */ = {
@@ -440,6 +456,7 @@
 		EF8FF26F28B4D1D000C053B7 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				A8AF3DEA28D407D7009B68BE /* RegionPicker */,
 				EFF9F3C528C5C8C100E9FCB3 /* KakaoMap */,
 				EF3FCF1A28C135A700D48F9E /* PlaceList */,
 				A87F6CA028C0A1EE0076046E /* ProfileComponent */,
@@ -662,6 +679,7 @@
 				EF4DD9A128E24CAE00E0D072 /* FAB.swift in Sources */,
 				EFF9F3C728C5C8DA00E9FCB3 /* KakaoMap.swift in Sources */,
 				A80213DB28BF2EA100B6359E /* TravelOnService.swift in Sources */,
+				A8AF3DEC28D407E9009B68BE /* RegionPicker.swift in Sources */,
 				EF8FF27428B4D2D100C053B7 /* Main.swift in Sources */,
 				EFAA2AC328BBC30E00B56A3C /* AuthRepository.swift in Sources */,
 				EF26CD9328C0F15E006D0D27 /* MyPlanListViewModel.swift in Sources */,
@@ -688,7 +706,9 @@
 				A84E841228B8C28600128D9B /* SignInScreen.swift in Sources */,
 				EF26CD8A28C0EECA006D0D27 /* PlanService.swift in Sources */,
 				EF26CD8D28C0F102006D0D27 /* MyPlanScreen.swift in Sources */,
+				A8AF3DEE28D407F6009B68BE /* RegionPickerViewModel.swift in Sources */,
 				A8794B3128B4EB5900959D56 /* BasicButtonStyle.swift in Sources */,
+				A83DAEED28D0475B001F1F5C /* TravelOnWriteScreen.swift in Sources */,
 				A80B903A28CA0FFB0026866A /* ToggleButtonStyle.swift in Sources */,
 				EF1E4CCF28B53A6200D985E3 /* NetworkAgent.swift in Sources */,
 				A836925828C6F48D00DBDB06 /* SearchBar.swift in Sources */,

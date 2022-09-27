@@ -71,38 +71,43 @@ struct TravelOnListScreen: View {
                     }
                     
                     // write Button
-                    NavigationLink(destination: TravelOnReviseScreen()) {
+                    NavigationLink(destination: TravelOnWriteScreen()) {
                         Text("+")
                     }
                     .buttonStyle(WriteButtonStyle())
-                    .frame(height: ScreenSize.height * 0.6, alignment: .bottom)
+                    .frame(height: ScreenSize.height * 0.5, alignment: .bottom)
                     .padding()
                 }
             }
         }
+        .onAppear {
+            viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 5, regionId: nil, sortBy: "DATE", withOpinions: false, withNonOpinions: false)
+        }
         .navigationTitle("여행On 리스트")
         .toolbar {
-            ToolbarItem {
-                Picker("sort By", selection: $sortType) {
-                    ForEach(SortType.allCases, id:\.id) { value in
-                        switch value {
-                        case .byDate:
-                            Text("최신순")
-                                .tag(value)
-
-                        case .byViews:
-                            Text("조회순")
-                                .tag(value)
-
-                        case .byComments:
-                            Text("답변순")
-                                .tag(value)
-                        }
-                    }
-                }.onChange(of: sortType, perform: { value in
-                    viewModel.fetchTravelOnList(lastItemId: lastItemId, pageSize: pageSize, regionId: regionId, sortBy: value.rawValue, withOpinions: withOpinions, withNonOpinions: withNonOpinions)
-                })
-            }
+            ToolbarItem(placement: .navigationBarLeading, content:{
+//                Menu {
+//                    Picker("sort By", selection: $sortType) {
+//                        ForEach(SortType.allCases, id:\.id) { value in
+//                            switch value {
+//                            case .byDate:
+//                                Text("최신순")
+//                                    .tag(value)
+//
+//                            case .byViews:
+//                                Text("조회순")
+//                                    .tag(value)
+//
+//                            case .byComments:
+//                                Text("답변순")
+//                                    .tag(value)
+//                            }
+//                        }
+//                    }.onChange(of: sortType, perform: { value in
+//                        viewModel.fetchTravelOnList(lastItemId: lastItemId, pageSize: pageSize, regionId: regionId, sortBy: value.rawValue, withOpinions: withOpinions, withNonOpinions: withNonOpinions)
+//                    })
+//                }
+            })
         }
     }
     
