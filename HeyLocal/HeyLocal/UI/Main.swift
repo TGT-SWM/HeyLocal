@@ -22,7 +22,7 @@ struct TabBar: View {
 	@State private var selection = Tab.home
 	
 	var body: some View {
-		ZStack {
+		ZStack(alignment: .bottom) {
 			baseTabView
 			styledTabView
 		}
@@ -71,16 +71,12 @@ extension TabBar {
 		TabView(selection: $selection) {
 			HomeScreen()
 				.tag(Tab.home)
-			
 			TravelOnListScreen()
 				.tag(Tab.travelOn)
-			
 			MyPlanScreen()
 				.tag(Tab.myPlan)
-			
 			HomeScreen()
 				.tag(Tab.message)
-			
 			MyProfileScreen()
 				.tag(Tab.myInfo)
 		}
@@ -92,12 +88,20 @@ extension TabBar {
 
 extension TabBar {
 	var styledTabView: some View {
-		HStack {
-			tabItem(.home)
-			tabItem(.travelOn)
-			tabItem(.myPlan)
-			tabItem(.message)
-			tabItem(.myInfo)
+		VStack {
+			HStack(spacing: 0) {
+				tabItem(.home)
+				tabItem(.travelOn)
+				tabItem(.myPlan)
+				tabItem(.message)
+				tabItem(.myInfo)
+			}
+			.frame(height: 55)
+			.background(
+				Rectangle()
+					.fill(.white)
+					.shadow(color: .black.opacity(0.07), radius: 6, x: 0, y: -2)
+			)
 		}
 	}
 	
@@ -105,11 +109,26 @@ extension TabBar {
 		Button {
 			selection = tab
 		} label: {
-			VStack {
+			VStack(alignment: .center, spacing: 0) {
+				Divider()
+					.frame(minHeight: 3)
+					.overlay(selection == tab ? Color("orange") : Color(red: 0.85, green: 0.85, blue: 0.85))
+
+				Spacer(minLength: 0)
+					
 				tab.icon
+					.font(.system(size: 20))
+					.padding(0)
 				Text(tab.name)
+					.font(.system(size: 12))
+					.padding(.top, 4)
+				
+				Spacer(minLength: 0)
 			}
+			.frame(maxWidth: .infinity, maxHeight: .infinity)
+			.foregroundColor(selection == tab ? .black : Color("gray"))
 		}
+		.buttonStyle(PlainButtonStyle())
 	}
 }
 
