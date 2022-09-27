@@ -42,7 +42,7 @@ struct TravelOnDetail: Decodable, Identifiable {
     
     var transportationType: String?
     
-    var travelMemberSet: [MemberType]?
+    var travelMemberSet: [HopeType]?
     
     var accommodationMaxCost: Int?
     var hopeAccommodationSet: [HopeType]?
@@ -72,4 +72,28 @@ struct TravelType: Decodable {
 struct MemberType: Decodable, Identifiable {
     var id: Int?
     var memberType: String?
+}
+
+// Data Model for POST
+struct TravelTypePost: Encodable {
+    var placeTasteType: String = "FAMOUS"
+    var activityTasteType: String = "HARD"
+    var snsTasteType: String = "YES"
+}
+
+struct TravelOnPost: Encodable {
+    var accommodationMaxCost: Int = 0
+    var accommodationTypeSet: [String] = []
+    var description: String = ""
+    var drinkMaxCost: Int = 0
+    var drinkTypeSet: [String] = []
+    var foodMaxCost: Int = 0
+    var foodTypeSet: [String] = []
+    var memberTypeSet: [String] = []
+    var regionId: Int = 0
+    var title: String = ""
+    var transportationType: String = ""
+    var travelStartDate: String = ""
+    var travelEndDate: String = ""
+    var travelTypeGroup: TravelTypePost = TravelTypePost()
 }

@@ -17,48 +17,48 @@ struct Main: View {
     }
     
 	var body: some View {
-		TabView(selection: $tabSelection) {
-			// 홈 탭
-			HomeScreen()
-				.tag(Tab.home)
-				.tabItem {
-					Image(systemName: "house.fill")
-					Text("홈")
-				}
-			
-			// 여행 On 탭
-			TravelOnListScreen()
-				.tag(Tab.home)
-				.tabItem {
-					Image(systemName: "note.text")
-					Text("여행 On")
-				}
-			
-			// 마이플랜 탭
-			MyPlanScreen()
-				.tag(Tab.home)
-				.tabItem {
-					Image(systemName: "suitcase.cart.fill")
-					Text("마이플랜")
-				}
-			
-			// 메시지 탭
-			// TODO: 메시지 화면 뷰로 대체
-			HomeScreen()
-				.tag(Tab.home)
-				.tabItem {
-					Image(systemName: "message.fill")
-					Text("메시지")
-				}
-			
-			// 내 정보 탭
+        TabView(selection: $tabSelection) {
+            // 홈 탭
+            HomeScreen()
+                .tabItem {
+                    Image(systemName: "house.fill")
+                    Text("홈")
+                }
+                .tag(Tab.home)
+            
+            // 여행 On 탭
+            TravelOnListScreen()
+                .tabItem {
+                    Image(systemName: "note.text")
+                    Text("여행 On")
+                }
+                .tag(Tab.home)
+            
+            // 마이플랜 탭
+            MyPlanScreen()
+                .tabItem {
+                    Image(systemName: "suitcase.cart.fill")
+                    Text("마이플랜")
+                }
+                .tag(Tab.home)
+            
+            // 메시지 탭
+            // TODO: 메시지 화면 뷰로 대체
+            HomeScreen()
+                .tabItem {
+                    Image(systemName: "message.fill")
+                    Text("메시지")
+                }
+                .tag(Tab.home)
+            
+            // 내 정보 탭
             MyProfileScreen()
-				.tag(Tab.home)
-				.tabItem {
-					Image(systemName: "person")
-					Text("내 정보")
-				}
-		}
+                .tabItem {
+                    Image(systemName: "person")
+                    Text("내 정보")
+                }
+                .tag(Tab.home)
+        }
 	}
 	
 	/// 탭 유형에 대한 열거형입니다.
