@@ -31,7 +31,7 @@ struct TempTravelOnList: View {
         NavigationView {
             VStack {
                 // Search Bar
-                SearchBar("검색", text: $search)
+                SearchBar(placeholder: "검색", searchText: $search)
                 
                 // filter By
                 HStack(spacing: 0) {
@@ -122,36 +122,101 @@ struct TempTravelOnList: View {
 
 struct TravelOnListScreen: View {
     @StateObject var viewModel = TravelOnListScreen.ViewModel()
+    @State var searchText: String = ""
+    
+    @State var sortBy: SortType = .byDate
+    @State var selectedRegion: String = "지역별"
+    @State var withOpinions = false
+    
+    enum SortType: String, CaseIterable, Identifiable {
+        case byDate = "DATE"
+        case byViews = "VIEWS"
+        case byComments = "OPINIONS"
+        
+        var id: String { self.rawValue }
+    }
     
     var body: some View {
         NavigationView {
-            // TODO: search bar
-            
-            // TODO: 추천순 · 조회순 · 답변 많은 순 - 지역 선택 - 답변 토글
-            
-            // TODO: 여행On Text
-            
-            ZStack(alignment: .bottomTrailing) {
-                // 여행On Component
-                ScrollView {
-                    VStack {
-                        ForEach(viewModel.travelOns) { travelOn in
-                            NavigationLink(destination: TravelOnDetailScreen(travelOnId: travelOn.id)){
-                                TravelOnComponent(travelOn: travelOn)
-                                    .padding(EdgeInsets(top: 2, leading: 0, bottom: 2, trailing: 0))
+            VStack(alignment: .leading, spacing: 5) {
+                SearchBar(placeholder: "", searchText: $searchText)
+                
+                // TODO: 추천순 · 조회순 · 답변 많은 순 - 지역 선택 - 답변 토글
+                HStack {
+                    Picker("sort By", selection: $sortBy) {
+                        ForEach(SortType.allCases, id:\.id) { value in
+                            switch value {
+                            case .byDate:
+                                Text("최신순")
+                                    .tag(value)
+                                    .font(.system(size: 12))
+
+                            case .byViews:
+                                Text("조회순")
+                                    .tag(value)
+                                    .font(.system(size: 12))
+
+                            case .byComments:
+                                Text("답변순")
+                                    .tag(value)
+                                    .font(.system(size: 12))
                             }
                         }
                     }
+                    .pickerStyle(.menu)
+                    
+                    Button(action: {}) {
+                        HStack {
+                            Text("\(selectedRegion)")
+                                .font(.system(size: 12))
+                                .foregroundColor(Color(red: 255/255, green: 153/255, blue: 0/255))
+                            
+                            Spacer()
+                                .frame(width: 3)
+                            
+                            Image(systemName: "chevron.down")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 10)
+                                .foregroundColor(Color(red: 255/255, green: 153/255, blue: 0/255))
+                        }
+                    }
+                    
+                    // Toggle
+                    Toggle("답변있는 게시물", isOn: $withOpinions)
+                        .font(.system(size: 12))
+                        .foregroundColor(Color(red: 117/255, green: 118/255, blue: 121/255))
+                        .toggleStyle(CustomToggleStyle())
                 }
+                .frame(width: 225)
                 
-                // 글쓰기 버튼
-                NavigationLink(destination: TravelOnWriteScreen()) {
-                    Text("+")
+                Text("여행On📝")
+                    .font(.system(size: 16))
+                    .fontWeight(.medium)
+                    .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
+                
+                ZStack(alignment: .bottomTrailing) {
+                    // 여행On Component
+                    ScrollView {
+                        VStack {
+                            ForEach(viewModel.travelOns) { travelOn in
+                                NavigationLink(destination: TravelOnDetailScreen(travelOnId: travelOn.id)){
+                                    TravelOnComponent(travelOn: travelOn)
+                                        .padding(EdgeInsets(top: 2, leading: 0, bottom: 2, trailing: 0))
+                                }
+                            }
+                        }
+                    }
+                    
+                    // 글쓰기 버튼
+                    NavigationLink(destination: TravelOnWriteScreen()) {
+                        Text("+")
+                    }
+                    .buttonStyle(WriteButtonStyle())
                 }
-                .buttonStyle(WriteButtonStyle())
+                .navigationBarTitle("", displayMode: .automatic)
+                .navigationBarHidden(true)
             }
-            .navigationBarTitle("", displayMode: .automatic)
-            .navigationBarHidden(true)
         }
     }
 }
