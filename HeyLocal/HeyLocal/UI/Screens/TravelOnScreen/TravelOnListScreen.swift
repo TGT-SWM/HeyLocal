@@ -131,7 +131,7 @@ struct TravelOnListScreen: View {
             
             // TODO: 여행On Text
             
-            ZStack {
+            ZStack(alignment: .bottomTrailing) {
                 // 여행On Component
                 ScrollView {
                     VStack {
@@ -149,7 +149,6 @@ struct TravelOnListScreen: View {
                     Text("+")
                 }
                 .buttonStyle(WriteButtonStyle())
-                .padding()
             }
             .navigationBarTitle("", displayMode: .automatic)
             .navigationBarHidden(true)
