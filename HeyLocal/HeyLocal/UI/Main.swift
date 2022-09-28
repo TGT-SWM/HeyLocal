@@ -20,11 +20,16 @@ struct Main: View {
 
 struct TabBar: View {
 	@State private var selection = Tab.home
+	@State var _displayTabBar = true
 	
 	var body: some View {
 		ZStack(alignment: .bottom) {
 			baseTabView
-			styledTabView
+				.environment(\.displayTabBar, displayTabBar)
+			
+			if (_displayTabBar) {
+				styledTabView
+			}
 		}
 	}
 }
@@ -129,6 +134,29 @@ extension TabBar {
 			.foregroundColor(selection == tab ? .black : Color("gray"))
 		}
 		.buttonStyle(PlainButtonStyle())
+	}
+}
+
+
+// MARK: - displayTabBar
+
+extension TabBar {
+	/// 탭 바를 출력할 것인지, 숨길 것인지 설정합니다.
+	func displayTabBar(_ _displayTabBar: Bool) {
+		self._displayTabBar = _displayTabBar
+		UITabBar.appearance().isHidden = !_displayTabBar // 기본 탭 바
+	}
+}
+
+struct DisplayTabBar: EnvironmentKey {
+	static var defaultValue: (Bool) -> Void = { _ in }
+}
+
+extension EnvironmentValues {
+	/// 탭 바의 출력 여부를 설정하는 메서드입니다.
+	var displayTabBar: (Bool) -> Void {
+		get { self[DisplayTabBar.self] }
+		set { self[DisplayTabBar.self] = newValue }
 	}
 }
 
