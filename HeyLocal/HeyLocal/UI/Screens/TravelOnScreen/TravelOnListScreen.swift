@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct TravelOnListScreen: View {
+//TempTravelOnList
+struct TempTravelOnList: View {
     enum SortType: String, CaseIterable, Identifiable {
         case byDate = "DATE"
         case byViews = "VIEWS"
@@ -24,7 +25,7 @@ struct TravelOnListScreen: View {
     @State var withNonOpinions : Bool = false
     
     @State var search: String = ""
-    @StateObject var viewModel = ViewModel()
+    @StateObject var viewModel = TravelOnListScreen.ViewModel()
     
     var body: some View {
         NavigationView {
@@ -115,6 +116,43 @@ struct TravelOnListScreen: View {
         if (withOpinions == true) && (withNonOpinions == true) {
             withOpinions = false
             withNonOpinions = false
+        }
+    }
+}
+
+struct TravelOnListScreen: View {
+    @StateObject var viewModel = TravelOnListScreen.ViewModel()
+    
+    var body: some View {
+        NavigationView {
+            // TODO: search bar
+            
+            // TODO: 추천순 · 조회순 · 답변 많은 순 - 지역 선택 - 답변 토글
+            
+            // TODO: 여행On Text
+            
+            ZStack {
+                // 여행On Component
+                ScrollView {
+                    VStack {
+                        ForEach(viewModel.travelOns) { travelOn in
+                            NavigationLink(destination: TravelOnDetailScreen(travelOnId: travelOn.id)){
+                                TravelOnComponent(travelOn: travelOn)
+                                    .padding(EdgeInsets(top: 2, leading: 0, bottom: 2, trailing: 0))
+                            }
+                        }
+                    }
+                }
+                
+                // 글쓰기 버튼
+                NavigationLink(destination: TravelOnWriteScreen()) {
+                    Text("+")
+                }
+                .buttonStyle(WriteButtonStyle())
+                .padding()
+            }
+            .navigationBarTitle("", displayMode: .automatic)
+            .navigationBarHidden(true)
         }
     }
 }
