@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: - PlaceList (장소 리스트)
+
 struct PlaceList: View {
 	var places: [Place]
 	
@@ -15,31 +17,49 @@ struct PlaceList: View {
 			if (places.isEmpty) {
 				Text("등록된 장소가 없습니다. 장소를 추가해보세요.")
 			} else {
-				ForEach(places.indices, id: \.self) { idx in
-					listItem(order: idx, place: places[idx])
-				}
+				placeList
 			}
 		}
     }
+}
+
+
+// MARK: - placeList
+
+extension PlaceList {
+	var placeList: some View {
+		List(places.indices, id: \.self) { idx in
+			listItem(order: idx, place: places[idx])
+		}
+	}
 	
 	func listItem(order: Int, place: Place) -> some View {
-		HStack {
+		HStack(alignment: .center) {
 			Text(String(order + 1))
 				.fontWeight(.bold)
 				.padding()
 				.background(
 					Circle()
 						.frame(width: 32, height: 32)
-						.foregroundColor(.gray)
+						.foregroundColor(Color("lightGray"))
 				)
 			
-			Text(place.name)
-				.font(.title3)
-				.fontWeight(.bold)
+			VStack(alignment: .leading) {
+				Text(place.name) // 이름
+					.font(.title3)
+					.fontWeight(.bold)
+				Text("\(place.categoryName) | \(place.address)") // 주소
+					.font(.subheadline)
+			}
+			
 			Spacer()
 		}
+		.frame(height: 70)
 	}
 }
+
+
+// MARK: - Previews
 
 struct PlaceList_Previews: PreviewProvider {
     static var previews: some View {
