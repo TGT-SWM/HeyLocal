@@ -93,7 +93,14 @@ extension TabBar {
 
 extension TabBar {
 	var styledTabView: some View {
-		VStack {
+		VStack(spacing: 0) {
+			LinearGradient( // 그림자 효과
+				colors: [.black.opacity(0), .black.opacity(0.07)],
+				startPoint: .top,
+				endPoint: .bottom
+			)
+		   .frame(height: 6)
+			
 			HStack(spacing: 0) {
 				tabItem(.home)
 				tabItem(.travelOn)
@@ -102,11 +109,7 @@ extension TabBar {
 				tabItem(.myInfo)
 			}
 			.frame(height: 55)
-			.background(
-				Rectangle()
-					.fill(.white)
-					.shadow(color: .black.opacity(0.07), radius: 6, x: 0, y: -2)
-			)
+			.background(Color.white)
 		}
 	}
 	
