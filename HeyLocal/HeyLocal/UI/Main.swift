@@ -19,8 +19,14 @@ struct Main: View {
 // MARK: - TabBar (탭 바)
 
 struct TabBar: View {
+	let tabBarHeight: CGFloat = 55
+	
 	@State private var selection = Tab.home
 	@State var _displayTabBar = true
+	
+	init() {
+		UITabBar.appearance().isHidden = true // 기본 탭 바 숨기기
+	}
 	
 	var body: some View {
 		ZStack(alignment: .bottom) {
@@ -85,6 +91,7 @@ extension TabBar {
 			MyProfileScreen()
 				.tag(Tab.myInfo)
 		}
+		.padding(.bottom, _displayTabBar ? tabBarHeight : 0)
 	}
 }
 
@@ -108,8 +115,8 @@ extension TabBar {
 				tabItem(.message)
 				tabItem(.myInfo)
 			}
-			.frame(height: 55)
-			.background(Color.white)
+			.frame(height: tabBarHeight)
+			.background(Color.white.ignoresSafeArea())
 		}
 	}
 	
@@ -147,7 +154,6 @@ extension TabBar {
 	/// 탭 바를 출력할 것인지, 숨길 것인지 설정합니다.
 	func displayTabBar(_ _displayTabBar: Bool) {
 		self._displayTabBar = _displayTabBar
-		UITabBar.appearance().isHidden = !_displayTabBar // 기본 탭 바
 	}
 }
 
