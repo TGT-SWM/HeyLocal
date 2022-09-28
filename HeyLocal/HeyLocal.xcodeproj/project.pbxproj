@@ -20,6 +20,7 @@
 		A813CA3028B4F033000F0ADF /* SNSButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A813CA2F28B4F033000F0ADF /* SNSButtonStyle.swift */; };
 		A836925828C6F48D00DBDB06 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A836925728C6F48D00DBDB06 /* SearchBar.swift */; };
 		A836925A28C72A0500DBDB06 /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = A836925928C72A0500DBDB06 /* Region.swift */; };
+		A83DAEED28D0475B001F1F5C /* TravelOnWriteScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83DAEEC28D0475B001F1F5C /* TravelOnWriteScreen.swift */; };
 		A83F100D28BCCCE000978711 /* TravelOnListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83F100C28BCCCE000978711 /* TravelOnListScreen.swift */; };
 		A84E841228B8C28600128D9B /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84E841128B8C28600128D9B /* SignInScreen.swift */; };
 		A8647C3A28BDA48B00D284B6 /* WriteButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8647C3928BDA48B00D284B6 /* WriteButtonStyle.swift */; };
@@ -31,6 +32,8 @@
 		A87F6CA428C0A37A0076046E /* ProfileReviseScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA328C0A37A0076046E /* ProfileReviseScreen.swift */; };
 		A87F6CA628C0A3AB0076046E /* SettingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA528C0A3AB0076046E /* SettingScreen.swift */; };
 		A8A1999728BF59EF006119C4 /* CheckedValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A1999628BF59EF006119C4 /* CheckedValue.swift */; };
+		A8AF3DEC28D407E9009B68BE /* RegionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AF3DEB28D407E9009B68BE /* RegionPicker.swift */; };
+		A8AF3DEE28D407F6009B68BE /* RegionPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AF3DED28D407F6009B68BE /* RegionPickerViewModel.swift */; };
 		A8C957E728C2E1EB0009E10B /* TravelOnReviseScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C957E628C2E1EB0009E10B /* TravelOnReviseScreen.swift */; };
 		EF1E4CCF28B53A6200D985E3 /* NetworkAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */; };
 		EF26CD8828C0E9DA006D0D27 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF26CD8728C0E9DA006D0D27 /* Config.swift */; };
@@ -39,10 +42,15 @@
 		EF26CD9128C0F153006D0D27 /* MyPlanList.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF26CD9028C0F153006D0D27 /* MyPlanList.swift */; };
 		EF26CD9328C0F15E006D0D27 /* MyPlanListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF26CD9228C0F15E006D0D27 /* MyPlanListViewModel.swift */; };
 		EF26CD9528C0FF12006D0D27 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF26CD9428C0FF12006D0D27 /* DateFormat.swift */; };
+		EF3C060C28E0E53F003F3188 /* PlaceSearchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C060B28E0E53F003F3188 /* PlaceSearchScreen.swift */; };
+		EF3C060E28E0E666003F3188 /* PlaceSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C060D28E0E666003F3188 /* PlaceSearchViewModel.swift */; };
+		EF3C061228E0EDC4003F3188 /* KakaoAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3C061128E0EDC4003F3188 /* KakaoAPIService.swift */; };
 		EF3FCF1528C12A3900D48F9E /* PlanDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3FCF1428C12A3900D48F9E /* PlanDetailScreen.swift */; };
 		EF3FCF1728C12D0800D48F9E /* PlanDetailScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3FCF1628C12D0800D48F9E /* PlanDetailScreenViewModel.swift */; };
 		EF3FCF1928C1345C00D48F9E /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3FCF1828C1345C00D48F9E /* Place.swift */; };
 		EF3FCF1C28C135B200D48F9E /* PlaceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3FCF1B28C135B200D48F9E /* PlaceList.swift */; };
+		EF4DD99D28E23CF500E0D072 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF4DD99C28E23CF500E0D072 /* Colors.xcassets */; };
+		EF4DD9A128E24CAE00E0D072 /* FAB.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4DD9A028E24CAE00E0D072 /* FAB.swift */; };
 		EF74BBF328B4D5C200E09450 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF74BBF228B4D5C200E09450 /* HomeScreen.swift */; };
 		EF74BBF928B52CF200E09450 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */; };
 		EF8FF25D28B4D0B100C053B7 /* HeyLocalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8FF25C28B4D0B100C053B7 /* HeyLocalApp.swift */; };
@@ -107,6 +115,7 @@
 		A813CA2F28B4F033000F0ADF /* SNSButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSButtonStyle.swift; sourceTree = "<group>"; };
 		A836925728C6F48D00DBDB06 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		A836925928C72A0500DBDB06 /* Region.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Region.swift; sourceTree = "<group>"; };
+		A83DAEEC28D0475B001F1F5C /* TravelOnWriteScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOnWriteScreen.swift; sourceTree = "<group>"; };
 		A83F100C28BCCCE000978711 /* TravelOnListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOnListScreen.swift; sourceTree = "<group>"; };
 		A84E841128B8C28600128D9B /* SignInScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
 		A8525DFC28C1B0C90085B36A /* Authorization.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Authorization.xcconfig; sourceTree = "<group>"; };
@@ -119,6 +128,8 @@
 		A87F6CA328C0A37A0076046E /* ProfileReviseScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileReviseScreen.swift; sourceTree = "<group>"; };
 		A87F6CA528C0A3AB0076046E /* SettingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingScreen.swift; sourceTree = "<group>"; };
 		A8A1999628BF59EF006119C4 /* CheckedValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckedValue.swift; sourceTree = "<group>"; };
+		A8AF3DEB28D407E9009B68BE /* RegionPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionPicker.swift; sourceTree = "<group>"; };
+		A8AF3DED28D407F6009B68BE /* RegionPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionPickerViewModel.swift; sourceTree = "<group>"; };
 		A8C957E628C2E1EB0009E10B /* TravelOnReviseScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOnReviseScreen.swift; sourceTree = "<group>"; };
 		EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAgent.swift; sourceTree = "<group>"; };
 		EF1E4CD028B5426F00D985E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -128,10 +139,15 @@
 		EF26CD9028C0F153006D0D27 /* MyPlanList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlanList.swift; sourceTree = "<group>"; };
 		EF26CD9228C0F15E006D0D27 /* MyPlanListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPlanListViewModel.swift; sourceTree = "<group>"; };
 		EF26CD9428C0FF12006D0D27 /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
+		EF3C060B28E0E53F003F3188 /* PlaceSearchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSearchScreen.swift; sourceTree = "<group>"; };
+		EF3C060D28E0E666003F3188 /* PlaceSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSearchViewModel.swift; sourceTree = "<group>"; };
+		EF3C061128E0EDC4003F3188 /* KakaoAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAPIService.swift; sourceTree = "<group>"; };
 		EF3FCF1428C12A3900D48F9E /* PlanDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailScreen.swift; sourceTree = "<group>"; };
 		EF3FCF1628C12D0800D48F9E /* PlanDetailScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailScreenViewModel.swift; sourceTree = "<group>"; };
 		EF3FCF1828C1345C00D48F9E /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		EF3FCF1B28C135B200D48F9E /* PlaceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceList.swift; sourceTree = "<group>"; };
+		EF4DD99C28E23CF500E0D072 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		EF4DD9A028E24CAE00E0D072 /* FAB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAB.swift; sourceTree = "<group>"; };
 		EF74BBF228B4D5C200E09450 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EF89F5DB28C08103001401FE /* Main.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Main.xcconfig; sourceTree = "<group>"; };
@@ -236,6 +252,7 @@
 			children = (
 				A83F100C28BCCCE000978711 /* TravelOnListScreen.swift */,
 				A80B903528C9EA200026866A /* TravelOnDetailScreen.swift */,
+				A83DAEEC28D0475B001F1F5C /* TravelOnWriteScreen.swift */,
 				A8C957E628C2E1EB0009E10B /* TravelOnReviseScreen.swift */,
 				A80213D228BF2C2100B6359E /* TravelOnViewModel.swift */,
 			);
@@ -270,6 +287,15 @@
 			path = ProfileComponent;
 			sourceTree = "<group>";
 		};
+		A8AF3DEA28D407D7009B68BE /* RegionPicker */ = {
+			isa = PBXGroup;
+			children = (
+				A8AF3DEB28D407E9009B68BE /* RegionPicker.swift */,
+				A8AF3DED28D407F6009B68BE /* RegionPickerViewModel.swift */,
+			);
+			path = RegionPicker;
+			sourceTree = "<group>";
+		};
 		EF26CD8B28C0F0EA006D0D27 /* MyPlanScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -288,6 +314,23 @@
 				EF26CD9228C0F15E006D0D27 /* MyPlanListViewModel.swift */,
 			);
 			path = MyPlanList;
+			sourceTree = "<group>";
+		};
+		EF3C060A28E0E52F003F3188 /* PlaceSearchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				EF3C060B28E0E53F003F3188 /* PlaceSearchScreen.swift */,
+				EF3C060D28E0E666003F3188 /* PlaceSearchViewModel.swift */,
+			);
+			path = PlaceSearchScreen;
+			sourceTree = "<group>";
+		};
+		EF3FCF1A28C135A700D48F9E /* PlaceList */ = {
+			isa = PBXGroup;
+			children = (
+				EF3FCF1B28C135B200D48F9E /* PlaceList.swift */,
+			);
+			path = PlaceList;
 			sourceTree = "<group>";
 		};
 		EF74BBF128B4D55A00E09450 /* HomeScreen */ = {
@@ -338,6 +381,7 @@
 				EF8FF25C28B4D0B100C053B7 /* HeyLocalApp.swift */,
 				EF8FF26028B4D0B300C053B7 /* Assets.xcassets */,
 				EF8FF26228B4D0B300C053B7 /* Preview Content */,
+				EF4DD99C28E23CF500E0D072 /* Colors.xcassets */,
 			);
 			path = HeyLocal;
 			sourceTree = "<group>";
@@ -379,6 +423,7 @@
 				EFAA2AC428BBC48400B56A3C /* AuthService.swift */,
 				EF26CD8928C0EECA006D0D27 /* PlanService.swift */,
 				A80213DA28BF2EA100B6359E /* TravelOnService.swift */,
+				EF3C061128E0EDC4003F3188 /* KakaoAPIService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -399,6 +444,7 @@
 		EF8FF26E28B4D1C400C053B7 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				EF3C060A28E0E52F003F3188 /* PlaceSearchScreen */,
 				A87F6C9B28C099940076046E /* ProfileScreen */,
 				A83F100728BC4E6A00978711 /* TravelOnScreen */,
 				EF74BBF128B4D55A00E09450 /* HomeScreen */,
@@ -411,6 +457,7 @@
 		EF8FF26F28B4D1D000C053B7 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				A8AF3DEA28D407D7009B68BE /* RegionPicker */,
 				EFF9F3C528C5C8C100E9FCB3 /* KakaoMap */,
 				A87F6CA028C0A1EE0076046E /* ProfileComponent */,
 				EF26CD9628C10869006D0D27 /* MyPlanList */,
@@ -418,6 +465,7 @@
 				A8A1999628BF59EF006119C4 /* CheckedValue.swift */,
 				A87F6C9E28C0A1050076046E /* TopTabs.swift */,
 				A836925728C6F48D00DBDB06 /* SearchBar.swift */,
+				EF4DD9A028E24CAE00E0D072 /* FAB.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -589,6 +637,7 @@
 				EFF9F3A228C5523200E9FCB3 /* map_present_tracking.png in Resources */,
 				EFF9F39928C5523200E9FCB3 /* detail_button.png in Resources */,
 				EFF9F3AC28C5523200E9FCB3 /* noimage.png in Resources */,
+				EF4DD99D28E23CF500E0D072 /* Colors.xcassets in Resources */,
 				EFF9F39E28C5523200E9FCB3 /* th_line.png in Resources */,
 				EFF9F3A728C5523200E9FCB3 /* info_box_tail.png in Resources */,
 				EFF9F39628C5523200E9FCB3 /* map_pin_custom.png in Resources */,
@@ -626,8 +675,11 @@
 				A87F6C9F28C0A1050076046E /* TopTabs.swift in Sources */,
 				A813CA3028B4F033000F0ADF /* SNSButtonStyle.swift in Sources */,
 				EF26CD9128C0F153006D0D27 /* MyPlanList.swift in Sources */,
+				EF3C060C28E0E53F003F3188 /* PlaceSearchScreen.swift in Sources */,
+				EF4DD9A128E24CAE00E0D072 /* FAB.swift in Sources */,
 				EFF9F3C728C5C8DA00E9FCB3 /* KakaoMap.swift in Sources */,
 				A80213DB28BF2EA100B6359E /* TravelOnService.swift in Sources */,
+				A8AF3DEC28D407E9009B68BE /* RegionPicker.swift in Sources */,
 				EF8FF27428B4D2D100C053B7 /* Main.swift in Sources */,
 				EFAA2AC328BBC30E00B56A3C /* AuthRepository.swift in Sources */,
 				EF26CD9328C0F15E006D0D27 /* MyPlanListViewModel.swift in Sources */,
@@ -637,6 +689,7 @@
 				EFDC441B28C0735400E8747C /* PlanRepository.swift in Sources */,
 				EF3FCF1928C1345C00D48F9E /* Place.swift in Sources */,
 				EF8FF25D28B4D0B100C053B7 /* HeyLocalApp.swift in Sources */,
+				EF3C060E28E0E666003F3188 /* PlaceSearchViewModel.swift in Sources */,
 				A80213D928BF2D6C00B6359E /* User.swift in Sources */,
 				A87F6C9D28C099EE0076046E /* MyProfileScreen.swift in Sources */,
 				EFAA2ACD28BBD19400B56A3C /* SignInScreenTest.swift in Sources */,
@@ -649,10 +702,13 @@
 				A87F6CA628C0A3AB0076046E /* SettingScreen.swift in Sources */,
 				A87F6CA228C0A22B0076046E /* ProfileComponent.swift in Sources */,
 				A8A1999728BF59EF006119C4 /* CheckedValue.swift in Sources */,
+				EF3C061228E0EDC4003F3188 /* KakaoAPIService.swift in Sources */,
 				A84E841228B8C28600128D9B /* SignInScreen.swift in Sources */,
 				EF26CD8A28C0EECA006D0D27 /* PlanService.swift in Sources */,
 				EF26CD8D28C0F102006D0D27 /* MyPlanScreen.swift in Sources */,
+				A8AF3DEE28D407F6009B68BE /* RegionPickerViewModel.swift in Sources */,
 				A8794B3128B4EB5900959D56 /* BasicButtonStyle.swift in Sources */,
+				A83DAEED28D0475B001F1F5C /* TravelOnWriteScreen.swift in Sources */,
 				A80B903A28CA0FFB0026866A /* ToggleButtonStyle.swift in Sources */,
 				EF1E4CCF28B53A6200D985E3 /* NetworkAgent.swift in Sources */,
 				A836925828C6F48D00DBDB06 /* SearchBar.swift in Sources */,

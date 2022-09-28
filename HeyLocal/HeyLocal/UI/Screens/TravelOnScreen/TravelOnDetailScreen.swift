@@ -10,143 +10,52 @@ import SwiftUI
 struct TravelOnDetailScreen: View {
     @State var travelOnId: Int
     @StateObject var viewModel = TravelOnListScreen.ViewModel()
-    
-    func memToString(mem: String) -> String {
-        switch mem {
-        case "ALONE":
-            return "혼자"
-        case "CHILD":
-            return "아이와"
-        case "PARENT":
-            return "부모님과"
-        case "COUPLE":
-            return "연인과"
-        case "FRIEND":
-            return "친구와"
-        case "PET":
-            return "반려동물과"
-        default:
-            return ""
-        }
-    }
-    
-    func accomToString(accom: String) -> String {
-//        [ ALL, CAMPING, GUEST_HOUSE, HOTEL, PENSION, RESORT ]
-        switch accom {
-        case "HOTEL":
-            return "호텔"
-        case "PENSION":
-            return "펜션"
-        case "CAMPING":
-            return "캠핑/글램핑"
-        case "GUEST_HOUSE":
-            return "게스트하우스"
-        case "RESORT":
-            return "리조트"
-        case "ALL":
-            return "상관 없어요"
-        default:
-            return ""
-        }
-    }
-    
-    func transToString(trans: String) -> String {
-        switch trans {
-        case "OWN_CAR":
-            return "자가용"
-        case "RENT_CAR":
-            return "렌트카"
-        case "PUBLIC":
-            return "대중교통"
-        default:
-            return ""
-        }
-    }
-    
-    func foodToString(food: String) -> String {
-//        [ CHINESE, GLOBAL, JAPANESE, KOREAN, WESTERN ]
-        switch food {
-        case "KOREAN":
-            return "한식"
-        case "WESTERN":
-            return "양식"
-        case "CHINESE":
-            return "중식"
-        case "JAPANESE":
-            return "일식"
-        case "GLOBAL":
-            return "세계음식"
-        default:
-            return ""
-        }
-    }
-    
-    func drinkToString(drink: String) -> String {
-//        [ BEER, LIQUOR, MAKGEOLLI, NO_ALCOHOL, SOJU, WINE ]
-        switch drink {
-        case "SOJU":
-            return "소주"
-        case "BEER":
-            return "맥주"
-        case "WINE":
-            return "와인"
-        case "MAKGEOLLI":
-            return "막걸리"
-        case "LIQUOR":
-            return "칵테일"
-        case "NO_ALCOHOL":
-            return "술 안마셔요"
-        default:
-            return ""
-        }
-    }
+    @State private var showingAlert = false
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         ScrollView {
             content
-        
             
             Spacer()
                 .frame(height: 30)
             
-            Group {
-                VStack {
-                    
-                    HStack {
-                        Text("이런 곳은 어때요?")
-                            .font(.system(size: 25))
-                            .fontWeight(.bold)
-                        
-                        Spacer()
-                            .frame(width: 3)
-                        
-                        Text("0건")
-                        
-                        Button("나도 추천해줄래요!") {
-                            
-                        }
-                    }
-                    Divider()
-                }
-            }
+            opinions
         }
         .onAppear {
             viewModel.fetchTravelOn(travelOnId: travelOnId)
         }
-        
     }
-    
-    
     
     var content: some View {
         VStack {
             // Title
             Group {
-                Text("\(viewModel.travelOn.title!)")
-                    .font(.system(size: 25))
-                    .fontWeight(.bold)
-                    .frame(maxWidth: ScreenSize.width * 0.9, alignment: .leading)
-                
+                HStack {
+                    Text("\(viewModel.travelOn.title!)")
+                        .font(.system(size: 25))
+                        .fontWeight(.bold)
+
+                    Spacer()
+                    
+                    Button(action: {}) {
+                        Text("수정")
+                    }
+                    
+                    // 삭제 클릭 시, 팝업 창 출려
+                    Button("삭제") {
+                        self.showingAlert = true
+                    }
+                    .alert(isPresented: $showingAlert) {
+                        Alert(title: Text(""),
+                              message: Text("정말 삭제하시겠습니까?"),
+                              primaryButton: .destructive(Text("삭제"),
+                                                          action: {
+                            viewModel.deleteTravelOn(travelOnId: viewModel.travelOn.id!)
+                        }),
+                              secondaryButton: .cancel(Text("취소")))}
+                }
+                .frame(maxWidth: ScreenSize.width * 0.9, alignment: .leading)
                 Spacer()
                     .frame(height: 20)
             }
@@ -208,7 +117,7 @@ struct TravelOnDetailScreen: View {
                                 .frame(width: ScreenSize.width * 0.26, height: ScreenSize.height * 0.05)
                                 .cornerRadius(90)
                             
-                            Text("\(memToString(mem: member.memberType!))")
+                            Text("\(memToString(mem: member.type!))")
                         }
                         .frame(maxWidth: ScreenSize.width * 0.9, alignment: .leading)
                     }
@@ -427,8 +336,113 @@ struct TravelOnDetailScreen: View {
         }
     }
     
-    func fetchTravelOnDetail(travelOnId: Int) {
-        viewModel.fetchTravelOn(travelOnId: travelOnId)
+    var opinions: some View {
+        VStack{
+            HStack {
+                Text("이런 곳은 어때요?")
+                    .font(.system(size: 25))
+                    .fontWeight(.bold)
+                
+                Spacer()
+                    .frame(width: 3)
+                
+                Text("0건")
+                
+                Button("나도 추천해줄래요!") {
+                    
+                }
+            }
+            Divider()
+            
+            // TODO: 해당 여행On에 있는 답변 List 출력
+        }
+    }
+    
+    func memToString(mem: String) -> String {
+        switch mem {
+        case "ALONE":
+            return "혼자"
+        case "CHILD":
+            return "아이와"
+        case "PARENT":
+            return "부모님과"
+        case "COUPLE":
+            return "연인과"
+        case "FRIEND":
+            return "친구와"
+        case "PET":
+            return "반려동물과"
+        default:
+            return ""
+        }
+    }
+    
+    func accomToString(accom: String) -> String {
+        switch accom {
+        case "HOTEL":
+            return "호텔"
+        case "PENSION":
+            return "펜션"
+        case "CAMPING":
+            return "캠핑/글램핑"
+        case "GUEST_HOUSE":
+            return "게스트하우스"
+        case "RESORT":
+            return "리조트"
+        case "ALL":
+            return "상관 없어요"
+        default:
+            return ""
+        }
+    }
+    
+    func transToString(trans: String) -> String {
+        switch trans {
+        case "OWN_CAR":
+            return "자가용"
+        case "RENT_CAR":
+            return "렌트카"
+        case "PUBLIC":
+            return "대중교통"
+        default:
+            return ""
+        }
+    }
+    
+    func foodToString(food: String) -> String {
+        switch food {
+        case "KOREAN":
+            return "한식"
+        case "WESTERN":
+            return "양식"
+        case "CHINESE":
+            return "중식"
+        case "JAPANESE":
+            return "일식"
+        case "GLOBAL":
+            return "세계음식"
+        default:
+            return ""
+        }
+    }
+    
+    func drinkToString(drink: String) -> String {
+        switch drink {
+        case "SOJU":
+            return "소주"
+        case "BEER":
+            return "맥주"
+        case "WINE":
+            return "와인"
+        case "MAKGEOLLI":
+            return "막걸리"
+        case "LIQUOR":
+            return "칵테일"
+        case "NO_ALCOHOL":
+            return "술 안마셔요"
+        default:
+            return ""
+        }
     }
 }
 

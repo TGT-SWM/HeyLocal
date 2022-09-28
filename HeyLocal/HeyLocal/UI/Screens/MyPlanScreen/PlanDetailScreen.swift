@@ -15,6 +15,7 @@ struct PlanDetailScreen: View {
 	@Environment(\.presentationMode) var presentationMode
 	
 	@State var placeListEditing = false
+	@State var placeSelection: [Place] = []
 	
 	init(plan: Plan) {
 		self.plan = plan
@@ -22,39 +23,39 @@ struct PlanDetailScreen: View {
 	}
 	
     var body: some View {
-		VStack {
-			header
-			if (viewModel.showMapView) {
-				mapView
-			} else {
-				placesView
+			VStack {
+				header
+				if (viewModel.showMapView) {
+					mapView
+				} else {
+					placesView
+				}
+				dayControl
+					.padding()
 			}
-			dayControl
-				.padding()
-		}
-		.navigationTitle("마이 플랜")
-		.navigationBarTitleDisplayMode(.inline)
-		.toolbar {
-			Button(placeListEditing ? "확인" : "수정") {
-				placeListEditing.toggle()
+			.navigationTitle("마이 플랜")
+			.navigationBarTitleDisplayMode(.inline)
+			.toolbar {
+				Button(placeListEditing ? "확인" : "수정") {
+					placeListEditing.toggle()
+				}
 			}
-		}
-		.environment(\.placeListEditing, placeListEditing)
-		.onAppear {
-			viewModel.fetchPlaces()
-		}
-		.alert(isPresented: $viewModel.showErrorDialog) {
-			Alert(title: Text("에러"), message: Text("플랜을 찾을 수 없습니다."), dismissButton: .default(Text("뒤로 가기"), action: {
-				presentationMode.wrappedValue.dismiss()
-			}))
-		}
+			.environment(\.placeListEditing, placeListEditing)
+			.onAppear {
+				viewModel.fetchPlaces()
+			}
+			.alert(isPresented: $viewModel.showErrorDialog) {
+				Alert(title: Text("에러"), message: Text("플랜을 찾을 수 없습니다."), dismissButton: .default(Text("뒤로 가기"), action: {
+					presentationMode.wrappedValue.dismiss()
+				}))
+			}
     }
 	
 	/// 상단 헤더 영역입니다.
 	var header: some View {
 		HStack {
 			VStack(alignment: .leading) {
-				Text("\(plan.regionState) \(plan.regionCity ?? "") 여행")
+				Text(plan.title)
 					.font(.title2)
 					.fontWeight(.bold)
 				Text(DateFormat.format(plan.startDate, from: "yyyy-MM-dd", to: "M월 d일") + " ~ " + DateFormat.format(plan.endDate, from: "yyyy-MM-dd", to: "M월 d일"))
@@ -91,10 +92,12 @@ struct PlanDetailScreen: View {
 	var placesView: some View {
 		VStack {
 			// 장소 추가 버튼
-			Button {
-			} label: {
-				Text("해당 일자에 장소 추가하기")
-			}.padding()
+			if !viewModel.schedules.isEmpty {
+				NavigationLink(destination: PlaceSearchScreen(places: $viewModel.schedules[viewModel.currentDay - 1].places)) {
+					Text("해당 일자에 장소 추가하기")
+				}
+				.padding()
+			}
 			
 			// 장소 리스트
 			TabView(selection: $viewModel.currentDay) {
@@ -135,6 +138,6 @@ struct PlanDetailScreen: View {
 
 struct PlanDetailScreen_Previews: PreviewProvider {
     static var previews: some View {
-		PlanDetailScreen(plan: Plan(id: 1, regionId: 1, regionState: "서울특별시", regionCity: "강남구", startDate: "2022-09-01", endDate: "2022-09-03"))
+		PlanDetailScreen(plan: Plan(id: 1, title: "서울, 서울, 서울!", regionId: 1, regionState: "서울특별시", regionCity: "강남구", startDate: "2022-09-01", endDate: "2022-09-03"))
     }
 }
