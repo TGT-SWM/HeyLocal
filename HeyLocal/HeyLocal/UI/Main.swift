@@ -24,11 +24,11 @@ struct TabBar: View {
 	
 	var body: some View {
 		ZStack(alignment: .bottom) {
-			baseTabView
+			baseTabBar
 				.environment(\.displayTabBar, displayTabBar)
 			
 			if (_displayTabBar) {
-				styledTabView
+				styledTabBar
 			}
 		}
 	}
@@ -69,10 +69,10 @@ extension TabBar {
 }
 
 
-// MARK: - baseTabView (선택된 탭의 화면을 출력)
+// MARK: - baseTabBar (기본 TabView)
 
 extension TabBar {
-	var baseTabView: some View {
+	var baseTabBar: some View {
 		TabView(selection: $selection) {
 			HomeScreen()
 				.tag(Tab.home)
@@ -89,17 +89,17 @@ extension TabBar {
 }
 
 
-// MARK: - styledTabView (탭 바의 디자인)
+// MARK: - styledTabBar (커스텀 탭 바)
 
 extension TabBar {
-	var styledTabView: some View {
+	var styledTabBar: some View {
 		VStack(spacing: 0) {
 			LinearGradient( // 그림자 효과
 				colors: [.black.opacity(0), .black.opacity(0.07)],
 				startPoint: .top,
 				endPoint: .bottom
 			)
-		   .frame(height: 6)
+			.frame(height: 6)
 			
 			HStack(spacing: 0) {
 				tabItem(.home)
@@ -141,7 +141,7 @@ extension TabBar {
 }
 
 
-// MARK: - displayTabBar
+// MARK: - displayTabBar (탭 바 On/Off를 위한 메서드)
 
 extension TabBar {
 	/// 탭 바를 출력할 것인지, 숨길 것인지 설정합니다.
