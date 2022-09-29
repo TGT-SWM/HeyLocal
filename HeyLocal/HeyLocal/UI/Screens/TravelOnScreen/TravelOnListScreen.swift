@@ -143,27 +143,54 @@ struct TravelOnListScreen: View {
                 
                 // TODO: 추천순 · 조회순 · 답변 많은 순 - 지역 선택 - 답변 토글
                 HStack {
-                    Picker("sort By", selection: $sortBy) {
-                        ForEach(SortType.allCases, id:\.id) { value in
-                            switch value {
+                    HStack {
+                        Menu {
+                            Picker(selection: $sortBy) {
+                                ForEach(SortType.allCases, id:\.id) { value in
+                                    switch value {
+                                    case .byDate:
+                                        Text("최신순")
+                                            .tag(value)
+                                            .font(.system(size: 12))
+
+                                    case .byViews:
+                                        Text("조회순")
+                                            .tag(value)
+                                            .font(.system(size: 12))
+
+                                    case .byComments:
+                                        Text("답변순")
+                                            .tag(value)
+                                            .font(.system(size: 12))
+                                    }
+                                }
+                            } label: {}
+                        } label: {
+                            switch sortBy {
                             case .byDate:
                                 Text("최신순")
-                                    .tag(value)
+                                    .foregroundColor(Color(red: 255/255, green: 153/255, blue: 0/255))
                                     .font(.system(size: 12))
 
                             case .byViews:
                                 Text("조회순")
-                                    .tag(value)
+                                    .foregroundColor(Color(red: 255/255, green: 153/255, blue: 0/255))
                                     .font(.system(size: 12))
 
                             case .byComments:
                                 Text("답변순")
-                                    .tag(value)
+                                    .foregroundColor(Color(red: 255/255, green: 153/255, blue: 0/255))
                                     .font(.system(size: 12))
                             }
-                        }
+                        }.id(sortBy)
+                        
+                        Image(systemName: "chevron.down")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 10)
+                            .foregroundColor(Color(red: 255/255, green: 153/255, blue: 0/255))
+                        
                     }
-                    .pickerStyle(.menu)
                     
                     Button(action: {}) {
                         HStack {
@@ -188,7 +215,7 @@ struct TravelOnListScreen: View {
                         .foregroundColor(Color(red: 117/255, green: 118/255, blue: 121/255))
                         .toggleStyle(CustomToggleStyle())
                 }
-                .frame(width: 225)
+                .frame(width: 235)
                 
                 Text("여행On📝")
                     .font(.system(size: 16))
