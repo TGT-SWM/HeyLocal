@@ -51,6 +51,7 @@
 		EF3FCF1C28C135B200D48F9E /* PlaceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3FCF1B28C135B200D48F9E /* PlaceList.swift */; };
 		EF4DD99D28E23CF500E0D072 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF4DD99C28E23CF500E0D072 /* Colors.xcassets */; };
 		EF4DD9A128E24CAE00E0D072 /* FAB.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4DD9A028E24CAE00E0D072 /* FAB.swift */; };
+		EF6A3FC228E71A2F003F474B /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A3FC128E71A2F003F474B /* UserRepository.swift */; };
 		EF74BBF328B4D5C200E09450 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF74BBF228B4D5C200E09450 /* HomeScreen.swift */; };
 		EF74BBF928B52CF200E09450 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */; };
 		EF8FF25D28B4D0B100C053B7 /* HeyLocalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8FF25C28B4D0B100C053B7 /* HeyLocalApp.swift */; };
@@ -148,6 +149,7 @@
 		EF3FCF1B28C135B200D48F9E /* PlaceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceList.swift; sourceTree = "<group>"; };
 		EF4DD99C28E23CF500E0D072 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		EF4DD9A028E24CAE00E0D072 /* FAB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAB.swift; sourceTree = "<group>"; };
+		EF6A3FC128E71A2F003F474B /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		EF74BBF228B4D5C200E09450 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EF89F5DB28C08103001401FE /* Main.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Main.xcconfig; sourceTree = "<group>"; };
@@ -412,6 +414,7 @@
 				EFAA2AC228BBC30E00B56A3C /* AuthRepository.swift */,
 				EFDC441A28C0735400E8747C /* PlanRepository.swift */,
 				A80213D428BF2C4900B6359E /* TravelOnRepository.swift */,
+				EF6A3FC128E71A2F003F474B /* UserRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -679,6 +682,7 @@
 				EF4DD9A128E24CAE00E0D072 /* FAB.swift in Sources */,
 				EFF9F3C728C5C8DA00E9FCB3 /* KakaoMap.swift in Sources */,
 				A80213DB28BF2EA100B6359E /* TravelOnService.swift in Sources */,
+				EF6A3FC228E71A2F003F474B /* UserRepository.swift in Sources */,
 				A8AF3DEC28D407E9009B68BE /* RegionPicker.swift in Sources */,
 				EF8FF27428B4D2D100C053B7 /* Main.swift in Sources */,
 				EFAA2AC328BBC30E00B56A3C /* AuthRepository.swift in Sources */,
