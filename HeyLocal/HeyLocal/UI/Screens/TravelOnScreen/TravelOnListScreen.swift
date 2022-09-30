@@ -18,7 +18,7 @@ struct TravelOnListScreen: View {
     @State var withOpinions = false
 
     @State var lastItemId: Int? = nil
-    @State var pageSize: Int = 5
+    @State var pageSize: Int = 15
     
     
     enum SortType: String, CaseIterable, Identifiable {
@@ -151,7 +151,7 @@ struct TravelOnListScreen: View {
                     .buttonStyle(WriteButtonStyle())
                 }
                 .onAppear {
-                    viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 5, regionId: nil, sortBy: "DATE", withOpinions: false)
+                    viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 15, regionId: nil, sortBy: "DATE", withOpinions: false)
                 }
                 .navigationBarTitle("", displayMode: .automatic)
                 .navigationBarHidden(true)

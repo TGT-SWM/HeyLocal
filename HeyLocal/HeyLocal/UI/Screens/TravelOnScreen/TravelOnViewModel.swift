@@ -40,7 +40,7 @@ extension TravelOnListScreen {
                                            description: "string")
             
             
-            cancellable = travelOnService.getTravelOnLists(lastItemId: nil, pageSize: 5, regionId: nil, sortBy: "DATE", withOpinions: nil)
+            cancellable = travelOnService.getTravelOnLists(lastItemId: nil, pageSize: 15, regionId: nil, sortBy: "DATE", withOpinions: nil)
                 .sink(receiveCompletion: { _ in
                 }, receiveValue: { travelOns in
                     self.travelOns = travelOns
