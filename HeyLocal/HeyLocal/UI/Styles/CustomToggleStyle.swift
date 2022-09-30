@@ -12,6 +12,7 @@ struct CustomToggleStyle: ToggleStyle {
         HStack {
             configuration.label
             Spacer()
+                .frame(width: 3)
             Rectangle()
                 .foregroundColor(configuration.isOn ? Color(red: 255/255, green: 153/255, blue: 0/255) : Color(red: 117/255, green: 118/255, blue: 121/255))
                 .frame(width: 51, height: 31, alignment: .center)

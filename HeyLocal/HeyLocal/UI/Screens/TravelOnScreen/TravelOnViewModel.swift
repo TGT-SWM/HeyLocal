@@ -49,14 +49,14 @@ extension TravelOnListScreen {
         
         
         // Travel On 전체 목록
-        func fetchTravelOnList(lastItemId: Int?, pageSize: Int, regionId: Int?, sortBy: String, withOpinions: Bool, withNonOpinions: Bool) {
-            // withOpinions 값
-            var with_opinons: Bool? = nil
-            if (withOpinions != withNonOpinions) {
-                with_opinons = withOpinions
-            }
+        func fetchTravelOnList(lastItemId: Int?, pageSize: Int, regionId: Int?, sortBy: String, withOpinions: Bool) {
+            // withOpinions -> nil 확인
+            var withOpinion: Bool? = nil
             
-            cancellable = travelOnService.getTravelOnLists(lastItemId: lastItemId, pageSize: pageSize, regionId: regionId, sortBy: sortBy, withOpinions: with_opinons)
+            if withOpinions == true {
+                withOpinion = true
+            }
+            cancellable = travelOnService.getTravelOnLists(lastItemId: lastItemId, pageSize: pageSize, regionId: regionId, sortBy: sortBy, withOpinions: withOpinion)
                 .sink(receiveCompletion: { _ in
                 }, receiveValue: { travelOns in
                     self.travelOns = travelOns
