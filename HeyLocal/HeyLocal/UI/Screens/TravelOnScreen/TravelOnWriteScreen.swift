@@ -7,6 +7,45 @@
 
 import SwiftUI
 
+struct TempTravelOnWriteScreen: View {
+    @State var isFill: Bool = true
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
+    // custom Back button
+    var btnBack : some View {
+        Button(action: {
+        self.presentationMode.wrappedValue.dismiss()
+        }) {
+            Image(systemName: "chevron.left")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 10)
+                .foregroundColor(.black)
+        }
+    }
+    
+    // 작성완료 버튼
+    var writeBtn: some View {
+        Button(action: {
+            
+        }) {
+            Text("작성완료")
+                .font(.system(size: 16))
+                .foregroundColor(isFill ? Color(red: 255/255, green: 153/255, blue: 0/255) : Color(red: 121/255, green: 119/255, blue: 117/255))
+        }
+    }
+    
+    var body: some View {
+        ScrollView {
+            
+        }
+        .navigationTitle("여행On")
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: btnBack, trailing: writeBtn)
+    }
+}
+
 struct TravelOnWriteScreen: View {
     enum Price: String, CaseIterable, Identifiable {
         case ten = "10만원"
@@ -682,6 +721,6 @@ struct TravelOnWriteScreen: View {
 
 struct TravelOnWriteScreen_Previews: PreviewProvider {
     static var previews: some View {
-        TravelOnWriteScreen()
+        TempTravelOnWriteScreen()
     }
 }
