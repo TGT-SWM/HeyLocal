@@ -35,9 +35,40 @@ struct TempTravelOnWriteScreen: View {
         }
     }
     
+    @State var title: String = ""
     var body: some View {
         ScrollView {
-            
+            VStack(alignment: .leading){
+                // Title
+                Group {
+                    VStack(alignment: .leading) {
+                        Text("여행 On 제목")
+                            .font(.system(size: 14))
+                            .fontWeight(.medium)
+                        
+                        TextField("  제목 입력", text: $title)
+                            .font(.system(size: 12))
+                            .frame(width: 350, height: 36)
+                            .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
+                            .background(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
+                            .cornerRadius(10)
+                    }
+                }
+                
+                // TODO: Region
+                // TODO: Start Date - End Date
+                
+                
+                // TODO: Member Set
+                // TODO: Accom Set
+                // TODO: Transportation Set
+                // TODO: Food Set
+                // TODO: Drink Set
+                // TODO: Travel Taste Set
+                
+                // TODO: Description
+            }
+            .frame(width: 350, alignment: .leading)
         }
         .navigationTitle("여행On")
         .navigationBarTitleDisplayMode(.inline)
