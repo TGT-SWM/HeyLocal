@@ -29,9 +29,9 @@ extension TravelOnListScreen {
                                            travelMemberSet: [HopeType(id: 1, type: "ALONE")],
                                            accommodationMaxCost: 100000,
                                            hopeAccommodationSet: [HopeType(id: 1, type: "ALL")],
-                                           foodMaxCost: 100000,
+//                                           foodMaxCost: 100000,
                                            hopeFoodSet: [HopeType(id: 1, type: "CHINESE")],
-                                           drinkMaxCost: 100000,
+//                                           drinkMaxCost: 100000,
                                            hopeDrinkSet: [HopeType(id: 1, type: "SOJU"), HopeType(id: 2, type: "BEER")],
                                            travelTypeGroup: TravelType(id: 1,
                                                                        placeTasteType: "FAMOUS",
@@ -69,7 +69,9 @@ extension TravelOnListScreen {
                 .sink(receiveCompletion: { _ in
                 }, receiveValue: { travelOn in
                     self.travelOn = travelOn
+                    print(self.travelOn.title)
                 })
+//            print(self.travelOn.title)
         }
         
         func deleteTravelOn(travelOnId: Int) {
