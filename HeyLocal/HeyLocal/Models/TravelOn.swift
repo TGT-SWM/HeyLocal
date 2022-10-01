@@ -47,13 +47,10 @@ struct TravelOnDetail: Decodable, Identifiable {
     var accommodationMaxCost: Int?
     var hopeAccommodationSet: [HopeType]?
     
-    var foodMaxCost: Int?
     var hopeFoodSet: [HopeType]?
-    
-    var drinkMaxCost: Int?
     var hopeDrinkSet: [HopeType]?
     
-    var travelTypeGroup: TravelType
+    var travelTypeGroup: TravelType?
     var description: String?
 }
 
@@ -62,16 +59,11 @@ struct HopeType: Decodable, Identifiable {
     var type: String?
 }
 
-struct TravelType: Decodable {
+struct TravelType: Decodable, Identifiable {
     var id: Int?
     var placeTasteType: String?
     var activityTasteType: String?
     var snsTasteType: String?
-}
-
-struct MemberType: Decodable, Identifiable {
-    var id: Int?
-    var memberType: String?
 }
 
 // Data Model for POST

@@ -18,7 +18,7 @@ struct ProfileComponent: View {
                 HStack {
                     // User Image
                     Group {
-                        WebImage(url: user.imageUrl)
+                        WebImage(url: user.imageUrl!)
                             .scaledToFill()
                             .frame(width: 100, height: 100)
                             .clipped()
@@ -43,7 +43,7 @@ struct ProfileComponent: View {
                             HStack {
                                 Text("노하우")
                                     .fontWeight(.semibold)
-                                Text("\(user.knowHow)하우")
+                                Text("\(user.knowHow!)하우")
                             }
                             
                             Spacer()
