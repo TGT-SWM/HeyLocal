@@ -52,6 +52,9 @@
 		EF4DD99D28E23CF500E0D072 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF4DD99C28E23CF500E0D072 /* Colors.xcassets */; };
 		EF4DD9A128E24CAE00E0D072 /* FAB.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4DD9A028E24CAE00E0D072 /* FAB.swift */; };
 		EF6A3FC228E71A2F003F474B /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A3FC128E71A2F003F474B /* UserRepository.swift */; };
+		EF6A3FC428E71EE5003F474B /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A3FC328E71EE5003F474B /* UserService.swift */; };
+		EF6A3FC628E93A44003F474B /* PlanCreateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A3FC528E93A44003F474B /* PlanCreateScreen.swift */; };
+		EF6A3FC828E93A68003F474B /* PlanCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A3FC728E93A68003F474B /* PlanCreateViewModel.swift */; };
 		EF74BBF328B4D5C200E09450 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF74BBF228B4D5C200E09450 /* HomeScreen.swift */; };
 		EF74BBF928B52CF200E09450 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */; };
 		EF8FF25D28B4D0B100C053B7 /* HeyLocalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8FF25C28B4D0B100C053B7 /* HeyLocalApp.swift */; };
@@ -150,6 +153,9 @@
 		EF4DD99C28E23CF500E0D072 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		EF4DD9A028E24CAE00E0D072 /* FAB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAB.swift; sourceTree = "<group>"; };
 		EF6A3FC128E71A2F003F474B /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		EF6A3FC328E71EE5003F474B /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		EF6A3FC528E93A44003F474B /* PlanCreateScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCreateScreen.swift; sourceTree = "<group>"; };
+		EF6A3FC728E93A68003F474B /* PlanCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCreateViewModel.swift; sourceTree = "<group>"; };
 		EF74BBF228B4D5C200E09450 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EF89F5DB28C08103001401FE /* Main.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Main.xcconfig; sourceTree = "<group>"; };
@@ -302,6 +308,8 @@
 			isa = PBXGroup;
 			children = (
 				EF26CD8C28C0F102006D0D27 /* MyPlanScreen.swift */,
+				EF6A3FC528E93A44003F474B /* PlanCreateScreen.swift */,
+				EF6A3FC728E93A68003F474B /* PlanCreateViewModel.swift */,
 				EF3FCF1428C12A3900D48F9E /* PlanDetailScreen.swift */,
 				EF3FCF1628C12D0800D48F9E /* PlanDetailScreenViewModel.swift */,
 			);
@@ -425,6 +433,7 @@
 				EFAA2AC428BBC48400B56A3C /* AuthService.swift */,
 				EF26CD8928C0EECA006D0D27 /* PlanService.swift */,
 				A80213DA28BF2EA100B6359E /* TravelOnService.swift */,
+				EF6A3FC328E71EE5003F474B /* UserService.swift */,
 				EF3C061128E0EDC4003F3188 /* KakaoAPIService.swift */,
 			);
 			path = Services;
@@ -671,16 +680,19 @@
 				A836925A28C72A0500DBDB06 /* Region.swift in Sources */,
 				A8647C3A28BDA48B00D284B6 /* WriteButtonStyle.swift in Sources */,
 				EF3FCF1528C12A3900D48F9E /* PlanDetailScreen.swift in Sources */,
+				EF6A3FC628E93A44003F474B /* PlanCreateScreen.swift in Sources */,
 				A80213D328BF2C2100B6359E /* TravelOnViewModel.swift in Sources */,
 				A80213DD28BF326D00B6359E /* WebImage.swift in Sources */,
 				A8647C3A28BDA48B00D284B6 /* WriteButtonStyle.swift in Sources */,
 				A813CA2E28B4EE2B000F0ADF /* ScreenSize.swift in Sources */,
+				EF6A3FC828E93A68003F474B /* PlanCreateViewModel.swift in Sources */,
 				A87F6C9F28C0A1050076046E /* TopTabs.swift in Sources */,
 				A813CA3028B4F033000F0ADF /* SNSButtonStyle.swift in Sources */,
 				EF26CD9128C0F153006D0D27 /* MyPlanList.swift in Sources */,
 				EF3C060C28E0E53F003F3188 /* PlaceSearchScreen.swift in Sources */,
 				EF4DD9A128E24CAE00E0D072 /* FAB.swift in Sources */,
 				EFF9F3C728C5C8DA00E9FCB3 /* KakaoMap.swift in Sources */,
+				EF6A3FC428E71EE5003F474B /* UserService.swift in Sources */,
 				A80213DB28BF2EA100B6359E /* TravelOnService.swift in Sources */,
 				EF6A3FC228E71A2F003F474B /* UserRepository.swift in Sources */,
 				A8AF3DEC28D407E9009B68BE /* RegionPicker.swift in Sources */,
