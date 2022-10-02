@@ -29,9 +29,9 @@ extension TravelOnListScreen {
                                            travelMemberSet: [HopeType(id: 1, type: "ALONE")],
                                            accommodationMaxCost: 100000,
                                            hopeAccommodationSet: [HopeType(id: 1, type: "ALL")],
-                                           foodMaxCost: 100000,
+//                                           foodMaxCost: 100000,
                                            hopeFoodSet: [HopeType(id: 1, type: "CHINESE")],
-                                           drinkMaxCost: 100000,
+//                                           drinkMaxCost: 100000,
                                            hopeDrinkSet: [HopeType(id: 1, type: "SOJU"), HopeType(id: 2, type: "BEER")],
                                            travelTypeGroup: TravelType(id: 1,
                                                                        placeTasteType: "FAMOUS",
@@ -40,7 +40,7 @@ extension TravelOnListScreen {
                                            description: "string")
             
             
-            cancellable = travelOnService.getTravelOnLists(lastItemId: nil, pageSize: 5, regionId: nil, sortBy: "DATE", withOpinions: nil)
+            cancellable = travelOnService.getTravelOnLists(lastItemId: nil, pageSize: 15, regionId: nil, sortBy: "DATE", withOpinions: nil)
                 .sink(receiveCompletion: { _ in
                 }, receiveValue: { travelOns in
                     self.travelOns = travelOns
@@ -49,14 +49,14 @@ extension TravelOnListScreen {
         
         
         // Travel On 전체 목록
-        func fetchTravelOnList(lastItemId: Int?, pageSize: Int, regionId: Int?, sortBy: String, withOpinions: Bool, withNonOpinions: Bool) {
-            // withOpinions 값
-            var with_opinons: Bool? = nil
-            if (withOpinions != withNonOpinions) {
-                with_opinons = withOpinions
-            }
+        func fetchTravelOnList(lastItemId: Int?, pageSize: Int, regionId: Int?, sortBy: String, withOpinions: Bool) {
+            // withOpinions -> nil 확인
+            var withOpinion: Bool? = nil
             
-            cancellable = travelOnService.getTravelOnLists(lastItemId: lastItemId, pageSize: pageSize, regionId: regionId, sortBy: sortBy, withOpinions: with_opinons)
+            if withOpinions == true {
+                withOpinion = true
+            }
+            cancellable = travelOnService.getTravelOnLists(lastItemId: lastItemId, pageSize: pageSize, regionId: regionId, sortBy: sortBy, withOpinions: withOpinion)
                 .sink(receiveCompletion: { _ in
                 }, receiveValue: { travelOns in
                     self.travelOns = travelOns
@@ -69,7 +69,9 @@ extension TravelOnListScreen {
                 .sink(receiveCompletion: { _ in
                 }, receiveValue: { travelOn in
                     self.travelOn = travelOn
+                    print(self.travelOn.title)
                 })
+//            print(self.travelOn.title)
         }
         
         func deleteTravelOn(travelOnId: Int) {

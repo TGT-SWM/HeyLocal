@@ -2,28 +2,24 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>API_URL</key>
-	<string>${API_URL}</string>
 	<key>ACCESS_TOKEN</key>
 	<string>${ACCESS_TOKEN}</string>
-	<key>REFRESH_TOKEN</key>
-	<string>${REFRESH_TOKEN}</string>
-	<key>KAKAO_APP_KEY</key>
-	<string>${KAKAO_APP_KEY}</string>
-	<key>KAKAO_REST_URL</key>
-	<string>${KAKAO_REST_URL}</string>
-	<key>KAKAO_REST_KEY</key>
-	<string>${KAKAO_REST_KEY}</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>지도를 통해 현재 위치를 제공하기 위해 위치 권한이 필요합니다.</string>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>ko_KR</string>
+	<key>API_URL</key>
+	<string>${API_URL}</string>
 	<key>CFBundleIconName</key>
 	<string>AppIcon</string>
+	<key>KAKAO_APP_KEY</key>
+	<string>${KAKAO_APP_KEY}</string>
+	<key>KAKAO_REST_KEY</key>
+	<string>${KAKAO_REST_KEY}</string>
+	<key>KAKAO_REST_URL</key>
+	<string>${KAKAO_REST_URL}</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>REFRESH_TOKEN</key>
+	<string>${REFRESH_TOKEN}</string>
 </dict>
 </plist>

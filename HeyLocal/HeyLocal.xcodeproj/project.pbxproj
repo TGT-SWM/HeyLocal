@@ -20,6 +20,7 @@
 		A813CA3028B4F033000F0ADF /* SNSButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A813CA2F28B4F033000F0ADF /* SNSButtonStyle.swift */; };
 		A836925828C6F48D00DBDB06 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A836925728C6F48D00DBDB06 /* SearchBar.swift */; };
 		A836925A28C72A0500DBDB06 /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = A836925928C72A0500DBDB06 /* Region.swift */; };
+		A83972EA28E430AB000E323E /* CustomToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83972E928E430AB000E323E /* CustomToggleStyle.swift */; };
 		A83DAEED28D0475B001F1F5C /* TravelOnWriteScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83DAEEC28D0475B001F1F5C /* TravelOnWriteScreen.swift */; };
 		A83F100D28BCCCE000978711 /* TravelOnListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83F100C28BCCCE000978711 /* TravelOnListScreen.swift */; };
 		A84E841228B8C28600128D9B /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84E841128B8C28600128D9B /* SignInScreen.swift */; };
@@ -119,6 +120,7 @@
 		A813CA2F28B4F033000F0ADF /* SNSButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSButtonStyle.swift; sourceTree = "<group>"; };
 		A836925728C6F48D00DBDB06 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		A836925928C72A0500DBDB06 /* Region.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Region.swift; sourceTree = "<group>"; };
+		A83972E928E430AB000E323E /* CustomToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToggleStyle.swift; sourceTree = "<group>"; };
 		A83DAEEC28D0475B001F1F5C /* TravelOnWriteScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOnWriteScreen.swift; sourceTree = "<group>"; };
 		A83F100C28BCCCE000978711 /* TravelOnListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOnListScreen.swift; sourceTree = "<group>"; };
 		A84E841128B8C28600128D9B /* SignInScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
@@ -489,6 +491,7 @@
 				A813CA2F28B4F033000F0ADF /* SNSButtonStyle.swift */,
 				A8647C3928BDA48B00D284B6 /* WriteButtonStyle.swift */,
 				A80B903928CA0FFB0026866A /* ToggleButtonStyle.swift */,
+				A83972E928E430AB000E323E /* CustomToggleStyle.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -707,6 +710,7 @@
 				EF8FF25D28B4D0B100C053B7 /* HeyLocalApp.swift in Sources */,
 				EF3C060E28E0E666003F3188 /* PlaceSearchViewModel.swift in Sources */,
 				A80213D928BF2D6C00B6359E /* User.swift in Sources */,
+				A83972EA28E430AB000E323E /* CustomToggleStyle.swift in Sources */,
 				A87F6C9D28C099EE0076046E /* MyProfileScreen.swift in Sources */,
 				EFAA2ACD28BBD19400B56A3C /* SignInScreenTest.swift in Sources */,
 				EFAA2AC528BBC48400B56A3C /* AuthService.swift in Sources */,
@@ -877,6 +881,7 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = HeyLocal/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "현지야";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "지도를 통해 현재 위치를 제공하기 위해 위치 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -890,7 +895,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tgt.HeyLocal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -920,6 +925,7 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = HeyLocal/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "현지야";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "지도를 통해 현재 위치를 제공하기 위해 위치 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -933,7 +939,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tgt.HeyLocal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

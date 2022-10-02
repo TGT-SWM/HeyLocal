@@ -560,7 +560,7 @@ struct TravelOnWriteScreen: View {
 //                    viewModel.postTravelOn(travelOnData: travelOnData)
                     // 응답 코드 확인 후 fetch !!
                     if viewModel.postTravelOn(travelOnData: travelOnData) == 201 {
-                        viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 5, regionId: nil, sortBy: "DATE", withOpinions: false, withNonOpinions: false)
+                        viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 5, regionId: nil, sortBy: "DATE", withOpinions: false)
                     }
                 })
             } // end of Group
