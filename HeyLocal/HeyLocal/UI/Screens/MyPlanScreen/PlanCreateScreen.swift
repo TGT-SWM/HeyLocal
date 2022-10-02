@@ -13,7 +13,21 @@ struct PlanCreateScreen: View {
 	@ObservedObject var viewModel = ViewModel()
 	
     var body: some View {
-        EmptyView()
+		ScrollView {
+			LazyVStack {
+				ForEach(viewModel.travelOns, id: \.id) {
+					TravelOnComponent(travelOn: $0)
+				}
+				
+				ProgressView()
+					.onAppear {
+						viewModel.fetchTravelOns()
+					}
+			}
+			
+		}
+		.navigationTitle("여행 On 선택")
+		.navigationBarTitleDisplayMode(.inline)
     }
 }
 
