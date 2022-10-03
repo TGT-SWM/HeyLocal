@@ -21,6 +21,7 @@ extension PlanCreateScreen {
 		// 페이징 관련 상태
 		var lastItemId: Int?
 		let size = 15
+		var isEnd = false
 	}
 }
 
@@ -37,6 +38,10 @@ extension PlanCreateScreen.ViewModel {
 			travelOns: Binding(
 				get: { self.travelOns },
 				set: { self.travelOns = $0 }
+			),
+			isEnd: Binding(
+				get: { self.isEnd },
+				set: { self.isEnd = $0 }
 			)
 		)
 		

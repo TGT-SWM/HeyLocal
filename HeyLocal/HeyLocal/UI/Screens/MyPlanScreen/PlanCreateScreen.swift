@@ -19,10 +19,12 @@ struct PlanCreateScreen: View {
 					TravelOnComponent(travelOn: $0)
 				}
 				
-				ProgressView()
-					.onAppear {
-						viewModel.fetchTravelOns()
-					}
+				if !viewModel.isEnd {
+					ProgressView()
+						.onAppear {
+							viewModel.fetchTravelOns()
+						}
+				}
 			}
 			
 		}
