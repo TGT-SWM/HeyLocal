@@ -42,19 +42,17 @@ extension MyPlanList {
 	}
 	
 	func sublist(title: String, plans: [Plan]) -> some View {
-		VStack(alignment: .leading) {
-			// 리스트 제목
-			Text(title)
-				.font(.system(size: 16))
-				.fontWeight(.bold)
-				.padding(.horizontal, 20)
-				.padding(.top, 12)
-			
-			// 플랜 목록
-			ForEach(plans, id: \.id) { sublistItem(plan: $0) }
+		List {
+			Section(header: sublistHeader(title: title)) {
+				ForEach(plans, id: \.id) { sublistItem(plan: $0) }
+			}
 		}
-		.background(Color.white)
-		.padding(.bottom, 8)
+	}
+	
+	func sublistHeader(title: String) -> some View {
+		Text(title)
+			.font(.system(size: 16))
+			.fontWeight(.bold)
 	}
 	
 	func sublistItem(plan: Plan) -> some View {
