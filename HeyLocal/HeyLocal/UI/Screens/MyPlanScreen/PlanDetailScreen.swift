@@ -14,9 +14,9 @@ struct PlanDetailScreen: View {
 	@ObservedObject var viewModel: ViewModel
 	
 	@Environment(\.presentationMode) var presentationMode
-	@Environment(\.editMode) var editMode
 	
 	@State var placeSelection: [Place] = []
+	@State var editMode = EditMode.inactive
 	
 	init(plan: Plan) {
 		self.plan = plan
@@ -41,13 +41,25 @@ struct PlanDetailScreen: View {
 				presentationMode.wrappedValue.dismiss()
 			}))
 		}
+		.animation(.easeInOut, value: editMode)
 		.toolbar {
-			EditButton()
-				.onChange(of: editMode!.wrappedValue) { value in
-					if !value.isEditing {
+			HStack {
+				if editMode == .active {
+					Button("취소") {
+						viewModel.schedules = viewModel.tmpSchedules
+						editMode = .inactive
+					}
+					Button("확인") {
 						viewModel.updateSchedules()
+						editMode = .inactive
+					}
+				} else {
+					Button("수정") {
+						viewModel.tmpSchedules = viewModel.schedules
+						editMode = .active
 					}
 				}
+			}
 		}
     }
 	
@@ -93,11 +105,6 @@ struct PlanDetailScreen: View {
 		VStack {
 			// 장소 추가 버튼
 			if !viewModel.schedules.isEmpty {
-//				NavigationLink(destination: PlaceSearchScreen(places: $viewModel.schedules[viewModel.currentDay - 1].places)) {
-//					Text("해당 일자에 장소 추가하기")
-//				}
-//				.padding()
-				
 				NavigationLink(destination: PlaceSearchScreen(onComplete: { places in
 					viewModel.schedules[viewModel.currentDay - 1].places.append(contentsOf: places)
 					viewModel.updateSchedules()
@@ -112,7 +119,7 @@ struct PlanDetailScreen: View {
 				ForEach(viewModel.schedules.indices, id: \.self) { idx in
 					placesViewOf(day: idx + 1)
 						.tag(idx + 1)
-						.environment(\.editMode, editMode)
+						.environment(\.editMode, $editMode)
 				}
 			}
 			.tabViewStyle(.page(indexDisplayMode: .never))

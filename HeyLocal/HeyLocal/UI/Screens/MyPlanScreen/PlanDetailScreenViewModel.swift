@@ -19,8 +19,9 @@ extension PlanDetailScreen {
 		@Published var showMapView = false
 		@Published var currentDay = 1
 		@Published var schedules: [DaySchedule] = []
-		
 		@Published var showErrorDialog = false
+		
+		var tmpSchedules: [DaySchedule] = []
 		
 		init(plan: Plan) {
 			self.plan = plan
