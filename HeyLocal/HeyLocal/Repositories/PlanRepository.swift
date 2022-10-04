@@ -82,4 +82,35 @@ struct PlanRepository {
 		// Publisher 반환
 		return agent.run(request)
 	}
+	
+	/// 플랜의 스케줄을 수정합니다.
+	func updateSchedules(planId: Int, schedules: [DaySchedule]) -> AnyPublisher<EmptyResponse, Error> {
+		// URLRequest 객체 생성
+		let urlString = "\(Config.apiURL)/plans/\(planId)/places"
+		let url = URL(string: urlString)!
+		var request = URLRequest(url: url)
+		
+		// HTTP 헤더 구성
+		request.httpMethod = "PUT"
+		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+		request.addValue("application/json", forHTTPHeaderField: "Accept")
+		request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+		
+		// HTTP 바디 구성
+//		let body = ["schedules": schedules]
+//		if JSONSerialization.isValidJSONObject(body) {
+//			print("Valid JSON")
+//		} else {
+//			print("Invalid JSON")
+//		}
+//		request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+		
+		let encoder = JSONEncoder()
+		let body = DaySchedules(schedules: schedules)
+		let jsonBody = try? encoder.encode(body)
+		request.httpBody = jsonBody
+		
+		// Publisher 반환
+		return agent.run(request)
+	}
 }

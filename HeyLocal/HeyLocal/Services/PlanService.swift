@@ -47,4 +47,17 @@ class PlanService {
 		cancellable = planRepository.deletePlan(planId: planId)
 			.sink(receiveCompletion: { _ in }, receiveValue: { _ in })
 	}
+	
+	/// 플랜의 스케줄을 수정합니다.
+	func updateSchedules(planId: Int, schedules: [DaySchedule]) {
+		var indexedSchedules = schedules
+		for i in 0..<indexedSchedules.count {
+			for j in 0..<indexedSchedules[i].places.count {
+				indexedSchedules[i].places[j].itemIndex = j
+			}
+		}
+		
+		cancellable = planRepository.updateSchedules(planId: planId, schedules: indexedSchedules)
+			.sink(receiveCompletion: { _ in }, receiveValue: { _ in })
+	}
 }
