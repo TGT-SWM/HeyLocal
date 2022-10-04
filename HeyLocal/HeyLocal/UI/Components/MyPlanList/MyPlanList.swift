@@ -29,32 +29,42 @@ struct MyPlanList: View {
 extension MyPlanList {
 	var myPlanList: some View {
 		VStack {
-			if (!viewModel.ongoing.isEmpty) {
-				sublist(title: "지금 여행 중", plans: viewModel.ongoing)
-			}
-			if (!viewModel.upcoming.isEmpty) {
-				sublist(title: "다가오는 여행", plans: viewModel.upcoming)
-			}
-			if (!viewModel.past.isEmpty) {
-				sublist(title: "지난 여행", plans: viewModel.past)
+			sublist(
+				title: "지금 여행 중",
+				plans: viewModel.ongoing,
+				onDelete: viewModel.deleteFrom(\.ongoing)
+			)
+			sublist(
+				title: "다가오는 여행",
+				plans: viewModel.upcoming,
+				onDelete: viewModel.deleteFrom(\.upcoming)
+			)
+			sublist(
+				title: "지난 여행",
+				plans: viewModel.past,
+				onDelete: viewModel.deleteFrom(\.past)
+			)
+		}
+	}
+	
+	func sublist(title: String, plans: [Plan], onDelete: @escaping ((IndexSet) -> Void)) -> some View {
+		Group {
+			if !plans.isEmpty {
+				List {
+					Section(header: sublistHeader(title: title)) {
+						ForEach(plans, id: \.id) { sublistItem(plan: $0) }
+							.onDelete(perform: onDelete)
+					}
+				}
+				.toolbar { EditButton() }
 			}
 		}
 	}
 	
-	func sublist(title: String, plans: [Plan]) -> some View {
-		VStack(alignment: .leading) {
-			// 리스트 제목
-			Text(title)
-				.font(.system(size: 16))
-				.fontWeight(.bold)
-				.padding(.horizontal, 20)
-				.padding(.top, 12)
-			
-			// 플랜 목록
-			ForEach(plans, id: \.id) { sublistItem(plan: $0) }
-		}
-		.background(Color.white)
-		.padding(.bottom, 8)
+	func sublistHeader(title: String) -> some View {
+		Text(title)
+			.font(.system(size: 16))
+			.fontWeight(.bold)
 	}
 	
 	func sublistItem(plan: Plan) -> some View {

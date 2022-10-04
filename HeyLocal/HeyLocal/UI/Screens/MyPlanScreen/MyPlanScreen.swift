@@ -11,7 +11,7 @@ struct MyPlanScreen: View {
     var body: some View {
 		NavigationView {
 			ZStack(alignment: .bottomTrailing) {
-				ScrollView { MyPlanList() }
+				VStack { MyPlanList() }
 				NavigationLink(destination: PlanCreateScreen()) { FAB() }
 					.padding(EdgeInsets(top: 0, leading: 0, bottom: 50, trailing: 20))
 			}
