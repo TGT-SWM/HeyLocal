@@ -1,6 +1,7 @@
 //
 //  Place.swift
 //  HeyLocal
+//	장소 관련 모델
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

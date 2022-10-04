@@ -1,6 +1,7 @@
 //
 //  View+Extensions.swift
 //  HeyLocal
+//	View의 확장 기능
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

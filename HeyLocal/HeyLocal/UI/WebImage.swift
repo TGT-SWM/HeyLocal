@@ -1,6 +1,7 @@
 //
 //  WebImage.swift
 //  HeyLocal
+//	웹에서 이미지를 로드해 출력하는 뷰
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

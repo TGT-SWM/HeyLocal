@@ -1,6 +1,7 @@
 //
 //  Config.swift
 //  HeyLocal
+//	Configuration 값 관리
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

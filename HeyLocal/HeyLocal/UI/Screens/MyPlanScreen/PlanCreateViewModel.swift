@@ -1,6 +1,7 @@
 //
 //  PlanCreateViewModel.swift
 //  HeyLocal
+//	플랜 생성 화면 뷰 모델
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

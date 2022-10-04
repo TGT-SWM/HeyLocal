@@ -1,6 +1,7 @@
 //
 //  SignInScreenTest.swift
 //  HeyLocal
+//	로그인 연동 테스트
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //
