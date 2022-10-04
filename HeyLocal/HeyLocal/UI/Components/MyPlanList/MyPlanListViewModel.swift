@@ -40,3 +40,19 @@ extension MyPlanList.ViewModel {
 		ongoing.isEmpty && upcoming.isEmpty && past.isEmpty
 	}
 }
+
+
+// MARK: - 마이플랜 삭제 기능
+
+extension MyPlanList.ViewModel {
+	func deleteFrom(_ keypath: WritableKeyPath<MyPlans, [Plan]>) -> ((IndexSet) -> Void) {
+		let handler = { (at: IndexSet) in
+			// 상태에서 제거
+			self.myPlans[keyPath: keypath].remove(atOffsets: at)
+			
+			// API Call
+		}
+		
+		return handler
+	}
+}
