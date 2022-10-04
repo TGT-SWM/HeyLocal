@@ -60,4 +60,10 @@ class PlanService {
 		cancellable = planRepository.updateSchedules(planId: planId, schedules: indexedSchedules)
 			.sink(receiveCompletion: { _ in }, receiveValue: { _ in })
 	}
+	
+	/// 플랜 정보를 수정합니다.
+	func updatePlan(planId: Int, planTitle: String) {
+		cancellable = planRepository.updatePlan(planId: planId, planTitle: planTitle)
+			.sink(receiveCompletion: { _ in }, receiveValue: { _ in })
+	}
 }
