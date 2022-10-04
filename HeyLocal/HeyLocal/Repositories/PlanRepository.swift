@@ -46,7 +46,7 @@ struct PlanRepository {
 		return agent.run(request)
 	}
 	
-	func createPlan(travelOnId: Int) -> AnyPublisher<Void, Error> {
+	func createPlan(travelOnId: Int) -> AnyPublisher<EmptyResponse, Error> {
 		// URLRequest 생성
 		let url = URL(string: "\(Config.apiURL)/plans")!
 		var request = URLRequest(url: url)

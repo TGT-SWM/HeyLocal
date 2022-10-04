@@ -35,7 +35,6 @@ class PlanService {
 				case .failure(let error):
 					onError(error)
 				}
-			}, receiveValue: { _ in
-			})
+			}, receiveValue: { _ in })
 	}
 }

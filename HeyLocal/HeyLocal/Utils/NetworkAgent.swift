@@ -15,8 +15,22 @@ struct NetworkAgent {
 		return session
 			.dataTaskPublisher(for: request)
 			.tryMap(handleAPIError)
-//			.map(\.data)
-			.handleEvents(receiveOutput: { print(NSString(data: $0, encoding: String.Encoding.utf8.rawValue)!) }) // LOG
+//			.map { data in
+//				if data.isEmpty {
+//					print("data is empty")
+//					return "{}".data(using: .utf8)!
+//				}
+//				return data
+//			}
+			.map {
+				$0.isEmpty
+				? "{}".data(using: .utf8)!
+				: $0
+			}
+			.handleEvents(receiveOutput: {
+				print("[Response]")
+				print(NSString(data: $0, encoding: String.Encoding.utf8.rawValue)!)
+			})
 			.decode(type: T.self, decoder: JSONDecoder())
 			.receive(on: DispatchQueue.main)
 			.eraseToAnyPublisher()
@@ -47,4 +61,8 @@ struct NetworkAgent {
 struct APIError: Error, Decodable {
 	var code: String
 	var description: String
+}
+
+struct EmptyResponse: Decodable {
+	
 }
