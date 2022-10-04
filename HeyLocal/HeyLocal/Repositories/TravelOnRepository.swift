@@ -118,8 +118,9 @@ struct TravelOnRepository {
             httpResponseStatusCode = httpResponse.statusCode
         
             if httpResponse.statusCode == 201 {
-                self.getTravelOnLists(lastItemId: nil, pageSize: 5, regionId: nil, sortBy: "DATE", withOpinions: false)
+                self.getTravelOnLists(lastItemId: nil, pageSize: 15, regionId: nil, sortBy: "DATE", withOpinions: false)
             } else {
+                print(error)
                 return
             }
 //            guard let response = response as? HTTPURLResponse, response.statusCode == 200 {

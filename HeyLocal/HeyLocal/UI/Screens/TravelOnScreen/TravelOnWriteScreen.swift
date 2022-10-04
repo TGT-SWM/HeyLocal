@@ -362,6 +362,9 @@ struct TravelOnWriteScreen: View {
                     if showStartDatePicker {
                         DatePicker("", selection: $startDate, in: Date()..., displayedComponents: .date)
                             .datePickerStyle(GraphicalDatePickerStyle())
+                            .onChange(of: startDate, perform: { (value) in
+                                showStartDatePicker = false
+                            })
                             .accentColor(Color(red: 255/255, green: 153/255, blue: 0/255))
                             .frame(width: 350)
                             .background(Color.white)
@@ -370,6 +373,9 @@ struct TravelOnWriteScreen: View {
                     if showEndDatePicker {
                         DatePicker("", selection: $endDate, in: startDate..., displayedComponents: .date)
                             .datePickerStyle(GraphicalDatePickerStyle())
+                            .onChange(of: endDate, perform: { (value) in
+                                showEndDatePicker = false
+                            })
                             .accentColor(Color(red: 255/255, green: 153/255, blue: 0/255))
                             .frame(width: 350)
                             .background(Color.white)
