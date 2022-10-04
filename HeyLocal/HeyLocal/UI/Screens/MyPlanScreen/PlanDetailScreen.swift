@@ -14,6 +14,7 @@ struct PlanDetailScreen: View {
 	@ObservedObject var viewModel: ViewModel
 	
 	@Environment(\.presentationMode) var presentationMode
+	@Environment(\.editMode) var editMode
 	
 	@State var placeSelection: [Place] = []
 	
@@ -40,7 +41,14 @@ struct PlanDetailScreen: View {
 				presentationMode.wrappedValue.dismiss()
 			}))
 		}
-		.toolbar { EditButton() }
+		.toolbar {
+			EditButton()
+				.onChange(of: editMode!.wrappedValue) { value in
+					if !value.isEditing {
+						viewModel.updateSchedules()
+					}
+				}
+		}
     }
 	
 	/// 상단 헤더 영역입니다.
@@ -84,7 +92,7 @@ struct PlanDetailScreen: View {
 	var placesView: some View {
 		VStack {
 			// 장소 추가 버튼
-			if !viewModel.schedules.isEmpty {
+			if !viewModel.schedules.isEmpty && editMode!.wrappedValue == .active {
 				NavigationLink(destination: PlaceSearchScreen(places: $viewModel.schedules[viewModel.currentDay - 1].places)) {
 					Text("해당 일자에 장소 추가하기")
 				}

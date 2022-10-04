@@ -41,6 +41,10 @@ extension PlanDetailScreen {
 				})
 		}
 		
+		func updateSchedules() {
+			planService.updateSchedules(planId: plan.id, schedules: schedules)
+		}
+		
 		/// 현재 날짜
 		var currentDate: String {
 			let startDate = DateFormat.strToDate(plan.startDate, "yyyy-MM-dd")

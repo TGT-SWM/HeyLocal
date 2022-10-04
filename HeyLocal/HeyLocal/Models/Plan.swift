@@ -34,7 +34,12 @@ struct Plan: Decodable {
 }
 
 /// 플랜 내 하루 스케줄
-struct DaySchedule: Decodable {
+struct DaySchedule: Codable {
 	var date: String
 	var places: [Place] = []
+}
+
+/// 플랜의 스케줄들
+struct DaySchedules: Codable {
+	var schedules: [DaySchedule]
 }
