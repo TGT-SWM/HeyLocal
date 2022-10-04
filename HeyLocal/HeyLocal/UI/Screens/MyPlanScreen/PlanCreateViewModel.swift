@@ -14,9 +14,12 @@ extension PlanCreateScreen {
 	class ViewModel: ObservableObject {
 		// 의존성
 		private let userService = UserService()
+		private let planService = PlanService()
 		
 		// 상태
 		@Published var travelOns = [TravelOn]()
+		@Published var selected: TravelOn?
+		@Published var showAlert = false
 		
 		// 페이징 관련 상태
 		var lastItemId: Int?
@@ -25,6 +28,8 @@ extension PlanCreateScreen {
 	}
 }
 
+
+// MARK: - fetchTravelOns (작성한 여행 On 불러오기)
 
 extension PlanCreateScreen.ViewModel {
 	func fetchTravelOns() {
@@ -46,5 +51,23 @@ extension PlanCreateScreen.ViewModel {
 		)
 		
 		
+	}
+}
+
+
+// MARK: - 여행 On 선택
+
+extension PlanCreateScreen.ViewModel {
+	func pickTravelOn(_ target: TravelOn) {
+		if self.selected?.id == target.id {
+			self.selected = nil
+		} else {
+			self.selected = target
+		}
+	}
+	
+	func submit(onCompletion: @escaping () -> Void, onError: @escaping (Error) -> Void) {
+		guard let travelOn = self.selected else { return }
+		planService.createPlan(travelOnId: travelOn.id, onCompletion: onCompletion, onError: onError)
 	}
 }

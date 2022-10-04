@@ -8,8 +8,10 @@
 import Foundation
 import Combine
 
-struct PlanService {
+class PlanService {
 	private let planRepository = PlanRepository()
+	
+	var cancellable: AnyCancellable?
 	
 	func getMyPlans() -> AnyPublisher<MyPlans, Error> {
 		// KeyChain에서 로그인 정보 가져오기
@@ -22,5 +24,18 @@ struct PlanService {
 	
 	func getSchedules(planId: Int) -> AnyPublisher<[DaySchedule], Error> {
 		return planRepository.findSchedules(planId: planId)
+	}
+	
+	func createPlan(travelOnId: Int, onCompletion: @escaping () -> Void, onError: @escaping (Error) -> Void) {
+		cancellable = planRepository.createPlan(travelOnId: travelOnId)
+			.sink(receiveCompletion: { completion in
+				switch (completion) {
+				case .finished:
+					onCompletion()
+				case .failure(let error):
+					onError(error)
+				}
+			}, receiveValue: { _ in
+			})
 	}
 }

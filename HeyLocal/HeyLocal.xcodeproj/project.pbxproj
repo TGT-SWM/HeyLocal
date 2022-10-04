@@ -56,6 +56,7 @@
 		EF6A3FC428E71EE5003F474B /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A3FC328E71EE5003F474B /* UserService.swift */; };
 		EF6A3FC628E93A44003F474B /* PlanCreateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A3FC528E93A44003F474B /* PlanCreateScreen.swift */; };
 		EF6A3FC828E93A68003F474B /* PlanCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A3FC728E93A68003F474B /* PlanCreateViewModel.swift */; };
+		EF6A3FCA28EB3D9B003F474B /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A3FC928EB3D9B003F474B /* View+Extensions.swift */; };
 		EF74BBF328B4D5C200E09450 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF74BBF228B4D5C200E09450 /* HomeScreen.swift */; };
 		EF74BBF928B52CF200E09450 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */; };
 		EF8FF25D28B4D0B100C053B7 /* HeyLocalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8FF25C28B4D0B100C053B7 /* HeyLocalApp.swift */; };
@@ -158,6 +159,7 @@
 		EF6A3FC328E71EE5003F474B /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		EF6A3FC528E93A44003F474B /* PlanCreateScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCreateScreen.swift; sourceTree = "<group>"; };
 		EF6A3FC728E93A68003F474B /* PlanCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCreateViewModel.swift; sourceTree = "<group>"; };
+		EF6A3FC928EB3D9B003F474B /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		EF74BBF228B4D5C200E09450 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EF89F5DB28C08103001401FE /* Main.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Main.xcconfig; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 				A813CA2D28B4EE2B000F0ADF /* ScreenSize.swift */,
 				EF26CD8728C0E9DA006D0D27 /* Config.swift */,
 				EF26CD9428C0FF12006D0D27 /* DateFormat.swift */,
+				EF6A3FC928EB3D9B003F474B /* View+Extensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -709,6 +712,7 @@
 				EF3FCF1928C1345C00D48F9E /* Place.swift in Sources */,
 				EF8FF25D28B4D0B100C053B7 /* HeyLocalApp.swift in Sources */,
 				EF3C060E28E0E666003F3188 /* PlaceSearchViewModel.swift in Sources */,
+				EF6A3FCA28EB3D9B003F474B /* View+Extensions.swift in Sources */,
 				A80213D928BF2D6C00B6359E /* User.swift in Sources */,
 				A83972EA28E430AB000E323E /* CustomToggleStyle.swift in Sources */,
 				A87F6C9D28C099EE0076046E /* MyProfileScreen.swift in Sources */,

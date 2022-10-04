@@ -45,4 +45,22 @@ struct PlanRepository {
 		// Publisher 반환
 		return agent.run(request)
 	}
+	
+	func createPlan(travelOnId: Int) -> AnyPublisher<Void, Error> {
+		// URLRequest 생성
+		let url = URL(string: "\(Config.apiURL)/plans")!
+		var request = URLRequest(url: url)
+		
+		// HTTP Header
+		request.httpMethod = "POST"
+		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+		request.addValue("application/json", forHTTPHeaderField: "Accept")
+		request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+		
+		let body = ["travelOnId": travelOnId]
+		request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+		
+		// Publisher 반환
+		return agent.run(request)
+	}
 }

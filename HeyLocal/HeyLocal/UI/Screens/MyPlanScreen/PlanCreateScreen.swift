@@ -11,12 +11,19 @@ import SwiftUI
 
 struct PlanCreateScreen: View {
 	@ObservedObject var viewModel = ViewModel()
+	@Environment(\.presentationMode) var presentationMode
 	
     var body: some View {
 		ScrollView {
 			LazyVStack {
-				ForEach(viewModel.travelOns, id: \.id) {
-					TravelOnComponent(travelOn: $0)
+				ForEach(viewModel.travelOns, id: \.id) { travelOn in
+					TravelOnComponent(travelOn: travelOn)
+						.onTapGesture {
+							viewModel.pickTravelOn(travelOn)
+						}
+						.if(travelOn.id == viewModel.selected?.id) { view in
+							view.background(Color("lightGray"))
+						}
 				}
 				
 				if !viewModel.isEnd {
@@ -30,6 +37,19 @@ struct PlanCreateScreen: View {
 		}
 		.navigationTitle("여행 On 선택")
 		.navigationBarTitleDisplayMode(.inline)
+		.toolbar {
+			if viewModel.selected != nil {
+				Button("확인") {
+					viewModel.submit {
+						presentationMode.wrappedValue.dismiss()
+					} onError: { error in
+						print(error)
+//						let apiError: APIError = error as! APIError
+//						print(apiError.description)
+					}
+				}
+			}
+		}
     }
 }
 
