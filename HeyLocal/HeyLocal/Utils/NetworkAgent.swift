@@ -1,6 +1,7 @@
 //
 //  NetworkAgent.swift
 //  HeyLocal
+//	네트워킹 모듈
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

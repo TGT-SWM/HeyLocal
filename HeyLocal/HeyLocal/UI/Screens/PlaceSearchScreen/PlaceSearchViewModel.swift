@@ -1,6 +1,7 @@
 //
 //  PlaceSearchViewModel.swift
 //  HeyLocal
+//	장소 검색 화면 뷰 모델
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

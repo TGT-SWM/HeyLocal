@@ -1,6 +1,7 @@
 //
 //  PlanCreateScreen.swift
 //  HeyLocal
+//	플랜 생성 화면 (여행 On 선택)
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

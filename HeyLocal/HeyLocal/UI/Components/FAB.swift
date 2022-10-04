@@ -1,6 +1,7 @@
 //
 //  FAB.swift
 //  HeyLocal
+//	플로팅 액션 버튼
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

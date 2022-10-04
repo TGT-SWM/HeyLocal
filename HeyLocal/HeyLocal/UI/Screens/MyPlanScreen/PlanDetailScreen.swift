@@ -1,6 +1,7 @@
 //
 //  PlanDetailScreen.swift
 //  HeyLocal
+//	플랜 상세 화면
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

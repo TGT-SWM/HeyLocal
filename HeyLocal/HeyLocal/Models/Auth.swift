@@ -1,6 +1,7 @@
 //
 //  Auth.swift
 //  HeyLocal
+//	인증 관련 모델
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

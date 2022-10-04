@@ -1,6 +1,7 @@
 //
 //  MyPlanListViewModel.swift
 //  HeyLocal
+//	작성한 플랜 리스트의 뷰 모델
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

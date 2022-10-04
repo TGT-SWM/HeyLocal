@@ -1,6 +1,7 @@
 //
 //  PlaceList.swift
 //  HeyLocal
+//	일정의 장소 리스트 뷰
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //
