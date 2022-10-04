@@ -145,7 +145,7 @@ struct TravelOnListScreen: View {
                     }
                     
                     // 글쓰기 버튼
-                    NavigationLink(destination: TempTravelOnWriteScreen()) {
+                    NavigationLink(destination: TravelOnWriteScreen()) {
                         Text("+")
                     }
                     .buttonStyle(WriteButtonStyle())
