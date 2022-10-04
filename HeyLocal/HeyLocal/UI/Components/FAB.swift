@@ -1,6 +1,7 @@
 //
 //  FAB.swift
 //  HeyLocal
+//	플로팅 액션 버튼
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //
@@ -11,10 +12,16 @@ import SwiftUI
 
 struct FAB: View {
 	/// 버튼 클릭 시 호출되는 클로저입니다.
-	var action: () -> Void
+	var action: (() -> Void)?
 	
     var body: some View {
-		Button(action: action) { label }
+		Group {
+			if let action = action {
+				Button(action: action) { label }
+			} else {
+				label
+			}
+		}
     }
 	
 	var label: some View {

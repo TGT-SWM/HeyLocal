@@ -1,6 +1,7 @@
 //
 //  DateFormat.swift
 //  HeyLocal
+//	날짜 포맷팅 모듈
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

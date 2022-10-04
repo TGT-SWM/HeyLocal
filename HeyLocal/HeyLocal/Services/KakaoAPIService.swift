@@ -1,6 +1,7 @@
 //
 //  KakaoAPIService.swift
 //  HeyLocal
+//	카카오 API 서비스
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

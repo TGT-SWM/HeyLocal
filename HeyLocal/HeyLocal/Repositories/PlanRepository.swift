@@ -1,6 +1,7 @@
 //
 //  PlanRepository.swift
 //  HeyLocal
+//	플랜 레포지터리
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //
@@ -13,7 +14,7 @@ struct PlanRepository {
 	
 	private let plansUrl = "\(Config.apiURL)/plans"
 	
-	///
+	/// 마이플랜을 조회합니다.
 	func findMyPlans(userId: Int) -> AnyPublisher<MyPlans, Error> {
 		// URLRequest 객체 생성
 		let url = URL(string: plansUrl)!
@@ -30,6 +31,7 @@ struct PlanRepository {
 		return agent.run(request)
 	}
 	
+	/// 플랜의 스케줄을 조회합니다.
 	func findSchedules(planId: Int) -> AnyPublisher<[DaySchedule], Error> {
 		// URLRequest 객체 생성
 		let urlString = "\(Config.apiURL)/plans/\(planId)/places"
@@ -38,6 +40,41 @@ struct PlanRepository {
 		
 		// HTTP 헤더 구성
 		request.httpMethod = "GET"
+		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+		request.addValue("application/json", forHTTPHeaderField: "Accept")
+		request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+		
+		// Publisher 반환
+		return agent.run(request)
+	}
+	
+	/// 플랜을 생성합니다.
+	func createPlan(travelOnId: Int) -> AnyPublisher<EmptyResponse, Error> {
+		// URLRequest 생성
+		let url = URL(string: "\(Config.apiURL)/plans")!
+		var request = URLRequest(url: url)
+		
+		// HTTP Header
+		request.httpMethod = "POST"
+		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+		request.addValue("application/json", forHTTPHeaderField: "Accept")
+		request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+		
+		let body = ["travelOnId": travelOnId]
+		request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+		
+		// Publisher 반환
+		return agent.run(request)
+	}
+	
+	/// 플랜을 삭제합니다.
+	func deletePlan(planId: Int) -> AnyPublisher<EmptyResponse, Error> {
+		// URLRequest 생성
+		let url = URL(string: "\(Config.apiURL)/plans/\(planId)")!
+		var request = URLRequest(url: url)
+		
+		// HTTP Header
+		request.httpMethod = "DELETE"
 		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 		request.addValue("application/json", forHTTPHeaderField: "Accept")
 		request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")

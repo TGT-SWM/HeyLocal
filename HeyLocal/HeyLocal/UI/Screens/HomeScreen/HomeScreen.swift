@@ -1,6 +1,7 @@
 //
 //  HomeScreen.swift
 //  HeyLocal
+//	홈 화면
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

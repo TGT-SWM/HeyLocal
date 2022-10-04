@@ -1,6 +1,7 @@
 //
 //  AuthRepository.swift
 //  HeyLocal
+//	인증(로그인, 회원가입) 레포지터리
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //
