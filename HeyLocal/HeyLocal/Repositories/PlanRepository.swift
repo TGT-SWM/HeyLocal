@@ -97,18 +97,29 @@ struct PlanRepository {
 		request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
 		
 		// HTTP 바디 구성
-//		let body = ["schedules": schedules]
-//		if JSONSerialization.isValidJSONObject(body) {
-//			print("Valid JSON")
-//		} else {
-//			print("Invalid JSON")
-//		}
-//		request.httpBody = try? JSONSerialization.data(withJSONObject: body)
-		
 		let encoder = JSONEncoder()
 		let body = DaySchedules(schedules: schedules)
 		let jsonBody = try? encoder.encode(body)
 		request.httpBody = jsonBody
+		
+		// Publisher 반환
+		return agent.run(request)
+	}
+	
+	/// 플랜 정보를 수정합니다.
+	func updatePlan(planId: Int, planTitle: String) -> AnyPublisher<EmptyResponse, Error> {
+		// URLRequest 생성
+		let url = URL(string: "\(Config.apiURL)/plans/\(planId)")!
+		var request = URLRequest(url: url)
+		
+		// HTTP Header
+		request.httpMethod = "PUT"
+		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+		request.addValue("application/json", forHTTPHeaderField: "Accept")
+		request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+		
+		let body = ["title": planTitle]
+		request.httpBody = try? JSONSerialization.data(withJSONObject: body)
 		
 		// Publisher 반환
 		return agent.run(request)
