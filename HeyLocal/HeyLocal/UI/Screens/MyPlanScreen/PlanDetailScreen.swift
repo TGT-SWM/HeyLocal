@@ -39,6 +39,7 @@ struct PlanDetailScreen: View {
 				presentationMode.wrappedValue.dismiss()
 			}))
 		}
+		.toolbar { EditButton() }
     }
 	
 	/// 상단 헤더 영역입니다.
@@ -97,13 +98,13 @@ struct PlanDetailScreen: View {
 				}
 			}
 			.tabViewStyle(.page(indexDisplayMode: .never))
-			.animation(.easeInOut)
+			
 		}
 	}
 	
 	/// 해당 일자 장소 리스트
 	func placesViewOf(day: Int) -> some View {
-		PlaceList(places: viewModel.placesOf(day: day))
+		PlaceList(places: $viewModel.schedules[day - 1].places)
 	}
 	
 	/// 일자 이동을 위한 버튼입니다.
