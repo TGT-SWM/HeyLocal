@@ -8,15 +8,18 @@
 import Foundation
 import Combine
 
+// MARK: - NetworkAgent (네트워킹 모듈)
+
 struct NetworkAgent {
 	let session = URLSession.shared
 	
+	/// 네트워크 요청을 수행합니다.
 	func run<T: Decodable>(_ request: URLRequest) -> AnyPublisher<T, Error> {
 		return session
 			.dataTaskPublisher(for: request)
-//			.tryMap(handleAPIError)
-			.map(\.data)
-			.handleEvents(receiveOutput: { print(NSString(data: $0, encoding: String.Encoding.utf8.rawValue)!) }) // LOG
+			.tryMap(handleAPIError)
+			.map(handleEmptyResponse)
+			.handleEvents(receiveOutput: logger)
 			.decode(type: T.self, decoder: JSONDecoder())
 			.receive(on: DispatchQueue.main)
 			.eraseToAnyPublisher()
@@ -34,6 +37,20 @@ struct NetworkAgent {
 		
 		return data
 	}
+	
+	/// 빈 응답 데이터가 오는 경우 Invalid한 JSON이라 JSONDecoder에서 처리가 불가능하므로,
+	/// 빈 JSON 객체 데이터로 변환합니다.
+	private func handleEmptyResponse(data: Data) -> Data {
+		data.isEmpty
+		? "{}".data(using: .utf8)!
+		: data
+	}
+	
+	/// 응답 데이터를 콘솔에 출력합니다.
+	private func logger(data: Data) {
+		print("[Response]")
+		print(NSString(data: data, encoding: String.Encoding.utf8.rawValue)!)
+	}
 }
 
 /// API에서 반환한 에러를 표현하기 위한 구조체입니다.
@@ -41,3 +58,6 @@ struct APIError: Error, Decodable {
 	var code: String
 	var description: String
 }
+
+/// 빈 JSON 응답에 대한 엔티티입니다.
+struct EmptyResponse: Decodable {}
