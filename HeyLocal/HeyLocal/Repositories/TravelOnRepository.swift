@@ -1,6 +1,7 @@
 //
 //  TravelOnRepository.swift
 //  HeyLocal
+//  여행On API 연동
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //
@@ -117,8 +118,9 @@ struct TravelOnRepository {
             httpResponseStatusCode = httpResponse.statusCode
         
             if httpResponse.statusCode == 201 {
-                self.getTravelOnLists(lastItemId: nil, pageSize: 5, regionId: nil, sortBy: "DATE", withOpinions: false)
+                self.getTravelOnLists(lastItemId: nil, pageSize: 15, regionId: nil, sortBy: "DATE", withOpinions: false)
             } else {
+                print(error)
                 return
             }
 //            guard let response = response as? HTTPURLResponse, response.statusCode == 200 {
