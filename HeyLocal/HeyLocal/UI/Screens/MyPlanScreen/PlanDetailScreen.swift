@@ -92,8 +92,16 @@ struct PlanDetailScreen: View {
 	var placesView: some View {
 		VStack {
 			// 장소 추가 버튼
-			if !viewModel.schedules.isEmpty && editMode!.wrappedValue == .active {
-				NavigationLink(destination: PlaceSearchScreen(places: $viewModel.schedules[viewModel.currentDay - 1].places)) {
+			if !viewModel.schedules.isEmpty {
+//				NavigationLink(destination: PlaceSearchScreen(places: $viewModel.schedules[viewModel.currentDay - 1].places)) {
+//					Text("해당 일자에 장소 추가하기")
+//				}
+//				.padding()
+				
+				NavigationLink(destination: PlaceSearchScreen(onComplete: { places in
+					viewModel.schedules[viewModel.currentDay - 1].places.append(contentsOf: places)
+					viewModel.updateSchedules()
+				})) {
 					Text("해당 일자에 장소 추가하기")
 				}
 				.padding()
@@ -104,6 +112,7 @@ struct PlanDetailScreen: View {
 				ForEach(viewModel.schedules.indices, id: \.self) { idx in
 					placesViewOf(day: idx + 1)
 						.tag(idx + 1)
+						.environment(\.editMode, editMode)
 				}
 			}
 			.tabViewStyle(.page(indexDisplayMode: .never))

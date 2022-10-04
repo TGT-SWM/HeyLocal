@@ -15,7 +15,8 @@ struct PlaceSearchScreen: View {
 	@Environment(\.presentationMode) var presentationMode
 	
 	/// 장소 선택 결과를 반환하기 위한 @Binding 파라미터
-	@Binding var places: [Place]
+//	@Binding var places: [Place]
+	var onComplete: ([Place]) -> Void
 	
     var body: some View {
 		VStack {
@@ -33,7 +34,8 @@ struct PlaceSearchScreen: View {
 	
 	/// 완료 버튼 클릭 시 이전 화면으로 Go Back
 	func handleComplete() {
-		places.append(contentsOf: viewModel.selectedItems)
+//		places.append(contentsOf: viewModel.selectedItems)
+		onComplete(viewModel.selectedItems)
 		presentationMode.wrappedValue.dismiss()
 	}
 }
@@ -153,6 +155,6 @@ extension PlaceSearchScreen {
 
 struct PlaceSearchScreen_Previews: PreviewProvider {
     static var previews: some View {
-		PlaceSearchScreen(places: .constant([]))
+		PlaceSearchScreen(onComplete: { places in })
     }
 }
