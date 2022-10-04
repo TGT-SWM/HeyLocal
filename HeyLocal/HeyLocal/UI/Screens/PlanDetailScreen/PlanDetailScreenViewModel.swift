@@ -23,6 +23,7 @@ extension PlanDetailScreen {
 		@Published var currentDay = 1 // 현재 보고 있는 여행 일자
 		@Published var schedules: [DaySchedule] = [] // 스케줄 정보
 		@Published var editMode = EditMode.inactive // 스케줄 수정 모드
+		@Published var isPlanTitleEditing = false // 플랜 제목이 수정 중인지
 		var schedulesBackUp: [DaySchedule] = [] // 스케줄 수정 취소를 위한 임시 저장
 		
 		// Combine
@@ -141,5 +142,29 @@ extension PlanDetailScreen.ViewModel {
 	func handleAddPlaces(places: [Place]) {
 		currentSchedule.wrappedValue.append(contentsOf: places)
 		updateSchedules()
+	}
+}
+
+
+// MARK: - 플랜 제목 수정 기능
+
+extension PlanDetailScreen.ViewModel {
+	/// 플랜 제목 수정 모드로 진입합니다.
+	func editPlanTitle() {
+		isPlanTitleEditing = true
+	}
+	
+	/// 플랜 제목 수정을 완료합니다.
+	func savePlanTitle() {
+		// TODO: API Call
+		isPlanTitleEditing = false
+	}
+	
+	/// 플랜 제목에 대한 바인딩 객체를 반환합니다.
+	var planTitle: Binding<String> {
+		Binding(
+			get: { self.plan.title },
+			set: { self.plan.title = $0 }
+		)
 	}
 }

@@ -60,6 +60,7 @@ struct PlanDetailScreen: View {
 // MARK: - 상단 헤더 영역
 
 extension PlanDetailScreen {
+	/// 상단 헤더를 출력합니다.
 	var header: some View {
 		HStack {
 			headerTitleSection
@@ -70,14 +71,37 @@ extension PlanDetailScreen {
 		.padding()
 	}
 	
-	/// 플랜의 이름과 여행 기간을 출력합니다.
+	/// 플랜의 제목과 여행 기간을 출력합니다.
 	var headerTitleSection: some View {
 		VStack(alignment: .leading) {
-			Text(plan.title)
-				.font(.title2)
-				.fontWeight(.bold)
+			headerPlanTitleSection
 			Text(DateFormat.format(plan.startDate, from: "yyyy-MM-dd", to: "M월 d일") + " ~ " + DateFormat.format(plan.endDate, from: "yyyy-MM-dd", to: "M월 d일"))
 				.font(.subheadline)
+		}
+	}
+	
+	/// 플랜 제목을 출력합니다.
+	/// 수정 버튼을 눌러 플랜 제목을 수정할 수 있습니다.
+	var headerPlanTitleSection: some View {
+		HStack {
+			if viewModel.isPlanTitleEditing {
+				TextField("플랜 제목", text: viewModel.planTitle)
+					.font(.title2)
+				Button {
+					viewModel.savePlanTitle()
+				} label: {
+					Image(systemName: "pencil")
+				}
+			} else {
+				Text(viewModel.planTitle.wrappedValue)
+					.font(.title2)
+					.fontWeight(.bold)
+				Button {
+					viewModel.editPlanTitle()
+				} label: {
+					Image(systemName: "pencil")
+				}
+			}
 		}
 	}
 	
@@ -139,6 +163,7 @@ extension PlanDetailScreen {
 // MARK: - 지도 뷰
 
 extension PlanDetailScreen {
+	/// 지도 뷰를 출력합니다.
 	var mapView: some View {
 		VStack {
 			if !viewModel.schedules.isEmpty {
