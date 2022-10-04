@@ -47,13 +47,11 @@ extension MyPlanList.ViewModel {
 extension MyPlanList.ViewModel {
 	func deleteFrom(_ keypath: WritableKeyPath<MyPlans, [Plan]>) -> ((IndexSet) -> Void) {
 		let handler = { (at: IndexSet) in
-			// 상태에서 제거
-			self.myPlans[keyPath: keypath].remove(atOffsets: at)
-			
-			// API 호출
 			guard let index = at.first else { return }
 			let plan = self.myPlans[keyPath: keypath][index]
-			self.planService.deletePlan(planId: plan.id)
+			
+			self.myPlans[keyPath: keypath].remove(atOffsets: at) // 상태에서 제거
+			self.planService.deletePlan(planId: plan.id) // API 호출
 		}
 		
 		return handler

@@ -56,6 +56,7 @@ extension MyPlanList {
 							.onDelete(perform: onDelete)
 					}
 				}
+				.toolbar { EditButton() }
 			}
 		}
 	}
