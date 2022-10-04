@@ -24,11 +24,6 @@ class PlanService {
 		return planRepository.findMyPlans(userId: userId)
 	}
 	
-	/// 플랜의 스케줄을 조회합니다.
-	func getSchedules(planId: Int) -> AnyPublisher<[DaySchedule], Error> {
-		return planRepository.findSchedules(planId: planId)
-	}
-	
 	/// 플랜을 생성합니다.
 	func createPlan(travelOnId: Int, onCompletion: @escaping () -> Void, onError: @escaping (Error) -> Void) {
 		cancellable = planRepository.createPlan(travelOnId: travelOnId)
@@ -42,10 +37,21 @@ class PlanService {
 			}, receiveValue: { _ in })
 	}
 	
+	/// 플랜 정보를 수정합니다.
+	func updatePlan(planId: Int, planTitle: String) {
+		cancellable = planRepository.updatePlan(planId: planId, planTitle: planTitle)
+			.sink(receiveCompletion: { _ in }, receiveValue: { _ in })
+	}
+	
 	/// 플랜을 삭제합니다.
 	func deletePlan(planId: Int) {
 		cancellable = planRepository.deletePlan(planId: planId)
 			.sink(receiveCompletion: { _ in }, receiveValue: { _ in })
+	}
+	
+	/// 플랜의 스케줄을 조회합니다.
+	func getSchedules(planId: Int) -> AnyPublisher<[DaySchedule], Error> {
+		return planRepository.findSchedules(planId: planId)
 	}
 	
 	/// 플랜의 스케줄을 수정합니다.
