@@ -17,10 +17,10 @@ extension PlanCreateScreen {
 		private let planService = PlanService()
 		
 		// 상태
-		@Published var travelOns = [TravelOn]()
-		@Published var selected: TravelOn?
-		@Published var showAlert = false
-		@Published var alertMessage = ""
+		@Published var travelOns = [TravelOn]() // 여행 On 데이터
+		@Published var selected: TravelOn? // 선택한 여행 On
+		@Published var showAlert = false // Alert 출력 여부
+		@Published var alertMessage = "" // 출력할 Alert 메시지
 		
 		// 페이징 관련 상태
 		var lastItemId: Int?
