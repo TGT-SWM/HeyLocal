@@ -50,7 +50,10 @@ extension MyPlanList.ViewModel {
 			// 상태에서 제거
 			self.myPlans[keyPath: keypath].remove(atOffsets: at)
 			
-			// API Call
+			// API 호출
+			guard let index = at.first else { return }
+			let plan = self.myPlans[keyPath: keypath][index]
+			self.planService.deletePlan(planId: plan.id)
 		}
 		
 		return handler

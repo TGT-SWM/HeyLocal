@@ -65,4 +65,20 @@ struct PlanRepository {
 		// Publisher 반환
 		return agent.run(request)
 	}
+	
+	/// 플랜을 삭제합니다.
+	func deletePlan(planId: Int) -> AnyPublisher<EmptyResponse, Error> {
+		// URLRequest 생성
+		let url = URL(string: "\(Config.apiURL)/plans/\(planId)")!
+		var request = URLRequest(url: url)
+		
+		// HTTP Header
+		request.httpMethod = "DELETE"
+		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+		request.addValue("application/json", forHTTPHeaderField: "Accept")
+		request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+		
+		// Publisher 반환
+		return agent.run(request)
+	}
 }

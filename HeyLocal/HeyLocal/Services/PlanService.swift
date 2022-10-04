@@ -40,4 +40,10 @@ class PlanService {
 				}
 			}, receiveValue: { _ in })
 	}
+	
+	/// 플랜을 삭제합니다.
+	func deletePlan(planId: Int) {
+		cancellable = planRepository.deletePlan(planId: planId)
+			.sink(receiveCompletion: { _ in }, receiveValue: { _ in })
+	}
 }
