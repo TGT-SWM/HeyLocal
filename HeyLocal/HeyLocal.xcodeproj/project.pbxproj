@@ -318,6 +318,7 @@
 				EF3FCF1428C12A3900D48F9E /* PlanDetailScreen.swift */,
 				EF3FCF1628C12D0800D48F9E /* PlanDetailScreenViewModel.swift */,
 				EF3FCF1B28C135B200D48F9E /* PlaceList.swift */,
+				EFF9F3C628C5C8DA00E9FCB3 /* KakaoMap.swift */,
 			);
 			path = MyPlanScreen;
 			sourceTree = "<group>";
@@ -467,7 +468,6 @@
 			isa = PBXGroup;
 			children = (
 				A8AF3DEA28D407D7009B68BE /* RegionPicker */,
-				EFF9F3C528C5C8C100E9FCB3 /* KakaoMap */,
 				A87F6CA028C0A1EE0076046E /* ProfileComponent */,
 				EF26CD9628C10869006D0D27 /* MyPlanList */,
 				A80213D128BF2C0700B6359E /* TravelOnList */,
@@ -563,14 +563,6 @@
 				EFF9F36E28C5523200E9FCB3 /* DaumMap.embeddedframework */,
 			);
 			path = Frameworks;
-			sourceTree = "<group>";
-		};
-		EFF9F3C528C5C8C100E9FCB3 /* KakaoMap */ = {
-			isa = PBXGroup;
-			children = (
-				EFF9F3C628C5C8DA00E9FCB3 /* KakaoMap.swift */,
-			);
-			path = KakaoMap;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
