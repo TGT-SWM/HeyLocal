@@ -58,6 +58,14 @@ extension PlanDetailScreen.ViewModel {
 			schedules: schedules
 		)
 	}
+	
+	/// 수정한 플랜 제목을 서버에 업데이트합니다.
+	func updatePlanTitle() {
+		planService.updatePlan(
+			planId: plan.id,
+			planTitle: plan.title
+		)
+	}
 }
 
 
@@ -156,7 +164,7 @@ extension PlanDetailScreen.ViewModel {
 	
 	/// 플랜 제목 수정을 완료합니다.
 	func savePlanTitle() {
-		// TODO: API Call
+		updatePlanTitle()
 		isPlanTitleEditing = false
 	}
 	
