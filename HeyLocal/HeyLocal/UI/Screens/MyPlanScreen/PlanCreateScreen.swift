@@ -33,7 +33,6 @@ struct PlanCreateScreen: View {
 						}
 				}
 			}
-			
 		}
 		.navigationTitle("여행 On 선택")
 		.navigationBarTitleDisplayMode(.inline)
@@ -43,12 +42,18 @@ struct PlanCreateScreen: View {
 					viewModel.submit {
 						presentationMode.wrappedValue.dismiss()
 					} onError: { error in
-						print(error)
-//						let apiError: APIError = error as! APIError
-//						print(apiError.description)
+						let apiError: APIError = error as! APIError
+						viewModel.displayAlert(apiError.description)
 					}
 				}
 			}
+		}
+		.alert(isPresented: $viewModel.showAlert) {
+			Alert(
+				title: Text("에러"),
+				message: Text(viewModel.alertMessage),
+				dismissButton: .default(Text("확인"))
+			)
 		}
     }
 }

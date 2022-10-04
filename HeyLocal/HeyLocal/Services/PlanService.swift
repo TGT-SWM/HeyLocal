@@ -13,6 +13,7 @@ class PlanService {
 	
 	var cancellable: AnyCancellable?
 	
+	/// 마이플랜을 조회합니다.
 	func getMyPlans() -> AnyPublisher<MyPlans, Error> {
 		// KeyChain에서 로그인 정보 가져오기
 		// TODO: 실제 로그인된 userId 가져오도록 수정
@@ -22,10 +23,12 @@ class PlanService {
 		return planRepository.findMyPlans(userId: userId)
 	}
 	
+	/// 플랜의 스케줄을 조회합니다.
 	func getSchedules(planId: Int) -> AnyPublisher<[DaySchedule], Error> {
 		return planRepository.findSchedules(planId: planId)
 	}
 	
+	/// 플랜을 생성합니다.
 	func createPlan(travelOnId: Int, onCompletion: @escaping () -> Void, onError: @escaping (Error) -> Void) {
 		cancellable = planRepository.createPlan(travelOnId: travelOnId)
 			.sink(receiveCompletion: { completion in

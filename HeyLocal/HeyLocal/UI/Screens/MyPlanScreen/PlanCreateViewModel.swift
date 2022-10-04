@@ -20,6 +20,7 @@ extension PlanCreateScreen {
 		@Published var travelOns = [TravelOn]()
 		@Published var selected: TravelOn?
 		@Published var showAlert = false
+		@Published var alertMessage = ""
 		
 		// 페이징 관련 상태
 		var lastItemId: Int?
@@ -69,5 +70,20 @@ extension PlanCreateScreen.ViewModel {
 	func submit(onCompletion: @escaping () -> Void, onError: @escaping (Error) -> Void) {
 		guard let travelOn = self.selected else { return }
 		planService.createPlan(travelOnId: travelOn.id, onCompletion: onCompletion, onError: onError)
+	}
+}
+
+
+// MARK: - 에러 발생 시 Alert 메시지
+
+extension PlanCreateScreen.ViewModel {
+	func displayAlert(_ msg: String) {
+		self.alertMessage = msg
+		self.showAlert = true
+	}
+	
+	func hideAlert() {
+		self.alertMessage = ""
+		self.showAlert = false
 	}
 }

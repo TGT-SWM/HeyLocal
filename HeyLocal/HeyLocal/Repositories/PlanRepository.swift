@@ -13,7 +13,7 @@ struct PlanRepository {
 	
 	private let plansUrl = "\(Config.apiURL)/plans"
 	
-	///
+	/// 마이플랜을 조회합니다.
 	func findMyPlans(userId: Int) -> AnyPublisher<MyPlans, Error> {
 		// URLRequest 객체 생성
 		let url = URL(string: plansUrl)!
@@ -30,6 +30,7 @@ struct PlanRepository {
 		return agent.run(request)
 	}
 	
+	/// 플랜의 스케줄을 조회합니다.
 	func findSchedules(planId: Int) -> AnyPublisher<[DaySchedule], Error> {
 		// URLRequest 객체 생성
 		let urlString = "\(Config.apiURL)/plans/\(planId)/places"
@@ -46,6 +47,7 @@ struct PlanRepository {
 		return agent.run(request)
 	}
 	
+	/// 플랜을 생성합니다.
 	func createPlan(travelOnId: Int) -> AnyPublisher<EmptyResponse, Error> {
 		// URLRequest 생성
 		let url = URL(string: "\(Config.apiURL)/plans")!
