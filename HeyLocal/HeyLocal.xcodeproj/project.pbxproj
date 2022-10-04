@@ -313,23 +313,10 @@
 			isa = PBXGroup;
 			children = (
 				EF26CD8C28C0F102006D0D27 /* MyPlanScreen.swift */,
-				EF6A3FC528E93A44003F474B /* PlanCreateScreen.swift */,
-				EF6A3FC728E93A68003F474B /* PlanCreateViewModel.swift */,
-				EF3FCF1428C12A3900D48F9E /* PlanDetailScreen.swift */,
-				EF3FCF1628C12D0800D48F9E /* PlanDetailScreenViewModel.swift */,
-				EF3FCF1B28C135B200D48F9E /* PlaceList.swift */,
-				EFF9F3C628C5C8DA00E9FCB3 /* KakaoMap.swift */,
-			);
-			path = MyPlanScreen;
-			sourceTree = "<group>";
-		};
-		EF26CD9628C10869006D0D27 /* MyPlanList */ = {
-			isa = PBXGroup;
-			children = (
 				EF26CD9028C0F153006D0D27 /* MyPlanList.swift */,
 				EF26CD9228C0F15E006D0D27 /* MyPlanListViewModel.swift */,
 			);
-			path = MyPlanList;
+			path = MyPlanScreen;
 			sourceTree = "<group>";
 		};
 		EF3C060A28E0E52F003F3188 /* PlaceSearchScreen */ = {
@@ -339,6 +326,26 @@
 				EF3C060D28E0E666003F3188 /* PlaceSearchViewModel.swift */,
 			);
 			path = PlaceSearchScreen;
+			sourceTree = "<group>";
+		};
+		EF572AED28ECC23600A09F6D /* PlanCreateScreen */ = {
+			isa = PBXGroup;
+			children = (
+				EF6A3FC528E93A44003F474B /* PlanCreateScreen.swift */,
+				EF6A3FC728E93A68003F474B /* PlanCreateViewModel.swift */,
+			);
+			path = PlanCreateScreen;
+			sourceTree = "<group>";
+		};
+		EF572AEE28ECC23F00A09F6D /* PlanDetailScreen */ = {
+			isa = PBXGroup;
+			children = (
+				EF3FCF1428C12A3900D48F9E /* PlanDetailScreen.swift */,
+				EF3FCF1628C12D0800D48F9E /* PlanDetailScreenViewModel.swift */,
+				EF3FCF1B28C135B200D48F9E /* PlaceList.swift */,
+				EFF9F3C628C5C8DA00E9FCB3 /* KakaoMap.swift */,
+			);
+			path = PlanDetailScreen;
 			sourceTree = "<group>";
 		};
 		EF74BBF128B4D55A00E09450 /* HomeScreen */ = {
@@ -460,6 +467,8 @@
 				EF74BBF128B4D55A00E09450 /* HomeScreen */,
 				A8794B2D28B4E92400959D56 /* AuthScreen */,
 				EF26CD8B28C0F0EA006D0D27 /* MyPlanScreen */,
+				EF572AED28ECC23600A09F6D /* PlanCreateScreen */,
+				EF572AEE28ECC23F00A09F6D /* PlanDetailScreen */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -469,7 +478,6 @@
 			children = (
 				A8AF3DEA28D407D7009B68BE /* RegionPicker */,
 				A87F6CA028C0A1EE0076046E /* ProfileComponent */,
-				EF26CD9628C10869006D0D27 /* MyPlanList */,
 				A80213D128BF2C0700B6359E /* TravelOnList */,
 				A8A1999628BF59EF006119C4 /* CheckedValue.swift */,
 				A87F6C9E28C0A1050076046E /* TopTabs.swift */,
