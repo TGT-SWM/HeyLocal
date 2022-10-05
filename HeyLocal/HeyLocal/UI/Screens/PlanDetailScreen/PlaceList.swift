@@ -52,6 +52,9 @@ extension PlaceList {
 				)
 			
 			VStack(alignment: .leading) {
+				if let arrivalTime = place.arrivalTime {
+					Text("\(arrivalTime) 도착")
+				}
 				Text(place.name) // 이름
 					.font(.title3)
 					.fontWeight(.bold)
