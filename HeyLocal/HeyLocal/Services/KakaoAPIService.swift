@@ -91,7 +91,7 @@ struct KakaoPlacesResponse: Decodable {
 			Place(
 				id: Int(id) ?? 0,
 				name: name,
-				category: category,
+				category: "\(PlaceCategory.withLabel(category))",
 				address: address,
 				roadAddress: roadAddress,
 				lat: Double(lat) ?? 0.0,
