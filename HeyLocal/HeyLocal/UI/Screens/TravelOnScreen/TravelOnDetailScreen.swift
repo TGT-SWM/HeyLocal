@@ -14,6 +14,10 @@ struct TravelOnDetailScreen: View {
     @StateObject var viewModel = TravelOnListScreen.ViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
+    
+    @State var showingSheet = false
+    @State var showingAlert = false
+    
     // custom Back button
     var btnBack : some View { Button(action: {
         self.presentationMode.wrappedValue.dismiss()
@@ -24,6 +28,37 @@ struct TravelOnDetailScreen: View {
                 .frame(width: 10)
                 .foregroundColor(.black)
         }
+    }
+    
+    // Navigation Bar Item : 수정·삭제 ActionSheet 보기
+    var moreBtn: some View {
+        Button(action: {
+            showingSheet.toggle()
+        }) {
+            Image(systemName: "ellipsis")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 14)
+                .foregroundColor(.black)
+                .rotationEffect(.degrees(-90))
+        }
+        .actionSheet(isPresented: $showingSheet, content: getActionSheet)
+        .alert(isPresented: $showingAlert) { // 삭제 Alert
+            Alert(title: Text("Test"))
+        }
+    }
+    
+    // 수정·삭제 ActionSheet
+    func getActionSheet() -> ActionSheet {
+        let reviseBtn: ActionSheet.Button = .default(Text("게시글 수정"))
+        let deleteBtn: ActionSheet.Button = .destructive(Text("삭제")) {
+            showingAlert.toggle()
+        }
+        let cancelBtn: ActionSheet.Button = .cancel(Text("취소"))
+        
+        return ActionSheet(title: Text(""),
+                           message: nil,
+                           buttons: [reviseBtn, deleteBtn, cancelBtn])
     }
     
     var body: some View {
@@ -38,7 +73,7 @@ struct TravelOnDetailScreen: View {
         .navigationTitle("여행On")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: btnBack)
+        .navigationBarItems(leading: btnBack, trailing: moreBtn)
     }
     
     var content: some View {
