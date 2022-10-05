@@ -13,12 +13,19 @@ import SwiftUI
 struct PlaceList: View {
 	@Binding var places: [Place]
 	
+	@State var editTargetIdx: Int?
+	@State var editTime = Date()
+	
     var body: some View {
-		VStack {
+		ZStack {
 			if (places.isEmpty) {
 				Text("등록된 장소가 없습니다. 장소를 추가해보세요.")
 			} else {
 				placeList
+			}
+			
+			if editTargetIdx != nil {
+				timeEditView
 			}
 		}
     }
@@ -52,9 +59,25 @@ extension PlaceList {
 				)
 			
 			VStack(alignment: .leading) {
-				if let arrivalTime = place.arrivalTime {
-					Text("\(DateFormat.format(arrivalTime, from: "HH:mm:ss", to: "HH:mm")) 도착")
-						.font(.subheadline)
+				HStack {
+					if let arrivalTime = places[order].arrivalTime {
+						Text("\(DateFormat.format(arrivalTime, from: "HH:mm:ss", to: "HH:mm")) 도착")
+							.font(.subheadline)
+					} else {
+						Text("도착 시간 없음")
+							.font(.subheadline)
+					}
+					
+					Button {
+						editTargetIdx = order
+						editTime = Date()
+						if let arrivalTime = place.arrivalTime {
+							editTime = DateFormat.strToDate(arrivalTime, "HH:mm:ss")
+						}
+					} label: {
+						Image(systemName: "pencil")
+							.font(.system(size: 12))
+					}
 				}
 				Text(place.name) // 이름
 					.font(.title3)
@@ -65,7 +88,7 @@ extension PlaceList {
 			
 			Spacer()
 		}
-		.frame(height: 70)
+		.frame(height: 75)
 	}
 	
 	/// 리스트 항목의 삭제 이벤트를 처리합니다.
@@ -76,6 +99,39 @@ extension PlaceList {
 	/// 리스트 항목의 순서 이동 이벤트를 처리합니다.
 	func handleMove(from: IndexSet, to: Int) {
 		places.move(fromOffsets: from, toOffset: to)
+	}
+}
+
+
+// MARK: - 도착 시간 수정 기능
+
+extension PlaceList {
+	var timeEditView: some View {
+		VStack {
+			DatePicker("도착 시간 설정", selection: $editTime, displayedComponents: .hourAndMinute)
+				.datePickerStyle(WheelDatePickerStyle())
+				.labelsHidden()
+				.background(Color.white)
+				.padding()
+			
+			HStack {
+				Button("취소") {
+					editTargetIdx = nil
+				}
+				Button("확인") {
+					places[editTargetIdx!].arrivalTime = DateFormat.dateToStr(editTime, "HH:mm:ss")
+					// TODO: - API Call
+					editTargetIdx = nil
+				}
+			}
+			.padding()
+		}
+		.background(
+			RoundedRectangle(cornerRadius: 15)
+				.fill(.white)
+				.shadow(color: Color(red: 0, green: 0, blue: 0, opacity: 0.25), radius: 2, x: 0, y: 1)
+				.shadow(color: Color(red: 0, green: 0, blue: 0, opacity: 0.10), radius: 6, x: 0, y: 2)
+		)
 	}
 }
 
