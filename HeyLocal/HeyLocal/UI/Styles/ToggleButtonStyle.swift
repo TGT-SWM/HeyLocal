@@ -1,6 +1,7 @@
 //
 //  ToggleButtonStyle.swift
 //  HeyLocal
+//  값 선택 버튼 (여행On·답변 등록 시 사용)
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

@@ -1,6 +1,7 @@
 //
 //  SearchBar.swift
 //  HeyLocal
+//  검색바 컴포넌트
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

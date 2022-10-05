@@ -1,6 +1,7 @@
 //
 //  MyProfileScreen.swift
 //  HeyLocal
+//  사용자 프로필 화면
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

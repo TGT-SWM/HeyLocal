@@ -1,6 +1,7 @@
 //
 //  SignInScreen.swift
 //  HeyLocal
+//  로그인 화면
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

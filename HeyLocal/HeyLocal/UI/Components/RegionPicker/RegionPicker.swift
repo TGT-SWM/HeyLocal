@@ -1,6 +1,7 @@
 //
 //  RegionPicker.swift
 //  HeyLocal
+//  지역 선택 Picker 컴포넌트
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

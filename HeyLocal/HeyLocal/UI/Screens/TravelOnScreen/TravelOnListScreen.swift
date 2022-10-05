@@ -1,6 +1,7 @@
 //
 //  TravelOnListScreen.swift
 //  HeyLocal
+//  여행On 리스트 화면 (전체 여행On 조회)
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

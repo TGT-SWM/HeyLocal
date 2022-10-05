@@ -1,6 +1,7 @@
 //
 //  ProfileSettingScreen.swift
 //  HeyLocal
+//  사용자 앱 설정 화면
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

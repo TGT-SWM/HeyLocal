@@ -1,6 +1,7 @@
 //
 //  ProfileComponent.swift
 //  HeyLocal
+//  프로필 화면 컴포넌트
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

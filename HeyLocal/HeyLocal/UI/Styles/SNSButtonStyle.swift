@@ -1,6 +1,7 @@
 //
 //  SNSButtonStyle.swift
 //  HeyLocal
+//  소셜 로그인·회원가입 버튼 스타일
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

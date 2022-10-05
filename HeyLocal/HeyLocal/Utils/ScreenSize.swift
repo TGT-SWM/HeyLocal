@@ -1,6 +1,7 @@
 //
 //  ScreenSize.swift
 //  HeyLocal
+//  화면 크기 값 
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

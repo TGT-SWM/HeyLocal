@@ -1,6 +1,7 @@
 //
 //  TravelOnWriteScreen.swift
 //  HeyLocal
+//  여행On 등록 화면
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //
@@ -360,7 +361,7 @@ struct TravelOnWriteScreen: View {
                         }
                     }
                     if showStartDatePicker {
-                        DatePicker("", selection: $startDate, in: Date()..., displayedComponents: .date)
+                        DatePicker("", selection: $startDate, in: Date()...endDate, displayedComponents: .date)
                             .datePickerStyle(GraphicalDatePickerStyle())
                             .onChange(of: startDate, perform: { (value) in
                                 showStartDatePicker = false
