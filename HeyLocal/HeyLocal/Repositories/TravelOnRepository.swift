@@ -1,7 +1,7 @@
 //
 //  TravelOnRepository.swift
 //  HeyLocal
-//  여행On API 연동
+//  여행On 레포지터리 : TravelOns API 연동
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

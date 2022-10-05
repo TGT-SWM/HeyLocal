@@ -1,6 +1,7 @@
 //
 //  TravelOnComponent.swift
 //  HeyLocal
+//  여행On 컴포넌트 뷰 (여행On 리스트 조회 시 사용)
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

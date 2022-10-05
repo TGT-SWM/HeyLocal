@@ -1,6 +1,7 @@
 //
 //  BasicButtonStyle.swift
 //  HeyLocal
+//  로그인/회원가입/인증/중복확인, 이전/다음 버튼 스타일
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

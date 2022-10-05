@@ -32,7 +32,6 @@
 		A87F6CA228C0A22B0076046E /* ProfileComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA128C0A22B0076046E /* ProfileComponent.swift */; };
 		A87F6CA428C0A37A0076046E /* ProfileReviseScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA328C0A37A0076046E /* ProfileReviseScreen.swift */; };
 		A87F6CA628C0A3AB0076046E /* SettingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA528C0A3AB0076046E /* SettingScreen.swift */; };
-		A8A1999728BF59EF006119C4 /* CheckedValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A1999628BF59EF006119C4 /* CheckedValue.swift */; };
 		A8AF3DEC28D407E9009B68BE /* RegionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AF3DEB28D407E9009B68BE /* RegionPicker.swift */; };
 		A8AF3DEE28D407F6009B68BE /* RegionPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AF3DED28D407F6009B68BE /* RegionPickerViewModel.swift */; };
 		EF1E4CCF28B53A6200D985E3 /* NetworkAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */; };
@@ -133,7 +132,6 @@
 		A87F6CA128C0A22B0076046E /* ProfileComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileComponent.swift; sourceTree = "<group>"; };
 		A87F6CA328C0A37A0076046E /* ProfileReviseScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileReviseScreen.swift; sourceTree = "<group>"; };
 		A87F6CA528C0A3AB0076046E /* SettingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingScreen.swift; sourceTree = "<group>"; };
-		A8A1999628BF59EF006119C4 /* CheckedValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckedValue.swift; sourceTree = "<group>"; };
 		A8AF3DEB28D407E9009B68BE /* RegionPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionPicker.swift; sourceTree = "<group>"; };
 		A8AF3DED28D407F6009B68BE /* RegionPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionPickerViewModel.swift; sourceTree = "<group>"; };
 		EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAgent.swift; sourceTree = "<group>"; };
@@ -476,7 +474,6 @@
 				A87F6CA028C0A1EE0076046E /* ProfileComponent */,
 				EF26CD9628C10869006D0D27 /* MyPlanList */,
 				A80213D128BF2C0700B6359E /* TravelOnList */,
-				A8A1999628BF59EF006119C4 /* CheckedValue.swift */,
 				A87F6C9E28C0A1050076046E /* TopTabs.swift */,
 				A836925728C6F48D00DBDB06 /* SearchBar.swift */,
 				EF4DD9A028E24CAE00E0D072 /* FAB.swift */,
@@ -721,7 +718,6 @@
 				EF74BBF328B4D5C200E09450 /* HomeScreen.swift in Sources */,
 				A87F6CA628C0A3AB0076046E /* SettingScreen.swift in Sources */,
 				A87F6CA228C0A22B0076046E /* ProfileComponent.swift in Sources */,
-				A8A1999728BF59EF006119C4 /* CheckedValue.swift in Sources */,
 				EF3C061228E0EDC4003F3188 /* KakaoAPIService.swift in Sources */,
 				A84E841228B8C28600128D9B /* SignInScreen.swift in Sources */,
 				EF26CD8A28C0EECA006D0D27 /* PlanService.swift in Sources */,

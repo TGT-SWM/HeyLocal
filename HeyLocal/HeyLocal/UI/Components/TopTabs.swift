@@ -1,6 +1,7 @@
 //
 //  TopTabs.swift
 //  HeyLocal
+//  상단 탭바
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

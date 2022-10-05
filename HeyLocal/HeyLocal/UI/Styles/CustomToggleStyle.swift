@@ -1,6 +1,7 @@
 //
 //  CustomToggleStyle.swift
 //  HeyLocal
+//  커스텀한 토글 스타일 (답변 있는 게시글만 보기)
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

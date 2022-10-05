@@ -1,6 +1,7 @@
 //
 //  ProfileReviseScreen.swift
 //  HeyLocal
+//  사용자 프로필 수정 화면 (프로필·닉네임·주 활동지·소개 수정)
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

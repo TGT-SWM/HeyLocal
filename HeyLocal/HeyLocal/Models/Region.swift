@@ -1,6 +1,7 @@
 //
 //  Region.swift
 //  HeyLocal
+//  지역 관련 모델 
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //
