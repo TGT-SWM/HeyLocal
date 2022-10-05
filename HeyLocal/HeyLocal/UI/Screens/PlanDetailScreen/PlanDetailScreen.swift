@@ -150,7 +150,7 @@ extension PlanDetailScreen {
 	var scheduleTabs: some View {
 		TabView(selection: $viewModel.currentDay) {
 			ForEach(viewModel.schedules.indices, id: \.self) {
-				PlaceList(places: viewModel.scheduleOf($0 + 1))
+				placeListOf(day: $0 + 1)
 					.tag($0 + 1)
 					.environment(\.editMode, $viewModel.editMode)
 			}

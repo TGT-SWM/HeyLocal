@@ -24,6 +24,8 @@ extension PlanDetailScreen {
 		@Published var schedules: [DaySchedule] = [] // 스케줄 정보
 		@Published var editMode = EditMode.inactive // 스케줄 수정 모드
 		@Published var isPlanTitleEditing = false // 플랜 제목이 수정 중인지
+		@Published var arrivalTimeEditTarget: Binding<Place>?
+		@Published var arrivalTimeEdited = Date()
 		var schedulesBackUp: [DaySchedule] = [] // 스케줄 수정 취소를 위한 임시 저장
 		
 		// Combine
@@ -102,11 +104,11 @@ extension PlanDetailScreen.ViewModel {
 }
 
 
-// MARK: - 스케줄 조회
+// MARK: - 스케줄 조회 기능
 
 extension PlanDetailScreen.ViewModel {
 	/// 해당 일자의 스케줄에 대해 바인딩 객체를 반환합니다.
-	func scheduleOf(_ day: Int) -> Binding<[Place]> {
+	func scheduleOf(day: Int) -> Binding<[Place]> {
 		Binding(
 			get: { self.schedules[day - 1].places },
 			set: { self.schedules[day - 1].places = $0 }
@@ -115,7 +117,15 @@ extension PlanDetailScreen.ViewModel {
 	
 	/// 현재 보고 있는 일자의 스케줄에 대해 바인딩 객체를 반환합니다.
 	var currentSchedule: Binding<[Place]> {
-		scheduleOf(currentDay)
+		scheduleOf(day: currentDay)
+	}
+	
+	/// 해당 일자와 순서의 장소에 대해 바인딩 객체를 반환합니다.
+	func placeOf(day: Int, index: Int) -> Binding<Place> {
+		Binding(
+			get: { self.schedules[day - 1].places[index] },
+			set: { self.schedules[day - 1].places[index] = $0 }
+		)
 	}
 }
 
@@ -174,5 +184,38 @@ extension PlanDetailScreen.ViewModel {
 			get: { self.plan.title },
 			set: { self.plan.title = $0 }
 		)
+	}
+}
+
+
+// MARK: - 장소 도착 시간 수정 기능
+
+extension PlanDetailScreen.ViewModel {
+	/// 도착 시간을 수정 중이라면 true를 반환합니다.
+	var isEditingArrivalTime: Bool {
+		arrivalTimeEditTarget != nil
+	}
+	
+	/// 해당 장소에 대해 도착 시간 수정 모드로 진입합니다.
+	func editArrivalTimeOf(place: Binding<Place>) {
+		arrivalTimeEditTarget = place
+		if let arrivalTime = place.wrappedValue.arrivalTime {
+			arrivalTimeEdited = DateFormat.strToDate(arrivalTime, "HH:mm:ss")
+		} else {
+			arrivalTimeEdited = Date()
+		}
+	}
+	
+	/// 도착 시간 변경 사항을 취소합니다.
+	func cancelArrivalTimeChange() {
+		arrivalTimeEditTarget = nil
+	}
+	
+	/// 도착 시간 변경 사항을 서버에 반영합니다.
+	func saveArrivalTimeChange() {
+		let result = DateFormat.dateToStr(arrivalTimeEdited, "HH:mm:ss")
+		arrivalTimeEditTarget?.wrappedValue.arrivalTime = result
+		updateSchedules()
+		arrivalTimeEditTarget = nil
 	}
 }
