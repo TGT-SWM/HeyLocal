@@ -42,7 +42,6 @@ struct TravelOnWriteScreen: View {
                     if viewModel.postTravelOn(travelOnData: travelOnData) == 201 {
                         viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 15, regionId: nil, sortBy: "DATE", withOpinions: false)
                     }
-                    print(viewModel.postTravelOn(travelOnData: travelOnData))
                 })
             }
             else {
@@ -54,7 +53,7 @@ struct TravelOnWriteScreen: View {
     }
     
     func makeTravelOnJsonData() {
-        let memberString: [String] = ["ALL", "CHILD", "PARENT", "COUPLE", "FRIEND", "PET"]
+        let memberString: [String] = ["ALONE", "CHILD", "PARENT", "COUPLE", "FRIEND", "PET"]
         let accomString: [String] = ["HOTEL", "PENSION", "CAMPING", "GUEST_HOUSE", "RESORT", "ALL"]
         let foodString: [String] = ["KOREAN", "WESTERN", "CHINESE", "JAPANESE", "GLOBAL"]
         let drinkString: [String] = ["SOJU", "BEER", "WINE", "MAKGEOLLI", "LIQUOR", "NO_ALCOHOL"]
@@ -361,7 +360,7 @@ struct TravelOnWriteScreen: View {
                         }
                     }
                     if showStartDatePicker {
-                        DatePicker("", selection: $startDate, in: Date()...endDate, displayedComponents: .date)
+                        DatePicker("", selection: $startDate, in: Date()..., displayedComponents: .date)
                             .datePickerStyle(GraphicalDatePickerStyle())
                             .onChange(of: startDate, perform: { (value) in
                                 showStartDatePicker = false

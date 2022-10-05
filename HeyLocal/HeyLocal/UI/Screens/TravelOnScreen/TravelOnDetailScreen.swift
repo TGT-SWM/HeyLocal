@@ -43,14 +43,14 @@ struct TravelOnDetailScreen: View {
                 .rotationEffect(.degrees(-90))
         }
         .actionSheet(isPresented: $showingSheet, content: getActionSheet)
-        .alert(isPresented: $showingAlert) { // 삭제 Alert
-            Alert(title: Text("Test"))
-        }
     }
     
     // 수정·삭제 ActionSheet
     func getActionSheet() -> ActionSheet {
+        // 수정버튼 클릭 시 -> 수정 페이지로 이동
         let reviseBtn: ActionSheet.Button = .default(Text("게시글 수정"))
+        
+        // 삭제버튼 클릭 시 -> Alert 창
         let deleteBtn: ActionSheet.Button = .destructive(Text("삭제")) {
             showingAlert.toggle()
         }
@@ -62,10 +62,23 @@ struct TravelOnDetailScreen: View {
     }
     
     var body: some View {
-        ScrollView {
-            content
+        ZStack {
+            ScrollView {
+                content
+                
+                opinions
+            }
             
-            opinions
+            // custom Alert
+            if showingAlert {
+                CustomAlert(showingAlert: $showingAlert,
+                            title: "삭제하시겠습니까?",
+                            cancelMessage: "아니요,",
+                            confirmMessage: "네,삭제할래요",
+                            cancelWidth: 134,
+                            confirmWidth: 109,
+                            rightButtonAction: { showingAlert.toggle() })
+            }
         }
         .onAppear {
             viewModel.fetchTravelOn(travelOnId: travelOnId)

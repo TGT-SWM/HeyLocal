@@ -18,6 +18,8 @@
 		A80B903C28CA105F0026866A /* TravelOnComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B903B28CA105F0026866A /* TravelOnComponent.swift */; };
 		A813CA2E28B4EE2B000F0ADF /* ScreenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A813CA2D28B4EE2B000F0ADF /* ScreenSize.swift */; };
 		A813CA3028B4F033000F0ADF /* SNSButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A813CA2F28B4F033000F0ADF /* SNSButtonStyle.swift */; };
+		A814DF7B28ED5D5500DBF383 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A814DF7A28ED5D5500DBF383 /* CustomAlert.swift */; };
+		A814DF7D28ED60B300DBF383 /* AlertCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A814DF7C28ED60B300DBF383 /* AlertCustomButton.swift */; };
 		A836925828C6F48D00DBDB06 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A836925728C6F48D00DBDB06 /* SearchBar.swift */; };
 		A836925A28C72A0500DBDB06 /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = A836925928C72A0500DBDB06 /* Region.swift */; };
 		A83972EA28E430AB000E323E /* CustomToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83972E928E430AB000E323E /* CustomToggleStyle.swift */; };
@@ -117,6 +119,8 @@
 		A80B903B28CA105F0026866A /* TravelOnComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOnComponent.swift; sourceTree = "<group>"; };
 		A813CA2D28B4EE2B000F0ADF /* ScreenSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSize.swift; sourceTree = "<group>"; };
 		A813CA2F28B4F033000F0ADF /* SNSButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSButtonStyle.swift; sourceTree = "<group>"; };
+		A814DF7A28ED5D5500DBF383 /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
+		A814DF7C28ED60B300DBF383 /* AlertCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertCustomButton.swift; sourceTree = "<group>"; };
 		A836925728C6F48D00DBDB06 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		A836925928C72A0500DBDB06 /* Region.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Region.swift; sourceTree = "<group>"; };
 		A83972E928E430AB000E323E /* CustomToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToggleStyle.swift; sourceTree = "<group>"; };
@@ -477,6 +481,7 @@
 				A87F6C9E28C0A1050076046E /* TopTabs.swift */,
 				A836925728C6F48D00DBDB06 /* SearchBar.swift */,
 				EF4DD9A028E24CAE00E0D072 /* FAB.swift */,
+				A814DF7A28ED5D5500DBF383 /* CustomAlert.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -489,6 +494,7 @@
 				A8647C3928BDA48B00D284B6 /* WriteButtonStyle.swift */,
 				A80B903928CA0FFB0026866A /* ToggleButtonStyle.swift */,
 				A83972E928E430AB000E323E /* CustomToggleStyle.swift */,
+				A814DF7C28ED60B300DBF383 /* AlertCustomButton.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -719,6 +725,7 @@
 				A83DAEED28D0475B001F1F5C /* TravelOnWriteScreen.swift in Sources */,
 				A80B903A28CA0FFB0026866A /* ToggleButtonStyle.swift in Sources */,
 				EF1E4CCF28B53A6200D985E3 /* NetworkAgent.swift in Sources */,
+				A814DF7B28ED5D5500DBF383 /* CustomAlert.swift in Sources */,
 				A836925828C6F48D00DBDB06 /* SearchBar.swift in Sources */,
 				EF26CD8828C0E9DA006D0D27 /* Config.swift in Sources */,
 				A80213D528BF2C4900B6359E /* TravelOnRepository.swift in Sources */,
@@ -726,6 +733,7 @@
 				A8794B2F28B4E93A00959D56 /* SignUpScreen.swift in Sources */,
 				EFDC441D28C073E000E8747C /* Plan.swift in Sources */,
 				EF26CD9528C0FF12006D0D27 /* DateFormat.swift in Sources */,
+				A814DF7D28ED60B300DBF383 /* AlertCustomButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
