@@ -9,6 +9,7 @@
 import Foundation
 
 // MARK: - Place (장소)
+
 struct Place: Codable, Equatable {
 	var id: Int
 	var name: String
@@ -19,6 +20,7 @@ struct Place: Codable, Equatable {
 	var lng: Double
 	var link: String
 	var itemIndex: Int?
+	var arrivalTime: String?
 	
 	/// 카테고리의 이름 (ex. 음식점)
 	var categoryName: String {
