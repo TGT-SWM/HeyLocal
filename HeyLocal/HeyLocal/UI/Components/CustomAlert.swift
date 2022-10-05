@@ -17,6 +17,7 @@ struct CustomAlert: View {
     var cancelWidth: Int
     var confirmWidth: Int
     var rightButtonAction: (() -> ())?
+    var destinationView: AnyView?
     
     var body: some View {
         ZStack(alignment: .center) {
@@ -54,12 +55,15 @@ struct CustomAlert: View {
                         .frame(width: 15)
                     
                     // 확인 버튼 -> rightButtonAction
-                    Button(action: {
-                        rightButtonAction?()
-                    }) {
+                    NavigationLink(destination: destinationView
+                        .navigationBarTitle("")
+                        .navigationBarHidden(true)){
                         Text("\(confirmMessage)")
-                    }
+                    }.simultaneousGesture(TapGesture().onEnded{
+                        rightButtonAction!()
+                    })
                     .buttonStyle(AlertCustomButton(value: true, width: confirmWidth))
+                    
                 }
             }
 

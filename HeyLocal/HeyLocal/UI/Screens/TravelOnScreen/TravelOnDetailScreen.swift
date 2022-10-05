@@ -62,22 +62,23 @@ struct TravelOnDetailScreen: View {
     }
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .center) {
             ScrollView {
                 content
                 
                 opinions
             }
             
-            // custom Alert
+            // 삭제 Alert
             if showingAlert {
                 CustomAlert(showingAlert: $showingAlert,
                             title: "삭제하시겠습니까?",
-                            cancelMessage: "아니요,",
+                            cancelMessage: "아니요,유지할래요",
                             confirmMessage: "네,삭제할래요",
                             cancelWidth: 134,
                             confirmWidth: 109,
-                            rightButtonAction: { showingAlert.toggle() })
+                            rightButtonAction: {
+                    viewModel.deleteTravelOn(travelOnId: viewModel.travelOn.id!) }, destinationView: AnyView(TravelOnListScreen()))
             }
         }
         .onAppear {
