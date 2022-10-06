@@ -11,13 +11,13 @@ import SwiftUI
 struct CustomAlert: View {
     @Binding var showingAlert: Bool
     
-    var title: String
-    var cancelMessage: String
-    var confirmMessage: String
-    var cancelWidth: Int
-    var confirmWidth: Int
-    var rightButtonAction: (() -> ())?
-    var destinationView: AnyView?
+    var title: String                   // Alert창 Message
+    var cancelMessage: String           // 왼쪽 버튼 Message
+    var confirmMessage: String          // 오른쪽 버튼 Message
+    var cancelWidth: Int                // 왼쪽 버튼 길이
+    var confirmWidth: Int               // 오른쪽 버튼 길이
+    var rightButtonAction: (() -> ())?  // 오른쪽 버튼 클릭 시 실행할 함수
+    var destinationView: AnyView?       // 오른쪽 버튼 클릭 시 함수 실행 후 이동할 화면
     
     var body: some View {
         ZStack(alignment: .center) {
@@ -60,7 +60,7 @@ struct CustomAlert: View {
                         .navigationBarHidden(true)){
                         Text("\(confirmMessage)")
                     }.simultaneousGesture(TapGesture().onEnded{
-                        rightButtonAction!()
+                        rightButtonAction?()
                     })
                     .buttonStyle(AlertCustomButton(value: true, width: confirmWidth))
                     

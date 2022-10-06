@@ -31,4 +31,9 @@ struct TravelOnService {
     func postTravelOn(travelOnData: TravelOnPost) -> Int {
         return travelOnRepository.postTravelOn(travelOnData: travelOnData)
     }
+    
+    // 여행On 수정
+    func updateTravelOn(travelOnID: Int, travelOnData: TravelOnPost) {
+        return travelOnRepository.updateTravelOn(travelOnId: travelOnID, travelOnData: travelOnData)
+    }
 }

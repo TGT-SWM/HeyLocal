@@ -18,7 +18,7 @@ extension TravelOnListScreen {
         var cancellable: AnyCancellable?
         init() {
             self.travelOn = TravelOnDetail(id: 0,
-                                           title: "title",
+                                           title: "제목 Test",
                                            views: 0,
                                            region: Region(id: 78, city: "성남시", state: "경기도"),
                                            author: User(nickname: "김현지", imageUrl: "", knowHow: 0, ranking: 0),
@@ -30,9 +30,7 @@ extension TravelOnListScreen {
                                            travelMemberSet: [HopeType(id: 1, type: "ALONE")],
                                            accommodationMaxCost: 100000,
                                            hopeAccommodationSet: [HopeType(id: 1, type: "ALL")],
-//                                           foodMaxCost: 100000,
                                            hopeFoodSet: [HopeType(id: 1, type: "CHINESE")],
-//                                           drinkMaxCost: 100000,
                                            hopeDrinkSet: [HopeType(id: 1, type: "SOJU"), HopeType(id: 2, type: "BEER")],
                                            travelTypeGroup: TravelType(id: 1,
                                                                        placeTasteType: "FAMOUS",
@@ -70,17 +68,22 @@ extension TravelOnListScreen {
                 .sink(receiveCompletion: { _ in
                 }, receiveValue: { travelOn in
                     self.travelOn = travelOn
-                    print(self.travelOn.title)
                 })
-//            print(self.travelOn.title)
         }
         
+        // Travel On 삭제
         func deleteTravelOn(travelOnId: Int) {
             travelOnService.deleteTravelOn(travelOnId: travelOnId)
         }
         
+        // Travel On 등록
         func postTravelOn(travelOnData: TravelOnPost) -> Int {
             return travelOnService.postTravelOn(travelOnData: travelOnData)
+        }
+        
+        // Travel On 수정
+        func updateTravelOn(travelOnId: Int, travelOnData: TravelOnPost) {
+            return travelOnService.updateTravelOn(travelOnID: travelOnId, travelOnData: travelOnData)
         }
     }
 }

@@ -14,7 +14,6 @@ struct TravelOnDetailScreen: View {
     @StateObject var viewModel = TravelOnListScreen.ViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
-    
     @State var showingSheet = false
     @State var showingAlert = false
     
@@ -48,7 +47,9 @@ struct TravelOnDetailScreen: View {
     // 수정·삭제 ActionSheet
     func getActionSheet() -> ActionSheet {
         // 수정버튼 클릭 시 -> 수정 페이지로 이동
-        let reviseBtn: ActionSheet.Button = .default(Text("게시글 수정"))
+        let reviseBtn: ActionSheet.Button = .default(Text("게시글 수정"), action: {
+            navigationLinkActive = true
+        })
         
         // 삭제버튼 클릭 시 -> Alert 창
         let deleteBtn: ActionSheet.Button = .destructive(Text("삭제")) {
@@ -61,8 +62,14 @@ struct TravelOnDetailScreen: View {
                            buttons: [reviseBtn, deleteBtn, cancelBtn])
     }
     
+    @State var navigationLinkActive = false
     var body: some View {
         ZStack(alignment: .center) {
+            // 게시글 수정 
+            if navigationLinkActive {
+                NavigationLink("", destination: TravelOnWriteScreen(isRevise: true, travelOnID: viewModel.travelOn.id), isActive: $navigationLinkActive)
+            }
+            
             ScrollView {
                 content
                 

@@ -78,9 +78,7 @@ struct TravelOnPost: Encodable {
     var accommodationMaxCost: Int = 0
     var accommodationTypeSet: [String] = []
     var description: String = ""
-    var drinkMaxCost: Int = 0
     var drinkTypeSet: [String] = []
-    var foodMaxCost: Int = 0
     var foodTypeSet: [String] = []
     var memberTypeSet: [String] = []
     var regionId: Int = 0
