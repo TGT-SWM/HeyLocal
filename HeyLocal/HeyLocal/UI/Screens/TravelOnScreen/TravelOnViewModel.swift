@@ -27,7 +27,7 @@ extension TravelOnListScreen {
                                            createdDateTime: "2022-09-01T12:38:43.01024",
                                            modifiedDate: "2022-09-01T12:38:43.01024",
                                            transportationType: "OWN_CAR",
-                                           travelMemberSet: [HopeType(id: 1, type: "ALONE")],
+                                           travelMemberSet: [HopeType(id: 1, type: "CHILD"), HopeType(id: 1, type: "PET")],
                                            accommodationMaxCost: 100000,
                                            hopeAccommodationSet: [HopeType(id: 1, type: "ALL")],
                                            hopeFoodSet: [HopeType(id: 1, type: "CHINESE")],

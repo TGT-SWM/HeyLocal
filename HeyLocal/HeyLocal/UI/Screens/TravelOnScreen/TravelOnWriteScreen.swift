@@ -1,19 +1,12 @@
 //
 //  TravelOnWriteScreen.swift
 //  HeyLocal
-//  여행On 등록 화면
+//  여행On 등록·수정 화면
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //
 
 import SwiftUI
-
-
-/*
- 만약 수정?이라면 파라미터 받아 .. Int로 TravelOnId 받을까 ? 받고 ..
- nil이 아니라면 PlaceHolder 값 다 채워 ..
- 그리고 API 연동해
- */
 
 struct TravelOnWriteScreen: View {
     /// Navigation Bar Item 관련 변수 및 함수
@@ -253,21 +246,154 @@ struct TravelOnWriteScreen: View {
     /// "수정하기" -> 값 채워놔
     func reviseValue() {
         if ((isRevise) != nil) {
+            //
             viewModel.fetchTravelOn(travelOnId: travelOnID!)
-            print(travelOnID!)
-            print("\(viewModel.travelOn.title!)")
+            
+            
+            // 제목
             title = viewModel.travelOn.title!
+            // 지역
+            regionId = viewModel.travelOn.region!.id
+            // 여행 날짜
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            dateFormatter.timeZone = TimeZone(identifier: "KST")
+            startDate = dateFormatter.date(from: viewModel.travelOn.travelStartDate!)!
+            endDate = dateFormatter.date(from: viewModel.travelOn.travelEndDate!)!
+            
+            // 동행자
+            for i in 0..<viewModel.travelOn.travelMemberSet!.count {
+                switch viewModel.travelOn.travelMemberSet![i].type {
+                case "ALONE":
+                    memberSet[0] = true
+                case "CHILD":
+                    memberSet[1] = true
+                case "PARENT":
+                    memberSet[2] = true
+                case "COUPLE":
+                    memberSet[3] = true
+                case "FRIEND":
+                    memberSet[4] = true
+                case "PET":
+                    memberSet[5] = true
+                default:
+                    memberSet[0] = true
+                }
+            }
+            
+            // 숙소
+            for i in 0..<viewModel.travelOn.hopeAccommodationSet!.count {
+                switch viewModel.travelOn.hopeAccommodationSet![i].type {
+                case "HOTEL":
+                    accomSet[0] = true
+                case "PENSION":
+                    accomSet[1] = true
+                case "CAMPING":
+                    accomSet[2] = true
+                case "GUEST_HOUSE":
+                    accomSet[3] = true
+                case "RESORT":
+                    accomSet[4] = true
+                case "ALL":
+                    accomSet[5] = true
+                default:
+                    accomSet[5] = true
+                }
+            }
+            switch viewModel.travelOn.accommodationMaxCost {
+            case 100000:
+                accomPrice = .ten
+            case 200000:
+                accomPrice = .twenty
+            case 300000:
+                accomPrice = .thirty
+            case 400000:
+                accomPrice = .forty
+            case 0:
+                accomPrice = .etc
+            default:
+                accomPrice = .etc
+            }
+            
+            
+            // 교통수단
+            switch viewModel.travelOn.transportationType {
+            case "OWN_CAR":
+                transSet[0] = true
+                
+            case "RENT_CAR":
+                transSet[1] = true
+                
+            case "PUBLIC":
+                transSet[2] = true
+                
+            default:
+                transSet[0] = true
+            }
+            
+            // 선호 음식
+            for i in 0..<viewModel.travelOn.hopeFoodSet!.count {
+                switch viewModel.travelOn.hopeFoodSet![i].type {
+                case "KOREAN":
+                    foodSet[0] = true
+                case "WESTERN":
+                    foodSet[1] = true
+                case "CHINESE":
+                    foodSet[2] = true
+                case "JAPANESE":
+                    foodSet[3] = true
+                case "GLOBAL":
+                    foodSet[4] = true
+                default:
+                    foodSet[4] = true
+                }
+            }
+            
+            // 선호 주류
+            for i in 0..<viewModel.travelOn.hopeDrinkSet!.count {
+                switch viewModel.travelOn.hopeDrinkSet![i].type {
+                case "SOJU":
+                    drinkSet[0] = true
+                case "BEER":
+                    drinkSet[1] = true
+                case "WINE":
+                    drinkSet[2] = true
+                case "MAKGEOLLI":
+                    drinkSet[3] = true
+                case "LIQUOR":
+                    drinkSet[4] = true
+                case "NO_ALCOHOL":
+                    drinkSet[5] = true
+                default:
+                    drinkSet[5] = true
+                }
+            }
+            
+            // 여행 취향
+            if viewModel.travelOn.travelTypeGroup!.placeTasteType == "FAMOUS" {
+                place = true
+            } else {
+                fresh = true
+            }
+            
+            if viewModel.travelOn.travelTypeGroup!.activityTasteType == "HARD" {
+                activity = true
+            } else {
+                lazy = true
+            }
+            
+            if viewModel.travelOn.travelTypeGroup!.snsTasteType == "YES" {
+                sns = true
+            } else {
+                noSNS = true
+            }
+            description = viewModel.travelOn.description!
         }
     }
     
     var body: some View {
         ScrollView {
             ZStack(alignment: .center) {
-                
-                if ((isRevise) != nil) {
-                    Text("\(travelOnID!)")
-                }
-                
                 content
                 
                 // 뒤로가기 버튼 클릭 시 -> Custom Alert 출력
@@ -315,11 +441,6 @@ struct TravelOnWriteScreen: View {
         VStack(alignment: .leading){
             // Title
             Group {
-                /// 게시글 수정
-                if ((isRevise) != nil) {
-                    Text("\(travelOnID!)")
-                }
-                
                 VStack(alignment: .leading) {
                     Text("여행 On 제목")
                         .font(.system(size: 14))
