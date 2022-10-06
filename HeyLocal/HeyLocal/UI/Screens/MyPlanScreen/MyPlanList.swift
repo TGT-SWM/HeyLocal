@@ -14,10 +14,7 @@ struct MyPlanList: View {
 	@ObservedObject var viewModel = ViewModel()
 	
     var body: some View {
-		VStack {
-			if (viewModel.isMyPlanEmpty) { emptyView }
-			else { myPlanList }
-		}
+		VStack { myPlanList }
 		.onAppear {
 			viewModel.fetchMyPlans()
 		}
@@ -96,18 +93,6 @@ extension MyPlanList {
 			.frame(height: 80)
 		}
 		.buttonStyle(PlainButtonStyle())
-	}
-}
-
-
-// MARK: - emptyView (마이플랜이 비어 있는 경우에 사용)
-
-extension MyPlanList {
-	var emptyView: some View {
-		VStack(alignment: .center) {
-			Text("플랜이 존재하지 않습니다.")
-		}
-		
 	}
 }
 

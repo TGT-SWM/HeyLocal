@@ -13,6 +13,7 @@ struct MyPlanScreen: View {
 		NavigationView {
 			ZStack(alignment: .bottomTrailing) {
 				VStack { MyPlanList() }
+					.frame(maxWidth: .infinity, maxHeight: .infinity)
 				NavigationLink(destination: PlanCreateScreen()) { FAB() }
 					.padding(EdgeInsets(top: 0, leading: 0, bottom: 50, trailing: 20))
 			}
