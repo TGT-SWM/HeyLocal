@@ -388,6 +388,7 @@ struct TravelOnWriteScreen: View {
         }
     }
     
+    @Environment(\.dismiss) private var dismiss
     var body: some View {
         ZStack(alignment: .center) {
             ScrollView {
@@ -404,7 +405,7 @@ struct TravelOnWriteScreen: View {
                                 confirmMessage: "네,취소할래요",
                                 cancelWidth: 134,
                                 confirmWidth: 109,
-                                destinationView: AnyView(TravelOnDetailScreen(travelOnId: travelOnID!)))
+                                rightButtonAction: { dismiss() })
                 }
                 
                 /// 작성하기 취소 -> List 화면으로 이동
@@ -468,7 +469,7 @@ struct TravelOnWriteScreen: View {
                     Spacer()
                         .frame(height: 0)
                     
-                    Button(action: {}) {
+                    NavigationLink(destination: RegionPickerScreen(regionID: $regionId)) {
                         ZStack(alignment: .leading) {
                             Rectangle()
                                 .fill(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))

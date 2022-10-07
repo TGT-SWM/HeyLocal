@@ -11,16 +11,20 @@ import SwiftUI
 struct RegionComponent: View {
     var region: Region
     var body: some View {
-        HStack {
-            // TODO: 지역 이미지로 변경
-            Circle()
-                .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-                .frame(width: 56, height: 56)
-            
-            Spacer()
-                .frame(width: 20)
-            
-            Text("\(regionNameFormatter(region: region))")
+        Button(action: {}) {
+            HStack {
+                // TODO: 지역 이미지로 변경
+                Circle()
+                    .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                    .frame(width: 56, height: 56)
+                
+                Spacer()
+                    .frame(width: 20)
+                
+                Text("\(regionNameFormatter(region: region))")
+                    .font(.system(size: 16))
+                    .foregroundColor(Color.black)
+            }
         }
     }
 }
@@ -31,7 +35,7 @@ struct RegionComponent_Previews: PreviewProvider {
     }
 }
 
-// 지역이름 Format
+// MARK: - 지역이름 Format
 func regionNameFormatter(region: Region) -> String {
     var resultName: String = region.state
     
@@ -65,6 +69,7 @@ func regionNameFormatter(region: Region) -> String {
     }
 }
 
+// MARK: - string 쪼개주는 substring 함수 구현
 extension String {
     func substring(from: Int, to: Int) -> String {
         guard from < count, to >= 0, to - from >= 0 else {
