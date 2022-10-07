@@ -41,25 +41,16 @@ struct TravelOnDetailScreen: View {
                 .foregroundColor(.black)
                 .rotationEffect(.degrees(-90))
         }
-        .actionSheet(isPresented: $showingSheet, content: getActionSheet)
-    }
-    
-    // 수정·삭제 ActionSheet
-    func getActionSheet() -> ActionSheet {
-        // 수정버튼 클릭 시 -> 수정 페이지로 이동
-        let reviseBtn: ActionSheet.Button = .default(Text("게시글 수정"), action: {
-            navigationLinkActive = true
-        })
-        
-        // 삭제버튼 클릭 시 -> Alert 창
-        let deleteBtn: ActionSheet.Button = .destructive(Text("삭제")) {
-            showingAlert.toggle()
+        .confirmationDialog("", isPresented: $showingSheet, titleVisibility: .hidden) { //actionsheet
+             Button("게시글 수정") {
+                 navigationLinkActive = true
+             }
+             Button("삭제", role: .destructive) {
+                 showingAlert.toggle()
+             }
+             Button("취소", role: .cancel) {
+             }
         }
-        let cancelBtn: ActionSheet.Button = .cancel(Text("취소"))
-        
-        return ActionSheet(title: Text(""),
-                           message: nil,
-                           buttons: [reviseBtn, deleteBtn, cancelBtn])
     }
     
     @State var navigationLinkActive = false
@@ -75,7 +66,6 @@ struct TravelOnDetailScreen: View {
                 
                 opinions
             }
-            
             // 삭제 Alert
             if showingAlert {
                 CustomAlert(showingAlert: $showingAlert,

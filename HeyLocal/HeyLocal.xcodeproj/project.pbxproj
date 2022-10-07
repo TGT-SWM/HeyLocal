@@ -34,8 +34,9 @@
 		A87F6CA228C0A22B0076046E /* ProfileComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA128C0A22B0076046E /* ProfileComponent.swift */; };
 		A87F6CA428C0A37A0076046E /* ProfileReviseScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA328C0A37A0076046E /* ProfileReviseScreen.swift */; };
 		A87F6CA628C0A3AB0076046E /* SettingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA528C0A3AB0076046E /* SettingScreen.swift */; };
-		A8AF3DEC28D407E9009B68BE /* RegionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AF3DEB28D407E9009B68BE /* RegionPicker.swift */; };
-		A8AF3DEE28D407F6009B68BE /* RegionPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AF3DED28D407F6009B68BE /* RegionPickerViewModel.swift */; };
+		A89943A528EEC6140059AAC6 /* RegionPickerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89943A428EEC6140059AAC6 /* RegionPickerScreen.swift */; };
+		A89943A728EED89E0059AAC6 /* RegionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89943A628EED89E0059AAC6 /* RegionViewModel.swift */; };
+		A8AF3DEC28D407E9009B68BE /* RegionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AF3DEB28D407E9009B68BE /* RegionComponent.swift */; };
 		EF1E4CCF28B53A6200D985E3 /* NetworkAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */; };
 		EF26CD8828C0E9DA006D0D27 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF26CD8728C0E9DA006D0D27 /* Config.swift */; };
 		EF26CD8A28C0EECA006D0D27 /* PlanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF26CD8928C0EECA006D0D27 /* PlanService.swift */; };
@@ -136,8 +137,9 @@
 		A87F6CA128C0A22B0076046E /* ProfileComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileComponent.swift; sourceTree = "<group>"; };
 		A87F6CA328C0A37A0076046E /* ProfileReviseScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileReviseScreen.swift; sourceTree = "<group>"; };
 		A87F6CA528C0A3AB0076046E /* SettingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingScreen.swift; sourceTree = "<group>"; };
-		A8AF3DEB28D407E9009B68BE /* RegionPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionPicker.swift; sourceTree = "<group>"; };
-		A8AF3DED28D407F6009B68BE /* RegionPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionPickerViewModel.swift; sourceTree = "<group>"; };
+		A89943A428EEC6140059AAC6 /* RegionPickerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionPickerScreen.swift; sourceTree = "<group>"; };
+		A89943A628EED89E0059AAC6 /* RegionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionViewModel.swift; sourceTree = "<group>"; };
+		A8AF3DEB28D407E9009B68BE /* RegionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionComponent.swift; sourceTree = "<group>"; };
 		EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAgent.swift; sourceTree = "<group>"; };
 		EF1E4CD028B5426F00D985E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		EF26CD8728C0E9DA006D0D27 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
@@ -299,13 +301,21 @@
 			path = ProfileComponent;
 			sourceTree = "<group>";
 		};
-		A8AF3DEA28D407D7009B68BE /* RegionPicker */ = {
+		A89943A328EEC5FD0059AAC6 /* RegionPickerScreen */ = {
 			isa = PBXGroup;
 			children = (
-				A8AF3DEB28D407E9009B68BE /* RegionPicker.swift */,
-				A8AF3DED28D407F6009B68BE /* RegionPickerViewModel.swift */,
+				A89943A428EEC6140059AAC6 /* RegionPickerScreen.swift */,
+				A89943A628EED89E0059AAC6 /* RegionViewModel.swift */,
 			);
-			path = RegionPicker;
+			path = RegionPickerScreen;
+			sourceTree = "<group>";
+		};
+		A8AF3DEA28D407D7009B68BE /* RegionComponent */ = {
+			isa = PBXGroup;
+			children = (
+				A8AF3DEB28D407E9009B68BE /* RegionComponent.swift */,
+			);
+			path = RegionComponent;
 			sourceTree = "<group>";
 		};
 		EF26CD8B28C0F0EA006D0D27 /* MyPlanScreen */ = {
@@ -460,6 +470,7 @@
 		EF8FF26E28B4D1C400C053B7 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				A89943A328EEC5FD0059AAC6 /* RegionPickerScreen */,
 				EF3C060A28E0E52F003F3188 /* PlaceSearchScreen */,
 				A87F6C9B28C099940076046E /* ProfileScreen */,
 				A83F100728BC4E6A00978711 /* TravelOnScreen */,
@@ -475,7 +486,7 @@
 		EF8FF26F28B4D1D000C053B7 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				A8AF3DEA28D407D7009B68BE /* RegionPicker */,
+				A8AF3DEA28D407D7009B68BE /* RegionComponent */,
 				A87F6CA028C0A1EE0076046E /* ProfileComponent */,
 				A80213D128BF2C0700B6359E /* TravelOnList */,
 				A87F6C9E28C0A1050076046E /* TopTabs.swift */,
@@ -693,7 +704,7 @@
 				EF6A3FC428E71EE5003F474B /* UserService.swift in Sources */,
 				A80213DB28BF2EA100B6359E /* TravelOnService.swift in Sources */,
 				EF6A3FC228E71A2F003F474B /* UserRepository.swift in Sources */,
-				A8AF3DEC28D407E9009B68BE /* RegionPicker.swift in Sources */,
+				A8AF3DEC28D407E9009B68BE /* RegionComponent.swift in Sources */,
 				EF8FF27428B4D2D100C053B7 /* Main.swift in Sources */,
 				EFAA2AC328BBC30E00B56A3C /* AuthRepository.swift in Sources */,
 				EF26CD9328C0F15E006D0D27 /* MyPlanListViewModel.swift in Sources */,
@@ -704,8 +715,10 @@
 				EF8FF25D28B4D0B100C053B7 /* HeyLocalApp.swift in Sources */,
 				EF3C060E28E0E666003F3188 /* PlaceSearchViewModel.swift in Sources */,
 				EF6A3FCA28EB3D9B003F474B /* View+Extensions.swift in Sources */,
+				A89943A728EED89E0059AAC6 /* RegionViewModel.swift in Sources */,
 				A80213D928BF2D6C00B6359E /* User.swift in Sources */,
 				A83972EA28E430AB000E323E /* CustomToggleStyle.swift in Sources */,
+				A89943A528EEC6140059AAC6 /* RegionPickerScreen.swift in Sources */,
 				A87F6C9D28C099EE0076046E /* MyProfileScreen.swift in Sources */,
 				EFAA2ACD28BBD19400B56A3C /* SignInScreenTest.swift in Sources */,
 				EFAA2AC528BBC48400B56A3C /* AuthService.swift in Sources */,
@@ -720,7 +733,6 @@
 				A84E841228B8C28600128D9B /* SignInScreen.swift in Sources */,
 				EF26CD8A28C0EECA006D0D27 /* PlanService.swift in Sources */,
 				EF26CD8D28C0F102006D0D27 /* MyPlanScreen.swift in Sources */,
-				A8AF3DEE28D407F6009B68BE /* RegionPickerViewModel.swift in Sources */,
 				A8794B3128B4EB5900959D56 /* BasicButtonStyle.swift in Sources */,
 				A83DAEED28D0475B001F1F5C /* TravelOnWriteScreen.swift in Sources */,
 				A80B903A28CA0FFB0026866A /* ToggleButtonStyle.swift in Sources */,
@@ -791,7 +803,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "현지야";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -846,7 +858,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "현지야";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -885,7 +897,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -929,7 +941,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

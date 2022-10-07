@@ -14,13 +14,14 @@ extension TravelOnListScreen {
         private var travelOnService = TravelOnService()
         @Published var travelOns = [TravelOn]()
         @Published var travelOn: TravelOnDetail
+        @Published var memberSet: [Bool] = [false, false, false, false, false, false]
         
         var cancellable: AnyCancellable?
         init() {
             self.travelOn = TravelOnDetail(id: 0,
                                            title: "제목 Test",
                                            views: 0,
-                                           region: Region(id: 78, city: "성남시", state: "경기도"),
+                                           region: Region(id: 259, state: "부산광역시"),
                                            author: User(nickname: "김현지", imageUrl: "", knowHow: 0, ranking: 0),
                                            travelStartDate: "2022-08-15",
                                            travelEndDate: "2022-08-17",
@@ -68,6 +69,25 @@ extension TravelOnListScreen {
                 .sink(receiveCompletion: { _ in
                 }, receiveValue: { travelOn in
                     self.travelOn = travelOn
+                    
+                    for i in 0 ..< self.travelOn.travelMemberSet!.count {
+                        switch self.travelOn.travelMemberSet![i].type {
+                        case "ALONE":
+                            self.memberSet[0] = true
+                        case "CHILD":
+                            self.memberSet[1] = true
+                        case "PARENT":
+                            self.memberSet[2] = true
+                        case "COUPLE":
+                            self.memberSet[3] = true
+                        case "FRIEND":
+                            self.memberSet[4] = true
+                        case "PET":
+                            self.memberSet[5] = true
+                        default:
+                            self.memberSet[0] = true
+                        }
+                    }
                 })
         }
         

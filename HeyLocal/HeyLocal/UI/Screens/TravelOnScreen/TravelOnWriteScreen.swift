@@ -79,7 +79,6 @@ struct TravelOnWriteScreen: View {
     @State var isFill: Bool = false
     @State var moveBack: Bool = false
     
-    
     // 작성완료 버튼
     @State var travelOnData = TravelOnPost()
     @StateObject var viewModel = TravelOnListScreen.ViewModel()
@@ -246,14 +245,12 @@ struct TravelOnWriteScreen: View {
     /// "수정하기" -> 값 채워놔
     func reviseValue() {
         if ((isRevise) != nil) {
-            //
-            viewModel.fetchTravelOn(travelOnId: travelOnID!)
-            
-            
             // 제목
             title = viewModel.travelOn.title!
+            
             // 지역
             regionId = viewModel.travelOn.region!.id
+            regionName = regionNameFormatter(region: viewModel.travelOn.region!)
             // 여행 날짜
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -392,35 +389,33 @@ struct TravelOnWriteScreen: View {
     }
     
     var body: some View {
-        ScrollView {
-            ZStack(alignment: .center) {
+        ZStack(alignment: .center) {
+            ScrollView {
                 content
+            }
+            
+            // 뒤로가기 버튼 클릭 시 -> Custom Alert 출력
+            if moveBack {
+                /// 수정하기 취소 -> Detail 화면으로 이동
+                if ((isRevise) != nil) {
+                    CustomAlert(showingAlert: $moveBack,
+                                title: "여행On 수정을 취소할까요?",
+                                cancelMessage: "아니요,작성할래요",
+                                confirmMessage: "네,취소할래요",
+                                cancelWidth: 134,
+                                confirmWidth: 109,
+                                destinationView: AnyView(TravelOnDetailScreen(travelOnId: travelOnID!)))
+                }
                 
-                // 뒤로가기 버튼 클릭 시 -> Custom Alert 출력
-                if moveBack {
-                    /// 수정하기 취소 -> Detail 화면으로 이동
-                    if ((isRevise) != nil) {
-                        CustomAlert(showingAlert: $moveBack,
-                                    title: "여행On 수정을 취소할까요?",
-                                    cancelMessage: "아니요,작성할래요",
-                                    confirmMessage: "네,취소할래요",
-                                    cancelWidth: 134,
-                                    confirmWidth: 109,
-                                    destinationView: AnyView(TravelOnDetailScreen(travelOnId: travelOnID!)))
-                        .offset(x: 0, y: -250)
-                    }
-                    
-                    /// 작성하기 취소 -> List 화면으로 이동
-                    else {
-                        CustomAlert(showingAlert: $moveBack,
-                                    title: "여행On 작성을 취소할까요?",
-                                    cancelMessage: "아니요,작성할래요",
-                                    confirmMessage: "네,취소할래요",
-                                    cancelWidth: 134,
-                                    confirmWidth: 109,
-                                    destinationView: AnyView(TravelOnListScreen()))
-                        .offset(x: 0, y: -250)
-                    }
+                /// 작성하기 취소 -> List 화면으로 이동
+                else {
+                    CustomAlert(showingAlert: $moveBack,
+                                title: "여행On 작성을 취소할까요?",
+                                cancelMessage: "아니요,작성할래요",
+                                confirmMessage: "네,취소할래요",
+                                cancelWidth: 134,
+                                confirmWidth: 109,
+                                destinationView: AnyView(TravelOnListScreen()))
                 }
             }
         }
@@ -428,7 +423,8 @@ struct TravelOnWriteScreen: View {
             // "수정하기"라면 -> Fetch해와서 값 보여줘
             if ((isRevise) != nil) {
                 viewModel.fetchTravelOn(travelOnId: travelOnID!)
-                reviseValue()
+                memberSet = viewModel.memberSet
+//                reviseValue()
             }
         }
         .navigationTitle("여행On")
@@ -481,7 +477,7 @@ struct TravelOnWriteScreen: View {
                                 .cornerRadius(10)
                             
                             HStack {
-                                Text("  여행지 입력")
+                                Text("  \(regionName)")
                                     .font(.system(size: 12))
                                     .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                                 
@@ -633,68 +629,69 @@ struct TravelOnWriteScreen: View {
                 
                 HStack {
                     Button(action: {
-                        if memberSet[1] || memberSet[2] || memberSet[3] || memberSet[4] || memberSet[5] {
+                        if viewModel.memberSet[1] || viewModel.memberSet[2] || viewModel.memberSet[3] || viewModel.memberSet[4] || viewModel.memberSet[5] {
                             for i in 1...5 {
-                                memberSet[i] = false
+                                viewModel.memberSet[i] = false
                             }
                         }
-                        memberSet[0].toggle()
+//                        memberSet[0].toggle()
+                        viewModel.memberSet[0].toggle()
                     }) {
                         Text("혼자")
                     }
-                    .buttonStyle(ToggleButtonStyle(value: $memberSet[0], width: 54))
+                    .buttonStyle(ToggleButtonStyle(value: $viewModel.memberSet[0], width: 54))
                     
                     Button(action: {
-                        if memberSet[0] {
-                            memberSet[0] = false
+                        if viewModel.memberSet[0] {
+                            viewModel.memberSet[0] = false
                         }
-                        memberSet[1].toggle()
+                        viewModel.memberSet[1].toggle()
                     }) {
                         Text("아이와")
                     }
-                    .buttonStyle(ToggleButtonStyle(value: $memberSet[1], width: 66))
+                    .buttonStyle(ToggleButtonStyle(value: $viewModel.memberSet[1], width: 66))
                     
                     Button(action: {
-                        if memberSet[0] {
-                            memberSet[0] = false
+                        if viewModel.memberSet[0] {
+                            viewModel.memberSet[0] = false
                         }
-                        memberSet[2].toggle()
+                        viewModel.memberSet[2].toggle()
                     }) {
                         Text("부모님과")
                     }
-                    .buttonStyle(ToggleButtonStyle(value: $memberSet[2], width: 78))
+                    .buttonStyle(ToggleButtonStyle(value: $viewModel.memberSet[2], width: 78))
                     
                     Button(action: {
-                        if memberSet[0] {
-                            memberSet[0] = false
+                        if viewModel.memberSet[0] {
+                            viewModel.memberSet[0] = false
                         }
-                        memberSet[3].toggle()
+                        viewModel.memberSet[3].toggle()
                     }) {
                         Text("연인과")
                     }
-                    .buttonStyle(ToggleButtonStyle(value: $memberSet[3], width: 66))
+                    .buttonStyle(ToggleButtonStyle(value: $viewModel.memberSet[3], width: 66))
                 }
                 
                 HStack {
                     Button(action: {
-                        if memberSet[0] {
-                            memberSet[0] = false
+                        if viewModel.memberSet[0] {
+                            viewModel.memberSet[0] = false
                         }
-                        memberSet[4].toggle()
+                        viewModel.memberSet[4].toggle()
                     }) {
                         Text("친구와")
                     }
-                    .buttonStyle(ToggleButtonStyle(value: $memberSet[4], width: 66))
+                    .buttonStyle(ToggleButtonStyle(value: $viewModel.memberSet[4], width: 66))
                     
                     Button(action: {
-                        if memberSet[0] {
-                            memberSet[0] = false
+                        if viewModel.memberSet[0] {
+                            viewModel.memberSet[0] = false
                         }
-                        memberSet[5].toggle()
+                        viewModel.memberSet[5].toggle()
                     }) {
                         Text("반려동물과")
                     }
-                    .buttonStyle(ToggleButtonStyle(value: $memberSet[5], width: 91))
+                    .buttonStyle(ToggleButtonStyle(value: $viewModel.memberSet[5], width: 91))
                 }
                 
                 Spacer()
