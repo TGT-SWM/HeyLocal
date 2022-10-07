@@ -75,7 +75,7 @@ struct TravelOnDetailScreen: View {
                             cancelWidth: 134,
                             confirmWidth: 109,
                             rightButtonAction: {
-                    viewModel.deleteTravelOn(travelOnId: viewModel.travelOn.id!) }, destinationView: AnyView(TravelOnListScreen()))
+                    viewModel.deleteTravelOn(travelOnId: viewModel.travelOn.id) }, destinationView: AnyView(TravelOnListScreen()))
             }
         }
         .onAppear {
@@ -91,7 +91,7 @@ struct TravelOnDetailScreen: View {
         VStack(alignment: .leading) {
             // Title
             Group {
-                Text("\(viewModel.travelOn.title!)")
+                Text("\(viewModel.travelOn.title)")
                     .font(.system(size: 22))
                     .fontWeight(.medium)
             }
@@ -100,9 +100,9 @@ struct TravelOnDetailScreen: View {
             Group {
                 HStack {
                     // createdDateTime
-                    let printDate = viewModel.travelOn.createdDateTime!.components(separatedBy: "T")
-                    let yyyymmdd = printDate[0].components(separatedBy: "-")
-                    Text("\(yyyymmdd[0]).\(yyyymmdd[1]).\(yyyymmdd[2])")
+                    let printDate = viewModel.travelOn.createdDateTime.components(separatedBy: "T")
+                    let yyyyMMdd = printDate[0].components(separatedBy: "-")
+                    Text("\(yyyyMMdd[0]).\(yyyyMMdd[1]).\(yyyyMMdd[2])")
                     
                     Spacer()
                         .frame(width: 10)
@@ -117,7 +117,7 @@ struct TravelOnDetailScreen: View {
                         Spacer()
                             .frame(width: 3)
                         
-                        Text("\(viewModel.travelOn.region!.state)")
+                        Text("\(regionNameFormatter(region: viewModel.travelOn.region))")
                     }
                     
                     Spacer()
@@ -133,7 +133,7 @@ struct TravelOnDetailScreen: View {
                             .frame(width: 3)
                         
                         Text("조회수")
-                        Text("\(viewModel.travelOn.views!)")
+                        Text("\(viewModel.travelOn.views)")
                     }
                 }
             }
@@ -154,14 +154,14 @@ struct TravelOnDetailScreen: View {
                     
                     HStack {
                         ForEach(viewModel.travelOn.travelMemberSet!) { member in
-                            Text("\(memToString(mem: member.type!))")
+                            Text("\(memToString(mem: member.type))")
                                 .underline()
                         }
                         
                         Text("가는")
                             .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                         
-                        Text("\(viewModel.travelOn.region!.state) 여행")
+                        Text("\(regionNameFormatter(region: viewModel.travelOn.region)) 여행")
                             .underline()
                     }
                 }
@@ -206,7 +206,7 @@ struct TravelOnDetailScreen: View {
                         else {
                             Group {
                                 ForEach(viewModel.travelOn.hopeAccommodationSet!) { accom in
-                                    Text("\(accomToString(accom: accom.type!))")
+                                    Text("\(accomToString(accom: accom.type))")
                                         .underline()
                                 }
                             }
@@ -219,7 +219,7 @@ struct TravelOnDetailScreen: View {
                     HStack {
                         Group {
                             ForEach(viewModel.travelOn.hopeFoodSet!) { food in
-                                Text("\(foodToString(food: food.type!))")
+                                Text("\(foodToString(food: food.type))")
                                     .underline()
                             }
                         }
@@ -236,7 +236,7 @@ struct TravelOnDetailScreen: View {
                         else {
                             Group {
                                 ForEach(viewModel.travelOn.hopeDrinkSet!) { drink in
-                                    Text("\(drinkToString(drink: drink.type!))")
+                                    Text("\(drinkToString(drink: drink.type))")
                                         .underline()
                                 }
                             }
@@ -290,7 +290,7 @@ struct TravelOnDetailScreen: View {
                         .cornerRadius(10)
                     
                     
-                    Text("\(viewModel.travelOn.description!)")
+                    Text("\(viewModel.travelOn.description)")
                         .padding()
                 }
             }
@@ -314,7 +314,7 @@ struct TravelOnDetailScreen: View {
                             .strokeBorder(.white, lineWidth: 1)
                             .frame(width: 20, height: 20)
                     }
-                    Text("\(viewModel.travelOn.author!.nickname)")
+                    Text("\(viewModel.travelOn.author.nickname)")
                         .font(.system(size: 12))
                         .foregroundColor(Color(red: 117/255, green: 118/255, blue: 121/255))
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))

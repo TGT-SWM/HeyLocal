@@ -18,7 +18,7 @@ struct TravelOnService {
     }
     
     // 여행On 상세 조회
-    func getTravelOn(travelOnId: Int) -> AnyPublisher<TravelOnDetail, Error> {
+    func getTravelOn(travelOnId: Int) -> AnyPublisher<TravelOn, Error> {
         return travelOnRepository.getTravelOn(travelOnId: travelOnId)
     }
     

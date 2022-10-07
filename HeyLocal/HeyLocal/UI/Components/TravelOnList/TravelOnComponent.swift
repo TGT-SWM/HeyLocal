@@ -35,7 +35,7 @@ struct TravelOnComponent: View {
                             .scaledToFit()
                             .frame(width: 12)
                         
-                        Text("\(travelOn.region.state)")
+                        Text("\(regionNameFormatter(region: travelOn.region))")
                             .font(.system(size: 12))
                             .foregroundColor(Color.white)
                     }
@@ -75,7 +75,7 @@ struct TravelOnComponent: View {
                         
                         Text("답변수")
                             .foregroundColor(Color(red: 121 / 255, green: 119 / 255, blue: 117 / 255))
-                        Text("\(travelOn.opinionQuantity)")
+                        Text("\(travelOn.opinionQuantity!)")
                     }
                 }
                 .font(.system(size: 12))
@@ -83,9 +83,9 @@ struct TravelOnComponent: View {
                 Spacer()
                 
                 HStack {
-                    let printDate = travelOn.modifiedDate.components(separatedBy: "T")
-                    let yyyymmdd = printDate[0].components(separatedBy: "-")
-                    Text("\(yyyymmdd[0]).\(yyyymmdd[1]).\(yyyymmdd[2])")
+                    let printDate = travelOn.createdDateTime.components(separatedBy: "T")
+                    let yyyyMMdd = printDate[0].components(separatedBy: "-")
+                    Text("\(yyyyMMdd[0]).\(yyyyMMdd[1]).\(yyyyMMdd[2])")
                     
                     Spacer()
                     
@@ -101,7 +101,7 @@ struct TravelOnComponent: View {
                                 .strokeBorder(.white, lineWidth: 1)
                                 .frame(width: 20, height: 20)
                         }
-                        Text("\(travelOn.user.nickname)")
+                        Text("\(travelOn.author.nickname)")
                         
                     }
                 }
@@ -115,7 +115,7 @@ struct TravelOnComponent: View {
     }
 }
 
-// MARK: 부분 둥근 Rectangle
+// MARK: - 부분 둥근모서리 Rectangle 함수 확장
 struct CornerRadiusShape: Shape {
     var radius = CGFloat.infinity
     var corners = UIRectCorner.allCorners

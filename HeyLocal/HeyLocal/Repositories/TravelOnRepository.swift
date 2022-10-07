@@ -67,7 +67,7 @@ struct TravelOnRepository {
     }
     
     // 여행On 상세 조회 API
-    func getTravelOn(travelOnId: Int) -> AnyPublisher<TravelOnDetail, Error> {
+    func getTravelOn(travelOnId: Int) -> AnyPublisher<TravelOn, Error> {
         // URLRequest 객체 생성
         let urlString = "\(travelonUrl)/\(travelOnId)"
         let url = URL(string: urlString)!

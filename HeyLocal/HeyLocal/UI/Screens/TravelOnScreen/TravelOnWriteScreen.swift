@@ -245,12 +245,12 @@ struct TravelOnWriteScreen: View {
     /// "수정하기" -> 값 채워놔
     func reviseValue() {
         if ((isRevise) != nil) {
-            // 제목
-            title = viewModel.travelOn.title!
-            
-            // 지역
-            regionId = viewModel.travelOn.region!.id
-            regionName = regionNameFormatter(region: viewModel.travelOn.region!)
+//            // 제목
+//            title = viewModel.travelOn.title!
+//            
+//            // 지역
+//            regionId = viewModel.travelOn.region!.id
+//            regionName = regionNameFormatter(region: viewModel.travelOn.region!)
             // 여행 날짜
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -384,7 +384,7 @@ struct TravelOnWriteScreen: View {
             } else {
                 noSNS = true
             }
-            description = viewModel.travelOn.description!
+//            description = viewModel.travelOn.description!
         }
     }
     

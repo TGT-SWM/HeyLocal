@@ -15,9 +15,7 @@ struct TravelOnListScreen: View {
     @State var sortBy: SortType = .byDate
     @State var selectedRegion: String = "지역별"
     @State var regionId: Int? = nil
-    
     @State var withOpinions = false
-
     @State var lastItemId: Int? = nil
     @State var pageSize: Int = 15
     

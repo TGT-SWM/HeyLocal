@@ -12,50 +12,28 @@ import Combine
 extension TravelOnListScreen {
     class ViewModel: ObservableObject {
         private var travelOnService = TravelOnService()
-        @Published var travelOns = [TravelOn]()
-        @Published var travelOn: TravelOnDetail
+        @Published var travelOns: [TravelOn]
+        @Published var travelOn: TravelOn
+        
+        
+        
+        
         @Published var memberSet: [Bool] = [false, false, false, false, false, false]
         
         var cancellable: AnyCancellable?
         init() {
-            self.travelOn = TravelOnDetail(id: 0,
-                                           title: "제목 Test",
-                                           views: 0,
-                                           region: Region(id: 259, state: "부산광역시"),
-                                           author: User(nickname: "김현지", imageUrl: "", knowHow: 0, ranking: 0),
-                                           travelStartDate: "2022-08-15",
-                                           travelEndDate: "2022-08-17",
-                                           createdDateTime: "2022-09-01T12:38:43.01024",
-                                           modifiedDate: "2022-09-01T12:38:43.01024",
-                                           transportationType: "OWN_CAR",
-                                           travelMemberSet: [HopeType(id: 1, type: "CHILD"), HopeType(id: 1, type: "PET")],
-                                           accommodationMaxCost: 100000,
-                                           hopeAccommodationSet: [HopeType(id: 1, type: "ALL")],
-                                           hopeFoodSet: [HopeType(id: 1, type: "CHINESE")],
-                                           hopeDrinkSet: [HopeType(id: 1, type: "SOJU"), HopeType(id: 2, type: "BEER")],
-                                           travelTypeGroup: TravelType(id: 1,
-                                                                       placeTasteType: "FAMOUS",
-                                                                       activityTasteType: "HARD",
-                                                                       snsTasteType: "NO"),
-                                           description: "string")
-            
-            
-            cancellable = travelOnService.getTravelOnLists(lastItemId: nil, pageSize: 15, regionId: nil, sortBy: "DATE", withOpinions: nil)
-                .sink(receiveCompletion: { _ in
-                }, receiveValue: { travelOns in
-                    self.travelOns = travelOns
-                })
+            self.travelOn = TravelOn()
+            self.travelOns = [TravelOn()]
         }
-        
         
         // Travel On 전체 목록
         func fetchTravelOnList(lastItemId: Int?, pageSize: Int, regionId: Int?, sortBy: String, withOpinions: Bool) {
             // withOpinions -> nil 확인
             var withOpinion: Bool? = nil
-            
             if withOpinions == true {
                 withOpinion = true
             }
+            
             cancellable = travelOnService.getTravelOnLists(lastItemId: lastItemId, pageSize: pageSize, regionId: regionId, sortBy: sortBy, withOpinions: withOpinion)
                 .sink(receiveCompletion: { _ in
                 }, receiveValue: { travelOns in
@@ -68,6 +46,7 @@ extension TravelOnListScreen {
             cancellable = travelOnService.getTravelOn(travelOnId: travelOnId)
                 .sink(receiveCompletion: { _ in
                 }, receiveValue: { travelOn in
+                    print("HERERe")
                     self.travelOn = travelOn
                     
                     for i in 0 ..< self.travelOn.travelMemberSet!.count {
