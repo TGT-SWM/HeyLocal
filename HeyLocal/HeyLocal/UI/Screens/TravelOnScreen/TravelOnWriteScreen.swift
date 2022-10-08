@@ -125,7 +125,7 @@ struct TravelOnWriteScreen: View {
         }
         travelOnData.title = title
         travelOnData.description = description
-        travelOnData.regionId = regionId
+        travelOnData.regionId = regionId!
         travelOnData.travelStartDate = dateFormatter.string(from: startDate)
         travelOnData.travelEndDate = dateFormatter.string(from: endDate)
 
@@ -200,7 +200,7 @@ struct TravelOnWriteScreen: View {
     // 기본 값 설정
     @State var title: String = ""
     @State var regionName: String = "여행지 입력"
-    @State var regionId: Int = 259
+    @State var regionId: Int? = 259
     
     @State var startDate: Date = Date()
     @State var endDate: Date = Date()

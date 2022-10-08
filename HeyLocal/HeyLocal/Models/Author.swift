@@ -18,3 +18,12 @@ struct Author: Decodable {
     var ranking: Int? = 0
     var acceptedOpinionCount: Int? = 0
 }
+
+struct User: Codable {
+    var id: Int?
+    var accountId: String?
+    var nickname: String = ""
+    var imageUrl: String? = ""
+    var knowHow: Int? = 0
+    var ranking: Int?
+}

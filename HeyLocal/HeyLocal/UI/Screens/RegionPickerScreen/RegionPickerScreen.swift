@@ -12,7 +12,7 @@ struct RegionPickerScreen: View {
     @State var regionName: String = ""
     @StateObject var viewModel = ViewModel()
     @Environment(\.dismiss) private var dismiss
-    @Binding var regionID: Int
+    @Binding var regionID: Int?
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -28,7 +28,7 @@ struct RegionPickerScreen: View {
                             .padding(EdgeInsets(top: 0, leading: 10, bottom: 10, trailing: 160))
                             .simultaneousGesture(TapGesture().onEnded{
                                 regionID = region.id
-                                print("\(regionID)")
+                                print("\(regionID!)")
                                 dismiss()
                             })
                     }
