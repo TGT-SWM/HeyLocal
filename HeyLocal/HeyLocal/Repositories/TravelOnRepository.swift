@@ -67,7 +67,7 @@ struct TravelOnRepository {
     }
     
     // 여행On 상세 조회 API
-    func getTravelOn(travelOnId: Int) -> AnyPublisher<TravelOnDetail, Error> {
+    func getTravelOn(travelOnId: Int) -> AnyPublisher<TravelOn, Error> {
         // URLRequest 객체 생성
         let urlString = "\(travelonUrl)/\(travelOnId)"
         let url = URL(string: urlString)!
@@ -95,9 +95,6 @@ struct TravelOnRepository {
             jsonStr = jsonString
         }
 
-        print(jsonStr)
-
-        
         let url = URL(string: travelonUrl)!
         var request = URLRequest(url: url)
         var httpResponseStatusCode: Int = 0
@@ -157,9 +154,44 @@ struct TravelOnRepository {
             
             guard let response = response as? HTTPURLResponse, (200 ..< 299) ~= response.statusCode else {
                 print("ERROR: HTTP request failed")
-                print("\(response)")
                 return
             }
         }.resume()
+    }
+    
+    func updateTravelOn(travelOnId: Int, travelOnData: TravelOnPost) {
+        // travelOnData -> JSON Encoding
+        let encoder = JSONEncoder()
+        let jsonData = try? encoder.encode(travelOnData)
+        var jsonStr: String = ""
+
+        if let jsonData = jsonData, let jsonString = String(data: jsonData, encoding: .utf8) {
+            jsonStr = jsonString
+        }
+        
+        let urlString = "\(travelonUrl)/\(travelOnId)"
+        let url = URL(string: urlString)!
+        var request = URLRequest(url: url)
+        
+        request.httpMethod = "PUT"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+        
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, let httpResponse = response as? HTTPURLResponse, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+        
+            if httpResponse.statusCode == 201 {
+                self.getTravelOnLists(lastItemId: nil, pageSize: 15, regionId: nil, sortBy: "DATE", withOpinions: false)
+            } else {
+                print(error)
+                return
+            }
+        }
+        task.resume()
     }
 }

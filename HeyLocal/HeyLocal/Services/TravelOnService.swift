@@ -18,7 +18,7 @@ struct TravelOnService {
     }
     
     // 여행On 상세 조회
-    func getTravelOn(travelOnId: Int) -> AnyPublisher<TravelOnDetail, Error> {
+    func getTravelOn(travelOnId: Int) -> AnyPublisher<TravelOn, Error> {
         return travelOnRepository.getTravelOn(travelOnId: travelOnId)
     }
     
@@ -30,5 +30,10 @@ struct TravelOnService {
     // 여행On 등록
     func postTravelOn(travelOnData: TravelOnPost) -> Int {
         return travelOnRepository.postTravelOn(travelOnData: travelOnData)
+    }
+    
+    // 여행On 수정
+    func updateTravelOn(travelOnID: Int, travelOnData: TravelOnPost) {
+        return travelOnRepository.updateTravelOn(travelOnId: travelOnID, travelOnData: travelOnData)
     }
 }

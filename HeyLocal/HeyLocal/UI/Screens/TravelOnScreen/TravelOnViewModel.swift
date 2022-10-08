@@ -12,51 +12,29 @@ import Combine
 extension TravelOnListScreen {
     class ViewModel: ObservableObject {
         private var travelOnService = TravelOnService()
-        @Published var travelOns = [TravelOn]()
-        @Published var travelOn: TravelOnDetail
+        @Published var travelOns: [TravelOn]
+        @Published var travelOn: TravelOn
+        @Published var travelOnArray: TravelOnArray
+        
+        
+        
+        @Published var memberSet: [Bool] = [false, false, false, false, false, false]
         
         var cancellable: AnyCancellable?
         init() {
-            self.travelOn = TravelOnDetail(id: 0,
-                                           title: "title",
-                                           views: 0,
-                                           region: Region(id: 78, city: "성남시", state: "경기도"),
-                                           author: User(nickname: "김현지", imageUrl: "", knowHow: 0, ranking: 0),
-                                           travelStartDate: "2022-08-15",
-                                           travelEndDate: "2022-08-17",
-                                           createdDateTime: "2022-09-01T12:38:43.01024",
-                                           modifiedDate: "2022-09-01T12:38:43.01024",
-                                           transportationType: "OWN_CAR",
-                                           travelMemberSet: [HopeType(id: 1, type: "ALONE")],
-                                           accommodationMaxCost: 100000,
-                                           hopeAccommodationSet: [HopeType(id: 1, type: "ALL")],
-//                                           foodMaxCost: 100000,
-                                           hopeFoodSet: [HopeType(id: 1, type: "CHINESE")],
-//                                           drinkMaxCost: 100000,
-                                           hopeDrinkSet: [HopeType(id: 1, type: "SOJU"), HopeType(id: 2, type: "BEER")],
-                                           travelTypeGroup: TravelType(id: 1,
-                                                                       placeTasteType: "FAMOUS",
-                                                                       activityTasteType: "HARD",
-                                                                       snsTasteType: "NO"),
-                                           description: "string")
-            
-            
-            cancellable = travelOnService.getTravelOnLists(lastItemId: nil, pageSize: 15, regionId: nil, sortBy: "DATE", withOpinions: nil)
-                .sink(receiveCompletion: { _ in
-                }, receiveValue: { travelOns in
-                    self.travelOns = travelOns
-                })
+            self.travelOn = TravelOn()
+            self.travelOns = [TravelOn()]
+            self.travelOnArray = TravelOnArray()
         }
-        
         
         // Travel On 전체 목록
         func fetchTravelOnList(lastItemId: Int?, pageSize: Int, regionId: Int?, sortBy: String, withOpinions: Bool) {
             // withOpinions -> nil 확인
             var withOpinion: Bool? = nil
-            
             if withOpinions == true {
                 withOpinion = true
             }
+            
             cancellable = travelOnService.getTravelOnLists(lastItemId: lastItemId, pageSize: pageSize, regionId: regionId, sortBy: sortBy, withOpinions: withOpinion)
                 .sink(receiveCompletion: { _ in
                 }, receiveValue: { travelOns in
@@ -70,17 +48,163 @@ extension TravelOnListScreen {
                 .sink(receiveCompletion: { _ in
                 }, receiveValue: { travelOn in
                     self.travelOn = travelOn
-                    print(self.travelOn.title)
+                    
+                    /* TravelOn to TravelOnArray */
+                    self.travelOnArray.title = self.travelOn.title
+                    self.travelOnArray.regionId = self.travelOn.region.id
+                    self.travelOnArray.regionName = regionNameFormatter(region: self.travelOn.region)
+                    
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
+                    dateFormatter.timeZone = TimeZone(identifier: "KST")
+                    self.travelOnArray.startDate = dateFormatter.date(from: self.travelOn.travelStartDate!)!
+                    self.travelOnArray.endDate = dateFormatter.date(from: self.travelOn.travelEndDate!)!
+
+                    // 동행자
+                    for i in 0..<self.travelOn.travelMemberSet!.count {
+                        switch self.travelOn.travelMemberSet![i].type {
+                        case "ALONE":
+                            self.travelOnArray.memberSet[0] = true
+                        case "CHILD":
+                            self.travelOnArray.memberSet[1] = true
+                        case "PARENT":
+                            self.travelOnArray.memberSet[2] = true
+                        case "COUPLE":
+                            self.travelOnArray.memberSet[3] = true
+                        case "FRIEND":
+                            self.travelOnArray.memberSet[4] = true
+                        case "PET":
+                            self.travelOnArray.memberSet[5] = true
+                        default:
+                            self.travelOnArray.memberSet[0] = false
+                        }
+                    }
+
+                    // 숙소
+                    for i in 0..<self.travelOn.hopeAccommodationSet!.count {
+                        switch self.travelOn.hopeAccommodationSet![i].type {
+                        case "HOTEL":
+                            self.travelOnArray.accomSet[0] = true
+                        case "PENSION":
+                            self.travelOnArray.accomSet[1] = true
+                        case "CAMPING":
+                            self.travelOnArray.accomSet[2] = true
+                        case "GUEST_HOUSE":
+                            self.travelOnArray.accomSet[3] = true
+                        case "RESORT":
+                            self.travelOnArray.accomSet[4] = true
+                        case "ALL":
+                            self.travelOnArray.accomSet[5] = true
+                        default:
+                            self.travelOnArray.accomSet[5] = false
+                        }
+                    }
+                    
+                    // 숙소 가격대
+                    switch self.travelOn.accommodationMaxCost {
+                    case 100000:
+                        self.travelOnArray.accomPrice = .ten
+                    case 200000:
+                        self.travelOnArray.accomPrice = .twenty
+                    case 300000:
+                        self.travelOnArray.accomPrice = .thirty
+                    case 400000:
+                        self.travelOnArray.accomPrice = .forty
+                    case 0:
+                        self.travelOnArray.accomPrice = .etc
+                    default:
+                        self.travelOnArray.accomPrice = .etc
+                    }
+
+                    // 교통수단
+                    switch self.travelOn.transportationType {
+                    case "OWN_CAR":
+                        self.travelOnArray.transSet[0] = true
+
+                    case "RENT_CAR":
+                        self.travelOnArray.transSet[1] = true
+
+                    case "PUBLIC":
+                        self.travelOnArray.transSet[2] = true
+
+                    default:
+                        self.travelOnArray.transSet[0] = false
+                    }
+
+                    // 선호 음식
+                    for i in 0..<self.travelOn.hopeFoodSet!.count {
+                        switch self.travelOn.hopeFoodSet![i].type {
+                        case "KOREAN":
+                            self.travelOnArray.foodSet[0] = true
+                        case "WESTERN":
+                            self.travelOnArray.foodSet[1] = true
+                        case "CHINESE":
+                            self.travelOnArray.foodSet[2] = true
+                        case "JAPANESE":
+                            self.travelOnArray.foodSet[3] = true
+                        case "GLOBAL":
+                            self.travelOnArray.foodSet[4] = true
+                        default:
+                            self.travelOnArray.foodSet[4] = false
+                        }
+                    }
+
+                    // 선호 주류
+                    for i in 0..<self.travelOn.hopeDrinkSet!.count {
+                        switch self.travelOn.hopeDrinkSet![i].type {
+                        case "SOJU":
+                            self.travelOnArray.drinkSet[0] = true
+                        case "BEER":
+                            self.travelOnArray.drinkSet[1] = true
+                        case "WINE":
+                            self.travelOnArray.drinkSet[2] = true
+                        case "MAKGEOLLI":
+                            self.travelOnArray.drinkSet[3] = true
+                        case "LIQUOR":
+                            self.travelOnArray.drinkSet[4] = true
+                        case "NO_ALCOHOL":
+                            self.travelOnArray.drinkSet[5] = true
+                        default:
+                            self.travelOnArray.drinkSet[5] = false
+                        }
+                    }
+
+                    // 여행 취향
+                    if self.travelOn.travelTypeGroup!.placeTasteType == "FAMOUS" {
+                        self.travelOnArray.place = true
+                    } else {
+                        self.travelOnArray.fresh = true
+                    }
+
+                    if self.travelOn.travelTypeGroup!.activityTasteType == "HARD" {
+                        self.travelOnArray.activity = true
+                    } else {
+                        self.travelOnArray.lazy = true
+                    }
+
+                    if self.travelOn.travelTypeGroup!.snsTasteType == "YES" {
+                        self.travelOnArray.sns = true
+                    } else {
+                        self.travelOnArray.noSNS = true
+                    }
+                    
+                    self.travelOnArray.description = self.travelOn.description
                 })
-//            print(self.travelOn.title)
         }
         
+        // Travel On 삭제
         func deleteTravelOn(travelOnId: Int) {
             travelOnService.deleteTravelOn(travelOnId: travelOnId)
         }
         
+        // Travel On 등록
         func postTravelOn(travelOnData: TravelOnPost) -> Int {
             return travelOnService.postTravelOn(travelOnData: travelOnData)
+        }
+        
+        // Travel On 수정
+        func updateTravelOn(travelOnId: Int, travelOnData: TravelOnPost) {
+            return travelOnService.updateTravelOn(travelOnID: travelOnId, travelOnData: travelOnData)
         }
     }
 }
