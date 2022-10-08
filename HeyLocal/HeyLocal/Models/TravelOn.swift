@@ -8,9 +8,7 @@
 
 import Foundation
 
-// TravelOn -> 보여주기
-
-// Data Model for POST
+// MARK: - 여행On Encodable Struct
 struct TravelOnPost: Encodable {
     var accommodationMaxCost: Int = 0
     var accommodationTypeSet: [String] = []
@@ -25,11 +23,43 @@ struct TravelOnPost: Encodable {
     var travelEndDate: String = ""
     var travelTypeGroup: TravelTypePost = TravelTypePost()
 }
-
 struct TravelTypePost: Encodable {
     var placeTasteType: String = "FAMOUS"
     var activityTasteType: String = "HARD"
     var snsTasteType: String = "YES"
+}
+struct TravelOnArray {
+    var title: String = ""
+    
+    var regionId: Int?
+    var regionName: String = "여행지 입력"
+    
+    var startDate: Date = Date()
+    var endDate: Date = Date()
+    
+    var accomPrice: Price?
+    var memberSet: [Bool] = [false, false, false, false, false, false]
+    var accomSet: [Bool] = [false, false, false, false, false, false]
+    var transSet: [Bool] = [false, false, false]
+    var foodSet: [Bool] = [false, false, false, false, false]
+    var drinkSet: [Bool] = [false, false, false, false, false, false]
+    var place: Bool = false
+    var fresh: Bool = false
+    var activity: Bool = false
+    var lazy: Bool = false
+    var sns: Bool = false
+    var noSNS: Bool = false
+    
+    var description: String = ""
+}
+enum Price: Int, CaseIterable, Identifiable {
+    case ten = 100000
+    case twenty = 200000
+    case thirty = 300000
+    case forty = 400000
+    case etc = 0
+    
+    var id: Int { self.rawValue }
 }
 
 // MARK: - 여행On Decodable Struct

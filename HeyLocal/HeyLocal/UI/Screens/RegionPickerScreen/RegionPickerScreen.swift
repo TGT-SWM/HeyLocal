@@ -28,7 +28,6 @@ struct RegionPickerScreen: View {
                             .padding(EdgeInsets(top: 0, leading: 10, bottom: 10, trailing: 160))
                             .simultaneousGesture(TapGesture().onEnded{
                                 regionID = region.id
-                                print("\(regionID!)")
                                 dismiss()
                             })
                     }

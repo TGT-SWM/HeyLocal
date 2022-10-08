@@ -38,6 +38,9 @@ struct TravelOnListScreen: View {
             }
             .navigationBarTitle("", displayMode: .automatic)
             .navigationBarHidden(true)
+            .onAppear {
+                viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 15, regionId: regionId, sortBy: sortBy.rawValue, withOpinions: withOpinions)
+            }
         }
     }
     
@@ -121,6 +124,9 @@ struct TravelOnListScreen: View {
                             .foregroundColor(Color(red: 255/255, green: 153/255, blue: 0/255))
                     }
                 }
+                .onChange(of: regionId, perform: { value in
+                    viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 15, regionId: value, sortBy: sortBy.rawValue, withOpinions: withOpinions)
+                })
                 
                 
                 Spacer()
@@ -164,9 +170,6 @@ struct TravelOnListScreen: View {
                     Text("+")
                 }
                 .buttonStyle(WriteButtonStyle())
-            }
-            .onAppear {
-                viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 15, regionId: regionId, sortBy: sortBy.rawValue, withOpinions: withOpinions)
             }
         }
     }

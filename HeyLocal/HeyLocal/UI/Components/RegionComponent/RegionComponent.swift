@@ -29,12 +29,6 @@ struct RegionComponent: View {
     }
 }
 
-struct RegionComponent_Previews: PreviewProvider {
-    static var previews: some View {
-        RegionComponent(region: Region(id: 259, city: "포항시", state: "경상북도"))
-    }
-}
-
 // MARK: - 지역이름 Format
 func regionNameFormatter(region: Region) -> String {
     var resultName: String = region.state
