@@ -143,17 +143,8 @@ extension PlanDetailScreen {
 	var scheduleView: some View {
 		VStack {
 			scheduleTabs
+			scheduleToolbar
 		}
-	}
-	
-	/// 장소 검색 화면으로 이동해 스케줄에 장소들을 추가하기 위한 버튼입니다.
-	var addPlacesButton: some View {
-		NavigationLink(
-			destination: PlaceSearchScreen(onComplete: viewModel.handleAddPlaces)
-		) {
-			Text("해당 일자에 장소 추가하기")
-		}
-		.padding()
 	}
 	
 	/// 스케줄을 일자별 탭으로 나누어 출력합니다.
@@ -166,6 +157,44 @@ extension PlanDetailScreen {
 			}
 		}
 		.tabViewStyle(.page(indexDisplayMode: .never))
+	}
+	
+	/// 여행 장소 추가 버튼과 최적루트 재정렬 버튼을 표시합니다.
+	var scheduleToolbar: some View {
+		HStack {
+			addPlacesButton
+			rearrangeButton
+		}
+	}
+	
+	/// 장소 검색 화면으로 이동해 스케줄에 장소들을 추가하기 위한 버튼입니다.
+	var addPlacesButton: some View {
+		NavigationLink(destination: PlaceSearchScreen(onComplete: viewModel.handleAddPlaces)) {
+			Image(systemName: "plus")
+				.frame(width: 24, height: 24)
+			Text("여행 장소 추가")
+				.font(.system(size: 14))
+				.fontWeight(.medium)
+		}
+		.buttonStyle(PlainButtonStyle())
+		.foregroundColor(Color(red: 126 / 255, green: 0, blue: 217 / 255))
+		.frame(maxWidth: .infinity)
+	}
+	
+	/// 스케줄을 자동으로 재정렬합니다.
+	var rearrangeButton: some View {
+		Button {
+			
+		} label: {
+			Image("refresh_purple_icon")
+				.frame(width: 24, height: 24)
+			Text("최적루트 재정렬")
+				.font(.system(size: 14))
+				.fontWeight(.medium)
+		}
+		.buttonStyle(PlainButtonStyle())
+		.foregroundColor(Color(red: 126 / 255, green: 0, blue: 217 / 255))
+		.frame(maxWidth: .infinity)
 	}
 }
 
