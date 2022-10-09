@@ -12,6 +12,7 @@ import SwiftUI
 struct TravelOnDetailScreen: View {
     @State var travelOnId: Int
     @StateObject var viewModel = TravelOnListScreen.ViewModel()
+    @StateObject var opinionViewModel = OpinionComponent.ViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     @State var showingSheet = false
@@ -80,6 +81,7 @@ struct TravelOnDetailScreen: View {
         }
         .onAppear {
             viewModel.fetchTravelOn(travelOnId: travelOnId)
+            opinionViewModel.fetchOpinions(travelOnId: travelOnId)
         }
         .navigationTitle("여행On")
         .navigationBarTitleDisplayMode(.inline)
@@ -326,7 +328,7 @@ struct TravelOnDetailScreen: View {
     
     // 답변
     var opinions: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Group {
                 HStack {
                     Text("이런 곳은 어때요?")
@@ -348,10 +350,40 @@ struct TravelOnDetailScreen: View {
                     }
                 }
                 
-                // TODO: 해당 여행On 답변 출력
-                
+                //해당 여행On 답변 출력
+                VStack(alignment: .leading) {
+                    ForEach(opinionViewModel.opinions) { opinion in
+                        //  TODO: NavigationLink로 수정
+                        ZStack(alignment: .bottomTrailing) {
+                            OpinionComponent(opinion: opinion)
+                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                            
+                            // TODO: 플랜에 장소 추가하는 기능
+                            ZStack {
+                                Rectangle()
+                                    .fill(Color(red: 255/255, green: 153/255, blue: 0/255))
+                                    .frame(width: 90, height: 24)
+                                    .cornerRadius(14)
+                                
+                                HStack(alignment: .center) {
+                                    Image(systemName: "plus")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 13)
+                                        .foregroundColor(Color.white)
+                                    
+                                    Text("플랜에 추가")
+                                        .font(.system(size: 12))
+                                        .foregroundColor(Color.white)
+                                }
+                            }
+                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                        }
+                    }
+                }
             }
         }
+        .frame(width: 350)
         .padding()
     }
     
