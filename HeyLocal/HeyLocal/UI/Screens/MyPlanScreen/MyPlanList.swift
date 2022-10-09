@@ -14,47 +14,42 @@ struct MyPlanList: View {
 	@ObservedObject var viewModel = ViewModel()
 	
     var body: some View {
-		VStack { myPlanList }
-		.onAppear {
-			viewModel.fetchMyPlans()
-		}
+		list.onAppear(perform: viewModel.fetchMyPlans)
     }
 }
 
 
-// MARK: - myPlanList (마이플랜 정보 출력)
+// MARK: - list (리스트 출력)
 
 extension MyPlanList {
-	var myPlanList: some View {
-		VStack {
-			sublist(
+	var list: some View {
+		List {
+			section(
 				title: "지금 여행 중",
 				plans: viewModel.ongoing,
 				onDelete: viewModel.deleteFrom(\.ongoing)
 			)
-			sublist(
+			section(
 				title: "다가오는 여행",
 				plans: viewModel.upcoming,
 				onDelete: viewModel.deleteFrom(\.upcoming)
 			)
-			sublist(
+			section(
 				title: "지난 여행",
 				plans: viewModel.past,
 				onDelete: viewModel.deleteFrom(\.past)
 			)
 		}
+		.toolbar { EditButton() }
 	}
 	
-	func sublist(title: String, plans: [Plan], onDelete: @escaping ((IndexSet) -> Void)) -> some View {
+	func section(title: String, plans: [Plan], onDelete: @escaping ((IndexSet) -> Void)) -> some View {
 		Group {
 			if !plans.isEmpty {
-				List {
-					Section(header: sublistHeader(title: title)) {
-						ForEach(plans, id: \.id) { sublistItem(plan: $0) }
-							.onDelete(perform: onDelete)
-					}
+				Section(header: sublistHeader(title: title)) {
+					ForEach(plans, id: \.id) { sublistItem(plan: $0) }
+						.onDelete(perform: onDelete)
 				}
-				.toolbar { EditButton() }
 			}
 		}
 	}
