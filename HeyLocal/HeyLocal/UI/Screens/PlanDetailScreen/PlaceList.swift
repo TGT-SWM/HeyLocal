@@ -27,6 +27,7 @@ extension PlanDetailScreen {
 					.onDelete(perform: deleteHandler(day: day))
 					.onMove(perform: moveHandler(day: day))
 				}
+				.listStyle(PlainListStyle())
 			}
 			
 			if viewModel.isEditingArrivalTime {
@@ -43,36 +44,37 @@ extension PlanDetailScreen {
 			VStack(alignment: .leading) {
 				HStack {
 					if let arrivalTime = place.wrappedValue.arrivalTime {
-						Text("\(DateFormat.format(arrivalTime, from: "HH:mm:ss", to: "HH:mm")) 도착")
-							.font(.subheadline)
+						Text("\(DateFormat.format(arrivalTime, from: "HH:mm:ss", to: "a hh:mm"))")
+							.font(.system(size: 12))
 					} else {
-						Text("도착 시간 없음")
-							.font(.subheadline)
+						Text("도착 시간을 설정해주세요")
+							.font(.system(size: 12))
 					}
 					arrivalTimeEditButton(place: place)
 				}
 				
 				Text(place.wrappedValue.name) // 이름
-					.font(.title3)
-					.fontWeight(.bold)
-				Text("\(place.wrappedValue.categoryName) | \(place.wrappedValue.address)") // 주소
-					.font(.subheadline)
+					.font(.system(size: 16))
+					.fontWeight(.medium)
 			}
 			
 			Spacer()
 		}
-		.frame(height: 75)
+		.frame(height: 72)
+		.listRowSeparator(.hidden)
 	}
 	
 	/// 스케줄 안에서 장소의 순서를 출력합니다.
 	func placeOrder(order: Int) -> some View {
 		Text("\(order)")
-			.fontWeight(.bold)
+			.font(.system(size: 14))
+			.fontWeight(.medium)
+			.foregroundColor(.white)
 			.padding()
 			.background(
 				Circle()
-					.frame(width: 32, height: 32)
-					.foregroundColor(Color("lightGray"))
+					.frame(width: 24, height: 24)
+					.foregroundColor(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
 			)
 	}
 	

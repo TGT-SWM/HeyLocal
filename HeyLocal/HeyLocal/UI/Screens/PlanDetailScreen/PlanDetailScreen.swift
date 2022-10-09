@@ -142,7 +142,6 @@ extension PlanDetailScreen {
 	/// 스케줄 뷰를 출력합니다.
 	var scheduleView: some View {
 		VStack {
-			if !viewModel.schedules.isEmpty { addPlacesButton }
 			scheduleTabs
 		}
 	}
