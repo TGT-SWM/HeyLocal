@@ -28,6 +28,10 @@
 		A83F100D28BCCCE000978711 /* TravelOnListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83F100C28BCCCE000978711 /* TravelOnListScreen.swift */; };
 		A84E841228B8C28600128D9B /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84E841128B8C28600128D9B /* SignInScreen.swift */; };
 		A8647C3A28BDA48B00D284B6 /* WriteButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8647C3928BDA48B00D284B6 /* WriteButtonStyle.swift */; };
+		A877D99828F2607D00527E21 /* Opinion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A877D99728F2607D00527E21 /* Opinion.swift */; };
+		A877D99A28F2654800527E21 /* OpinionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A877D99928F2654800527E21 /* OpinionViewModel.swift */; };
+		A877D99C28F265F000527E21 /* OpinionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A877D99B28F265F000527E21 /* OpinionService.swift */; };
+		A877D99E28F2662100527E21 /* OpinionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A877D99D28F2662100527E21 /* OpinionRepository.swift */; };
 		A8794B2F28B4E93A00959D56 /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8794B2E28B4E93A00959D56 /* SignUpScreen.swift */; };
 		A8794B3128B4EB5900959D56 /* BasicButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8794B3028B4EB5900959D56 /* BasicButtonStyle.swift */; };
 		A87F6C9D28C099EE0076046E /* MyProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6C9C28C099EE0076046E /* MyProfileScreen.swift */; };
@@ -132,6 +136,10 @@
 		A84E841128B8C28600128D9B /* SignInScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
 		A8525DFC28C1B0C90085B36A /* Authorization.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Authorization.xcconfig; sourceTree = "<group>"; };
 		A8647C3928BDA48B00D284B6 /* WriteButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteButtonStyle.swift; sourceTree = "<group>"; };
+		A877D99728F2607D00527E21 /* Opinion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Opinion.swift; sourceTree = "<group>"; };
+		A877D99928F2654800527E21 /* OpinionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionViewModel.swift; sourceTree = "<group>"; };
+		A877D99B28F265F000527E21 /* OpinionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionService.swift; sourceTree = "<group>"; };
+		A877D99D28F2662100527E21 /* OpinionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionRepository.swift; sourceTree = "<group>"; };
 		A8794B2E28B4E93A00959D56 /* SignUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpScreen.swift; sourceTree = "<group>"; };
 		A8794B3028B4EB5900959D56 /* BasicButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicButtonStyle.swift; sourceTree = "<group>"; };
 		A87F6C9C28C099EE0076046E /* MyProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileScreen.swift; sourceTree = "<group>"; };
@@ -268,6 +276,7 @@
 			isa = PBXGroup;
 			children = (
 				A8212BB628F1E2FD00FD4063 /* OpinionComponent.swift */,
+				A877D99928F2654800527E21 /* OpinionViewModel.swift */,
 			);
 			path = OpinionComponent;
 			sourceTree = "<group>";
@@ -437,6 +446,7 @@
 				A80213D628BF2C9800B6359E /* TravelOn.swift */,
 				EF3FCF1828C1345C00D48F9E /* Place.swift */,
 				A836925928C72A0500DBDB06 /* Region.swift */,
+				A877D99728F2607D00527E21 /* Opinion.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -448,6 +458,7 @@
 				EFDC441A28C0735400E8747C /* PlanRepository.swift */,
 				A80213D428BF2C4900B6359E /* TravelOnRepository.swift */,
 				EF6A3FC128E71A2F003F474B /* UserRepository.swift */,
+				A877D99D28F2662100527E21 /* OpinionRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -460,6 +471,7 @@
 				A80213DA28BF2EA100B6359E /* TravelOnService.swift */,
 				EF6A3FC328E71EE5003F474B /* UserService.swift */,
 				EF3C061128E0EDC4003F3188 /* KakaoAPIService.swift */,
+				A877D99B28F265F000527E21 /* OpinionService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -700,6 +712,7 @@
 				A80213DD28BF326D00B6359E /* WebImage.swift in Sources */,
 				A836925A28C72A0500DBDB06 /* Region.swift in Sources */,
 				A8647C3A28BDA48B00D284B6 /* WriteButtonStyle.swift in Sources */,
+				A877D99E28F2662100527E21 /* OpinionRepository.swift in Sources */,
 				EF3FCF1528C12A3900D48F9E /* PlanDetailScreen.swift in Sources */,
 				EF6A3FC628E93A44003F474B /* PlanCreateScreen.swift in Sources */,
 				A80213D328BF2C2100B6359E /* TravelOnViewModel.swift in Sources */,
@@ -721,11 +734,13 @@
 				EFAA2AC328BBC30E00B56A3C /* AuthRepository.swift in Sources */,
 				EF26CD9328C0F15E006D0D27 /* MyPlanListViewModel.swift in Sources */,
 				A80B903628C9EA200026866A /* TravelOnDetailScreen.swift in Sources */,
+				A877D99828F2607D00527E21 /* Opinion.swift in Sources */,
 				A80B903C28CA105F0026866A /* TravelOnComponent.swift in Sources */,
 				EFDC441B28C0735400E8747C /* PlanRepository.swift in Sources */,
 				EF3FCF1928C1345C00D48F9E /* Place.swift in Sources */,
 				EF8FF25D28B4D0B100C053B7 /* HeyLocalApp.swift in Sources */,
 				EF3C060E28E0E666003F3188 /* PlaceSearchViewModel.swift in Sources */,
+				A877D99A28F2654800527E21 /* OpinionViewModel.swift in Sources */,
 				EF6A3FCA28EB3D9B003F474B /* View+Extensions.swift in Sources */,
 				A89943A728EED89E0059AAC6 /* RegionViewModel.swift in Sources */,
 				A80213D928BF2D6C00B6359E /* Author.swift in Sources */,
@@ -744,6 +759,7 @@
 				EF3C061228E0EDC4003F3188 /* KakaoAPIService.swift in Sources */,
 				A84E841228B8C28600128D9B /* SignInScreen.swift in Sources */,
 				EF26CD8A28C0EECA006D0D27 /* PlanService.swift in Sources */,
+				A877D99C28F265F000527E21 /* OpinionService.swift in Sources */,
 				EF26CD8D28C0F102006D0D27 /* MyPlanScreen.swift in Sources */,
 				A8794B3128B4EB5900959D56 /* BasicButtonStyle.swift in Sources */,
 				A83DAEED28D0475B001F1F5C /* TravelOnWriteScreen.swift in Sources */,

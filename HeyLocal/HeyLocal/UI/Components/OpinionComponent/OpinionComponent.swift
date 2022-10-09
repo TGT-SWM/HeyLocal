@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct OpinionComponent: View {
+    var opinion: Opinion
+    
     var body: some View {
         HStack(alignment: .top) {
             ZStack(alignment: .bottomLeading) {
@@ -29,7 +31,7 @@ struct OpinionComponent: View {
                             .scaledToFit()
                             .frame(width: 12)
                         
-                        Text("부산광역시")
+                        Text("\(regionNameFormatter(region: opinion.place!.region!))")
                             .font(.system(size: 12))
                             .foregroundColor(Color.white)
                     }
@@ -41,7 +43,7 @@ struct OpinionComponent: View {
             
             VStack(alignment: .leading) {
                 // 장소 이름
-                Text("해운대 해수욕장")
+                Text("\(opinion.place!.name!)")
                     .font(.system(size: 14))
                 
                 // 사용자 정보
@@ -50,23 +52,21 @@ struct OpinionComponent: View {
                         .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
                         .frame(width: 20, height: 20)
                     
-                    Text("김현지")
+                    Spacer()
+                        .frame(width: 5)
+                    
+                    Text("\(opinion.author!.nickname)")
                         .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                     
                     Spacer()
                         .frame(width: 3)
                     
-                    Text("(채택 8건)")
+                    Text("(채택 \(opinion.countAccept!)건)")
                 }
                 .font(.system(size: 12))
             }
             .padding(EdgeInsets(top: 7, leading: 0, bottom: 0, trailing: 0))
         }
-    }
-}
-
-struct OpinionComponent_Previews: PreviewProvider {
-    static var previews: some View {
-        OpinionComponent()
+        .frame(width: 360)
     }
 }
