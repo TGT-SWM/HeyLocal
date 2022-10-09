@@ -67,6 +67,5 @@ struct OpinionComponent: View {
             }
             .padding(EdgeInsets(top: 7, leading: 0, bottom: 0, trailing: 0))
         }
-        .frame(width: 360)
     }
 }

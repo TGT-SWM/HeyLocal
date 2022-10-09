@@ -383,6 +383,7 @@ struct TravelOnDetailScreen: View {
                 }
             }
         }
+        .frame(width: 350)
         .padding()
     }
     
