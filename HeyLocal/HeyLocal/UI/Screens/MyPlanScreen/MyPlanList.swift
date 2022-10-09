@@ -40,6 +40,7 @@ extension MyPlanList {
 				onDelete: viewModel.deleteFrom(\.past)
 			)
 		}
+		.listStyle(PlainListStyle())
 		.toolbar { EditButton() }
 	}
 	
@@ -55,9 +56,15 @@ extension MyPlanList {
 	}
 	
 	func sublistHeader(title: String) -> some View {
-		Text(title)
-			.font(.system(size: 16))
-			.fontWeight(.bold)
+		ZStack(alignment: .leading) {
+			Color.white
+			Text(title)
+				.font(.system(size: 14))
+				.fontWeight(.medium)
+				.padding(.horizontal, 20)
+				
+		}
+		.listRowInsets(EdgeInsets())
 	}
 	
 	func sublistItem(plan: Plan) -> some View {
@@ -84,10 +91,11 @@ extension MyPlanList {
 				.padding(.leading, 3)
 				Spacer()
 			}
-			.padding(.horizontal, 20)
 			.frame(height: 80)
+			.padding(.horizontal, 20)
 		}
 		.buttonStyle(PlainButtonStyle())
+		.listRowInsets(EdgeInsets())
 	}
 }
 
