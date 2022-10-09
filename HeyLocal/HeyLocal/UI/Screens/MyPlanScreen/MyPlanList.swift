@@ -61,7 +61,7 @@ extension MyPlanList {
 			Text(title)
 				.font(.system(size: 14))
 				.fontWeight(.medium)
-				.padding(.horizontal, 20)
+				.padding(.horizontal, 21)
 		}
 		.frame(height: 40)
 		.listRowInsets(EdgeInsets())
@@ -96,7 +96,7 @@ extension MyPlanList {
 		  		.opacity(0)
 		}
 		.frame(height: 80)
-		.padding(.horizontal, 20)
+		.padding(.horizontal, 21)
 		.listRowInsets(EdgeInsets())
 		.listRowSeparator(.hidden)
 	}

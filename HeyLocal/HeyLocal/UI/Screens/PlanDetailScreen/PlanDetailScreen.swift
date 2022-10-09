@@ -62,13 +62,21 @@ struct PlanDetailScreen: View {
 extension PlanDetailScreen {
 	/// 상단 헤더를 출력합니다.
 	var header: some View {
-		HStack {
+		HStack(alignment: .center, spacing: 0) {
+			thumbnail
 			headerTitleSection
 			Spacer()
-			headerDaySection
 			mapToggleButton
 		}
-		.padding()
+		.padding(.horizontal, 21)
+		.padding(.vertical, 16)
+	}
+	
+	/// 플랜의 썸네일을 출력합니다.
+	var thumbnail: some View {
+		WebImage(url: "https://www.busan.go.kr/resource/img/geopark/sub/busantour/busantour1.jpg")
+			.frame(width: 56, height: 56)
+			.cornerRadius(.infinity)
 	}
 	
 	/// 플랜의 제목과 여행 기간을 출력합니다.
@@ -76,8 +84,10 @@ extension PlanDetailScreen {
 		VStack(alignment: .leading) {
 			headerPlanTitleSection
 			Text(DateFormat.format(plan.startDate, from: "yyyy-MM-dd", to: "M월 d일") + " ~ " + DateFormat.format(plan.endDate, from: "yyyy-MM-dd", to: "M월 d일"))
-				.font(.subheadline)
+				.font(.system(size: 12))
+				.foregroundColor(Color("gray"))
 		}
+		.padding(.leading, 12)
 	}
 	
 	/// 플랜 제목을 출력합니다.
@@ -86,7 +96,7 @@ extension PlanDetailScreen {
 		HStack {
 			if viewModel.isPlanTitleEditing {
 				TextField("플랜 제목", text: viewModel.planTitle)
-					.font(.title2)
+					.font(.system(size: 16))
 				Button {
 					viewModel.savePlanTitle()
 				} label: {
@@ -94,8 +104,8 @@ extension PlanDetailScreen {
 				}
 			} else {
 				Text(viewModel.planTitle.wrappedValue)
-					.font(.title2)
-					.fontWeight(.bold)
+					.font(.system(size: 16))
+					.fontWeight(.medium)
 				Button {
 					viewModel.editPlanTitle()
 				} label: {
@@ -105,14 +115,6 @@ extension PlanDetailScreen {
 		}
 	}
 	
-	/// 현재 보고 있는 플랜 일자를 출력합니다.
-	var headerDaySection: some View {
-		VStack(alignment: .center) {
-			Text("\(viewModel.currentDay)일차")
-			Text("(\(viewModel.currentDate)일)")
-		}.padding(.trailing, 5)
-	}
-	
 	/// 스케줄 뷰 <-> 지도 뷰 전환 버튼입니다.
 	var mapToggleButton: some View {
 		Button {
@@ -120,6 +122,7 @@ extension PlanDetailScreen {
 		} label: {
 			Image(systemName: viewModel.showMapView ? "map.fill" : "map")
 				.font(.system(size: 24))
+				.foregroundColor(.black)
 		}
 	}
 }
