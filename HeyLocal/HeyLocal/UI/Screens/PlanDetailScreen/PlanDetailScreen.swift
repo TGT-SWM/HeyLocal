@@ -22,26 +22,15 @@ struct PlanDetailScreen: View {
     var body: some View {
 		VStack {
 			header
+			dayControlView
 			if (viewModel.showMapView) { mapView }
 			else { scheduleView }
-			dayControlButtons
 		}
 		.navigationTitle("마이 플랜")
 		.navigationBarTitleDisplayMode(.inline)
 		.animation(.easeInOut, value: viewModel.editMode)
 		.toolbar { editButton }
     }
-	
-	/// 일자 이동을 위한 버튼입니다.
-	var dayControlButtons: some View {
-		HStack {
-			Button("이전") { viewModel.goPrevDay() }
-				.disabled(viewModel.isFirstDay)
-			Button("다음") { viewModel.goNextDay() }
-				.disabled(viewModel.isLastDay)
-		}
-		.padding()
-	}
 	
 	/// 스케줄 수정 모드로 진입하기 위한 버튼입니다.
 	var editButton: some View {
@@ -124,6 +113,25 @@ extension PlanDetailScreen {
 				.font(.system(size: 24))
 				.foregroundColor(.black)
 		}
+	}
+}
+
+
+// MARK: - 여행 일자 뷰
+
+extension PlanDetailScreen {
+	var dayControlView: some View {
+		HStack {
+			Text("DAY \(viewModel.currentDay)")
+				.font(.system(size: 14))
+				.fontWeight(.medium)
+			Text("\(viewModel.currentDate)")
+				.font(.system(size: 14))
+				.fontWeight(.medium)
+				.foregroundColor(Color("gray"))
+			Spacer()
+		}
+		.padding(.horizontal, 27)
 	}
 }
 
