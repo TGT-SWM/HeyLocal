@@ -62,40 +62,43 @@ extension MyPlanList {
 				.font(.system(size: 14))
 				.fontWeight(.medium)
 				.padding(.horizontal, 20)
-				
 		}
+		.frame(height: 40)
 		.listRowInsets(EdgeInsets())
 	}
 	
 	func sublistItem(plan: Plan) -> some View {
-		NavigationLink(destination: PlanDetailScreen(plan: plan)) {
-			HStack(alignment: .center) {
-				// 썸네일 이미지
-				WebImage(url: "https://www.busan.go.kr/resource/img/geopark/sub/busantour/busantour1.jpg")
-					.frame(width: 56, height: 56)
-					.cornerRadius(.infinity)
+		HStack(alignment: .center) {
+			// 썸네일 이미지
+			WebImage(url: "https://www.busan.go.kr/resource/img/geopark/sub/busantour/busantour1.jpg")
+				.frame(width: 56, height: 56)
+				.cornerRadius(.infinity)
+			
+			VStack(alignment: .leading, spacing: 0) {
+				// 제목
+				Text(plan.title)
+					.font(.system(size: 16))
+					.fontWeight(.medium)
 				
-				VStack(alignment: .leading, spacing: 0) {
-					// 제목
-					Text(plan.title)
-						.font(.system(size: 16))
-						.fontWeight(.bold)
-					
-					// 여행 기간
-					Text(DateFormat.format(plan.startDate, from: "yyyy-MM-dd", to: "yyyy.MM.dd")
-						 + " ~ " + DateFormat.format(plan.endDate, from: "yyyy-MM-dd", to: "yyyy.MM.dd"))
-						.font(.system(size: 12))
-						.foregroundColor(Color("gray"))
-						.padding(.top, 5)
-				}
-				.padding(.leading, 3)
-				Spacer()
+				// 여행 기간
+				Text(DateFormat.format(plan.startDate, from: "yyyy-MM-dd", to: "yyyy.MM.dd")
+					+ " ~ " + DateFormat.format(plan.endDate, from: "yyyy-MM-dd", to: "yyyy.MM.dd"))
+					.font(.system(size: 12))
+					.padding(.top, 5)
 			}
-			.frame(height: 80)
-			.padding(.horizontal, 20)
+			.padding(.leading, 3)
+			Spacer()
+			
+			// 플랜 상세 화면으로 이동
+			// 기본으로 표시되는 우측 화살표 모양을 제거하기 위해 Invisible하게 처리
+			NavigationLink(destination: PlanDetailScreen(plan: plan)) { EmptyView() }
+		  		.frame(width: 0)
+		  		.opacity(0)
 		}
-		.buttonStyle(PlainButtonStyle())
+		.frame(height: 80)
+		.padding(.horizontal, 20)
 		.listRowInsets(EdgeInsets())
+		.listRowSeparator(.hidden)
 	}
 }
 
