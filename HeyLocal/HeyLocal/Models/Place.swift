@@ -34,7 +34,6 @@ struct Place: Codable, Equatable {
 	}
 }
 
-
 // MARK: - PlaceCategory (장소 카테고리 종류)
 
 enum PlaceCategory: String, CaseIterable {

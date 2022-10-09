@@ -12,8 +12,12 @@ import SwiftUI
 struct TravelOnDetailScreen: View {
     @State var travelOnId: Int
     @StateObject var viewModel = TravelOnListScreen.ViewModel()
+    @StateObject var opinionViewModel = OpinionComponent.ViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
+    @State var showingSheet = false
+    @State var showingAlert = false
+    
     // custom Back button
     var btnBack : some View { Button(action: {
         self.presentationMode.wrappedValue.dismiss()
@@ -26,26 +30,70 @@ struct TravelOnDetailScreen: View {
         }
     }
     
+    // Navigation Bar Item : 수정·삭제 ActionSheet 보기
+    var moreBtn: some View {
+        Button(action: {
+            showingSheet.toggle()
+        }) {
+            Image(systemName: "ellipsis")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 14)
+                .foregroundColor(.black)
+                .rotationEffect(.degrees(-90))
+        }
+        .confirmationDialog("", isPresented: $showingSheet, titleVisibility: .hidden) { //actionsheet
+             Button("게시글 수정") {
+                 navigationLinkActive = true
+             }
+             Button("삭제", role: .destructive) {
+                 showingAlert.toggle()
+             }
+             Button("취소", role: .cancel) {
+             }
+        }
+    }
+    
+    @State var navigationLinkActive = false
     var body: some View {
-        ScrollView {
-            content
+        ZStack(alignment: .center) {
+            // 게시글 수정 
+            if navigationLinkActive {
+                NavigationLink("", destination: TravelOnWriteScreen(isRevise: true, travelOnID: viewModel.travelOn.id), isActive: $navigationLinkActive)
+            }
             
-            opinions
+            ScrollView {
+                content
+                
+                opinions
+            }
+            // 삭제 Alert
+            if showingAlert {
+                CustomAlert(showingAlert: $showingAlert,
+                            title: "삭제하시겠습니까?",
+                            cancelMessage: "아니요,유지할래요",
+                            confirmMessage: "네,삭제할래요",
+                            cancelWidth: 134,
+                            confirmWidth: 109,
+                            rightButtonAction: {
+                    viewModel.deleteTravelOn(travelOnId: viewModel.travelOn.id) }, destinationView: AnyView(TravelOnListScreen()))
+            }
         }
         .onAppear {
             viewModel.fetchTravelOn(travelOnId: travelOnId)
+            opinionViewModel.fetchOpinions(travelOnId: travelOnId)
         }
         .navigationTitle("여행On")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: btnBack)
+        .navigationBarItems(leading: btnBack, trailing: moreBtn)
     }
     
     var content: some View {
         VStack(alignment: .leading) {
             // Title
             Group {
-                Text("\(viewModel.travelOn.title!)")
+                Text("\(viewModel.travelOn.title)")
                     .font(.system(size: 22))
                     .fontWeight(.medium)
             }
@@ -54,9 +102,9 @@ struct TravelOnDetailScreen: View {
             Group {
                 HStack {
                     // createdDateTime
-                    let printDate = viewModel.travelOn.createdDateTime!.components(separatedBy: "T")
-                    let yyyymmdd = printDate[0].components(separatedBy: "-")
-                    Text("\(yyyymmdd[0]).\(yyyymmdd[1]).\(yyyymmdd[2])")
+                    let printDate = viewModel.travelOn.createdDateTime.components(separatedBy: "T")
+                    let yyyyMMdd = printDate[0].components(separatedBy: "-")
+                    Text("\(yyyyMMdd[0]).\(yyyyMMdd[1]).\(yyyyMMdd[2])")
                     
                     Spacer()
                         .frame(width: 10)
@@ -71,7 +119,7 @@ struct TravelOnDetailScreen: View {
                         Spacer()
                             .frame(width: 3)
                         
-                        Text("\(viewModel.travelOn.region!.state)")
+                        Text("\(regionNameFormatter(region: viewModel.travelOn.region))")
                     }
                     
                     Spacer()
@@ -87,7 +135,7 @@ struct TravelOnDetailScreen: View {
                             .frame(width: 3)
                         
                         Text("조회수")
-                        Text("\(viewModel.travelOn.views!)")
+                        Text("\(viewModel.travelOn.views)")
                     }
                 }
             }
@@ -108,14 +156,14 @@ struct TravelOnDetailScreen: View {
                     
                     HStack {
                         ForEach(viewModel.travelOn.travelMemberSet!) { member in
-                            Text("\(memToString(mem: member.type!))")
+                            Text("\(memToString(mem: member.type))")
                                 .underline()
                         }
                         
                         Text("가는")
                             .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                         
-                        Text("\(viewModel.travelOn.region!.state) 여행")
+                        Text("\(regionNameFormatter(region: viewModel.travelOn.region)) 여행")
                             .underline()
                     }
                 }
@@ -160,7 +208,7 @@ struct TravelOnDetailScreen: View {
                         else {
                             Group {
                                 ForEach(viewModel.travelOn.hopeAccommodationSet!) { accom in
-                                    Text("\(accomToString(accom: accom.type!))")
+                                    Text("\(accomToString(accom: accom.type))")
                                         .underline()
                                 }
                             }
@@ -173,7 +221,7 @@ struct TravelOnDetailScreen: View {
                     HStack {
                         Group {
                             ForEach(viewModel.travelOn.hopeFoodSet!) { food in
-                                Text("\(foodToString(food: food.type!))")
+                                Text("\(foodToString(food: food.type))")
                                     .underline()
                             }
                         }
@@ -190,7 +238,7 @@ struct TravelOnDetailScreen: View {
                         else {
                             Group {
                                 ForEach(viewModel.travelOn.hopeDrinkSet!) { drink in
-                                    Text("\(drinkToString(drink: drink.type!))")
+                                    Text("\(drinkToString(drink: drink.type))")
                                         .underline()
                                 }
                             }
@@ -244,7 +292,7 @@ struct TravelOnDetailScreen: View {
                         .cornerRadius(10)
                     
                     
-                    Text("\(viewModel.travelOn.description!)")
+                    Text("\(viewModel.travelOn.description)")
                         .padding()
                 }
             }
@@ -268,7 +316,7 @@ struct TravelOnDetailScreen: View {
                             .strokeBorder(.white, lineWidth: 1)
                             .frame(width: 20, height: 20)
                     }
-                    Text("\(viewModel.travelOn.author!.nickname)")
+                    Text("\(viewModel.travelOn.author.nickname)")
                         .font(.system(size: 12))
                         .foregroundColor(Color(red: 117/255, green: 118/255, blue: 121/255))
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
@@ -280,7 +328,7 @@ struct TravelOnDetailScreen: View {
     
     // 답변
     var opinions: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Group {
                 HStack {
                     Text("이런 곳은 어때요?")
@@ -302,10 +350,40 @@ struct TravelOnDetailScreen: View {
                     }
                 }
                 
-                // TODO: 해당 여행On 답변 출력
-                
+                //해당 여행On 답변 출력
+                VStack(alignment: .leading) {
+                    ForEach(opinionViewModel.opinions) { opinion in
+                        //  TODO: NavigationLink로 수정
+                        ZStack(alignment: .bottomTrailing) {
+                            OpinionComponent(opinion: opinion)
+                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                            
+                            // TODO: 플랜에 장소 추가하는 기능
+                            ZStack {
+                                Rectangle()
+                                    .fill(Color(red: 255/255, green: 153/255, blue: 0/255))
+                                    .frame(width: 90, height: 24)
+                                    .cornerRadius(14)
+                                
+                                HStack(alignment: .center) {
+                                    Image(systemName: "plus")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 13)
+                                        .foregroundColor(Color.white)
+                                    
+                                    Text("플랜에 추가")
+                                        .font(.system(size: 12))
+                                        .foregroundColor(Color.white)
+                                }
+                            }
+                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                        }
+                    }
+                }
             }
         }
+        .frame(width: 350)
         .padding()
     }
     
