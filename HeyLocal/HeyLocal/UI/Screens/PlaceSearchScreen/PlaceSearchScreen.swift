@@ -89,7 +89,7 @@ extension PlaceSearchScreen {
 extension PlaceSearchScreen {
 	var searchedItemList: some View {
 		ScrollView {
-			LazyVStack(alignment: .center) {
+			LazyVStack(alignment: .center, spacing: 0) {
 				// 검색 결과
 				ForEach(viewModel.searchedItems, id: \.id) { searchedItem($0) }
 				
@@ -105,32 +105,44 @@ extension PlaceSearchScreen {
 	}
 	
 	func searchedItem(_ item: Place) -> some View {
-		HStack(alignment: .center) {
-			RoundedRectangle(cornerRadius: 5) // 썸네일 이미지
-				.fill(.gray)
-				.frame(width: 50, height: 50)
+		HStack(alignment: .center, spacing: 0) {
+			// 썸네일
+			WebImage(url: "https://www.busan.go.kr/resource/img/geopark/sub/busantour/busantour1.jpg")
+				.frame(width: 56, height: 56)
+				.cornerRadius(.infinity)
 			
+			// 텍스트
 			VStack(alignment: .leading) {
 				Text(item.name) // 이름
-					.font(.title3)
-					.fontWeight(.bold)
+					.font(.system(size: 16))
+					.fontWeight(.medium)
 				Text("\(item.categoryName) | \(item.address)") // 주소
-					.font(.subheadline)
+					.font(.system(size: 12))
+					.foregroundColor(Color("gray"))
 			}
+			.padding(.leading, 12)
 			
 			Spacer()
 			
-			if (viewModel.isSelected(item)) {
-				Button("선택") {}
-					.disabled(true)
-			} else {
-				Button("선택") { // 장소 선택 버튼
-					viewModel.addSelectedItem(item)
+			// 선택 버튼
+			Button {
+				viewModel.addSelectedItem(item)
+			} label: {
+				ZStack {
+					RoundedRectangle(cornerRadius: 100)
+						.fill(Color("orange"))
+						.frame(width: 38, height: 20)
+					Text("선택")
+						.font(.system(size: 12))
+						.foregroundColor(.white)
 				}
 			}
+			.if(viewModel.isSelected(item)) {
+				$0.disabled(true)
+			}
 		}
-		.frame(height: 70)
-		.padding(.horizontal)
+		.frame(height: 80)
+		.padding(.horizontal, 21)
 	}
 }
 
