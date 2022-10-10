@@ -155,20 +155,12 @@ extension PlanDetailScreen {
 	var scheduleView: some View {
 		TabView(selection: $viewModel.currentDay) {
 			ForEach(viewModel.schedules.indices, id: \.self) {
-				scheduleTab(day: $0 + 1)
+				placeListOf(day: $0 + 1)
 					.tag($0 + 1)
 					.environment(\.editMode, $viewModel.editMode)
 			}
 		}
 		.tabViewStyle(.page(indexDisplayMode: .never))
-	}
-	
-	/// 스케줄 뷰의 한 탭을 출력합니다.
-	func scheduleTab(day: Int) -> some View {
-		VStack(spacing: 0) {
-			placeListOf(day: day)
-//			scheduleToolbar
-		}
 	}
 }
 

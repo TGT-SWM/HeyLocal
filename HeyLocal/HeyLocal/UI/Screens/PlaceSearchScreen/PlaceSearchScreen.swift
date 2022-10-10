@@ -23,19 +23,11 @@ struct PlaceSearchScreen: View {
 			selectedItemList
 			searchedItemList
 			// recommendation
+			completeButton
 		}
 		.navigationTitle("장소 검색")
 		.navigationBarTitleDisplayMode(.inline)
-		.toolbar {
-			Button("완료", action: handleComplete)
-		}
     }
-	
-	/// 완료 버튼 클릭 시 이전 화면으로 Go Back
-	func handleComplete() {
-		onComplete(viewModel.selectedItems)
-		dismiss()
-	}
 }
 
 
@@ -156,6 +148,40 @@ extension PlaceSearchScreen {
 		}
 	}
 }
+
+
+// MARK: - 선택 완료 버튼
+
+extension PlaceSearchScreen {
+	/// 장소 선택 완료 버튼입니다.
+	var completeButton: some View {
+		Button {
+			handleComplete()
+		} label: {
+			ZStack {
+				RoundedRectangle(cornerRadius: 22)
+					.fill(Color("orange"))
+					.frame(maxWidth: .infinity)
+					.frame(height: 44)
+				Text("장소 선택 완료")
+					.foregroundColor(.white)
+					.font(.system(size: 16))
+					.fontWeight(.medium)
+			}
+			.padding(.horizontal, 20)
+			.padding(.bottom, 46)
+		}
+	}
+	
+	/// 완료 버튼 클릭 시 이전 화면으로 Go Back
+	func handleComplete() {
+		onComplete(viewModel.selectedItems)
+		dismiss()
+	}
+}
+
+
+// MARK: - Previews
 
 struct PlaceSearchScreen_Previews: PreviewProvider {
     static var previews: some View {
