@@ -12,10 +12,9 @@ import SwiftUI
 
 struct PlaceSearchScreen: View {
 	@ObservedObject var viewModel = ViewModel()
-	@Environment(\.presentationMode) var presentationMode
+	@Environment(\.dismiss) var dismiss
 	
-	/// 장소 선택 결과를 반환하기 위한 @Binding 파라미터
-//	@Binding var places: [Place]
+	/// 장소 선택 완료 시 실행되는 콜백 함수
 	var onComplete: ([Place]) -> Void
 	
     var body: some View {
@@ -34,9 +33,8 @@ struct PlaceSearchScreen: View {
 	
 	/// 완료 버튼 클릭 시 이전 화면으로 Go Back
 	func handleComplete() {
-//		places.append(contentsOf: viewModel.selectedItems)
 		onComplete(viewModel.selectedItems)
-		presentationMode.wrappedValue.dismiss()
+		dismiss()
 	}
 }
 
@@ -45,15 +43,9 @@ struct PlaceSearchScreen: View {
 
 extension PlaceSearchScreen {
 	var searchForm: some View {
-		HStack {
-			TextField("검색어", text: $viewModel.query)
-				.background(Color.init(red: 0, green: 0, blue: 0, opacity: 0.1))
-				.cornerRadius(5)
-			Button("검색") {
-				viewModel.search()
-			}
+		SearchBar(placeholder: "", searchText: $viewModel.query) { _ in
+			viewModel.search()
 		}
-		.padding()
 	}
 }
 
