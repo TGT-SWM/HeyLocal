@@ -99,7 +99,7 @@ extension PlanDetailScreen.ViewModel {
 		let startDate = DateFormat.strToDate(plan.startDate, "yyyy-MM-dd")
 		let advancedSeconds = (currentDay - 1) * 24 * 60 * 60
 		let advancedDate = startDate.advanced(by: TimeInterval(advancedSeconds))
-		return DateFormat.dateToStr(advancedDate, "d")
+		return DateFormat.dateToStr(advancedDate, "MM.dd(E)")
 	}
 }
 

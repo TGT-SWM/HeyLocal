@@ -9,10 +9,20 @@
 import SwiftUI
 
 struct MyPlanScreen: View {
+	init() {
+		// 네비게이션 바 스타일 적용
+		let navbarAppearance = UINavigationBarAppearance()
+		navbarAppearance.configureWithOpaqueBackground()
+		navbarAppearance.backgroundColor = .white
+		navbarAppearance.shadowColor = .clear
+		UINavigationBar.appearance().standardAppearance = navbarAppearance
+		UINavigationBar.appearance().scrollEdgeAppearance = navbarAppearance
+	}
+	
     var body: some View {
 		NavigationView {
 			ZStack(alignment: .bottomTrailing) {
-				VStack { MyPlanList() }
+				MyPlanList()
 				NavigationLink(destination: PlanCreateScreen()) { FAB() }
 					.padding(EdgeInsets(top: 0, leading: 0, bottom: 50, trailing: 20))
 			}

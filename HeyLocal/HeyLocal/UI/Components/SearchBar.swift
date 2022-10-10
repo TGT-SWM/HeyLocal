@@ -12,6 +12,9 @@ import SwiftUI
 struct SearchBar: View {
     var placeholder: String
     @Binding var searchText: String
+	
+	/// 검색 버튼이 눌렸을 때 실행할 콜백 함수
+	var onSubmit: ((String) -> Void)?
     
     var body: some View {
         ZStack(alignment: .trailing) {
@@ -21,9 +24,15 @@ struct SearchBar: View {
                 .background(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
                 .cornerRadius(10)
             
-            Image(systemName: "magnifyingglass")
-                .foregroundColor(Color(red: 110 / 255, green: 108 / 255, blue: 106 / 255))
-                .padding()
+			Button {
+				if let onSubmit = onSubmit {
+					onSubmit(searchText)
+				}
+			} label: {
+				Image(systemName: "magnifyingglass")
+					.foregroundColor(Color(red: 110 / 255, green: 108 / 255, blue: 106 / 255))
+					.padding()
+			}
         }
     }
 }

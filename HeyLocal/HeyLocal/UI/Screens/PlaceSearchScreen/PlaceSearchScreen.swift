@@ -12,10 +12,9 @@ import SwiftUI
 
 struct PlaceSearchScreen: View {
 	@ObservedObject var viewModel = ViewModel()
-	@Environment(\.presentationMode) var presentationMode
+	@Environment(\.dismiss) var dismiss
 	
-	/// 장소 선택 결과를 반환하기 위한 @Binding 파라미터
-//	@Binding var places: [Place]
+	/// 장소 선택 완료 시 실행되는 콜백 함수
 	var onComplete: ([Place]) -> Void
 	
     var body: some View {
@@ -24,20 +23,17 @@ struct PlaceSearchScreen: View {
 			selectedItemList
 			searchedItemList
 			// recommendation
+			completeButton
 		}
 		.navigationTitle("장소 검색")
 		.navigationBarTitleDisplayMode(.inline)
+		.navigationBarBackButtonHidden(true)
 		.toolbar {
-			Button("완료", action: handleComplete)
+			ToolbarItem(placement: .navigationBarLeading) {
+				BackButton()
+			}
 		}
     }
-	
-	/// 완료 버튼 클릭 시 이전 화면으로 Go Back
-	func handleComplete() {
-//		places.append(contentsOf: viewModel.selectedItems)
-		onComplete(viewModel.selectedItems)
-		presentationMode.wrappedValue.dismiss()
-	}
 }
 
 
@@ -45,15 +41,9 @@ struct PlaceSearchScreen: View {
 
 extension PlaceSearchScreen {
 	var searchForm: some View {
-		HStack {
-			TextField("검색어", text: $viewModel.query)
-				.background(Color.init(red: 0, green: 0, blue: 0, opacity: 0.1))
-				.cornerRadius(5)
-			Button("검색") {
-				viewModel.search()
-			}
+		SearchBar(placeholder: "", searchText: $viewModel.query) { _ in
+			viewModel.search()
 		}
-		.padding()
 	}
 }
 
@@ -97,7 +87,7 @@ extension PlaceSearchScreen {
 extension PlaceSearchScreen {
 	var searchedItemList: some View {
 		ScrollView {
-			LazyVStack(alignment: .center) {
+			LazyVStack(alignment: .center, spacing: 0) {
 				// 검색 결과
 				ForEach(viewModel.searchedItems, id: \.id) { searchedItem($0) }
 				
@@ -113,32 +103,44 @@ extension PlaceSearchScreen {
 	}
 	
 	func searchedItem(_ item: Place) -> some View {
-		HStack(alignment: .center) {
-			RoundedRectangle(cornerRadius: 5) // 썸네일 이미지
-				.fill(.gray)
-				.frame(width: 50, height: 50)
+		HStack(alignment: .center, spacing: 0) {
+			// 썸네일
+			WebImage(url: "https://www.busan.go.kr/resource/img/geopark/sub/busantour/busantour1.jpg")
+				.frame(width: 56, height: 56)
+				.cornerRadius(.infinity)
 			
+			// 텍스트
 			VStack(alignment: .leading) {
 				Text(item.name) // 이름
-					.font(.title3)
-					.fontWeight(.bold)
+					.font(.system(size: 16))
+					.fontWeight(.medium)
 				Text("\(item.categoryName) | \(item.address)") // 주소
-					.font(.subheadline)
+					.font(.system(size: 12))
+					.foregroundColor(Color("gray"))
 			}
+			.padding(.leading, 12)
 			
 			Spacer()
 			
-			if (viewModel.isSelected(item)) {
-				Button("선택") {}
-					.disabled(true)
-			} else {
-				Button("선택") { // 장소 선택 버튼
-					viewModel.addSelectedItem(item)
+			// 선택 버튼
+			Button {
+				viewModel.addSelectedItem(item)
+			} label: {
+				ZStack {
+					RoundedRectangle(cornerRadius: 100)
+						.fill(Color("orange"))
+						.frame(width: 38, height: 20)
+					Text("선택")
+						.font(.system(size: 12))
+						.foregroundColor(.white)
 				}
 			}
+			.if(viewModel.isSelected(item)) {
+				$0.disabled(true)
+			}
 		}
-		.frame(height: 70)
-		.padding(.horizontal)
+		.frame(height: 80)
+		.padding(.horizontal, 21)
 	}
 }
 
@@ -152,6 +154,40 @@ extension PlaceSearchScreen {
 		}
 	}
 }
+
+
+// MARK: - 선택 완료 버튼
+
+extension PlaceSearchScreen {
+	/// 장소 선택 완료 버튼입니다.
+	var completeButton: some View {
+		Button {
+			handleComplete()
+		} label: {
+			ZStack {
+				RoundedRectangle(cornerRadius: 22)
+					.fill(Color("orange"))
+					.frame(maxWidth: .infinity)
+					.frame(height: 44)
+				Text("장소 선택 완료")
+					.foregroundColor(.white)
+					.font(.system(size: 16))
+					.fontWeight(.medium)
+			}
+			.padding(.horizontal, 20)
+			.padding(.bottom, 46)
+		}
+	}
+	
+	/// 완료 버튼 클릭 시 이전 화면으로 Go Back
+	func handleComplete() {
+		onComplete(viewModel.selectedItems)
+		dismiss()
+	}
+}
+
+
+// MARK: - Previews
 
 struct PlaceSearchScreen_Previews: PreviewProvider {
     static var previews: some View {

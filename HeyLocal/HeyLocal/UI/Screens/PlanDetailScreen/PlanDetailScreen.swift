@@ -14,34 +14,36 @@ struct PlanDetailScreen: View {
 	@ObservedObject var viewModel: ViewModel // 뷰 모델
 	var plan: Plan // 대상이 되는 플랜 객체
 	
+	@Environment(\.dismiss) var dismiss
+	@Environment(\.displayTabBar) var displayTabBar
+	
 	init(plan: Plan) {
 		self.plan = plan
 		self.viewModel = ViewModel(plan: plan)
 	}
 	
     var body: some View {
-		VStack {
+		VStack(spacing: 0) {
 			header
+			dayControlView
 			if (viewModel.showMapView) { mapView }
 			else { scheduleView }
-			dayControlButtons
 		}
+		.onAppear { displayTabBar(false) }
+		.background(Color("lightGray"))
+		.animation(.easeInOut, value: viewModel.editMode)
 		.navigationTitle("마이 플랜")
 		.navigationBarTitleDisplayMode(.inline)
-		.animation(.easeInOut, value: viewModel.editMode)
-		.toolbar { editButton }
-    }
-	
-	/// 일자 이동을 위한 버튼입니다.
-	var dayControlButtons: some View {
-		HStack {
-			Button("이전") { viewModel.goPrevDay() }
-				.disabled(viewModel.isFirstDay)
-			Button("다음") { viewModel.goNextDay() }
-				.disabled(viewModel.isLastDay)
+		.navigationBarBackButtonHidden(true)
+		.toolbar {
+			ToolbarItem(placement: .navigationBarLeading) {
+				BackButton { displayTabBar(true) }
+			}
+			ToolbarItem(placement: .navigationBarTrailing) {
+				editButton
+			}
 		}
-		.padding()
-	}
+    }
 	
 	/// 스케줄 수정 모드로 진입하기 위한 버튼입니다.
 	var editButton: some View {
@@ -62,13 +64,27 @@ struct PlanDetailScreen: View {
 extension PlanDetailScreen {
 	/// 상단 헤더를 출력합니다.
 	var header: some View {
-		HStack {
-			headerTitleSection
-			Spacer()
-			headerDaySection
-			mapToggleButton
+		ZStack {
+			Color.white
+			HStack(alignment: .center, spacing: 0) {
+				thumbnail
+				headerTitleSection
+				Spacer()
+				mapToggleButton
+			}
+			
+			.padding(.horizontal, 21)
+			.padding(.vertical, 16)
 		}
-		.padding()
+		.frame(height: 90)
+		.padding(.bottom, 1)
+	}
+	
+	/// 플랜의 썸네일을 출력합니다.
+	var thumbnail: some View {
+		WebImage(url: "https://www.busan.go.kr/resource/img/geopark/sub/busantour/busantour1.jpg")
+			.frame(width: 56, height: 56)
+			.cornerRadius(.infinity)
 	}
 	
 	/// 플랜의 제목과 여행 기간을 출력합니다.
@@ -76,8 +92,10 @@ extension PlanDetailScreen {
 		VStack(alignment: .leading) {
 			headerPlanTitleSection
 			Text(DateFormat.format(plan.startDate, from: "yyyy-MM-dd", to: "M월 d일") + " ~ " + DateFormat.format(plan.endDate, from: "yyyy-MM-dd", to: "M월 d일"))
-				.font(.subheadline)
+				.font(.system(size: 12))
+				.foregroundColor(Color("gray"))
 		}
+		.padding(.leading, 12)
 	}
 	
 	/// 플랜 제목을 출력합니다.
@@ -86,7 +104,7 @@ extension PlanDetailScreen {
 		HStack {
 			if viewModel.isPlanTitleEditing {
 				TextField("플랜 제목", text: viewModel.planTitle)
-					.font(.title2)
+					.font(.system(size: 16))
 				Button {
 					viewModel.savePlanTitle()
 				} label: {
@@ -94,8 +112,8 @@ extension PlanDetailScreen {
 				}
 			} else {
 				Text(viewModel.planTitle.wrappedValue)
-					.font(.title2)
-					.fontWeight(.bold)
+					.font(.system(size: 16))
+					.fontWeight(.medium)
 				Button {
 					viewModel.editPlanTitle()
 				} label: {
@@ -105,14 +123,6 @@ extension PlanDetailScreen {
 		}
 	}
 	
-	/// 현재 보고 있는 플랜 일자를 출력합니다.
-	var headerDaySection: some View {
-		VStack(alignment: .center) {
-			Text("\(viewModel.currentDay)일차")
-			Text("(\(viewModel.currentDate)일)")
-		}.padding(.trailing, 5)
-	}
-	
 	/// 스케줄 뷰 <-> 지도 뷰 전환 버튼입니다.
 	var mapToggleButton: some View {
 		Button {
@@ -120,7 +130,32 @@ extension PlanDetailScreen {
 		} label: {
 			Image(systemName: viewModel.showMapView ? "map.fill" : "map")
 				.font(.system(size: 24))
+				.foregroundColor(.black)
 		}
+	}
+}
+
+
+// MARK: - 여행 일자 뷰
+
+extension PlanDetailScreen {
+	var dayControlView: some View {
+		ZStack {
+			Color.white
+			HStack {
+				Text("DAY \(viewModel.currentDay)")
+					.font(.system(size: 14))
+					.fontWeight(.medium)
+				Text("\(viewModel.currentDate)")
+					.font(.system(size: 14))
+					.fontWeight(.medium)
+					.foregroundColor(Color("gray"))
+				Spacer()
+			}
+			.padding(.horizontal, 27)
+		}
+		.frame(height: 40)
+		.padding(.bottom, 7)
 	}
 }
 
@@ -130,24 +165,6 @@ extension PlanDetailScreen {
 extension PlanDetailScreen {
 	/// 스케줄 뷰를 출력합니다.
 	var scheduleView: some View {
-		VStack {
-			if !viewModel.schedules.isEmpty { addPlacesButton }
-			scheduleTabs
-		}
-	}
-	
-	/// 장소 검색 화면으로 이동해 스케줄에 장소들을 추가하기 위한 버튼입니다.
-	var addPlacesButton: some View {
-		NavigationLink(
-			destination: PlaceSearchScreen(onComplete: viewModel.handleAddPlaces)
-		) {
-			Text("해당 일자에 장소 추가하기")
-		}
-		.padding()
-	}
-	
-	/// 스케줄을 일자별 탭으로 나누어 출력합니다.
-	var scheduleTabs: some View {
 		TabView(selection: $viewModel.currentDay) {
 			ForEach(viewModel.schedules.indices, id: \.self) {
 				placeListOf(day: $0 + 1)

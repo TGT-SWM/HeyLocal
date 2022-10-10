@@ -14,25 +14,39 @@ extension PlanDetailScreen {
 	/// 장소를 출력하는 리스트입니다.
 	func placeListOf(day: Int) -> some View {
 		ZStack {
+			// 장소 목록이 비어 있을 때
 			if (viewModel.scheduleOf(day: day).isEmpty) {
 				Text("등록된 장소가 없습니다. 장소를 추가해보세요.")
-			} else {
-				List {
-					ForEach(viewModel.scheduleOf(day: day).indices, id: \.self) {
-						listItem(
-							index: $0,
-							place: viewModel.placeOf(day: day, index: $0)
-						)
-					}
-					.onDelete(perform: deleteHandler(day: day))
-					.onMove(perform: moveHandler(day: day))
-				}
 			}
-			
+			// 장소 목록을 출력
+			else {
+				List {
+					listItems(day: day) // 장소 항목들
+					scheduleToolbar // 하단 버튼 뷰
+				}
+				.listStyle(PlainListStyle())
+			}
+			// 도착 시간 수정 팝업
 			if viewModel.isEditingArrivalTime {
 				arrivalTimeEditView
 			}
 		}
+	}
+}
+
+// MARK: - 리스트
+
+extension PlanDetailScreen {
+	/// 리스트에 들어갈 항목들을 반환합니다.
+	func listItems(day: Int) -> some View {
+		ForEach(viewModel.scheduleOf(day: day).indices, id: \.self) {
+			listItem(
+				index: $0,
+				place: viewModel.placeOf(day: day, index: $0)
+			)
+		}
+		.onDelete(perform: deleteHandler(day: day))
+		.onMove(perform: moveHandler(day: day))
 	}
 	
 	/// 리스트의 항목 뷰를 반환합니다.
@@ -43,36 +57,39 @@ extension PlanDetailScreen {
 			VStack(alignment: .leading) {
 				HStack {
 					if let arrivalTime = place.wrappedValue.arrivalTime {
-						Text("\(DateFormat.format(arrivalTime, from: "HH:mm:ss", to: "HH:mm")) 도착")
-							.font(.subheadline)
+						Text("\(DateFormat.format(arrivalTime, from: "HH:mm:ss", to: "a hh:mm"))")
+							.font(.system(size: 12))
 					} else {
-						Text("도착 시간 없음")
-							.font(.subheadline)
+						Text("도착 시간을 설정해주세요")
+							.font(.system(size: 12))
 					}
 					arrivalTimeEditButton(place: place)
 				}
 				
 				Text(place.wrappedValue.name) // 이름
-					.font(.title3)
-					.fontWeight(.bold)
-				Text("\(place.wrappedValue.categoryName) | \(place.wrappedValue.address)") // 주소
-					.font(.subheadline)
+					.font(.system(size: 16))
+					.fontWeight(.medium)
 			}
 			
 			Spacer()
 		}
-		.frame(height: 75)
+		.frame(height: 72)
+		.padding(.horizontal, 20)
+		.listRowSeparator(.hidden)
+		.listRowInsets(EdgeInsets())
 	}
 	
 	/// 스케줄 안에서 장소의 순서를 출력합니다.
 	func placeOrder(order: Int) -> some View {
 		Text("\(order)")
-			.fontWeight(.bold)
-			.padding()
+			.font(.system(size: 14))
+			.fontWeight(.medium)
+			.foregroundColor(.white)
+			.padding(12)
 			.background(
 				Circle()
-					.frame(width: 32, height: 32)
-					.foregroundColor(Color("lightGray"))
+					.frame(width: 24, height: 24)
+					.foregroundColor(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
 			)
 	}
 	
@@ -92,6 +109,56 @@ extension PlanDetailScreen {
 				.wrappedValue
 				.move(fromOffsets: from, toOffset: to)
 		}
+	}
+}
+
+
+// MARK: - 스케줄 뷰의 하단 버튼
+
+extension PlanDetailScreen {
+	/// 여행 장소 추가 버튼과 최적루트 재정렬 버튼을 표시합니다.
+	var scheduleToolbar: some View {
+		HStack(alignment: .center) {
+			addPlacesButton
+			rearrangeButton
+		}
+		.frame(height: 56)
+		.background(Color.white)
+	}
+	
+	/// 장소 검색 화면으로 이동해 스케줄에 장소들을 추가하기 위한 버튼입니다.
+	var addPlacesButton: some View {
+		HStack {
+			Image(systemName: "plus")
+				.frame(width: 24, height: 24)
+			Text("여행 장소 추가")
+				.font(.system(size: 14))
+				.fontWeight(.medium)
+			
+			NavigationLink(destination: PlaceSearchScreen(onComplete: viewModel.handleAddPlaces)) {
+				EmptyView()
+			}
+			.frame(width: 0)
+			.opacity(0)
+		}
+		.foregroundColor(Color(red: 126 / 255, green: 0, blue: 217 / 255))
+		.frame(maxWidth: .infinity)
+	}
+	
+	/// 스케줄을 자동으로 재정렬합니다.
+	var rearrangeButton: some View {
+		Button {
+			
+		} label: {
+			Image("refresh_purple_icon")
+				.frame(width: 24, height: 24)
+			Text("최적루트 재정렬")
+				.font(.system(size: 14))
+				.fontWeight(.medium)
+		}
+		.buttonStyle(PlainButtonStyle())
+		.foregroundColor(Color(red: 126 / 255, green: 0, blue: 217 / 255))
+		.frame(maxWidth: .infinity)
 	}
 }
 
