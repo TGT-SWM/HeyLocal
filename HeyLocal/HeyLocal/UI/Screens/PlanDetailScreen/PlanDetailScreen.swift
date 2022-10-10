@@ -20,12 +20,13 @@ struct PlanDetailScreen: View {
 	}
 	
     var body: some View {
-		VStack {
+		VStack(spacing: 0) {
 			header
 			dayControlView
 			if (viewModel.showMapView) { mapView }
 			else { scheduleView }
 		}
+		.background(Color("lightGray"))
 		.navigationTitle("마이 플랜")
 		.navigationBarTitleDisplayMode(.inline)
 		.animation(.easeInOut, value: viewModel.editMode)
@@ -51,14 +52,20 @@ struct PlanDetailScreen: View {
 extension PlanDetailScreen {
 	/// 상단 헤더를 출력합니다.
 	var header: some View {
-		HStack(alignment: .center, spacing: 0) {
-			thumbnail
-			headerTitleSection
-			Spacer()
-			mapToggleButton
+		ZStack {
+			Color.white
+			HStack(alignment: .center, spacing: 0) {
+				thumbnail
+				headerTitleSection
+				Spacer()
+				mapToggleButton
+			}
+			
+			.padding(.horizontal, 21)
+			.padding(.vertical, 16)
 		}
-		.padding(.horizontal, 21)
-		.padding(.vertical, 16)
+		.frame(height: 90)
+		.padding(.bottom, 1)
 	}
 	
 	/// 플랜의 썸네일을 출력합니다.
@@ -121,17 +128,22 @@ extension PlanDetailScreen {
 
 extension PlanDetailScreen {
 	var dayControlView: some View {
-		HStack {
-			Text("DAY \(viewModel.currentDay)")
-				.font(.system(size: 14))
-				.fontWeight(.medium)
-			Text("\(viewModel.currentDate)")
-				.font(.system(size: 14))
-				.fontWeight(.medium)
-				.foregroundColor(Color("gray"))
-			Spacer()
+		ZStack {
+			Color.white
+			HStack {
+				Text("DAY \(viewModel.currentDay)")
+					.font(.system(size: 14))
+					.fontWeight(.medium)
+				Text("\(viewModel.currentDate)")
+					.font(.system(size: 14))
+					.fontWeight(.medium)
+					.foregroundColor(Color("gray"))
+				Spacer()
+			}
+			.padding(.horizontal, 27)
 		}
-		.padding(.horizontal, 27)
+		.frame(height: 40)
+		.padding(.bottom, 7)
 	}
 }
 
@@ -141,17 +153,9 @@ extension PlanDetailScreen {
 extension PlanDetailScreen {
 	/// 스케줄 뷰를 출력합니다.
 	var scheduleView: some View {
-		VStack {
-			scheduleTabs
-			scheduleToolbar
-		}
-	}
-	
-	/// 스케줄을 일자별 탭으로 나누어 출력합니다.
-	var scheduleTabs: some View {
 		TabView(selection: $viewModel.currentDay) {
 			ForEach(viewModel.schedules.indices, id: \.self) {
-				placeListOf(day: $0 + 1)
+				scheduleTab(day: $0 + 1)
 					.tag($0 + 1)
 					.environment(\.editMode, $viewModel.editMode)
 			}
@@ -159,42 +163,12 @@ extension PlanDetailScreen {
 		.tabViewStyle(.page(indexDisplayMode: .never))
 	}
 	
-	/// 여행 장소 추가 버튼과 최적루트 재정렬 버튼을 표시합니다.
-	var scheduleToolbar: some View {
-		HStack {
-			addPlacesButton
-			rearrangeButton
+	/// 스케줄 뷰의 한 탭을 출력합니다.
+	func scheduleTab(day: Int) -> some View {
+		VStack(spacing: 0) {
+			placeListOf(day: day)
+//			scheduleToolbar
 		}
-	}
-	
-	/// 장소 검색 화면으로 이동해 스케줄에 장소들을 추가하기 위한 버튼입니다.
-	var addPlacesButton: some View {
-		NavigationLink(destination: PlaceSearchScreen(onComplete: viewModel.handleAddPlaces)) {
-			Image(systemName: "plus")
-				.frame(width: 24, height: 24)
-			Text("여행 장소 추가")
-				.font(.system(size: 14))
-				.fontWeight(.medium)
-		}
-		.buttonStyle(PlainButtonStyle())
-		.foregroundColor(Color(red: 126 / 255, green: 0, blue: 217 / 255))
-		.frame(maxWidth: .infinity)
-	}
-	
-	/// 스케줄을 자동으로 재정렬합니다.
-	var rearrangeButton: some View {
-		Button {
-			
-		} label: {
-			Image("refresh_purple_icon")
-				.frame(width: 24, height: 24)
-			Text("최적루트 재정렬")
-				.font(.system(size: 14))
-				.fontWeight(.medium)
-		}
-		.buttonStyle(PlainButtonStyle())
-		.foregroundColor(Color(red: 126 / 255, green: 0, blue: 217 / 255))
-		.frame(maxWidth: .infinity)
 	}
 }
 
