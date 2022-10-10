@@ -76,6 +76,7 @@
 		EFDC441B28C0735400E8747C /* PlanRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFDC441A28C0735400E8747C /* PlanRepository.swift */; };
 		EFDC441D28C073E000E8747C /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFDC441C28C073E000E8747C /* Plan.swift */; };
 		EFF223B028F4A03E00E6781D /* FlatLinkStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF223AF28F4A03E00E6781D /* FlatLinkStyle.swift */; };
+		EFF223B228F4B33F00E6781D /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF223B128F4B33F00E6781D /* BackButton.swift */; };
 		EFF9F39528C5523200E9FCB3 /* map_pinup_custom@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EFF9F37028C5523200E9FCB3 /* map_pinup_custom@3x.png */; };
 		EFF9F39628C5523200E9FCB3 /* map_pin_custom.png in Resources */ = {isa = PBXBuildFile; fileRef = EFF9F37128C5523200E9FCB3 /* map_pin_custom.png */; };
 		EFF9F39728C5523200E9FCB3 /* shadow_balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = EFF9F37228C5523200E9FCB3 /* shadow_balloon.png */; };
@@ -188,6 +189,7 @@
 		EFDC441A28C0735400E8747C /* PlanRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanRepository.swift; sourceTree = "<group>"; };
 		EFDC441C28C073E000E8747C /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
 		EFF223AF28F4A03E00E6781D /* FlatLinkStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatLinkStyle.swift; sourceTree = "<group>"; };
+		EFF223B128F4B33F00E6781D /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		EFF9F37028C5523200E9FCB3 /* map_pinup_custom@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_pinup_custom@3x.png"; sourceTree = "<group>"; };
 		EFF9F37128C5523200E9FCB3 /* map_pin_custom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pin_custom.png; sourceTree = "<group>"; };
 		EFF9F37228C5523200E9FCB3 /* shadow_balloon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shadow_balloon.png; sourceTree = "<group>"; };
@@ -517,6 +519,7 @@
 				A87F6C9E28C0A1050076046E /* TopTabs.swift */,
 				A836925728C6F48D00DBDB06 /* SearchBar.swift */,
 				EF4DD9A028E24CAE00E0D072 /* FAB.swift */,
+				EFF223B128F4B33F00E6781D /* BackButton.swift */,
 				A814DF7A28ED5D5500DBF383 /* CustomAlert.swift */,
 			);
 			path = Components;
@@ -763,6 +766,7 @@
 				EF3C061228E0EDC4003F3188 /* KakaoAPIService.swift in Sources */,
 				A84E841228B8C28600128D9B /* SignInScreen.swift in Sources */,
 				EF26CD8A28C0EECA006D0D27 /* PlanService.swift in Sources */,
+				EFF223B228F4B33F00E6781D /* BackButton.swift in Sources */,
 				A877D99C28F265F000527E21 /* OpinionService.swift in Sources */,
 				EF26CD8D28C0F102006D0D27 /* MyPlanScreen.swift in Sources */,
 				A8794B3128B4EB5900959D56 /* BasicButtonStyle.swift in Sources */,

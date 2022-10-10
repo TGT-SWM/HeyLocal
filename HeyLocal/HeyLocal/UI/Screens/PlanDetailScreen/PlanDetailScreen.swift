@@ -14,6 +14,9 @@ struct PlanDetailScreen: View {
 	@ObservedObject var viewModel: ViewModel // 뷰 모델
 	var plan: Plan // 대상이 되는 플랜 객체
 	
+	@Environment(\.dismiss) var dismiss
+	@Environment(\.displayTabBar) var displayTabBar
+	
 	init(plan: Plan) {
 		self.plan = plan
 		self.viewModel = ViewModel(plan: plan)
@@ -26,11 +29,20 @@ struct PlanDetailScreen: View {
 			if (viewModel.showMapView) { mapView }
 			else { scheduleView }
 		}
+		.onAppear { displayTabBar(false) }
 		.background(Color("lightGray"))
+		.animation(.easeInOut, value: viewModel.editMode)
 		.navigationTitle("마이 플랜")
 		.navigationBarTitleDisplayMode(.inline)
-		.animation(.easeInOut, value: viewModel.editMode)
-		.toolbar { editButton }
+		.navigationBarBackButtonHidden(true)
+		.toolbar {
+			ToolbarItem(placement: .navigationBarLeading) {
+				BackButton { displayTabBar(true) }
+			}
+			ToolbarItem(placement: .navigationBarTrailing) {
+				editButton
+			}
+		}
     }
 	
 	/// 스케줄 수정 모드로 진입하기 위한 버튼입니다.

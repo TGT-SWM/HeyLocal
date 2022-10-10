@@ -27,6 +27,12 @@ struct PlaceSearchScreen: View {
 		}
 		.navigationTitle("장소 검색")
 		.navigationBarTitleDisplayMode(.inline)
+		.navigationBarBackButtonHidden(true)
+		.toolbar {
+			ToolbarItem(placement: .navigationBarLeading) {
+				BackButton()
+			}
+		}
     }
 }
 
