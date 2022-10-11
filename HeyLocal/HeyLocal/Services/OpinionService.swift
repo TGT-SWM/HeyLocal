@@ -20,4 +20,9 @@ struct OpinionService {
     func deleteOpinion(travelOnId: Int, opinionId: Int) {
         return opinionRepository.deleteOpinion(travelOnId: travelOnId, opinionId: opinionId)
     }
+    
+    // 답변 등록
+    func postOpinion(travelOnId: Int) {
+        
+    }
 }

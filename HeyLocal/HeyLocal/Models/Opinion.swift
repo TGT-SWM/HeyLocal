@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Opinion: Decodable, Identifiable {
+struct Opinion: Codable, Identifiable {
     // MARK: - 필수
     var id: Int = 0
     var author: Author = Author()
@@ -44,7 +44,7 @@ struct Opinion: Decodable, Identifiable {
     var deafening: String? = ""
     var hasBreakFast: Bool? = false
 }
-struct TmpPlace: Decodable {
+struct TmpPlace: Codable {
     var id: Int = 0
     var name: String = ""
     var address: String = ""
@@ -56,3 +56,40 @@ struct TmpPlace: Decodable {
     var lat: Double? = 0
     var lng: Double? = 0
 }
+
+//
+//{
+//  "cafeMoodType": "CUTE",
+//  "canParking": false,
+//  "coffeeType": "BITTER",
+//  "costPerformance": "BAD",
+//  "deafening": "BAD",
+//  "description": "string",
+//  "facilityCleanliness": "BAD",
+//  "hasBreakFast": false,
+//  "photoSpotDescription": "string",
+//  "place": {
+//    "address": "string",
+//    "category": "AC5",
+//    "id": 0,
+//    "kakaoLink": "string",
+//    "lat": 0,
+//    "lng": 0,
+//    "name": "string",
+//    "roadAddress": "string",
+//    "thumbnailUrl": "string"
+//  },
+//  "quantity": {
+//    "drinkAndDessertImgQuantity": 0,
+//    "foodImgQuantity": 0,
+//    "generalImgQuantity": 0,
+//    "photoSpotImgQuantity": 0
+//  },
+//  "recommendDrinkAndDessertDescription": "string",
+//  "recommendFoodDescription": "string",
+//  "recommendSnack": "string",
+//  "recommendToDo": "string",
+//  "restaurantMoodType": "COMFORTABLE",
+//  "streetNoise": "BAD",
+//  "waiting": false
+//}

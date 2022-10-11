@@ -337,8 +337,7 @@ struct TravelOnDetailScreen: View {
                     
                     Spacer()
                     
-                    // TODO: Navigation Link
-                    Button(action: {}) {
+                    NavigationLink(destination: OpinionWriteScreen(travelOnId: travelOnId)) {
                         HStack {
                             Image(systemName: "plus")
                             Spacer()
@@ -348,6 +347,7 @@ struct TravelOnDetailScreen: View {
                         .font(.system(size: 12))
                         .foregroundColor(Color(red: 255/255, green: 153/255, blue: 0/255))
                     }
+                    
                 }
                 
                 //해당 여행On 답변 출력

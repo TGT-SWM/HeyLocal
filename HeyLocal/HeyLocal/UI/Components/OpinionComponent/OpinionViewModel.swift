@@ -44,5 +44,10 @@ extension OpinionComponent {
         func deleteOpinion(travelOnId: Int, opinionId: Int){
             return opinionService.deleteOpinion(travelOnId: travelOnId, opinionId: opinionId)
         }
+        
+        // 답변 등록
+        func postOpinion(travelOnId: Int, opinionData: String) {
+            
+        }
     }
 }
