@@ -39,5 +39,10 @@ extension OpinionComponent {
                     }
                 })
         }
+        
+        // 답변 삭제
+        func deleteOpinion(travelOnId: Int, opinionId: Int){
+            return opinionService.deleteOpinion(travelOnId: travelOnId, opinionId: opinionId)
+        }
     }
 }
