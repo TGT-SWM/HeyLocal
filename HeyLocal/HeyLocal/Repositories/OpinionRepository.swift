@@ -1,6 +1,7 @@
 //
 //  OpinionRepository.swift
 //  HeyLocal
+//  답변 레포지터리
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //
@@ -12,7 +13,7 @@ struct OpinionRepository {
     private let agent = NetworkAgent()
     private let opinionUrl =  "\(Config.apiURL)/travel-ons"
     
-    // 답변 목록 조회
+    // 답변 목록조회
     func getOpinions(travelOnId: Int) -> AnyPublisher<[Opinion], Error> {
         let urlString = "\(opinionUrl)/\(travelOnId)/opinions"
         let url = URL(string: urlString)!
@@ -26,9 +27,4 @@ struct OpinionRepository {
         
         return agent.run(request)
     }
-    
-    // 답변 상세보기
-//    func getOpinion(opinionId: Int) -> AnyPublisher<Opinion, Error> {
-//        
-//    }
 }

@@ -31,7 +31,7 @@ struct OpinionComponent: View {
                             .scaledToFit()
                             .frame(width: 12)
                         
-                        Text("\(regionNameFormatter(region: opinion.place!.region!))")
+                        Text("\(regionNameFormatter(region: opinion.place.region))")
                             .font(.system(size: 12))
                             .foregroundColor(Color.white)
                     }
@@ -43,7 +43,7 @@ struct OpinionComponent: View {
             
             VStack(alignment: .leading) {
                 // 장소 이름
-                Text("\(opinion.place!.name!)")
+                Text("\(opinion.place.name)")
                     .font(.system(size: 14))
                 
                 // 사용자 정보
@@ -55,13 +55,13 @@ struct OpinionComponent: View {
                     Spacer()
                         .frame(width: 5)
                     
-                    Text("\(opinion.author!.nickname)")
+                    Text("\(opinion.author.nickname)")
                         .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                     
                     Spacer()
                         .frame(width: 3)
                     
-                    Text("(채택 \(opinion.countAccept!)건)")
+                    Text("(채택 \(opinion.countAccept)건)")
                 }
                 .font(.system(size: 12))
             }

@@ -15,9 +15,4 @@ struct OpinionService {
     func getOpinions(travelOnId: Int) -> AnyPublisher<[Opinion], Error> {
         return opinionRepository.getOpinions(travelOnId: travelOnId)
     }
-    
-    // 답변 상세보기
-//    func getOpinion(opinionId: Int) -> AnyPublisher<Opinion, Error> {
-//        return opinionRepository.getOpinion(opinionId: opinionId)
-//    }
 }
