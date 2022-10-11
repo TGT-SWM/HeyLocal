@@ -26,7 +26,7 @@ struct Opinion: Decodable, Identifiable {
     var restaurantMoodType: String? = ""
     var recommendFoodDescription: String? = ""
     var foodImgDownloadImgUrl: [String]? = []
-    
+     
     // MARK: - 카페 CE7
     var coffeeType: String? = ""
     var recommendDrinkAndDessertDescription: String? = ""
@@ -45,21 +45,14 @@ struct Opinion: Decodable, Identifiable {
     var hasBreakFast: Bool? = false
 }
 struct TmpPlace: Decodable {
-    var id: Int? = 0
-    var name: String? = ""
-    var address: String? = ""
-    var category: String? = ""
-    var region: Region? = Region()
+    var id: Int = 0
+    var name: String = ""
+    var address: String = ""
+    var category: String = ""
+    var region: Region = Region()
     var roadAddress: String? = ""
     var thumbnailUrl: String? = ""
     var kakaoLink: String? = ""
     var lat: Double? = 0
     var lng: Double? = 0
-}
-enum LikertScale: String, CaseIterable {
-    case VERY_BAD = "매우 나쁨"
-    case BAD = "나쁨"
-    case NOT_BAD = "보통"
-    case GOOD = "좋음"
-    case VERY_GOOD = "매우 좋음"
 }

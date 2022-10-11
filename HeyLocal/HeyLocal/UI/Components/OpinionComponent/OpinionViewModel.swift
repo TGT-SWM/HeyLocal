@@ -21,20 +21,22 @@ extension OpinionComponent {
         }
         
         // 답변 목록조회
-        func fetchOpinions(travelOnId: Int) {
+        func fetchOpinions(travelOnId: Int, opinionId: Int?) {
             cancellable = opinionService.getOpinions(travelOnId: travelOnId)
                 .sink(receiveCompletion: { _ in
                 }, receiveValue: { opinions in
                     self.opinions = opinions
-                })
-        }
-        
-        // 답변 상세조회
-        func fetchOpinion(travelOnId: Int, opinionId: Int) {
-            cancellable = opinionService.getOpinion(travelOnId: travelOnId, opinionId: opinionId)
-                .sink(receiveCompletion: { _ in
-                }, receiveValue: { opinion in
-                    self.opinion = opinion
+                    
+                    // 답변 상세조회
+                    if opinionId != nil {
+                        for i in 0 ..< self.opinions.count {
+                            if self.opinions[i].id == opinionId {
+                                self.opinion = self.opinions[i]
+                                print("\(self.opinion.description)")
+                                break
+                            }
+                        }
+                    }
                 })
         }
     }

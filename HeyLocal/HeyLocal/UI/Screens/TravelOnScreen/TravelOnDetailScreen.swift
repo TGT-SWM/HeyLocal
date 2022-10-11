@@ -81,7 +81,7 @@ struct TravelOnDetailScreen: View {
         }
         .onAppear {
             viewModel.fetchTravelOn(travelOnId: travelOnId)
-            opinionViewModel.fetchOpinions(travelOnId: travelOnId)
+            opinionViewModel.fetchOpinions(travelOnId: travelOnId, opinionId: nil)
         }
         .navigationTitle("여행On")
         .navigationBarTitleDisplayMode(.inline)
@@ -356,6 +356,7 @@ struct TravelOnDetailScreen: View {
                         ZStack(alignment: .bottomTrailing) {
                             NavigationLink(destination: OpinionDetailScreen(travelOnId: travelOnId, opinionId: opinion.id)) {
                                 OpinionComponent(opinion: opinion)
+                                    .foregroundColor(Color.black)
                                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                             }
                             

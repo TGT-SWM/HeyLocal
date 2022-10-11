@@ -37,7 +37,7 @@ struct OpinionDetailScreen: View {
                 .rotationEffect(.degrees(-90))
         }
         .confirmationDialog("", isPresented: $showingSheet, titleVisibility: .hidden) { //actionsheet
-             Button("게시글 수정") {
+             Button("답변 수정") {
                  navigationLinkActive = true
              }
              Button("삭제", role: .destructive) {
@@ -56,13 +56,24 @@ struct OpinionDetailScreen: View {
             ZStack(alignment: .bottom) {
                 ScrollView {
                     content
+                        .padding()
                 }
-                
                 user
+            }
+            
+            if showingAlert {
+                CustomAlert(showingAlert: $showingAlert,
+                            title: "삭제하시겠습니까?",
+                            cancelMessage: "아니요,유지할래요",
+                            confirmMessage: "네,삭제할래요",
+                            cancelWidth: 134,
+                            confirmWidth: 109,
+                            rightButtonAction: {},
+                            destinationView: AnyView(TravelOnListScreen()))
             }
         }
         .onAppear {
-//            viewModel.fetchOpinion(travelOnId: travelOnId, opinionId: opinionId)
+            viewModel.fetchOpinions(travelOnId: travelOnId, opinionId: opinionId)
         }
         .navigationTitle("답변 상세")
         .navigationBarTitleDisplayMode(.inline)
@@ -73,12 +84,17 @@ struct OpinionDetailScreen: View {
     
     var content: some View {
         VStack(alignment: .leading) {
-            // MARK: - 장소명, 시간, region, 사진, description
+            // 장소명, 시간, region, 사진, description
             Group {
-                Text("해운대 해수욕장")
+                Text("\(viewModel.opinion.place.name)")
                     .font(.system(size: 16))
                 
                 HStack {
+//                    let printDate = viewModel.opinion.date.components(separatedBy: "T")
+//                    let yyyyMMdd = printDate[0].components(separatedBy: "-")
+//                    Text("\(yyyyMMdd[0]).\(yyyyMMdd[1]).\(yyyyMMdd[2])")
+                    
+                    // TODO: createdDate 추가되면 ..
                     Text("2022.09.13")
                         .font(.system(size: 12))
                         .foregroundColor(Color(red: 117/255, green: 118/255, blue: 121/255))
@@ -92,7 +108,7 @@ struct OpinionDetailScreen: View {
                         Spacer()
                             .frame(width: 3)
                         
-                        Text("부산 해운대구 우동")
+                        Text("\(viewModel.opinion.place.address)")
                             .font(.system(size: 12))
                             .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                     }
@@ -101,7 +117,7 @@ struct OpinionDetailScreen: View {
                 
                 // TODO: 이미지
                 
-                Text("해수욕장이랑 물품 보관함이랑 꽤나 가까웠어요, 도보로 5분이 안걸려요. 가격도 저렵해서 만족스러웠어요.")
+                Text("\(viewModel.opinion.description)")
                     .font(.system(size: 14))
             }
             
@@ -109,37 +125,31 @@ struct OpinionDetailScreen: View {
             
             // 공통 질문
             common
+            // Text(viewModel.opinion.place.category)
             
             // 카테고리별 질문
             switch viewModel.opinion.place.category {
-            case "FD6":
+            case "FD6": // 음식점
                 food
                 
-            case "CE7":
+            case "CE7": // 식당
                 cafe
                 
-            case "CT1":
+            case "CT1": // 문화시설
                 sightseeing
                 
-            case "AT4":
+            case "AT4": // 관광명소
                 sightseeing
                 
-            case "AD5":
+            case "AD5": // 숙박
                 accommodation
             
-                
             default:
                 Text("")
             }
         }
     }
     
-    // MARK: - 장소 및 답변 기본 정보
-    var information: some View {
-        VStack {
-            
-        }
-    }
     
     // MARK: - '기타' · '공통' 답변
     var common: some View {
@@ -147,25 +157,36 @@ struct OpinionDetailScreen: View {
             Group {
                 Text("어떤 점이 좋았나요?")
                     .font(.system(size: 16))
+                    .padding(EdgeInsets(top: 15, leading: 0, bottom: 5, trailing: 0))
                 
                 
-                Text("✨ 청결도")
-                    .font(.system(size: 14))
-                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-                OpinionStyle(label: "시설이 청결해요")
+                Group {
+                    Text("✨ 청결도")
+                        .font(.system(size: 14))
+                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                    
+                    OpinionStyle(label: "\(facilityToString(facility: viewModel.opinion.facilityCleanliness))")
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                }
                 
-                Text("🔧 시설")
-                    .font(.system(size: 14))
-                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-                OpinionStyle(label: "주차장이 있어요")
+                
+                Group {
+                    Text("🔧 시설")
+                        .font(.system(size: 14))
+                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                    OpinionStyle(label: viewModel.opinion.canParking ? "주차장이 있어요" : "주차장이 없어요")
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                }
+                
                 
                 Text("💰 비용")
                     .font(.system(size: 14))
                     .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                 HStack {
-                    OpinionStyle(label: "가격이 합리적이에요")
-                    OpinionStyle(label: "웨이팅이 없어요")
+                    OpinionStyle(label: costToString(cost: viewModel.opinion.costPerformance))
+                    OpinionStyle(label: viewModel.opinion.waiting ? "웨이팅이 있어요" : "웨이팅이 없어요")
                 }
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
             }
         }
     }
@@ -181,13 +202,12 @@ struct OpinionDetailScreen: View {
             Text("가게 분위기는 어떤가요")
                 .font(.system(size: 14))
                 .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-            OpinionStyle(label: "쓴맛")
-            
+            OpinionStyle(label: restaurantMoodToString(mood: viewModel.opinion.restaurantMoodType!))
             
             Text("추천하는 메뉴는 무엇인가요?")
                 .font(.system(size: 14))
                 .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-            OpinionStyle(label: "쓴맛")
+            OpinionStyle(label: "\(viewModel.opinion.recommendFoodDescription!)")
             
             
         }
@@ -204,18 +224,18 @@ struct OpinionDetailScreen: View {
             Text("커피 스타일은 어떤가요?")
                 .font(.system(size: 14))
                 .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-            OpinionStyle(label: "쓴맛")
+            OpinionStyle(label: coffeeToString(coffee: viewModel.opinion.coffeeType!))
             
             
             Text("추천하는 음료·디저트는 무엇인가요?")
                 .font(.system(size: 14))
                 .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-            OpinionStyle(label: "쓴맛")
+            OpinionStyle(label: "\(viewModel.opinion.recommendDrinkAndDessertDescription!)")
             
             Text("카페 분위기는 어떤가요?")
                 .font(.system(size: 14))
                 .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-            OpinionStyle(label: "힙해요")
+            OpinionStyle(label: cafeMoodToString(mood: viewModel.opinion.cafeMoodType!))
             
             
         }
@@ -232,17 +252,17 @@ struct OpinionDetailScreen: View {
             Text("여기서 꼭 해봐야 하는 게 있나요?")
                 .font(.system(size: 14))
                 .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-            OpinionStyle(label: "아니요")
+            OpinionStyle(label: "\(viewModel.opinion.recommendToDo!)")
             
             Text("여기서 추천하는 간식이 있나요?")
                 .font(.system(size: 14))
                 .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-            OpinionStyle(label: "아니요")
+            OpinionStyle(label: "\(viewModel.opinion.recommendSnack!)")
             
             Text("여기의 사진 명소는 어디인가요?")
                 .font(.system(size: 14))
                 .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-            OpinionStyle(label: "아니요")
+            OpinionStyle(label: "\(viewModel.opinion.photoSpotDescription!)")
         }
     }
     
@@ -257,16 +277,18 @@ struct OpinionDetailScreen: View {
             Text("주변이 시끄럽나요?")
                 .font(.system(size: 14))
                 .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-            OpinionStyle(label: "아니요")
+            OpinionStyle(label: noiseToString(noise: viewModel.opinion.streetNoise!))
             
             Text("방음이 잘 되나요?")
                 .font(.system(size: 14))
                 .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-            OpinionStyle(label: "네")
+            OpinionStyle(label: deafeningToString(deafening: viewModel.opinion.deafening!))
+            
             Text("조식이 나오나요?")
                 .font(.system(size: 14))
                 .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-            OpinionStyle(label: "네")
+            OpinionStyle(label: viewModel.opinion.hasBreakFast! ? "조식이 나와요" : "조식은 없어요")
+            
         }
     }
     
@@ -288,10 +310,10 @@ struct OpinionDetailScreen: View {
                         .frame(width: 15)
                     
                     VStack(alignment: .leading, spacing: 5) {
-                        Text("부산광역시")
+                        Text("\(regionNameFormatter(region: viewModel.opinion.author.activityRegion))")
                             .font(.system(size: 12))
                         
-                        Text("김현지")
+                        Text("\(viewModel.opinion.author.nickname)")
                             .font(.system(size: 16))
                     }
                     
@@ -305,7 +327,7 @@ struct OpinionDetailScreen: View {
                                 .frame(width: 16)
                             
                             Text("답변수")
-                            Text("189")
+                            Text("\(viewModel.opinion.author.acceptedOpinionCount!)")
                         }
                         
                         HStack(alignment: .center, spacing: 3) {
@@ -315,7 +337,7 @@ struct OpinionDetailScreen: View {
                                 .frame(width: 16)
                             
                             Text("채택수")
-                            Text("845")
+                            Text("\(viewModel.opinion.author.acceptedOpinionCount!)")
                         }
                     }
                     .font(.system(size: 12))
@@ -324,7 +346,7 @@ struct OpinionDetailScreen: View {
                 Spacer()
                     .frame(height: 15)
                 
-                Text("안녕하세요, 부산사는 김현지입니다 ^0^*")
+                Text("\(viewModel.opinion.author.introduce)")
                     .font(.system(size: 12))
                 
             } // vstack
@@ -332,10 +354,151 @@ struct OpinionDetailScreen: View {
             .foregroundColor(Color.white)
         } // zstack
     } // user
+    
+    
+    // MARK: - 5점척도 to String
+    func facilityToString(facility: String) -> String {
+        var result: String = ""
+        switch facility {
+        case "VERY_BAD":
+            result = "시설이 더러워요"
+
+        case "BAD":
+            result = "시설이 청결하지 않아요"
+
+        case "NOT_BAD":
+            result = "시설 청결도가 그저 그래요"
+
+        case "GOOD":
+            result = "시설이 청결해요"
+
+        case "VERY_GOOD":
+            result = "시설이 매우 청결해요"
+
+        default:
+            result = ""
+        }
+        return result
+    }
+    
+    func costToString(cost: String) -> String {
+        var result: String = ""
+        switch cost {
+        case "VERY_BAD":
+            result = "가격이 매우 비싸요"
+
+        case "BAD":
+            result = "가격이 비싸요"
+
+        case "NOT_BAD":
+            result = "가격이 그저 그래요"
+
+        case "GOOD":
+            result = "가격이 합리적이에요"
+
+        case "VERY_GOOD":
+            result = "가격이 매우 합리적이에요"
+
+        default:
+            result = ""
+        }
+        return result
+    }
+    
+    func restaurantMoodToString(mood: String) -> String {
+        var result: String = ""
+        switch mood {
+        case "COMFORTABLE":
+            result = "편안한"
+        case "FORMAL":
+            result = "격식 있는"
+        case "HIP":
+            result = "힙한"
+        case "LIVELY":
+            result = "활기찬"
+        case "ROMANTIC":
+            result = "로맨틱"
+        default:
+            result = ""
+        }
+        return result
+    }
+    
+    func coffeeToString(coffee: String) -> String {
+        var result: String = ""
+        
+        switch coffee{
+        case "BITTER":
+            result = "커피가 써요"
+        case "SOUR":
+            result = "커피 산미가 강해요"
+        case "GENERAL":
+            result = "커피가 보통이에요"
+        default:
+            result = ""
+        }
+        
+        return result
+    }
+    
+    func cafeMoodToString(mood: String) -> String {
+        var result: String = ""
+        switch mood {
+        case "CUTE":
+            result = "아기자기한"
+        case "HIP":
+            result = "힙한"
+        case "LARGE":
+            result = "크고 넓은"
+        case "MODERN":
+            result = "모던한"
+        default:
+            result = ""
+        }
+        return result
+    }
+    
+    func noiseToString(noise: String) -> String {
+        var result: String = ""
+        switch noise {
+        case "VERY_BAD":
+            result = "주변이 매우 시끄러워요"
+        case "BAD":
+            result = "주변이 꽤 시끄러워요"
+        case "NOT_BAD":
+            result = "주변 소음이 그저 그래요"
+        case "GOOD":
+            result = "주변이 꽤 조용해요"
+        case "VERY_GOOD":
+            result = "주변이 매우 조용해요"
+        default:
+            result = ""
+        }
+        return result
+    }
+    
+    func deafeningToString(deafening: String) -> String {
+        var result: String = ""
+        switch deafening {
+        case "VERY_BAD":
+            result = "방음이 전혀 안돼요"
+        case "BAD":
+            result = "방음이 잘 안돼요"
+        case "NOT_BAD":
+            result = "방음이 그저 그래요"
+        case "GOOD":
+            result = "방음이 잘 돼요"
+        case "VERY_GOOD":
+            result = "방음이 매우 잘 돼요"
+        default:
+            result = ""
+        }
+        return result
+    }
 }
 
 struct OpinionDetailScreen_Previews: PreviewProvider {
     static var previews: some View {
-        OpinionDetailScreen(travelOnId: 0, opinionId: 0)
+        OpinionDetailScreen(travelOnId: 32, opinionId: 12)
     }
 }
