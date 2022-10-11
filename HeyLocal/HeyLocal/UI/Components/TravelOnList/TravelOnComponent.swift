@@ -68,7 +68,7 @@ struct TravelOnComponent: View {
                         .frame(width: 5)
                     
                     Group {
-                        Image("comment_icon")
+                        Image("comment_black_icon")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 16)

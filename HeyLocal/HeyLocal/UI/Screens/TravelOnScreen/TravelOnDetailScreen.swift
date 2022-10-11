@@ -176,7 +176,7 @@ struct TravelOnDetailScreen: View {
             Spacer()
                 .frame(height: 20)
             
-            // TODO: Taste + Accom + Food + Drink
+            // Taste + Accom + Food + Drink
             Group {
                 VStack (alignment: .leading){
                     // Taste
@@ -353,10 +353,11 @@ struct TravelOnDetailScreen: View {
                 //해당 여행On 답변 출력
                 VStack(alignment: .leading) {
                     ForEach(opinionViewModel.opinions) { opinion in
-                        //  TODO: NavigationLink로 수정
                         ZStack(alignment: .bottomTrailing) {
-                            OpinionComponent(opinion: opinion)
-                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                            NavigationLink(destination: OpinionDetailScreen(travelOnId: travelOnId, opinionId: opinion.id)) {
+                                OpinionComponent(opinion: opinion)
+                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                            }
                             
                             // TODO: 플랜에 장소 추가하는 기능
                             ZStack {
