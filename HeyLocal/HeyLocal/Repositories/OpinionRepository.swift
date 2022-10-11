@@ -27,4 +27,36 @@ struct OpinionRepository {
         
         return agent.run(request)
     }
+    
+    // 답변 삭제
+    func deleteOpinion(travelOnId: Int, opinionId: Int) {
+        let urlString = "\(opinionUrl)/\(travelOnId)/opinions/\(opinionId)"
+        let url = URL(string: urlString)!
+        var request = URLRequest(url: url)
+        
+        request.httpMethod = "DELETE"
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+        
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard error == nil else {
+                print("ERROR: error calling DELETE")
+                return
+            }
+            guard let data = data else {
+                print("ERROR: Did not receive data")
+                return
+            }
+            guard let response = response as? HTTPURLResponse, (200 ..< 299) ~= response.statusCode else {
+                print("ERROR: HTTP request failed")
+                return
+            }
+        }.resume()
+    }
+    
+    // 답변 등록
+    
+    
+    // 답변 수정
 }

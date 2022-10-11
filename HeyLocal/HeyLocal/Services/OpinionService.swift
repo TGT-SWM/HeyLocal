@@ -15,4 +15,9 @@ struct OpinionService {
     func getOpinions(travelOnId: Int) -> AnyPublisher<[Opinion], Error> {
         return opinionRepository.getOpinions(travelOnId: travelOnId)
     }
+    
+    // 답변 삭제
+    func deleteOpinion(travelOnId: Int, opinionId: Int) {
+        return opinionRepository.deleteOpinion(travelOnId: travelOnId, opinionId: opinionId)
+    }
 }
