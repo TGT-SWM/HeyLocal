@@ -21,7 +21,7 @@ struct Place: Codable, Equatable {
 	var link: String
 	var itemIndex: Int?
 	var arrivalTime: String?
-	
+    
 	/// 카테고리의 이름 (ex. 음식점)
 	var categoryName: String {
 		PlaceCategory.withLabel(category).rawValue

@@ -52,6 +52,8 @@ struct OpinionWriteScreen: View {
         ZStack(alignment: .center) {
             ScrollView {
                 content
+                
+                
             }
         }
         .navigationTitle("답변 작성")
@@ -61,6 +63,9 @@ struct OpinionWriteScreen: View {
     }
     
     @State var description: String = ""
+    
+    @State var clean: [Bool] = [false, false, false, false, false]
+    @State var cost: [Bool] = [false, false, false, false, false]
     @State var yesParking: Bool = false
     @State var noParking: Bool = false
     @State var yesWaiting: Bool = false
@@ -137,6 +142,10 @@ struct OpinionWriteScreen: View {
             common
             
             // MARK: - 카테고리별 질문
+            cafe
+            sightseeing
+            restaurant
+            accommodation
         }
         .padding()
     }
@@ -151,57 +160,72 @@ struct OpinionWriteScreen: View {
                 Group {
                     Text("시설이 청결한가요?")
                     
-                    ScrollView(.horizontal) {
+                    ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             Button(action: {
-                                if yesParking {
-                                    yesParking.toggle()
+                                for i in 1 ..< clean.count {
+                                    clean[i] = false
                                 }
-                                noParking.toggle()
+                                clean[0].toggle()
                             }) {
-                                Text("없어요")
+                                Text("매우 지저분해요")
                             }
-                            .buttonStyle(ToggleButtonStyle(value: $noParking, width: 66))
+                            .buttonStyle(ToggleButtonStyle(value: $clean[0], width: 117))
                             
                             Button(action: {
-                                if yesParking {
-                                    yesParking.toggle()
+                                for i in 0 ..< clean.count {
+                                    if i == 1 {
+                                        continue
+                                    }
+                                    if clean[i] == true {
+                                        clean[i] = false
+                                    }
                                 }
-                                noParking.toggle()
+                                clean[1].toggle()
                             }) {
-                                Text("없어요")
+                                Text("지저분해요")
                             }
-                            .buttonStyle(ToggleButtonStyle(value: $noParking, width: 66))
+                            .buttonStyle(ToggleButtonStyle(value: $clean[1], width: 91))
                             
                             Button(action: {
-                                if yesParking {
-                                    yesParking.toggle()
+                                for i in 0 ..< clean.count {
+                                    if i == 2 {
+                                        continue
+                                    }
+                                    if clean[i] == true {
+                                        clean[i] = false
+                                    }
                                 }
-                                noParking.toggle()
+                                clean[2].toggle()
                             }) {
-                                Text("없어요")
+                                Text("그냥 그래요")
                             }
-                            .buttonStyle(ToggleButtonStyle(value: $noParking, width: 66))
+                            .buttonStyle(ToggleButtonStyle(value: $clean[2], width: 93))
                             
                             Button(action: {
-                                if yesParking {
-                                    yesParking.toggle()
+                                for i in 0 ..< clean.count {
+                                    if i == 3 {
+                                        continue
+                                    }
+                                    if clean[i] == true {
+                                        clean[i] = false
+                                    }
                                 }
-                                noParking.toggle()
+                                clean[3].toggle()
                             }) {
-                                Text("없어요")
+                                Text("청결해요")
                             }
-                            .buttonStyle(ToggleButtonStyle(value: $noParking, width: 66))
+                            .buttonStyle(ToggleButtonStyle(value: $clean[3], width: 78))
                             
                             Button(action: {
-                                if yesParking {
-                                    yesParking.toggle()
+                                for i in 0 ..< (clean.count - 1) {
+                                    clean[i] = false
                                 }
-                                noParking.toggle()
+                                clean[4].toggle()
                             }) {
-                                Text("없어요")
+                                Text("매우 청결해요")
                             }
-                            .buttonStyle(ToggleButtonStyle(value: $noParking, width: 66))
+                            .buttonStyle(ToggleButtonStyle(value: $clean[4], width: 104))
                         }
                     }
                 }
@@ -260,57 +284,76 @@ struct OpinionWriteScreen: View {
                 Group {
                     Text("비용이 합리적인가요?")
                     
-                    ScrollView(.horizontal) {
+                    ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             Button(action: {
-                                if yesParking {
-                                    yesParking.toggle()
+                                for i in 1 ..< cost.count {
+                                    if cost[i] == true {
+                                        cost[i] = false
+                                    }
                                 }
-                                noParking.toggle()
+                                cost[0].toggle()
                             }) {
-                                Text("없어요")
+                                Text("매우 비싸요")
                             }
-                            .buttonStyle(ToggleButtonStyle(value: $noParking, width: 66))
+                            .buttonStyle(ToggleButtonStyle(value: $cost[0], width: 93))
                             
                             Button(action: {
-                                if yesParking {
-                                    yesParking.toggle()
+                                for i in 0 ..< cost.count {
+                                    if i == 1 {
+                                        continue
+                                    }
+                                    if cost[i] == true {
+                                        cost[i] = false
+                                    }
                                 }
-                                noParking.toggle()
+                                cost[1].toggle()
                             }) {
-                                Text("없어요")
+                                Text("비싸요")
                             }
-                            .buttonStyle(ToggleButtonStyle(value: $noParking, width: 66))
+                            .buttonStyle(ToggleButtonStyle(value: $cost[1], width: 66))
                             
                             Button(action: {
-                                if yesParking {
-                                    yesParking.toggle()
+                                for i in 0 ..< cost.count {
+                                    if i == 2 {
+                                        continue
+                                    }
+                                    if cost[i] == true {
+                                        cost[i] = false
+                                    }
                                 }
-                                noParking.toggle()
+                                cost[2].toggle()
                             }) {
-                                Text("없어요")
+                                Text("그냥 그래요")
                             }
-                            .buttonStyle(ToggleButtonStyle(value: $noParking, width: 66))
+                            .buttonStyle(ToggleButtonStyle(value: $cost[2], width: 93))
                             
                             Button(action: {
-                                if yesParking {
-                                    yesParking.toggle()
+                                for i in 0 ..< cost.count {
+                                    if i == 3 {
+                                        continue
+                                    }
+                                    if cost[i] == true {
+                                        cost[i] = false
+                                    }
                                 }
-                                noParking.toggle()
+                                cost[3].toggle()
                             }) {
-                                Text("없어요")
+                                Text("합리적이에요")
                             }
-                            .buttonStyle(ToggleButtonStyle(value: $noParking, width: 66))
+                            .buttonStyle(ToggleButtonStyle(value: $cost[3], width: 103))
                             
                             Button(action: {
-                                if yesParking {
-                                    yesParking.toggle()
+                                for i in 0 ..< (cost.count - 1) {
+                                    if cost[i] == true {
+                                        cost[i] = false
+                                    }
                                 }
-                                noParking.toggle()
+                                cost[4].toggle()
                             }) {
-                                Text("없어요")
+                                Text("저렴해요")
                             }
-                            .buttonStyle(ToggleButtonStyle(value: $noParking, width: 66))
+                            .buttonStyle(ToggleButtonStyle(value: $cost[4], width: 78))
                         }
                     }
                 }
@@ -321,17 +364,629 @@ struct OpinionWriteScreen: View {
         
     }
     
+    // LIVELY, FORMAL, ROMANTIC, HIP, COMFORTABLE
+    @State var restaurantMood: [Bool] = [false, false, false, false, false]
+    @State var recommendMenu: String = ""
     var restaurant: some View {
-        VStack {
+        VStack(alignment: .leading) {
+            Divider()
             
+            Group {
+                Text("가게 분위기가 어떤가요?")
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        Button(action: {
+                            for i in 1 ..< restaurantMood.count {
+                                if restaurantMood[i] == true {
+                                    restaurantMood[i] = false
+                                }
+                            }
+                            restaurantMood[0].toggle()
+                        }) {
+                            Text("활기찬")
+                        }
+                        .buttonStyle(ToggleButtonStyle(value: $restaurantMood[0], width: 66))
+                        
+                        Button(action: {
+                            for i in 0 ..< restaurantMood.count {
+                                if i == 1 {
+                                    continue
+                                }
+                                if restaurantMood[i] == true {
+                                    restaurantMood[i] = false
+                                }
+                            }
+                            restaurantMood[1].toggle()
+                        }) {
+                            Text("격식있는")
+                        }
+                        .buttonStyle(ToggleButtonStyle(value: $restaurantMood[1], width: 78))
+                        
+                        Button(action: {
+                            for i in 0 ..< restaurantMood.count {
+                                if i == 2 {
+                                    continue
+                                }
+                                if restaurantMood[i] == true {
+                                    restaurantMood[i] = false
+                                }
+                            }
+                            restaurantMood[2].toggle()
+                        }) {
+                            Text("로맨틱")
+                        }
+                        .buttonStyle(ToggleButtonStyle(value: $restaurantMood[2], width: 66))
+                        
+                        Button(action: {
+                            for i in 0 ..< restaurantMood.count {
+                                if i == 3 {
+                                    continue
+                                }
+                                if restaurantMood[i] == true {
+                                    restaurantMood[i] = false
+                                }
+                            }
+                            restaurantMood[3].toggle()
+                        }) {
+                            Text("힙한")
+                        }
+                        .buttonStyle(ToggleButtonStyle(value: $restaurantMood[3], width: 54))
+                        
+                        Button(action: {
+                            for i in 0 ..< (cost.count - 1) {
+                                if restaurantMood[i] == true {
+                                    restaurantMood[i] = false
+                                }
+                            }
+                            restaurantMood[4].toggle()
+                        }) {
+                            Text("편안한")
+                        }
+                        .buttonStyle(ToggleButtonStyle(value: $restaurantMood[4], width: 66))
+                    }
+                }
+            }
+            .font(.system(size: 14))
+            
+            Group {
+                Text("추천하는 메뉴는 무엇인가요?")
+                    .font(.system(size: 14))
+                
+                // Image
+                Button(action: {}){
+                    ZStack {
+                        Rectangle()
+                            .fill(Color.white)
+                            .frame(width: 50, height: 50)
+                            .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
+                            .cornerRadius(10)
+                        
+                        ZStack {
+                            Circle()
+                                .fill(Color(red: 255/255, green: 153/255, blue: 0/255))
+                                .frame(width: 16, height: 16)
+                            
+                            Image(systemName: "plus")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 9)
+                                .foregroundColor(Color.white)
+                                
+                        }
+                    }
+                }
+                
+                // TextField
+                ZStack(alignment: .leading) {
+                    TextField("", text: $recommendMenu)
+                        .multilineTextAlignment(TextAlignment.leading)
+                        .font(.system(size: 12))
+                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                        .frame(width: 350, height: 40)
+                        .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
+                        .background(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
+                        .cornerRadius(10)
+                    
+                    if recommendMenu == "" {
+                        VStack(alignment: .leading) {
+                            Text("25자 이내로 작성해주세요")
+                        }
+                        .padding()
+                        .font(.system(size: 12))
+                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                    }
+                }
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 15, trailing: 0))
+            }
+        } // vstack
+    } // restaurant
+    
+    @State var drinkOrDessert: String = ""
+    // MODERN, LARGE, CUTE, HIP
+    @State var cafeMood: [Bool] = [false, false, false, false]
+    // BITTER, SOUR, GENERAL
+    @State var coffeeTaste: [Bool] = [false, false, false]
+    
+    var cafe: some View {
+        VStack(alignment: .leading) {
+            Divider()
+            // 커피 맛
+            Group {
+                Text("커피 맛이 어떤가요?")
+                
+                HStack {
+                    Button(action: {
+                        for i in 1 ..< coffeeTaste.count {
+                            if coffeeTaste[i] == true {
+                                coffeeTaste[i] = false
+                            }
+                        }
+                        coffeeTaste[0].toggle()
+                    }) {
+                        Text("쓴맛")
+                    }
+                    .buttonStyle(ToggleButtonStyle(value: $coffeeTaste[0], width: 66))
+                    
+                    Button(action: {
+                        for i in 0 ..< coffeeTaste.count {
+                            if i == 1 {
+                                continue
+                            }
+                            if coffeeTaste[i] == true {
+                                coffeeTaste[i] = false
+                            }
+                        }
+                        coffeeTaste[1].toggle()
+                    }) {
+                        Text("산미가 강한")
+                    }
+                    .buttonStyle(ToggleButtonStyle(value: $coffeeTaste[1], width: 93))
+                    
+                    Button(action: {
+                        for i in 0 ..< coffeeTaste.count {
+                            if i == 2 {
+                                continue
+                            }
+                            if coffeeTaste[i] == true {
+                                coffeeTaste[i] = false
+                            }
+                        }
+                        coffeeTaste[2].toggle()
+                    }) {
+                        Text("보통")
+                    }
+                    .buttonStyle(ToggleButtonStyle(value: $coffeeTaste[2], width: 54))
+                }
+            }
+            .font(.system(size: 14))
+            
+            // 카페 분위기
+            Group {
+                Text("카페 분위기가 어떤가요?")
+                
+                HStack {
+                    Button(action: {
+                        for i in 1 ..< cafeMood.count {
+                            if cafeMood[i] == true {
+                                cafeMood[i] = false
+                            }
+                        }
+                        cafeMood[0].toggle()
+                    }) {
+                        Text("모던한")
+                    }
+                    .buttonStyle(ToggleButtonStyle(value: $cafeMood[0], width: 66))
+                    
+                    Button(action: {
+                        for i in 0 ..< cafeMood.count {
+                            if i == 1 {
+                                continue
+                            }
+                            if cafeMood[i] == true {
+                                cafeMood[i] = false
+                            }
+                        }
+                        cafeMood[1].toggle()
+                    }) {
+                        Text("크고 넓은")
+                    }
+                    .buttonStyle(ToggleButtonStyle(value: $cafeMood[1], width: 81))
+                    
+                    Button(action: {
+                        for i in 0 ..< cafeMood.count {
+                            if i == 2 {
+                                continue
+                            }
+                            if cafeMood[i] == true {
+                                cafeMood[i] = false
+                            }
+                        }
+                        cafeMood[2].toggle()
+                    }) {
+                        Text("아기자기한")
+                    }
+                    .buttonStyle(ToggleButtonStyle(value: $cafeMood[2], width: 91))
+                    
+                    Button(action: {
+                        for i in 0 ..< cafeMood.count {
+                            if i == 3 {
+                                continue
+                            }
+                            if cafeMood[i] == true {
+                                cafeMood[i] = false
+                            }
+                        }
+                        cafeMood[3].toggle()
+                    }) {
+                        Text("힙한")
+                    }
+                    .buttonStyle(ToggleButtonStyle(value: $cafeMood[3], width: 54))
+                }
+            }
+            .font(.system(size: 14))
+            
+            Group {
+                Text("이곳의 추천 음료·디저트는 무엇인가요?")
+                    .font(.system(size: 14))
+                
+                // Image
+                Button(action: {}){
+                    ZStack {
+                        Rectangle()
+                            .fill(Color.white)
+                            .frame(width: 50, height: 50)
+                            .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
+                            .cornerRadius(10)
+                        
+                        ZStack {
+                            Circle()
+                                .fill(Color(red: 255/255, green: 153/255, blue: 0/255))
+                                .frame(width: 16, height: 16)
+                            
+                            Image(systemName: "plus")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 9)
+                                .foregroundColor(Color.white)
+                                
+                        }
+                    }
+                }
+                
+                // TextField
+                ZStack(alignment: .leading) {
+                    TextField("", text: $drinkOrDessert)
+                        .multilineTextAlignment(TextAlignment.leading)
+                        .font(.system(size: 12))
+                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                        .frame(width: 350, height: 40)
+                        .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
+                        .background(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
+                        .cornerRadius(10)
+                    
+                    if drinkOrDessert == "" {
+                        VStack(alignment: .leading) {
+                            Text("25자 이내로 작성해주세요")
+                        }
+                        .padding()
+                        .font(.system(size: 12))
+                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                    }
+                }
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 15, trailing: 0))
+            }
         }
     }
     
-    var cafe: some View {
-        VStack {
+    @State var haveToDo: String = ""
+    @State var snack: String = ""
+    @State var photoSpot: String = ""
+    var sightseeing: some View {
+        VStack(alignment: .leading) {
+            Divider()
             
+            Group {
+                Text("여기서 꼭 해봐야 하는 게 있나요?")
+                    .font(.system(size: 14))
+                
+                // TextField
+                ZStack(alignment: .leading) {
+                    TextField("", text: $haveToDo)
+                        .multilineTextAlignment(TextAlignment.leading)
+                        .font(.system(size: 12))
+                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                        .frame(width: 350, height: 40)
+                        .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
+                        .background(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
+                        .cornerRadius(10)
+                    
+                    if haveToDo == "" {
+                        VStack(alignment: .leading) {
+                            Text("25자 이내로 작성해주세요")
+                        }
+                        .padding()
+                        .font(.system(size: 12))
+                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                    }
+                }
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+            }
+            
+            Group {
+                Text("추천 간식이 있나요?")
+                    .font(.system(size: 14))
+                
+                // TextField
+                ZStack(alignment: .leading) {
+                    TextField("", text: $snack)
+                        .multilineTextAlignment(TextAlignment.leading)
+                        .font(.system(size: 12))
+                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                        .frame(width: 350, height: 40)
+                        .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
+                        .background(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
+                        .cornerRadius(10)
+                    
+                    if snack == "" {
+                        VStack(alignment: .leading) {
+                            Text("25자 이내로 작성해주세요")
+                        }
+                        .padding()
+                        .font(.system(size: 12))
+                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                    }
+                }
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+            }
+            
+            Group {
+                Text("이곳의 사진 명소는 어디인가요?")
+                    .font(.system(size: 14))
+                
+                // Image
+                Button(action: {}){
+                    ZStack {
+                        Rectangle()
+                            .fill(Color.white)
+                            .frame(width: 50, height: 50)
+                            .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
+                            .cornerRadius(10)
+                        
+                        ZStack {
+                            Circle()
+                                .fill(Color(red: 255/255, green: 153/255, blue: 0/255))
+                                .frame(width: 16, height: 16)
+                            
+                            Image(systemName: "plus")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 9)
+                                .foregroundColor(Color.white)
+                                
+                        }
+                    }
+                }
+                
+                // TextField
+                ZStack(alignment: .leading) {
+                    TextField("", text: $photoSpot)
+                        .multilineTextAlignment(TextAlignment.leading)
+                        .font(.system(size: 12))
+                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                        .frame(width: 350, height: 40)
+                        .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
+                        .background(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
+                        .cornerRadius(10)
+                    
+                    if photoSpot == "" {
+                        VStack(alignment: .leading) {
+                            Text("25자 이내로 작성해주세요")
+                        }
+                        .padding()
+                        .font(.system(size: 12))
+                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                    }
+                }
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 15, trailing: 0))
+            }
         }
     }
+    
+    @State var noise: [Bool] = [false, false, false, false, false]
+    @State var deafening: [Bool] = [false, false, false, false, false]
+    @State var yesBreakfast: Bool = false
+    @State var noBreakfast: Bool = false
+    var accommodation: some View {
+        VStack(alignment: .leading) {
+            Divider()
+            
+            Group {
+                Text("주변이 시끄럽나요?")
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        Button(action: {
+                            for i in 1 ..< noise.count {
+                                if noise[i] == true {
+                                    noise[i] = false
+                                }
+                            }
+                            noise[0].toggle()
+                        }) {
+                            Text("매우 시끄러워요")
+                        }
+                        .buttonStyle(ToggleButtonStyle(value: $noise[0], width: 117))
+                        
+                        Button(action: {
+                            for i in 0 ..< noise.count {
+                                if i == 1 {
+                                    continue
+                                }
+                                if noise[i] == true {
+                                    noise[i] = false
+                                }
+                            }
+                            noise[1].toggle()
+                        }) {
+                            Text("시끄러워요")
+                        }
+                        .buttonStyle(ToggleButtonStyle(value: $noise[1], width: 93))
+                        
+                        Button(action: {
+                            for i in 0 ..< noise.count {
+                                if i == 2 {
+                                    continue
+                                }
+                                if noise[i] == true {
+                                    noise[i] = false
+                                }
+                            }
+                            noise[2].toggle()
+                        }) {
+                            Text("그냥 그래요")
+                        }
+                        .buttonStyle(ToggleButtonStyle(value: $noise[2], width: 93))
+                        
+                        Button(action: {
+                            for i in 0 ..< noise.count {
+                                if i == 3 {
+                                    continue
+                                }
+                                if noise[i] == true {
+                                    noise[i] = false
+                                }
+                            }
+                            noise[3].toggle()
+                        }) {
+                            Text("괜찮아요")
+                        }
+                        .buttonStyle(ToggleButtonStyle(value: $noise[3], width: 78))
+                        
+                        Button(action: {
+                            for i in 0 ..< (cost.count - 1) {
+                                if noise[i] == true {
+                                    noise[i] = false
+                                }
+                            }
+                            noise[4].toggle()
+                        }) {
+                            Text("조용해요")
+                        }
+                        .buttonStyle(ToggleButtonStyle(value: $noise[4], width: 78))
+                    }
+                }
+            }
+            .font(.system(size: 14))
+            
+            Group {
+                Text("방음이 잘 되나요?")
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        Button(action: {
+                            for i in 1 ..< deafening.count {
+                                if deafening[i] == true {
+                                    deafening[i] = false
+                                }
+                            }
+                            deafening[0].toggle()
+                        }) {
+                            Text("전혀 안돼요")
+                        }
+                        .buttonStyle(ToggleButtonStyle(value: $deafening[0], width: 100))
+                        
+                        Button(action: {
+                            for i in 0 ..< deafening.count {
+                                if i == 1 {
+                                    continue
+                                }
+                                if deafening[i] == true {
+                                    deafening[i] = false
+                                }
+                            }
+                            deafening[1].toggle()
+                        }) {
+                            Text("잘 안돼요")
+                        }
+                        .buttonStyle(ToggleButtonStyle(value: $deafening[1], width: 93))
+                        
+                        Button(action: {
+                            for i in 0 ..< deafening.count {
+                                if i == 2 {
+                                    continue
+                                }
+                                if deafening[i] == true {
+                                    deafening[i] = false
+                                }
+                            }
+                            deafening[2].toggle()
+                        }) {
+                            Text("그냥 그래요")
+                        }
+                        .buttonStyle(ToggleButtonStyle(value: $deafening[2], width: 93))
+                        
+                        Button(action: {
+                            for i in 0 ..< deafening.count {
+                                if i == 3 {
+                                    continue
+                                }
+                                if deafening[i] == true {
+                                    deafening[i] = false
+                                }
+                            }
+                            deafening[3].toggle()
+                        }) {
+                            Text("잘 돼요")
+                        }
+                        .buttonStyle(ToggleButtonStyle(value: $deafening[3], width: 66))
+                        
+                        Button(action: {
+                            for i in 0 ..< (deafening.count - 1) {
+                                if deafening[i] == true {
+                                    deafening[i] = false
+                                }
+                            }
+                            deafening[4].toggle()
+                        }) {
+                            Text("매우 잘 돼요")
+                        }
+                        .buttonStyle(ToggleButtonStyle(value: $deafening[4], width: 93))
+                    }
+                }
+            }
+            .font(.system(size: 14))
+            
+            Group {
+                Text("조식이 나오나요?")
+                
+                HStack {
+                    Button(action: {
+                        if noBreakfast {
+                            noBreakfast = false
+                        }
+                        yesBreakfast.toggle()
+                    }) {
+                        Text("나와요")
+                    }
+                    .buttonStyle(ToggleButtonStyle(value: $yesBreakfast, width: 66))
+                    
+                    Button(action: {
+                        if yesBreakfast {
+                            yesBreakfast = false
+                        }
+                        noBreakfast.toggle()
+                    }) {
+                        Text("안나와요")
+                    }
+                    .buttonStyle(ToggleButtonStyle(value: $noBreakfast, width: 78))
+                   
+                   
+                }
+            }
+            .font(.system(size: 14))
+        }
+    } // acco
 }
 
 struct OpinionWriteScreen_Previews: PreviewProvider {

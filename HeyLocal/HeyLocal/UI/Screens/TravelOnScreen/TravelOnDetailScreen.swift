@@ -357,7 +357,7 @@ struct TravelOnDetailScreen: View {
                             NavigationLink(destination: OpinionDetailScreen(travelOnId: travelOnId, opinionId: opinion.id)) {
                                 OpinionComponent(opinion: opinion)
                                     .foregroundColor(Color.black)
-                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 30))
                             }
                             
                             // TODO: 플랜에 장소 추가하는 기능
