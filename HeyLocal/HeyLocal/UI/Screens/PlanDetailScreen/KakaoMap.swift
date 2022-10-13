@@ -22,6 +22,9 @@ struct KakaoMap: UIViewRepresentable {
 		// 마커 추가
 		addMarkers(view)
 		
+		// 라인 추가
+		addLines(view)
+		
 		// 지도 센터와 줌 레벨 설정
 		setMapCenter(view)
 		
@@ -34,6 +37,9 @@ struct KakaoMap: UIViewRepresentable {
 		
 		// 마커 추가
 		addMarkers(view)
+		
+		// 라인 추가
+		addLines(view)
 		
 		// 지도 센터와 줌 레벨 설정
 		setMapCenter(view)
@@ -56,6 +62,23 @@ struct KakaoMap: UIViewRepresentable {
 			
 			mapView.add(marker)
 		}
+	}
+	
+	/// 지도에 라인을 추가합니다.
+	func addLines(_ mapView: MTMapView) {
+		// Polyline 객체 생성
+		let polyline = MTMapPolyline.polyLine()!
+		polyline.polylineColor = .purple
+		
+		// 좌표 찍기
+		var mapPoints: [MTMapPoint] = []
+		for place in places {
+			let mapPoint = MTMapPoint(geoCoord: MTMapPointGeo(latitude: place.lat, longitude: place.lng))!
+			mapPoints.append(mapPoint)
+		}
+		polyline.addPoints(mapPoints)
+		
+		mapView.addPolyline(polyline)
 	}
 	
 	/// 장소들을 모두 보여줄 수 있는 센터와 줌 레벨 값을 반환합니다.
