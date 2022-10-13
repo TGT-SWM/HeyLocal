@@ -16,7 +16,7 @@ extension PlanDetailScreen {
 		ZStack {
 			// 장소 목록이 비어 있을 때
 			if (viewModel.scheduleOf(day: day).isEmpty) {
-				Text("등록된 장소가 없습니다. 장소를 추가해보세요.")
+				emptyView
 			}
 			// 장소 목록을 출력
 			else {
@@ -31,6 +31,24 @@ extension PlanDetailScreen {
 				arrivalTimeEditView
 			}
 		}
+	}
+	
+	/// 장소가 비어 있을 때 출력할 뷰입니다.
+	var emptyView: some View {
+		List {
+			HStack(alignment: .center) {
+				Spacer()
+				Text("여행 장소를 추가해보세요.")
+					.font(.system(size: 16))
+					.fontWeight(.medium)
+					.listRowSeparator(.hidden)
+					.listRowInsets(EdgeInsets())
+				Spacer()
+			}
+			.frame(height: 200)
+			scheduleToolbar
+		}
+		.listStyle(PlainListStyle())
 	}
 }
 
