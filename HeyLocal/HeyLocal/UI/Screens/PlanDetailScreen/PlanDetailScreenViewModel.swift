@@ -260,7 +260,7 @@ extension PlanDetailScreen.ViewModel {
 }
 
 
-// MARK: - 이동 거리 및 시간, 최적 정렬 기능
+// MARK: - 이동 거리 및 시간을 계산하고 표시하는 기능
 
 extension PlanDetailScreen.ViewModel {
 	/// 이동 시간과 거리를 담기 위한 구조체입니다.
@@ -337,5 +337,33 @@ extension PlanDetailScreen.ViewModel {
 			
 			distances.append(scheduleDist)
 		}
+	}
+}
+
+
+// MARK: - 최적 루트 재정렬 기능
+
+extension PlanDetailScreen.ViewModel {
+	func rearrange(day: Int) {
+		let places = scheduleOf(day: day).wrappedValue
+		let weights = distances[day - 1].map { row in
+			row.map { $0.time }
+		}
+		let startTime = DateFormat.strToDate("09:00:00", "HH:mm:ss")
+		let isLastDay = day >= schedules.count
+		
+		// 초기화
+		let engine: ScheduleEngine = TSPScheduleEngine(
+			places: places,
+			weights: weights,
+			startTime: startTime,
+			isLastDay: isLastDay
+		)
+		
+		// 새로운 스케줄 가져와 반영
+		let result = engine.run()
+		schedules[day - 1].places = result
+		// TODO: 서버에 반영
+		// updateSchedules()
 	}
 }

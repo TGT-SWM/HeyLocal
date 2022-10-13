@@ -22,7 +22,7 @@ extension PlanDetailScreen {
 			else {
 				List {
 					listItems(day: day) // 장소 항목들
-					scheduleToolbar // 하단 버튼 뷰
+					scheduleToolbar(day: day) // 하단 버튼 뷰
 				}
 				.listStyle(PlainListStyle())
 			}
@@ -46,7 +46,7 @@ extension PlanDetailScreen {
 				Spacer()
 			}
 			.frame(height: 200)
-			scheduleToolbar
+			scheduleToolbar(day: nil)
 		}
 		.listStyle(PlainListStyle())
 	}
@@ -203,10 +203,12 @@ extension PlanDetailScreen {
 
 extension PlanDetailScreen {
 	/// 여행 장소 추가 버튼과 최적루트 재정렬 버튼을 표시합니다.
-	var scheduleToolbar: some View {
+	func scheduleToolbar(day: Int?) -> some View {
 		HStack(alignment: .center) {
 			addPlacesButton
-			rearrangeButton
+			if let day = day {
+				rearrangeButton(day: day)
+			}
 		}
 		.frame(height: 56)
 		.background(Color.white)
@@ -232,9 +234,9 @@ extension PlanDetailScreen {
 	}
 	
 	/// 스케줄을 자동으로 재정렬합니다.
-	var rearrangeButton: some View {
+	func rearrangeButton(day: Int) -> some View {
 		Button {
-			
+			viewModel.rearrange(day: day)
 		} label: {
 			Image("refresh_purple_icon")
 				.frame(width: 24, height: 24)
