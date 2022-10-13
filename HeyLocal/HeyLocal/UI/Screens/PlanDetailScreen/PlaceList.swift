@@ -16,13 +16,13 @@ extension PlanDetailScreen {
 		ZStack {
 			// 장소 목록이 비어 있을 때
 			if (viewModel.scheduleOf(day: day).isEmpty) {
-				Text("등록된 장소가 없습니다. 장소를 추가해보세요.")
+				emptyView
 			}
 			// 장소 목록을 출력
 			else {
 				List {
 					listItems(day: day) // 장소 항목들
-					scheduleToolbar // 하단 버튼 뷰
+					scheduleToolbar(day: day) // 하단 버튼 뷰
 				}
 				.listStyle(PlainListStyle())
 			}
@@ -32,6 +32,24 @@ extension PlanDetailScreen {
 			}
 		}
 	}
+	
+	/// 장소가 비어 있을 때 출력할 뷰입니다.
+	var emptyView: some View {
+		List {
+			HStack(alignment: .center) {
+				Spacer()
+				Text("여행 장소를 추가해보세요.")
+					.font(.system(size: 16))
+					.fontWeight(.medium)
+					.listRowSeparator(.hidden)
+					.listRowInsets(EdgeInsets())
+				Spacer()
+			}
+			.frame(height: 200)
+			scheduleToolbar(day: nil)
+		}
+		.listStyle(PlainListStyle())
+	}
 }
 
 // MARK: - 리스트
@@ -39,11 +57,18 @@ extension PlanDetailScreen {
 extension PlanDetailScreen {
 	/// 리스트에 들어갈 항목들을 반환합니다.
 	func listItems(day: Int) -> some View {
-		ForEach(viewModel.scheduleOf(day: day).indices, id: \.self) {
+		ForEach(viewModel.scheduleOf(day: day).indices, id: \.self) { index in
 			listItem(
-				index: $0,
-				place: viewModel.placeOf(day: day, index: $0)
+				index: index,
+				place: viewModel.placeOf(day: day, index: index)
 			)
+			
+			// 마지막 항목이 아니라면, 자신과 다음 장소 사이의 거리 정보를 출력합니다.
+			if index != viewModel.scheduleOf(day: day).count - 1 {
+				distanceItem(day: day, index: index)
+					.deleteDisabled(true)
+					.moveDisabled(true)
+			}
 		}
 		.onDelete(perform: deleteHandler(day: day))
 		.onMove(perform: moveHandler(day: day))
@@ -76,6 +101,67 @@ extension PlanDetailScreen {
 		.frame(height: 72)
 		.padding(.horizontal, 20)
 		.listRowSeparator(.hidden)
+		.listRowInsets(EdgeInsets())
+	}
+	
+	/// 장소 사이의 거리와 길찾기 버튼을 보여주는 항목입니다.
+	func distanceItem(day: Int, index: Int) -> some View {
+		let distance = viewModel.distances[day - 1][index][index + 1]
+		let d = distance.distance
+		let t = distance.time
+		
+		// 이동 거리 문자열
+		var distStr = ""
+		if d >= 1000 {
+			distStr = String(format: "%.1f", d / 1000) + "km"
+		} else {
+			distStr = "\(Int(d))m"
+		}
+		
+		// 이동 시간 문자열
+		var timeStr = ""
+		if t < 2 {
+			timeStr = "약 1분 소요"
+		} else {
+			timeStr = "약 \(Int(t))분 소요"
+		}
+		
+		// 카카오맵 URL scheme
+		let from = viewModel.scheduleOf(day: day).wrappedValue[index]
+		let to = viewModel.scheduleOf(day: day).wrappedValue[index + 1]
+		let urlStr = "kakaomap://route?sp=\(from.lat),\(from.lng)&ep=\(to.lat),\(to.lng)&by=CAR"
+		let url = URL(string: urlStr)!
+		
+		return HStack(alignment: .center, spacing: 0) {
+			Image("vertical_stripe_icon")
+				.frame(height: 40)
+				.padding(.horizontal, 32)
+			
+			Text("\(distStr) / \(timeStr)")
+				.font(.system(size: 12))
+			
+			Spacer()
+			
+			Button {
+				// 카카오맵으로 이동
+				if UIApplication.shared.canOpenURL(url) {
+					UIApplication.shared.open(url)
+				} else {
+					UIApplication.shared.open(URL(string: "itms-apps://itunes.apple.com/app/id304608425")!)
+				}
+			} label: {
+				HStack {
+					Image("maps_arrow_icon")
+						.frame(width: 20, height: 20)
+					Text("길찾기")
+						.font(.system(size: 14))
+						.fontWeight(.medium)
+				}
+				
+			}
+			.padding(.trailing, 20)
+		}
+		.frame(height: 40)
 		.listRowInsets(EdgeInsets())
 	}
 	
@@ -117,10 +203,12 @@ extension PlanDetailScreen {
 
 extension PlanDetailScreen {
 	/// 여행 장소 추가 버튼과 최적루트 재정렬 버튼을 표시합니다.
-	var scheduleToolbar: some View {
+	func scheduleToolbar(day: Int?) -> some View {
 		HStack(alignment: .center) {
 			addPlacesButton
-			rearrangeButton
+			if let day = day {
+				rearrangeButton(day: day)
+			}
 		}
 		.frame(height: 56)
 		.background(Color.white)
@@ -146,9 +234,9 @@ extension PlanDetailScreen {
 	}
 	
 	/// 스케줄을 자동으로 재정렬합니다.
-	var rearrangeButton: some View {
+	func rearrangeButton(day: Int) -> some View {
 		Button {
-			
+			viewModel.rearrange(day: day)
 		} label: {
 			Image("refresh_purple_icon")
 				.frame(width: 24, height: 24)

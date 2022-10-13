@@ -15,4 +15,6 @@ struct Config {
 	static let refreshToken = Bundle.main.object(forInfoDictionaryKey: "REFRESH_TOKEN")!
 	static let kakaoRestURL = Bundle.main.object(forInfoDictionaryKey: "KAKAO_REST_URL")!
 	static let kakaoRestKey = Bundle.main.object(forInfoDictionaryKey: "KAKAO_REST_KEY")!
+	static let odsayApiKey = Bundle.main.object(forInfoDictionaryKey: "ODSAY_API_KEY")!
+	static let odsayApiURL = Bundle.main.object(forInfoDictionaryKey: "ODSAY_API_URL")!
 }

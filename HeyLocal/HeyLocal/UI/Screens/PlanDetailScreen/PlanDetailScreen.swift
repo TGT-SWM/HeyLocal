@@ -29,7 +29,6 @@ struct PlanDetailScreen: View {
 			if (viewModel.showMapView) { mapView }
 			else { scheduleView }
 		}
-		.onAppear { displayTabBar(false) }
 		.background(Color("lightGray"))
 		.animation(.easeInOut, value: viewModel.editMode)
 		.navigationTitle("마이 플랜")
@@ -43,6 +42,7 @@ struct PlanDetailScreen: View {
 				editButton
 			}
 		}
+		.onAppear { displayTabBar(false) }
     }
 	
 	/// 스케줄 수정 모드로 진입하기 위한 버튼입니다.
@@ -50,9 +50,9 @@ struct PlanDetailScreen: View {
 		HStack {
 			if viewModel.isEditing {
 				Button("취소", action: viewModel.cancelChanges)
-				Button("확인", action: viewModel.confirmChanges)
+				Button("완료", action: viewModel.confirmChanges)
 			} else {
-				Button("수정", action: viewModel.startEditing)
+				Button("편집", action: viewModel.startEditing)
 			}
 		}
 	}
