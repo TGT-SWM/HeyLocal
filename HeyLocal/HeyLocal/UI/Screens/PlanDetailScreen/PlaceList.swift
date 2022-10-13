@@ -48,6 +48,8 @@ extension PlanDetailScreen {
 			// 마지막 항목이 아니라면, 자신과 다음 장소 사이의 거리 정보를 출력합니다.
 			if index != viewModel.scheduleOf(day: day).count - 1 {
 				distanceItem(day: day, index: index)
+					.deleteDisabled(true)
+					.moveDisabled(true)
 			}
 		}
 		.onDelete(perform: deleteHandler(day: day))
