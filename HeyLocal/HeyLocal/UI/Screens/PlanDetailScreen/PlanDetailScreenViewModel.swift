@@ -290,7 +290,7 @@ extension PlanDetailScreen.ViewModel {
 	
 	/// 두 장소간 이동 시간과 거리를 계산해 반환합니다.
 	/// 이동 거리는 Haversine 공식을 사용해 계산하며,
-	/// 이동 거리를 기준 속도(50km/h)로 나누어 이동 시간을 계산합니다.
+	/// 이동 거리를 기준 속도(40km/h)로 나누어 이동 시간을 계산합니다.
 	func distanceBetween(_ a: Place, _ b: Place) -> Distance {
 		var distance = 0.0 // 이동 거리
 		var time = 0.0 // 이동 시간
@@ -312,7 +312,7 @@ extension PlanDetailScreen.ViewModel {
 		distance = 2 * radiusOfEarth * asin(sqrted)
 		
 		// 이동 시간 계산
-		let speed = 50.0 * 1000 / 60 // 50km/hour -> m/min 변환
+		let speed = 40.0 * 1000 / 60 // 40km/hour -> m/min 변환
 		time = distance / speed
 		
 		return Distance(time: time, distance: distance)

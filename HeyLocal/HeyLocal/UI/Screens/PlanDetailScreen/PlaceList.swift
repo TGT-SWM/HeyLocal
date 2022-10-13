@@ -39,15 +39,15 @@ extension PlanDetailScreen {
 extension PlanDetailScreen {
 	/// 리스트에 들어갈 항목들을 반환합니다.
 	func listItems(day: Int) -> some View {
-		ForEach(viewModel.scheduleOf(day: day).indices, id: \.self) {
+		ForEach(viewModel.scheduleOf(day: day).indices, id: \.self) { index in
 			listItem(
-				index: $0,
-				place: viewModel.placeOf(day: day, index: $0)
+				index: index,
+				place: viewModel.placeOf(day: day, index: index)
 			)
 			
-			if $0 < viewModel.scheduleOf(day: day).count - 1 {
-				Text("이동 시간 : \(viewModel.distances[day - 1][$0][$0 + 1].time)")
-				Text("이동 거리 : \(viewModel.distances[day - 1][$0][$0 + 1].distance)")
+			// 마지막 항목이 아니라면, 자신과 다음 장소 사이의 거리 정보를 출력합니다.
+			if index != viewModel.scheduleOf(day: day).count - 1 {
+				distanceItem(day: day, index: index)
 			}
 		}
 		.onDelete(perform: deleteHandler(day: day))
@@ -81,6 +81,55 @@ extension PlanDetailScreen {
 		.frame(height: 72)
 		.padding(.horizontal, 20)
 		.listRowSeparator(.hidden)
+		.listRowInsets(EdgeInsets())
+	}
+	
+	/// 장소 사이의 거리와 길찾기 버튼을 보여주는 항목입니다.
+	func distanceItem(day: Int, index: Int) -> some View {
+		let distance = viewModel.distances[day - 1][index][index + 1]
+		let d = distance.distance
+		let t = distance.time
+		
+		var distStr = ""
+		var timeStr = ""
+		
+		if d >= 1000 {
+			distStr = String(format: "%.1f", d / 1000) + "km"
+		} else {
+			distStr = "\(Int(d))m"
+		}
+		
+		if t < 2 {
+			timeStr = "약 1분 소요"
+		} else {
+			timeStr = "약 \(Int(t))분 소요"
+		}
+		
+		return HStack(alignment: .center, spacing: 0) {
+			Image("vertical_stripe_icon")
+				.frame(height: 40)
+				.padding(.horizontal, 32)
+			
+			Text("\(distStr) / \(timeStr)")
+				.font(.system(size: 12))
+			
+			Spacer()
+			
+			Button {
+				// 카카오맵으로 이동
+			} label: {
+				HStack {
+					Image("maps_arrow_icon")
+						.frame(width: 20, height: 20)
+					Text("길찾기")
+						.font(.system(size: 14))
+						.fontWeight(.medium)
+				}
+				
+			}
+			.padding(.trailing, 20)
+		}
+		.frame(height: 40)
 		.listRowInsets(EdgeInsets())
 	}
 	
