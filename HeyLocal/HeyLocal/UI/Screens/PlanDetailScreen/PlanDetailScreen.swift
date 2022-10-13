@@ -50,9 +50,9 @@ struct PlanDetailScreen: View {
 		HStack {
 			if viewModel.isEditing {
 				Button("취소", action: viewModel.cancelChanges)
-				Button("확인", action: viewModel.confirmChanges)
+				Button("완료", action: viewModel.confirmChanges)
 			} else {
-				Button("수정", action: viewModel.startEditing)
+				Button("편집", action: viewModel.startEditing)
 			}
 		}
 	}
