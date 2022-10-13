@@ -90,20 +90,27 @@ extension PlanDetailScreen {
 		let d = distance.distance
 		let t = distance.time
 		
+		// 이동 거리 문자열
 		var distStr = ""
-		var timeStr = ""
-		
 		if d >= 1000 {
 			distStr = String(format: "%.1f", d / 1000) + "km"
 		} else {
 			distStr = "\(Int(d))m"
 		}
 		
+		// 이동 시간 문자열
+		var timeStr = ""
 		if t < 2 {
 			timeStr = "약 1분 소요"
 		} else {
 			timeStr = "약 \(Int(t))분 소요"
 		}
+		
+		// 카카오맵 URL scheme
+		let from = viewModel.scheduleOf(day: day).wrappedValue[index]
+		let to = viewModel.scheduleOf(day: day).wrappedValue[index + 1]
+		let urlStr = "kakaomap://route?sp=\(from.lat),\(from.lng)&ep=\(to.lat),\(to.lng)&by=CAR"
+		let url = URL(string: urlStr)!
 		
 		return HStack(alignment: .center, spacing: 0) {
 			Image("vertical_stripe_icon")
@@ -117,6 +124,11 @@ extension PlanDetailScreen {
 			
 			Button {
 				// 카카오맵으로 이동
+				if UIApplication.shared.canOpenURL(url) {
+					UIApplication.shared.open(url)
+				} else {
+					UIApplication.shared.open(URL(string: "itms-apps://itunes.apple.com/app/id304608425")!)
+				}
 			} label: {
 				HStack {
 					Image("maps_arrow_icon")
