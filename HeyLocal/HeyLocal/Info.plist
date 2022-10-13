@@ -14,6 +14,10 @@
 	<string>${KAKAO_REST_KEY}</string>
 	<key>KAKAO_REST_URL</key>
 	<string>${KAKAO_REST_URL}</string>
+	<key>ODSAY_API_KEY</key>
+	<string>${ODSAY_API_KEY}</string>
+	<key>ODSAY_API_URL</key>
+	<string>${ODSAY_API_URL}</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

@@ -10,3 +10,6 @@
 
 // 카카오 REST API URL
 KAKAO_REST_URL = https:${SLASH}/dapi.kakao.com
+
+// ODsay LAB API URL
+ODSAY_API_URL = https:${SLASH}/api.odsay.com
