@@ -18,7 +18,7 @@ class ODsayAPIService {
 	
 	/// 대중교통 길찾기 API를 호출합니다.
 	/// 출발 위도 & 경도와 도착 위도 & 경도를 파라미터로 받습니다.
-	func searchPubTrans(sLat: Double, sLng: Double, eLat: Double, eLng: Double, distance: Binding<Distance>) {
+	func searchPubTrans(sLat: Double, sLng: Double, eLat: Double, eLng: Double, distance: Binding<Info>) {
 		// URL 구성
 		var components = URLComponents(string: "\(Config.odsayApiURL)/v1/api/searchPubTransPathT")!
 		components.queryItems = [
@@ -40,7 +40,7 @@ class ODsayAPIService {
 		agent.run(request)
 			.sink(receiveCompletion: { completion in
 				if case let .failure(error) = completion {
-					distance.wrappedValue = Distance(totalTime: 0, totalDistance: 0)
+					distance.wrappedValue = Info(totalTime: 0, totalDistance: 0)
 				}
 			}, receiveValue: { (resp: ODsayPubTransResponse) in
 				let paths = resp.result.path
@@ -72,4 +72,4 @@ struct ODsayPubTransResponse: Decodable {
 }
 
 /// 장소 사이의 이동 시간과 거리를 담는 구조체로서 사용하기 위해 typealias 선언합니다.
-typealias Distance = ODsayPubTransResponse.Info
+typealias Info = ODsayPubTransResponse.Info

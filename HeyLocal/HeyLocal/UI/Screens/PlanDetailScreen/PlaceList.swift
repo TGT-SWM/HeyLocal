@@ -44,6 +44,11 @@ extension PlanDetailScreen {
 				index: $0,
 				place: viewModel.placeOf(day: day, index: $0)
 			)
+			
+			if $0 < viewModel.scheduleOf(day: day).count - 1 {
+				Text("이동 시간 : \(viewModel.distances[day - 1][$0][$0 + 1].time)")
+				Text("이동 거리 : \(viewModel.distances[day - 1][$0][$0 + 1].distance)")
+			}
 		}
 		.onDelete(perform: deleteHandler(day: day))
 		.onMove(perform: moveHandler(day: day))

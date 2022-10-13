@@ -22,7 +22,11 @@ extension PlanDetailScreen {
 		// 상태 값
 		@Published var showMapView = false // 지도 뷰를 보여줄 것인지
 		@Published var currentDay = 1 // 현재 보고 있는 여행 일자
-		@Published var schedules: [DaySchedule] = [] // 스케줄 정보
+		@Published var schedules: [DaySchedule] = [] {// 스케줄 정보
+			didSet {
+				calculateDistances()
+			}
+		}
 		@Published var distances: [[[Distance]]] = [] // 장소 사이의 거리 정보
 		@Published var editMode = EditMode.inactive // 스케줄 수정 모드
 		@Published var isPlanTitleEditing = false // 플랜 제목이 수정 중인지
@@ -73,55 +77,36 @@ extension PlanDetailScreen.ViewModel {
 	
 	/// 스케줄 내 장소 간 이동 시간과 거리를 받아옵니다. (대중교통 기준)
 	/// 스케줄 fetch가 완료된 후에 호출되어야 합니다.
-	func fetchDistances() {
-		// 초기화
-		initDistances()
-		
-		// API 호출
-		for i in schedules.indices {
-			let places = schedules[i].places
-			
-			for j in 0..<places.count {
-				for k in (j + 1)..<places.count {
-					let from = places[j]
-					let to = places[k]
-					odsayAPIService.searchPubTrans(
-						sLat: from.lat,
-						sLng: from.lng,
-						eLat: to.lat,
-						eLng: to.lng,
-						distance: Binding(
-							get: { self.distances[i][j][k] },
-							set: {
-								self.distances[i][j][k] = $0
-								self.distances[i][k][j] = $0
-							}
-						)
-					)
-				}
-			}
-		}
-	}
-	
-	/// distances 배열을 스케줄 크기에 맞게 초기화합니다.
-	func initDistances() {
-		distances = []
-		for schedule in schedules {
-			let n = schedule.places.count
-			var scheduleDist: [[Distance]] = []
-			
-			for _ in 0..<n {
-				var tmp: [Distance] = []
-				for _ in 0..<n {
-					let defaultValue = Distance(totalTime: 0, totalDistance: 0)
-					tmp.append(defaultValue)
-				}
-				scheduleDist.append(tmp)
-			}
-			
-			distances.append(scheduleDist)
-		}
-	}
+	/// **현재 너무 많은 요청이 전송되며 에러가 반환되는 문제가 있어 사용이 어렵습니다.**
+//	func fetchDistances() {
+//		// 초기화
+//		initDistances()
+//
+//		// API 호출
+//		for i in schedules.indices {
+//			let places = schedules[i].places
+//
+//			for j in 0..<places.count {
+//				for k in (j + 1)..<places.count {
+//					let from = places[j]
+//					let to = places[k]
+//					odsayAPIService.searchPubTrans(
+//						sLat: from.lat,
+//						sLng: from.lng,
+//						eLat: to.lat,
+//						eLng: to.lng,
+//						distance: Binding(
+//							get: { self.distances[i][j][k] },
+//							set: {
+//								self.distances[i][j][k] = $0
+//								self.distances[i][k][j] = $0
+//							}
+//						)
+//					)
+//				}
+//			}
+//		}
+//	}
 }
 
 
@@ -271,5 +256,86 @@ extension PlanDetailScreen.ViewModel {
 		arrivalTimeEditTarget?.wrappedValue.arrivalTime = result
 		updateSchedules()
 		arrivalTimeEditTarget = nil
+	}
+}
+
+
+// MARK: - 이동 거리 및 시간, 최적 정렬 기능
+
+extension PlanDetailScreen.ViewModel {
+	/// 이동 시간과 거리를 담기 위한 구조체입니다.
+	struct Distance {
+		var time: Double = 0 // 분
+		var distance: Double = 0 // 미터
+	}
+	
+	/// 모든 장소 사이의 이동 시간과 거리를 계산해 저장합니다.
+	func calculateDistances() {
+		// 초기화
+		initDistances()
+		
+		// 계산
+		for i in schedules.indices {
+			let places = schedules[i].places
+			
+			for j in places.indices {
+				for k in (j + 1)..<places.count {
+					let dist = distanceBetween(places[j], places[k])
+					distances[i][j][k] = dist
+					distances[i][k][j] = dist
+				}
+			}
+		}
+	}
+	
+	/// 두 장소간 이동 시간과 거리를 계산해 반환합니다.
+	/// 이동 거리는 Haversine 공식을 사용해 계산하며,
+	/// 이동 거리를 기준 속도(50km/h)로 나누어 이동 시간을 계산합니다.
+	func distanceBetween(_ a: Place, _ b: Place) -> Distance {
+		var distance = 0.0 // 이동 거리
+		var time = 0.0 // 이동 시간
+		
+		// 이동 거리 계산
+		let radiusOfEarth = 6371e3
+		let degToRadian = Double.pi / 180
+		
+		let deltaLat = abs(a.lat - b.lat) * degToRadian
+		let deltaLng = abs(a.lng - b.lng) * degToRadian
+		
+		let sinDeltaLat = sin(deltaLat / 2)
+		let sinDeltaLng = sin(deltaLng / 2)
+		let sqrted = sqrt(
+			pow(sinDeltaLat, 2) +
+			cos(a.lat * degToRadian) * cos(b.lat * degToRadian) * pow(sinDeltaLng, 2)
+		)
+		
+		distance = 2 * radiusOfEarth * asin(sqrted)
+		
+		// 이동 시간 계산
+		let speed = 50.0 * 1000 / 60 // 50km/hour -> m/min 변환
+		time = distance / speed
+		
+		return Distance(time: time, distance: distance)
+	}
+	
+	
+	/// distances 배열을 스케줄 크기에 맞게 초기화합니다.
+	func initDistances() {
+		distances = []
+		for schedule in schedules {
+			let n = schedule.places.count
+			var scheduleDist: [[Distance]] = []
+			
+			for _ in 0..<n {
+				var tmp: [Distance] = []
+				for _ in 0..<n {
+					let defaultValue = Distance(time: 0, distance: 0)
+					tmp.append(defaultValue)
+				}
+				scheduleDist.append(tmp)
+			}
+			
+			distances.append(scheduleDist)
+		}
 	}
 }
