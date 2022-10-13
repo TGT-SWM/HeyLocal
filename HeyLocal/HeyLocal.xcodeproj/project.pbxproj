@@ -67,6 +67,7 @@
 		EF6A3FCA28EB3D9B003F474B /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A3FC928EB3D9B003F474B /* View+Extensions.swift */; };
 		EF74BBF328B4D5C200E09450 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF74BBF228B4D5C200E09450 /* HomeScreen.swift */; };
 		EF74BBF928B52CF200E09450 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */; };
+		EF8EB5DD28F8697700F8D9EB /* ScheduleEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8EB5DC28F8697700F8D9EB /* ScheduleEngine.swift */; };
 		EF8FF25D28B4D0B100C053B7 /* HeyLocalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8FF25C28B4D0B100C053B7 /* HeyLocalApp.swift */; };
 		EF8FF26128B4D0B300C053B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF8FF26028B4D0B300C053B7 /* Assets.xcassets */; };
 		EF8FF26428B4D0B300C053B7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF8FF26328B4D0B300C053B7 /* Preview Assets.xcassets */; };
@@ -181,6 +182,7 @@
 		EF74BBF228B4D5C200E09450 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EF89F5DB28C08103001401FE /* Main.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Main.xcconfig; sourceTree = "<group>"; };
+		EF8EB5DC28F8697700F8D9EB /* ScheduleEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleEngine.swift; sourceTree = "<group>"; };
 		EF8FF25928B4D0B100C053B7 /* HeyLocal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HeyLocal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF8FF25C28B4D0B100C053B7 /* HeyLocalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeyLocalApp.swift; sourceTree = "<group>"; };
 		EF8FF26028B4D0B300C053B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -488,6 +490,7 @@
 				EF6A3FC328E71EE5003F474B /* UserService.swift */,
 				EF3C061128E0EDC4003F3188 /* KakaoAPIService.swift */,
 				A877D99B28F265F000527E21 /* OpinionService.swift */,
+				EF8EB5DC28F8697700F8D9EB /* ScheduleEngine.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -749,6 +752,7 @@
 				EFF9F3C728C5C8DA00E9FCB3 /* KakaoMap.swift in Sources */,
 				EF6A3FC428E71EE5003F474B /* UserService.swift in Sources */,
 				A80213DB28BF2EA100B6359E /* TravelOnService.swift in Sources */,
+				EF8EB5DD28F8697700F8D9EB /* ScheduleEngine.swift in Sources */,
 				EF6A3FC228E71A2F003F474B /* UserRepository.swift in Sources */,
 				A8AF3DEC28D407E9009B68BE /* RegionComponent.swift in Sources */,
 				EF8FF27428B4D2D100C053B7 /* Main.swift in Sources */,
