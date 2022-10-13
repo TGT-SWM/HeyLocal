@@ -16,12 +16,14 @@ extension PlanDetailScreen {
 	class ViewModel: ObservableObject {
 		// 의존성
 		let planService = PlanService()
+		let odsayAPIService = ODsayAPIService()
 		var plan: Plan
 		
 		// 상태 값
 		@Published var showMapView = false // 지도 뷰를 보여줄 것인지
 		@Published var currentDay = 1 // 현재 보고 있는 여행 일자
 		@Published var schedules: [DaySchedule] = [] // 스케줄 정보
+		@Published var distances: [[[Distance]]] = [] // 장소 사이의 거리 정보
 		@Published var editMode = EditMode.inactive // 스케줄 수정 모드
 		@Published var isPlanTitleEditing = false // 플랜 제목이 수정 중인지
 		@Published var arrivalTimeEditTarget: Binding<Place>?
@@ -67,6 +69,58 @@ extension PlanDetailScreen.ViewModel {
 			planId: plan.id,
 			planTitle: plan.title
 		)
+	}
+	
+	/// 스케줄 내 장소 간 이동 시간과 거리를 받아옵니다. (대중교통 기준)
+	/// 스케줄 fetch가 완료된 후에 호출되어야 합니다.
+	func fetchDistances() {
+		// 초기화
+		initDistances()
+		
+		// API 호출
+		for i in schedules.indices {
+			let places = schedules[i].places
+			
+			for j in 0..<places.count {
+				for k in (j + 1)..<places.count {
+					let from = places[j]
+					let to = places[k]
+					odsayAPIService.searchPubTrans(
+						sLat: from.lat,
+						sLng: from.lng,
+						eLat: to.lat,
+						eLng: to.lng,
+						distance: Binding(
+							get: { self.distances[i][j][k] },
+							set: {
+								self.distances[i][j][k] = $0
+								self.distances[i][k][j] = $0
+							}
+						)
+					)
+				}
+			}
+		}
+	}
+	
+	/// distances 배열을 스케줄 크기에 맞게 초기화합니다.
+	func initDistances() {
+		distances = []
+		for schedule in schedules {
+			let n = schedule.places.count
+			var scheduleDist: [[Distance]] = []
+			
+			for _ in 0..<n {
+				var tmp: [Distance] = []
+				for _ in 0..<n {
+					let defaultValue = Distance(totalTime: 0, totalDistance: 0)
+					tmp.append(defaultValue)
+				}
+				scheduleDist.append(tmp)
+			}
+			
+			distances.append(scheduleDist)
+		}
 	}
 }
 

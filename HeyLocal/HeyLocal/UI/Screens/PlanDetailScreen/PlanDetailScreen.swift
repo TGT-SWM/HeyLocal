@@ -29,7 +29,6 @@ struct PlanDetailScreen: View {
 			if (viewModel.showMapView) { mapView }
 			else { scheduleView }
 		}
-		.onAppear { displayTabBar(false) }
 		.background(Color("lightGray"))
 		.animation(.easeInOut, value: viewModel.editMode)
 		.navigationTitle("마이 플랜")
@@ -42,6 +41,13 @@ struct PlanDetailScreen: View {
 			ToolbarItem(placement: .navigationBarTrailing) {
 				editButton
 			}
+		}
+		.onAppear {
+			displayTabBar(false)
+			viewModel.fetchDistances()
+		}
+		.onChange(of: viewModel.schedules) { _ in
+			viewModel.fetchDistances()
 		}
     }
 	

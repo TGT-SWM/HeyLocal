@@ -14,19 +14,21 @@ import Combine
 class ODsayAPIService {
 	let agent = NetworkAgent()
 	var cancellable: AnyCancellable?
+	var cancelBag: Set<AnyCancellable> = []
 	
 	/// 대중교통 길찾기 API를 호출합니다.
 	/// 출발 위도 & 경도와 도착 위도 & 경도를 파라미터로 받습니다.
-	func searchPubTrans(sLat: Double, sLng: Double, eLat: Double, eLng: Double, time: Binding<Int>, distance: Binding<Int>) {
+	func searchPubTrans(sLat: Double, sLng: Double, eLat: Double, eLng: Double, distance: Binding<Distance>) {
 		// URL 구성
 		var components = URLComponents(string: "\(Config.odsayApiURL)/v1/api/searchPubTransPathT")!
 		components.queryItems = [
 			URLQueryItem(name: "apiKey", value: "\(Config.odsayApiKey)"),
 			URLQueryItem(name: "lang", value: "0"),
-			URLQueryItem(name: "sx", value: "\(sLng)"),
-			URLQueryItem(name: "sy", value: "\(sLat)"),
-			URLQueryItem(name: "ex", value: "\(eLng)"),
-			URLQueryItem(name: "ey", value: "\(eLat)")
+			URLQueryItem(name: "SX", value: "\(sLng)"),
+			URLQueryItem(name: "SY", value: "\(sLat)"),
+			URLQueryItem(name: "EX", value: "\(eLng)"),
+			URLQueryItem(name: "EY", value: "\(eLat)")
+			
 		]
 		
 		// Request 생성
@@ -35,17 +37,17 @@ class ODsayAPIService {
 		request.httpMethod = "GET"
 		
 		// 실행
-		self.cancellable = agent.run(request)
+		agent.run(request)
 			.sink(receiveCompletion: { completion in
 				if case let .failure(error) = completion {
-					print(error)
+					distance.wrappedValue = Distance(totalTime: 0, totalDistance: 0)
 				}
 			}, receiveValue: { (resp: ODsayPubTransResponse) in
 				let paths = resp.result.path
 				let shortest = paths.min(by: { $0.info.totalTime < $1.info.totalTime })!
-				time.wrappedValue = shortest.info.totalTime
-				distance.wrappedValue = shortest.info.totalDistance
+				distance.wrappedValue = shortest.info
 			})
+			.store(in: &cancelBag)
 	}
 }
 
@@ -68,3 +70,6 @@ struct ODsayPubTransResponse: Decodable {
 		var totalDistance: Int // meter
 	}
 }
+
+/// 장소 사이의 이동 시간과 거리를 담는 구조체로서 사용하기 위해 typealias 선언합니다.
+typealias Distance = ODsayPubTransResponse.Info
