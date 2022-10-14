@@ -30,7 +30,7 @@ struct TravelOnListScreen: View {
     
     var body: some View {
         NavigationView {
-            VStack(alignment: .leading, spacing: 5) {
+            VStack(alignment: .leading) {
                 SearchBar(placeholder: "", searchText: $searchText)
                 
                 content
@@ -141,28 +141,59 @@ struct TravelOnListScreen: View {
                         viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 15, regionId: regionId, sortBy: sortBy.rawValue, withOpinions: value)
                     })
             }
+//
+//            if viewModel.travelOns.count == 0 {
+//                TravelEmptyScreen()
+//            }
+////
             
-            Text("여행On📝")
-                .font(.system(size: 16))
-                .fontWeight(.medium)
-                .padding(EdgeInsets(top: 20, leading: 0, bottom: 0, trailing: 0))
+            
+            
+            
+            if viewModel.travelOns.count != 0 {
+                Text("여행On📝")
+                    .font(.system(size: 16))
+                    .fontWeight(.medium)
+                    .padding(EdgeInsets(top: 20, leading: 0, bottom: 0, trailing: 0))
+                
+            }
+            
             
             ZStack(alignment: .bottomTrailing) {
-                // 여행On Component
-                ScrollView {
-                    VStack {
-                        ForEach(viewModel.travelOns) { travelOn in
-                            NavigationLink(destination: TravelOnDetailScreen(travelOnId: travelOn.id)){
-                                TravelOnComponent(travelOn: travelOn)
-                                    .padding(EdgeInsets(top: 2, leading: 0, bottom: 2, trailing: 0))
+                if viewModel.travelOns.count != 0 {
+                    // 여행On Component
+                    ScrollView {
+                        VStack {
+                            ForEach(viewModel.travelOns) { travelOn in
+                                NavigationLink(destination: TravelOnDetailScreen(travelOnId: travelOn.id)){
+                                    TravelOnComponent(travelOn: travelOn)
+                                        .padding(EdgeInsets(top: 2, leading: 0, bottom: 2, trailing: 0))
+                                }
                             }
                         }
-                        
-                        // TODO: 작성된 여행On이 없을 때
-                        if viewModel.travelOns.count == 0 {
-                            Text("여행On 없음")
-                        }
                     }
+                }
+                
+                else {
+                    HStack (alignment: .center) {
+                        Spacer()
+                        
+                        VStack(alignment: .center) {
+                            Spacer()
+                            
+                            Text("이런, 작성된 여행On이 없어요")
+                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 2, trailing: 0))
+                            
+                            Text("여행On을 작성해볼까요?")
+                            
+                            Spacer()
+                        }
+                        .font(.system(size: 14))
+                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                        
+                        Spacer()
+                    }
+                    .padding()
                 }
                 
                 // 글쓰기 버튼
@@ -170,6 +201,7 @@ struct TravelOnListScreen: View {
                     Text("+")
                 }
                 .buttonStyle(WriteButtonStyle())
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 10))   
             }
         }
     }

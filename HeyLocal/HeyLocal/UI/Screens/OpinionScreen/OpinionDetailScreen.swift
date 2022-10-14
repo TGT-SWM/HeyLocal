@@ -90,12 +90,9 @@ struct OpinionDetailScreen: View {
                     .font(.system(size: 16))
                 
                 HStack {
-//                    let printDate = viewModel.opinion.date.components(separatedBy: "T")
-//                    let yyyyMMdd = printDate[0].components(separatedBy: "-")
-//                    Text("\(yyyyMMdd[0]).\(yyyyMMdd[1]).\(yyyyMMdd[2])")
-                    
-                    // TODO: createdDate 추가되면 ..
-                    Text("2022.09.13")
+                    let printDate = viewModel.opinion.createdDate.components(separatedBy: "T")
+                    let yyyyMMdd = printDate[0].components(separatedBy: "-")
+                    Text("\(yyyyMMdd[0]).\(yyyyMMdd[1]).\(yyyyMMdd[2])")
                         .font(.system(size: 12))
                         .foregroundColor(Color(red: 117/255, green: 118/255, blue: 121/255))
                     
@@ -327,7 +324,7 @@ struct OpinionDetailScreen: View {
                                 .frame(width: 16)
                             
                             Text("답변수")
-                            Text("\(viewModel.opinion.author.acceptedOpinionCount!)")
+                            Text("\(viewModel.opinion.author.totalOpinionCount!)")
                         }
                         
                         HStack(alignment: .center, spacing: 3) {

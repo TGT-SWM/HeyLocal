@@ -21,12 +21,14 @@ struct Place: Codable, Equatable {
 	var link: String
 	var itemIndex: Int?
 	var arrivalTime: String?
+    var region: Region?
+    var thumbnailUrl: String?
     
 	/// 카테고리의 이름 (ex. 음식점)
 	var categoryName: String {
 		PlaceCategory.withLabel(category).rawValue
 	}
-	
+    
 	/// Equatable 프로토콜 구현
 	/// 장소의 동일 여부는 오직 장소의 ID를 통해 판별합니다.
 	static func == (lhs: Place, rhs: Place) -> Bool {

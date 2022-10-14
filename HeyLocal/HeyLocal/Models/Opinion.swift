@@ -13,7 +13,18 @@ struct Opinion: Codable, Identifiable {
     var author: Author = Author()
     var countAccept: Int = 0
     var description: String = ""
-    var place: TmpPlace = TmpPlace()
+    var place: Place = Place(id: 0,
+                             name: "",
+                             category: "",
+                             address: "",
+                             roadAddress: "",
+                             lat: 0,
+                             lng: 0,
+                             link: "",
+                             region: Region(id: 0, state: ""),
+                             thumbnailUrl: "")
+    var modifiedDate: String = "2022-10-07T04:37:44.377Z"
+    var createdDate: String = "2022-10-07T04:37:44.377Z"
     
     // MARK: - 공통 · 기타
     var generalImgDownloadImgUrl: [String] = []
@@ -44,52 +55,3 @@ struct Opinion: Codable, Identifiable {
     var deafening: String? = ""
     var hasBreakFast: Bool? = false
 }
-struct TmpPlace: Codable {
-    var id: Int = 0
-    var name: String = ""
-    var address: String = ""
-    var category: String = ""
-    var region: Region = Region()
-    var roadAddress: String? = ""
-    var thumbnailUrl: String? = ""
-    var kakaoLink: String? = ""
-    var lat: Double? = 0
-    var lng: Double? = 0
-}
-
-//
-//{
-//  "cafeMoodType": "CUTE",
-//  "canParking": false,
-//  "coffeeType": "BITTER",
-//  "costPerformance": "BAD",
-//  "deafening": "BAD",
-//  "description": "string",
-//  "facilityCleanliness": "BAD",
-//  "hasBreakFast": false,
-//  "photoSpotDescription": "string",
-//  "place": {
-//    "address": "string",
-//    "category": "AC5",
-//    "id": 0,
-//    "kakaoLink": "string",
-//    "lat": 0,
-//    "lng": 0,
-//    "name": "string",
-//    "roadAddress": "string",
-//    "thumbnailUrl": "string"
-//  },
-//  "quantity": {
-//    "drinkAndDessertImgQuantity": 0,
-//    "foodImgQuantity": 0,
-//    "generalImgQuantity": 0,
-//    "photoSpotImgQuantity": 0
-//  },
-//  "recommendDrinkAndDessertDescription": "string",
-//  "recommendFoodDescription": "string",
-//  "recommendSnack": "string",
-//  "recommendToDo": "string",
-//  "restaurantMoodType": "COMFORTABLE",
-//  "streetNoise": "BAD",
-//  "waiting": false
-//}

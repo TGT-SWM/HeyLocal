@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct OpinionWriteScreen: View {
     @State var moveBack: Bool = false
+    @Environment(\.dismiss) private var dismiss
     var btnBack : some View {
         Button(action: {
             moveBack.toggle()
@@ -48,12 +50,23 @@ struct OpinionWriteScreen: View {
         return result
     }
     
+    
+    
+    // MARK: - body
     var body: some View {
         ZStack(alignment: .center) {
             ScrollView {
                 content
-                
-                
+            }
+            
+            if moveBack {
+                CustomAlert(showingAlert: $moveBack,
+                            title: "답변 작성을 취소할까요?",
+                            cancelMessage: "아니요,작성할래요",
+                            confirmMessage: "네,취소할래요",
+                            cancelWidth: 134,
+                            confirmWidth: 109,
+                            rightButtonAction: {dismiss()})
             }
         }
         .navigationTitle("답변 작성")
@@ -62,57 +75,106 @@ struct OpinionWriteScreen: View {
         .navigationBarItems(leading: btnBack, trailing: writeBtn)
     }
     
-    @State var description: String = ""
     
+    
+    @State var description: String = ""
     @State var clean: [Bool] = [false, false, false, false, false]
     @State var cost: [Bool] = [false, false, false, false, false]
     @State var yesParking: Bool = false
     @State var noParking: Bool = false
     @State var yesWaiting: Bool = false
     @State var noWaiting: Bool = false
+    
+    @State var isPhotoPicker: Bool = false
+    @State var generalImages: [UIImage] = [UIImage]()
+    @State var place: Place? = nil
+    
+    // MARK: - 장소 선택, 사진, 설명
     var content: some View {
         VStack(alignment: .leading) {
-            // MARK: - 장소 선택, 사진, 설명
-            
             // 장소 -> NavigationLink 장소 선택
-            ZStack(alignment: .leading) {
-                Rectangle()
-                    .fill(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
-                    .frame(width: 350, height: 36)
-                    .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
-                    .cornerRadius(10)
+//            NavigationLink(destination: PlaceSearchScreen(onComplete: {})) {
+//                ZStack(alignment: .leading) {
+//                    Rectangle()
+//                        .fill(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
+//                        .frame(width: 350, height: 36)
+//                        .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
+//                        .cornerRadius(10)
+//
+//
+//                    HStack {
+//                        Text("  장소 검색")
+//                            .font(.system(size: 12))
+//                            .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+//
+//                        Spacer()
+//
+//                        Image(systemName: "magnifyingglass")
+//                            .foregroundColor(Color(red: 110 / 255, green: 108 / 255, blue: 106 / 255))
+//                            .padding()
+//                    }
+//                }
+//            }
+//
+            Button(action: {}) {
+                ZStack(alignment: .leading) {
+                    Rectangle()
+                        .fill(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
+                        .frame(width: 350, height: 36)
+                        .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
+                        .cornerRadius(10)
+                        
                     
-                
-                HStack {
-                    Text("  장소 검색")
-                        .font(.system(size: 12))
-                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-                    
-                    Spacer()
-                    
-                    Image(systemName: "magnifyingglass")
-                        .foregroundColor(Color(red: 110 / 255, green: 108 / 255, blue: 106 / 255))
-                        .padding()
+                    HStack {
+                        Text("  장소 검색")
+                            .font(.system(size: 12))
+                            .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                        
+                        Spacer()
+                        
+                        Image(systemName: "magnifyingglass")
+                            .foregroundColor(Color(red: 110 / 255, green: 108 / 255, blue: 106 / 255))
+                            .padding()
+                    }
                 }
             }
             
             // 사진 추가
-            Button(action: {}) {
-                ZStack {
-                    Rectangle()
-                        .fill(Color.white)
-                        .frame(width: 100, height: 100)
-                        .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
-                        .cornerRadius(10)
-                    
-                    ZStack {
-                        Circle()
-                            .fill(Color(red: 255/255, green: 153/255, blue: 0/255))
-                            .frame(width: 24, height: 24)
-                        
-                        Image(systemName: "plus")
-                            .foregroundColor(Color.white)
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+//                    List {
+//                        ForEach(generalImages, id:\.self) { image in
+//                            Image(uiImage: image)
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+//                                .frame(width: 100)
+//                        }
+//                    }
+                    Text("\(generalImages.count)")
+    
+                    Button(action: {
+                        isPhotoPicker.toggle()
+                    }) {
+                        ZStack {
+                            Rectangle()
+                                .fill(Color.white)
+                                .frame(width: 100, height: 100)
+                                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
+                                .cornerRadius(10)
+                            
+                            ZStack {
+                                Circle()
+                                    .fill(Color(red: 255/255, green: 153/255, blue: 0/255))
+                                    .frame(width: 24, height: 24)
+                                
+                                Image(systemName: "plus")
+                                    .foregroundColor(Color.white)
+                            }
+                        }
                     }
+                    .sheet(isPresented: $isPhotoPicker, content: {
+//                        ImagePicker(isPresent: $isPhotoPicker, images: $generalImages)
+                    })
                 }
             }
             
@@ -141,7 +203,7 @@ struct OpinionWriteScreen: View {
             // 공통 질문
             common
             
-            // MARK: - 카테고리별 질문
+            // 카테고리별 질문
             cafe
             sightseeing
             restaurant
@@ -151,9 +213,10 @@ struct OpinionWriteScreen: View {
     }
     
     
+    
+    // MARK: - 공통 질문
     var common: some View {
         VStack(alignment: .leading){
-            // MARK: - 공통 질문
             Group {
                 Divider()
                 
@@ -228,7 +291,9 @@ struct OpinionWriteScreen: View {
                             .buttonStyle(ToggleButtonStyle(value: $clean[4], width: 104))
                         }
                     }
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                 }
+                
                 
                 Group {
                     Text("주차장이 있나요?")
@@ -254,6 +319,7 @@ struct OpinionWriteScreen: View {
                         }
                         .buttonStyle(ToggleButtonStyle(value: $noParking, width: 66))
                     }
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                 }
                 
                 Group {
@@ -279,6 +345,7 @@ struct OpinionWriteScreen: View {
                         }
                         .buttonStyle(ToggleButtonStyle(value: $noWaiting, width: 66))
                     }
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                 }
                 
                 Group {
@@ -356,6 +423,7 @@ struct OpinionWriteScreen: View {
                             .buttonStyle(ToggleButtonStyle(value: $cost[4], width: 78))
                         }
                     }
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                 }
             }
             .font(.system(size: 14))
@@ -370,6 +438,7 @@ struct OpinionWriteScreen: View {
     var restaurant: some View {
         VStack(alignment: .leading) {
             Divider()
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
             
             Group {
                 Text("가게 분위기가 어떤가요?")
@@ -445,6 +514,7 @@ struct OpinionWriteScreen: View {
                         }
                         .buttonStyle(ToggleButtonStyle(value: $restaurantMood[4], width: 66))
                     }
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                 }
             }
             .font(.system(size: 14))
@@ -497,7 +567,7 @@ struct OpinionWriteScreen: View {
                         .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                     }
                 }
-                .padding(EdgeInsets(top: 0, leading: 0, bottom: 15, trailing: 0))
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
             }
         } // vstack
     } // restaurant
@@ -511,6 +581,8 @@ struct OpinionWriteScreen: View {
     var cafe: some View {
         VStack(alignment: .leading) {
             Divider()
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+            
             // 커피 맛
             Group {
                 Text("커피 맛이 어떤가요?")
@@ -558,6 +630,7 @@ struct OpinionWriteScreen: View {
                     }
                     .buttonStyle(ToggleButtonStyle(value: $coffeeTaste[2], width: 54))
                 }
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
             }
             .font(.system(size: 14))
             
@@ -623,6 +696,7 @@ struct OpinionWriteScreen: View {
                     }
                     .buttonStyle(ToggleButtonStyle(value: $cafeMood[3], width: 54))
                 }
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
             }
             .font(.system(size: 14))
             
@@ -674,7 +748,7 @@ struct OpinionWriteScreen: View {
                         .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                     }
                 }
-                .padding(EdgeInsets(top: 0, leading: 0, bottom: 15, trailing: 0))
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
             }
         }
     }
@@ -685,6 +759,7 @@ struct OpinionWriteScreen: View {
     var sightseeing: some View {
         VStack(alignment: .leading) {
             Divider()
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
             
             Group {
                 Text("여기서 꼭 해봐야 하는 게 있나요?")
@@ -788,7 +863,7 @@ struct OpinionWriteScreen: View {
                         .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                     }
                 }
-                .padding(EdgeInsets(top: 0, leading: 0, bottom: 15, trailing: 0))
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
             }
         }
     }
@@ -876,6 +951,7 @@ struct OpinionWriteScreen: View {
                         .buttonStyle(ToggleButtonStyle(value: $noise[4], width: 78))
                     }
                 }
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
             }
             .font(.system(size: 14))
             
@@ -953,6 +1029,7 @@ struct OpinionWriteScreen: View {
                         }
                         .buttonStyle(ToggleButtonStyle(value: $deafening[4], width: 93))
                     }
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                 }
             }
             .font(.system(size: 14))
@@ -980,14 +1057,17 @@ struct OpinionWriteScreen: View {
                         Text("안나와요")
                     }
                     .buttonStyle(ToggleButtonStyle(value: $noBreakfast, width: 78))
-                   
-                   
                 }
             }
             .font(.system(size: 14))
         }
     } // acco
 }
+
+
+// MARK: - Image Picker
+
+
 
 struct OpinionWriteScreen_Previews: PreviewProvider {
     static var previews: some View {

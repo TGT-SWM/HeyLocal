@@ -39,11 +39,14 @@
 		A87F6CA228C0A22B0076046E /* ProfileComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA128C0A22B0076046E /* ProfileComponent.swift */; };
 		A87F6CA428C0A37A0076046E /* ProfileReviseScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA328C0A37A0076046E /* ProfileReviseScreen.swift */; };
 		A87F6CA628C0A3AB0076046E /* SettingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA528C0A3AB0076046E /* SettingScreen.swift */; };
+		A894B55E28F684D900A67AB6 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A894B55D28F684D900A67AB6 /* ImagePicker.swift */; };
 		A89943A528EEC6140059AAC6 /* RegionPickerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89943A428EEC6140059AAC6 /* RegionPickerScreen.swift */; };
 		A89943A728EED89E0059AAC6 /* RegionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89943A628EED89E0059AAC6 /* RegionViewModel.swift */; };
+		A89EB76B28F69D2500257C83 /* OpinionPlacePickerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89EB76A28F69D2500257C83 /* OpinionPlacePickerScreen.swift */; };
 		A8AF3DEC28D407E9009B68BE /* RegionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AF3DEB28D407E9009B68BE /* RegionComponent.swift */; };
 		A8B2C29128F52D61008EA020 /* OpinionStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B2C29028F52D61008EA020 /* OpinionStyle.swift */; };
 		A8B2C29328F57979008EA020 /* OpinionWriteScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B2C29228F57979008EA020 /* OpinionWriteScreen.swift */; };
+		A8C0690328F92E51000356A4 /* TravelEmptyScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C0690228F92E51000356A4 /* TravelEmptyScreen.swift */; };
 		A8CD70A228F40A62007E8395 /* OpinionDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CD70A128F40A62007E8395 /* OpinionDetailScreen.swift */; };
 		EF1E4CCF28B53A6200D985E3 /* NetworkAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */; };
 		EF26CD8828C0E9DA006D0D27 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF26CD8728C0E9DA006D0D27 /* Config.swift */; };
@@ -152,11 +155,14 @@
 		A87F6CA128C0A22B0076046E /* ProfileComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileComponent.swift; sourceTree = "<group>"; };
 		A87F6CA328C0A37A0076046E /* ProfileReviseScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileReviseScreen.swift; sourceTree = "<group>"; };
 		A87F6CA528C0A3AB0076046E /* SettingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingScreen.swift; sourceTree = "<group>"; };
+		A894B55D28F684D900A67AB6 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		A89943A428EEC6140059AAC6 /* RegionPickerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionPickerScreen.swift; sourceTree = "<group>"; };
 		A89943A628EED89E0059AAC6 /* RegionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionViewModel.swift; sourceTree = "<group>"; };
+		A89EB76A28F69D2500257C83 /* OpinionPlacePickerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionPlacePickerScreen.swift; sourceTree = "<group>"; };
 		A8AF3DEB28D407E9009B68BE /* RegionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionComponent.swift; sourceTree = "<group>"; };
 		A8B2C29028F52D61008EA020 /* OpinionStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionStyle.swift; sourceTree = "<group>"; };
 		A8B2C29228F57979008EA020 /* OpinionWriteScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionWriteScreen.swift; sourceTree = "<group>"; };
+		A8C0690228F92E51000356A4 /* TravelEmptyScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelEmptyScreen.swift; sourceTree = "<group>"; };
 		A8CD70A128F40A62007E8395 /* OpinionDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionDetailScreen.swift; sourceTree = "<group>"; };
 		EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAgent.swift; sourceTree = "<group>"; };
 		EF1E4CD028B5426F00D985E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -295,6 +301,7 @@
 			isa = PBXGroup;
 			children = (
 				A83F100C28BCCCE000978711 /* TravelOnListScreen.swift */,
+				A8C0690228F92E51000356A4 /* TravelEmptyScreen.swift */,
 				A80B903528C9EA200026866A /* TravelOnDetailScreen.swift */,
 				A83DAEEC28D0475B001F1F5C /* TravelOnWriteScreen.swift */,
 				A80213D228BF2C2100B6359E /* TravelOnViewModel.swift */,
@@ -352,6 +359,8 @@
 			children = (
 				A8CD70A128F40A62007E8395 /* OpinionDetailScreen.swift */,
 				A8B2C29228F57979008EA020 /* OpinionWriteScreen.swift */,
+				A894B55D28F684D900A67AB6 /* ImagePicker.swift */,
+				A89EB76A28F69D2500257C83 /* OpinionPlacePickerScreen.swift */,
 			);
 			path = OpinionScreen;
 			sourceTree = "<group>";
@@ -751,6 +760,7 @@
 				A8CD70A228F40A62007E8395 /* OpinionDetailScreen.swift in Sources */,
 				EF4DD9A128E24CAE00E0D072 /* FAB.swift in Sources */,
 				EFF9F3C728C5C8DA00E9FCB3 /* KakaoMap.swift in Sources */,
+				A89EB76B28F69D2500257C83 /* OpinionPlacePickerScreen.swift in Sources */,
 				EF6A3FC428E71EE5003F474B /* UserService.swift in Sources */,
 				A80213DB28BF2EA100B6359E /* TravelOnService.swift in Sources */,
 				EF6A3FC228E71A2F003F474B /* UserRepository.swift in Sources */,
@@ -774,10 +784,12 @@
 				A89943A528EEC6140059AAC6 /* RegionPickerScreen.swift in Sources */,
 				A87F6C9D28C099EE0076046E /* MyProfileScreen.swift in Sources */,
 				EFAA2ACD28BBD19400B56A3C /* SignInScreenTest.swift in Sources */,
+				A894B55E28F684D900A67AB6 /* ImagePicker.swift in Sources */,
 				EFAA2AC528BBC48400B56A3C /* AuthService.swift in Sources */,
 				EFAA2AC928BBCF6E00B56A3C /* Auth.swift in Sources */,
 				A87F6CA428C0A37A0076046E /* ProfileReviseScreen.swift in Sources */,
 				EFF223B028F4A03E00E6781D /* FlatLinkStyle.swift in Sources */,
+				A8C0690328F92E51000356A4 /* TravelEmptyScreen.swift in Sources */,
 				A83F100D28BCCCE000978711 /* TravelOnListScreen.swift in Sources */,
 				A80213D728BF2C9800B6359E /* TravelOn.swift in Sources */,
 				EF74BBF328B4D5C200E09450 /* HomeScreen.swift in Sources */,

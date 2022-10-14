@@ -17,6 +17,7 @@ struct Author: Codable {
     var knowHow: Int? = 0
     var ranking: Int? = 0
     var acceptedOpinionCount: Int? = 0
+    var totalOpinionCount: Int? = 0
 }
 
 struct User: Codable {

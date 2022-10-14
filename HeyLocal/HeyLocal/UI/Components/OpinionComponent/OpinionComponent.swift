@@ -31,7 +31,7 @@ struct OpinionComponent: View {
                             .scaledToFit()
                             .frame(width: 12)
                         
-                        Text("\(regionNameFormatter(region: opinion.place.region))")
+                        Text("\(regionNameFormatter(region: opinion.place.region!))")
                             .font(.system(size: 12))
                             .foregroundColor(Color.white)
                     }

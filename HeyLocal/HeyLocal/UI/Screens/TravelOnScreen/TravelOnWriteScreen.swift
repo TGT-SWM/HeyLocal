@@ -197,6 +197,7 @@ struct TravelOnWriteScreen: View {
     @State var showEndDatePicker: Bool = false
     @State var moveBack: Bool = false
     @StateObject var viewModel = TravelOnListScreen.ViewModel()
+    @StateObject var regionViewModel = RegionPickerScreen.ViewModel()
     var body: some View {
         ZStack(alignment: .center) {
             ScrollView {
@@ -290,7 +291,7 @@ struct TravelOnWriteScreen: View {
                                         .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                                 }
                                 else {
-                                    Text("  \(viewModel.travelOnArray.regionId!)")
+                                    Text("\(getRegion(regionId: viewModel.travelOnArray.regionId!))")
                                         .font(.system(size: 12))
                                         .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                                 }

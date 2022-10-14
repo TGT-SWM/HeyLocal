@@ -15,6 +15,7 @@ extension TravelOnListScreen {
         @Published var travelOns: [TravelOn]
         @Published var travelOn: TravelOn
         @Published var travelOnArray: TravelOnArray
+        @Published var region: Region
         
         
         
@@ -25,6 +26,7 @@ extension TravelOnListScreen {
             self.travelOn = TravelOn()
             self.travelOns = [TravelOn()]
             self.travelOnArray = TravelOnArray()
+            self.region = Region()
         }
         
         // Travel On 전체 목록
@@ -52,7 +54,7 @@ extension TravelOnListScreen {
                     /* TravelOn to TravelOnArray */
                     self.travelOnArray.title = self.travelOn.title
                     self.travelOnArray.regionId = self.travelOn.region.id
-                    self.travelOnArray.regionName = regionNameFormatter(region: self.travelOn.region)
+//                    self.region = getRegion(regionId: self.travelOn.region.id)
                     
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -207,4 +209,57 @@ extension TravelOnListScreen {
             return travelOnService.updateTravelOn(travelOnID: travelOnId, travelOnData: travelOnData)
         }
     }
+}
+
+
+func getRegion(regionId: Int) -> String {
+    var result = ""
+    var resultRegion: Region = Region()
+    
+    // URLRequest 객체 생성
+    let urlString = "\(Config.apiURL)/regions?regionId=\(regionId)"
+    let url = URL(string: urlString)!
+    var request = URLRequest(url: url)
+    
+    // HTTP 헤더 구성
+    request.httpMethod = "GET"
+    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    request.addValue("application/json", forHTTPHeaderField: "Accept")
+    request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+    
+    
+    
+    let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+        if let error = error {
+            print("Error took place")
+            return
+        }
+        
+        if let response = response as? HTTPURLResponse {
+            print("Response HTTP Status code : \(response.statusCode)")
+            
+        }
+        if let data = data, let dataStr = String(data: data, encoding: .utf8) {
+             print("Response Data string : \(dataStr)")
+            let resultLen = data
+            let dataString = String(data: resultLen, encoding: .utf8) ?? ""
+             print("\(dataString)")
+            
+            do {
+                let decoder = JSONDecoder()
+                let re = try decoder.decode([Region].self, from: data)
+                resultRegion = re[0]
+            } catch {
+                print(error.localizedDescription)
+                
+            }
+        }
+    }
+
+    task.resume()
+    
+    task.resume()
+    result = regionNameFormatter(region: resultRegion)
+    print("===========\(resultRegion.state)======")
+    return result
 }
