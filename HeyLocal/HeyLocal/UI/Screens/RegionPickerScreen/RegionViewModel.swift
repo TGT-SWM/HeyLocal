@@ -29,7 +29,7 @@ struct RegionRepository {
     }
     
     // 특정 지역 조회(id)
-    func getRegion(regionId: Int) -> AnyPublisher<Region, Error> {
+    func getRegion(regionId: Int) -> AnyPublisher<[Region], Error> {
         let urlString = "\(regionUrl)?regionId=\(regionId)"
         let url = URL(string: urlString)!
         var request = URLRequest(url: url)
@@ -40,7 +40,6 @@ struct RegionRepository {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
         
-        print(urlString)
         // Publisher 반환
         return agent.run(request)
     }
@@ -51,6 +50,7 @@ extension RegionPickerScreen {
         private var regionRepository = RegionRepository()
         @Published var regions: [Region] = [Region]()
         @Published var region: Region = Region()
+        @Published var regionName: String = "지역별"
         
         var cancellable: AnyCancellable?
         
@@ -64,16 +64,13 @@ extension RegionPickerScreen {
         }
         
         // 특정 지역 조회(id)
-        func getRegion(regionId: Int) -> String {
-            var regionName: String = ""
+        func getRegion(regionId: Int) {
             cancellable = regionRepository.getRegion(regionId: regionId)
                 .sink(receiveCompletion: { _ in
                 }, receiveValue: { region in
-                    self.region = region
-                    regionName = regionNameFormatter(region: region)
+                    self.region = region[0]
+                    self.regionName = regionNameFormatter(region: region[0])
                 })
-            
-            return regionName
         }
     }
 }

@@ -14,7 +14,8 @@ struct TravelOnDetailScreen: View {
     @StateObject var viewModel = TravelOnListScreen.ViewModel()
     @StateObject var opinionViewModel = OpinionComponent.ViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
+    @Environment(\.displayTabBar) var displayTabBar
+    
     @State var showingSheet = false
     @State var showingAlert = false
     
@@ -82,7 +83,9 @@ struct TravelOnDetailScreen: View {
         .onAppear {
             viewModel.fetchTravelOn(travelOnId: travelOnId)
             opinionViewModel.fetchOpinions(travelOnId: travelOnId, opinionId: nil)
+            displayTabBar(false)
         }
+//        .onAppear { displayTabBar(false) }
         .navigationTitle("여행On")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)

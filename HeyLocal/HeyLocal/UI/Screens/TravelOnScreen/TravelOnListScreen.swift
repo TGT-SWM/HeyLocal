@@ -10,6 +10,8 @@ import SwiftUI
 
 struct TravelOnListScreen: View {
     @StateObject var viewModel = ViewModel()
+    @StateObject var regionViewModel = RegionPickerScreen.ViewModel()
+    @Environment(\.displayTabBar) var displayTabBar
     
     // 필터링요소
     @State var sortBy: SortType = .byDate
@@ -40,6 +42,7 @@ struct TravelOnListScreen: View {
             .navigationBarHidden(true)
             .onAppear {
                 viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 15, regionId: regionId, sortBy: sortBy.rawValue, withOpinions: withOpinions)
+                displayTabBar(true)
             }
         }
     }
@@ -108,11 +111,19 @@ struct TravelOnListScreen: View {
                     .frame(width: 13)
                 
                 // 지역 선택
-                NavigationLink(destination: RegionPickerScreen(regionID: $regionId)) {
+                NavigationLink(destination: RegionPickerScreen(regionID: $regionId, forSort: true)) {
                     HStack {
-                        Text("\(selectedRegion)")
-                            .font(.system(size: 12))
-                            .foregroundColor(Color(red: 255/255, green: 153/255, blue: 0/255))
+                        if regionId == nil {
+                            Text("지역별")
+                                .font(.system(size: 12))
+                                .foregroundColor(Color(red: 255/255, green: 153/255, blue: 0/255))
+                        }
+                        
+                        else {
+                            Text("\(regionViewModel.regionName)")
+                                .font(.system(size: 12))
+                                .foregroundColor(Color(red: 255/255, green: 153/255, blue: 0/255))
+                        }
                         
                         Spacer()
                             .frame(width: 3)
@@ -126,6 +137,9 @@ struct TravelOnListScreen: View {
                 }
                 .onChange(of: regionId, perform: { value in
                     viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 15, regionId: value, sortBy: sortBy.rawValue, withOpinions: withOpinions)
+                    if value != nil {
+                        regionViewModel.getRegion(regionId: value!)
+                    }
                 })
                 
                 
