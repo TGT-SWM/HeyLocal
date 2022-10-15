@@ -82,10 +82,10 @@ extension PlanDetailScreen {
 			VStack(alignment: .leading) {
 				HStack {
 					if let arrivalTime = place.wrappedValue.arrivalTime {
-						Text("\(DateFormat.format(arrivalTime, from: "HH:mm:ss", to: "a hh:mm"))")
+						Text("\(DateFormat.format(arrivalTime, from: "HH:mm:ss", to: "a hh:mm")) 도착")
 							.font(.system(size: 12))
 					} else {
-						Text("도착 시간을 설정해주세요")
+						Text("도착 시간을 정해주세요")
 							.font(.system(size: 12))
 					}
 					arrivalTimeEditButton(place: place)
