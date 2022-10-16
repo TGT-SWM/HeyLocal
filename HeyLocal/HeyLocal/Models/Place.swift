@@ -67,3 +67,11 @@ enum PlaceCategory: String, CaseIterable {
 		return .ETC // 매칭된 라벨이 없는 경우
 	}
 }
+
+
+// MARK: - Distance (장소 사이의 거리 정보)
+
+struct Distance {
+	var time: Double = 0 // 분
+	var distance: Double = 0 // 미터
+}

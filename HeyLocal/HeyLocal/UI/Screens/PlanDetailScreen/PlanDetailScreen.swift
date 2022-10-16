@@ -42,7 +42,10 @@ struct PlanDetailScreen: View {
 				editButton
 			}
 		}
-		.onAppear { displayTabBar(false) }
+		.onAppear {
+			displayTabBar(false)
+			viewModel.fetchPubDistances()
+		}
     }
 	
 	/// 스케줄 수정 모드로 진입하기 위한 버튼입니다.

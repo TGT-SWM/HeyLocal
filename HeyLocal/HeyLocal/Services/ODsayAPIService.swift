@@ -18,7 +18,7 @@ class ODsayAPIService {
 	
 	/// 대중교통 길찾기 API를 호출합니다.
 	/// 출발 위도 & 경도와 도착 위도 & 경도를 파라미터로 받습니다.
-	func searchPubTrans(sLat: Double, sLng: Double, eLat: Double, eLng: Double, distance: Binding<Info>) {
+	func searchPubTrans(sLat: Double, sLng: Double, eLat: Double, eLng: Double, distance: Binding<Distance>) {
 		// URL 구성
 		var components = URLComponents(string: "\(Config.odsayApiURL)/v1/api/searchPubTransPathT")!
 		components.queryItems = [
@@ -40,12 +40,12 @@ class ODsayAPIService {
 		agent.run(request)
 			.sink(receiveCompletion: { completion in
 				if case let .failure(error) = completion {
-					distance.wrappedValue = Info(totalTime: 0, totalDistance: 0)
+					distance.wrappedValue = Distance(time: 0, distance: 0)
 				}
 			}, receiveValue: { (resp: ODsayPubTransResponse) in
 				let paths = resp.result.path
-				let shortest = paths.min(by: { $0.info.totalTime < $1.info.totalTime })!
-				distance.wrappedValue = shortest.info
+				let shortest = paths.min(by: { $0.info.time < $1.info.time })!
+				distance.wrappedValue = shortest.info.distanceObj
 			})
 			.store(in: &cancelBag)
 	}
@@ -66,8 +66,17 @@ struct ODsayPubTransResponse: Decodable {
 	}
 	
 	struct Info: Decodable {
-		var totalTime: Int // minute
-		var totalDistance: Int // meter
+		var time: Int // minute
+		var distance: Int // meter
+		
+		var distanceObj: Distance {
+			Distance(time: Double(time), distance: Double(distance))
+		}
+		
+		enum CodingKeys: String, CodingKey {
+			case time = "totalTime"
+			case distance = "totalDistance"
+		}
 	}
 }
 
