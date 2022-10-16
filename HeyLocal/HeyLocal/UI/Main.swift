@@ -87,7 +87,7 @@ extension TabBar {
 				.tag(Tab.travelOn)
 			MyPlanScreen()
 				.tag(Tab.myPlan)
-            PlaceSearchScreen(onComplete: { places in })
+            HomeScreen()
 				.tag(Tab.message)
 			MyProfileScreen()
 				.tag(Tab.myInfo)

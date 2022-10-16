@@ -90,6 +90,8 @@ struct OpinionWriteScreen: View {
     @State var place: Place? = nil
     
     // MARK: - 장소 선택, 사진, 설명
+    @State var showImagePicker: Bool = false
+    @State var tmpImg: UIImage?
     var content: some View {
         VStack(alignment: .leading) {
             // 장소 -> NavigationLink 장소 선택
@@ -151,9 +153,15 @@ struct OpinionWriteScreen: View {
 //                        }
 //                    }
                     Text("\(generalImages.count)")
+                    
+                    if tmpImg != nil {
+                        Image(uiImage: tmpImg!)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    }
     
                     Button(action: {
-                        isPhotoPicker.toggle()
+                        showImagePicker.toggle()
                     }) {
                         ZStack {
                             Rectangle()
@@ -172,9 +180,11 @@ struct OpinionWriteScreen: View {
                             }
                         }
                     }
-                    .sheet(isPresented: $isPhotoPicker, content: {
-//                        ImagePicker(isPresent: $isPhotoPicker, images: $generalImages)
-                    })
+                    .sheet(isPresented: $showImagePicker){
+                        ImagePickerView(sourceType: .photoLibrary) { image in
+                            self.tmpImg = image
+                        }
+                    }
                 }
             }
             
@@ -1065,7 +1075,57 @@ struct OpinionWriteScreen: View {
 }
 
 
-// MARK: - Image Picker
+// MARK: - Photo Picker
+struct PhotoPicker: UIViewControllerRepresentable {
+    @Binding var pickerResult: [UIImage] // pass images back to the SwiftUI view
+    @Binding var isPresented: Bool // close the modal view
+
+    func makeUIViewController(context: Context) -> some UIViewController {
+        var configuration = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
+        configuration.filter = .images // filter only to images
+        configuration.selectionLimit = 0 // ignore limit
+
+        let photoPickerViewController = PHPickerViewController(configuration: configuration)
+        photoPickerViewController.delegate = context.coordinator // Use Coordinator for delegation
+        return photoPickerViewController
+    }
+
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) { }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+    
+    // Create the Coordinator, in this case it is a way to communicate with the PHPickerViewController
+    class Coordinator: PHPickerViewControllerDelegate {
+        private let parent: PhotoPicker
+
+        init(_ parent: PhotoPicker) {
+            self.parent = parent
+        }
+
+        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+            parent.pickerResult.removeAll()
+            
+            for image in results {
+                if image.itemProvider.canLoadObject(ofClass: UIImage.self) {
+                    image.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] newImage, error in
+                        if let error = error {
+                            print("Can't load image \(error.localizedDescription)")
+                        } else if let image = newImage as? UIImage {
+                            self?.parent.pickerResult.append(image)
+                        }
+                    }
+                }
+                else {
+                    print("Can't load asset")
+                }
+            }
+            
+            parent.isPresented = false
+        }
+    }
+}
 
 
 

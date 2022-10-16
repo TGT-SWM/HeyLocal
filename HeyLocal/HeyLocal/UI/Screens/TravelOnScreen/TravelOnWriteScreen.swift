@@ -226,6 +226,7 @@ struct TravelOnWriteScreen: View {
                                 confirmMessage: "네,취소할래요",
                                 cancelWidth: 134,
                                 confirmWidth: 109,
+                                rightButtonAction: { dismiss() },
                                 destinationView: AnyView(TravelOnListScreen()))
                 }
             }
