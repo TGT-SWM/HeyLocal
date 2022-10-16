@@ -95,52 +95,36 @@ struct OpinionWriteScreen: View {
     var content: some View {
         VStack(alignment: .leading) {
             // 장소 -> NavigationLink 장소 선택
-//            NavigationLink(destination: PlaceSearchScreen(onComplete: {})) {
-//                ZStack(alignment: .leading) {
-//                    Rectangle()
-//                        .fill(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
-//                        .frame(width: 350, height: 36)
-//                        .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
-//                        .cornerRadius(10)
-//
-//
-//                    HStack {
-//                        Text("  장소 검색")
-//                            .font(.system(size: 12))
-//                            .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-//
-//                        Spacer()
-//
-//                        Image(systemName: "magnifyingglass")
-//                            .foregroundColor(Color(red: 110 / 255, green: 108 / 255, blue: 106 / 255))
-//                            .padding()
-//                    }
-//                }
-//            }
-//
-            Button(action: {}) {
+            NavigationLink(destination: OpinionPlacePickerScreen(place: $place)) {
                 ZStack(alignment: .leading) {
                     Rectangle()
                         .fill(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
                         .frame(width: 350, height: 36)
                         .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
                         .cornerRadius(10)
-                        
-                    
+
+
                     HStack {
-                        Text("  장소 검색")
-                            .font(.system(size: 12))
-                            .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                        if place == nil {
+                            Text("  장소 검색")
+                                .font(.system(size: 12))
+                                .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                        }
+                        else {
+                            Text("\(place!.name)")
+                                .font(.system(size: 12))
+                                .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                        }
                         
                         Spacer()
-                        
+
                         Image(systemName: "magnifyingglass")
                             .foregroundColor(Color(red: 110 / 255, green: 108 / 255, blue: 106 / 255))
                             .padding()
                     }
                 }
             }
-            
+
             // 사진 추가
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
@@ -152,7 +136,7 @@ struct OpinionWriteScreen: View {
 //                                .frame(width: 100)
 //                        }
 //                    }
-                    Text("\(generalImages.count)")
+//                    Text("\(generalImages.count)")
                     
                     if tmpImg != nil {
                         Image(uiImage: tmpImg!)

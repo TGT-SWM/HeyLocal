@@ -29,8 +29,8 @@ struct Opinion: Codable, Identifiable {
     // MARK: - 공통 · 기타
     var generalImgDownloadImgUrl: [String] = []
     var facilityCleanliness: String = ""
-    var canParking: Bool = false
-    var waiting: Bool = false
+    var canParking: String = ""
+    var waiting: String = ""
     var costPerformance: String = ""
     
     // MARK: - 음식점 FD6

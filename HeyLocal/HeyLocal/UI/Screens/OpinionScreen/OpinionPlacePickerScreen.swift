@@ -28,12 +28,11 @@ struct OpinionPlacePickerScreen: View {
             SearchBar(placeholder: "", searchText: $viewModel.query) { _ in
                 viewModel.search()
             }
-                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                .padding(EdgeInsets(top: 0, leading: 20, bottom: 10, trailing: 0))
             
             ZStack(alignment: .bottom) {
                 ScrollView {
                     content
-                        .padding()
                 }
             }
         }
@@ -79,7 +78,9 @@ struct OpinionPlacePickerScreen: View {
             
             // 선택 버튼
             Button {
-                viewModel.addSelectedItem(item)
+                self.place = item
+                dismiss()
+//                viewModel.addSelectedItem(item)
             } label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 100)
@@ -90,9 +91,9 @@ struct OpinionPlacePickerScreen: View {
                         .foregroundColor(.white)
                 }
             }
-            .if(viewModel.isSelected(item)) {
-                $0.disabled(true)
-            }
+//            .if(viewModel.isSelected(item)) {
+//                $0.disabled(true)
+//            }
         }
         .frame(height: 80)
         .padding(.horizontal, 21)
