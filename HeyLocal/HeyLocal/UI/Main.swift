@@ -87,7 +87,7 @@ extension TabBar {
 				.tag(Tab.travelOn)
 			MyPlanScreen()
 				.tag(Tab.myPlan)
-            RegionPickerScreen(regionID: .constant(259))
+            HomeScreen()
 				.tag(Tab.message)
 			MyProfileScreen()
 				.tag(Tab.myInfo)

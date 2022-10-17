@@ -34,6 +34,7 @@ struct OpinionRepository {
         let url = URL(string: urlString)!
         var request = URLRequest(url: url)
         
+        // HTTP 헤더 구성
         request.httpMethod = "DELETE"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
@@ -56,6 +57,48 @@ struct OpinionRepository {
     }
     
     // 답변 등록
+    func postOpinion(travelOnId: Int, opinionData: Opinion) -> Int {
+        // opinionData to JSON Encoding
+        let encoder = JSONEncoder()
+        let jsonData = try? encoder.encode(opinionData)
+        var jsonStr: String = ""
+        
+        if let jsonData = jsonData, let jsonString = String(data: jsonData, encoding: .utf8) {
+            jsonStr = jsonString
+        }
+        
+        let urlString = "\(opinionUrl)/\(travelOnId)/opinions/"
+        let url = URL(string: urlString)!
+        var request = URLRequest(url: url)
+        
+        // HTTP 헤더 구성
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+        
+        request.httpBody = jsonData
+        var httpResponseStatusCode: Int = 0
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, let httpResponse = response as? HTTPURLResponse, error == nil else {
+                print(error?.localizedDescription ?? "No Data")
+                return
+            }
+            httpResponseStatusCode = httpResponse.statusCode
+            print(httpResponseStatusCode)
+            if httpResponseStatusCode == 201 {
+                self.getOpinions(travelOnId: travelOnId)
+            } else {
+                print("\(error?.localizedDescription)")
+                
+                let dataSTR = String(data: data, encoding: .utf8)!
+                print(dataSTR)
+                return
+            }
+        }
+        task.resume()
+        return httpResponseStatusCode
+    }
     
     
     // 답변 수정

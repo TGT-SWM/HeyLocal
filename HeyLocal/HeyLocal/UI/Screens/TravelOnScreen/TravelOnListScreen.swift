@@ -10,6 +10,8 @@ import SwiftUI
 
 struct TravelOnListScreen: View {
     @StateObject var viewModel = ViewModel()
+    @StateObject var regionViewModel = RegionPickerScreen.ViewModel()
+    @Environment(\.displayTabBar) var displayTabBar
     
     // 필터링요소
     @State var sortBy: SortType = .byDate
@@ -30,22 +32,38 @@ struct TravelOnListScreen: View {
     
     var body: some View {
         NavigationView {
-            VStack(alignment: .leading, spacing: 5) {
+            VStack(alignment: .leading) {
                 SearchBar(placeholder: "", searchText: $searchText)
-                
-                content
-                
+                    
+                sortType
+
+                ZStack(alignment: .bottomTrailing) {
+                    if viewModel.travelOns.count > 0 {
+                        content
+                    }
+                    else {
+                        emptyView
+                            .frame(width: 350)
+                    }
+                    // 글쓰기 버튼
+                    NavigationLink(destination: TravelOnWriteScreen()) {
+                        Text("+")
+                    }
+                    .buttonStyle(WriteButtonStyle())
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 10))
+                }
             }
             .navigationBarTitle("", displayMode: .automatic)
             .navigationBarHidden(true)
             .onAppear {
                 viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 15, regionId: regionId, sortBy: sortBy.rawValue, withOpinions: withOpinions)
+                displayTabBar(true)
             }
         }
     }
     
-    var content: some View {
-        VStack(alignment: .leading, spacing: 5) {
+    var sortType: some View {
+        VStack(alignment: .leading) {
             HStack {
                 // SortBy
                 HStack {
@@ -108,11 +126,19 @@ struct TravelOnListScreen: View {
                     .frame(width: 13)
                 
                 // 지역 선택
-                NavigationLink(destination: RegionPickerScreen(regionID: $regionId)) {
+                NavigationLink(destination: RegionPickerScreen(regionID: $regionId, forSort: true)) {
                     HStack {
-                        Text("\(selectedRegion)")
-                            .font(.system(size: 12))
-                            .foregroundColor(Color(red: 255/255, green: 153/255, blue: 0/255))
+                        if regionId == nil {
+                            Text("지역별")
+                                .font(.system(size: 12))
+                                .foregroundColor(Color(red: 255/255, green: 153/255, blue: 0/255))
+                        }
+                        
+                        else {
+                            Text("\(regionViewModel.regionName)")
+                                .font(.system(size: 12))
+                                .foregroundColor(Color(red: 255/255, green: 153/255, blue: 0/255))
+                        }
                         
                         Spacer()
                             .frame(width: 3)
@@ -126,6 +152,9 @@ struct TravelOnListScreen: View {
                 }
                 .onChange(of: regionId, perform: { value in
                     viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 15, regionId: value, sortBy: sortBy.rawValue, withOpinions: withOpinions)
+                    if value != nil {
+                        regionViewModel.getRegion(regionId: value!)
+                    }
                 })
                 
                 
@@ -141,37 +170,53 @@ struct TravelOnListScreen: View {
                         viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 15, regionId: regionId, sortBy: sortBy.rawValue, withOpinions: value)
                     })
             }
-            
+        }
+    }
+    
+    var content: some View {
+        VStack(alignment: .leading, spacing: 5) {
             Text("여행On📝")
                 .font(.system(size: 16))
                 .fontWeight(.medium)
                 .padding(EdgeInsets(top: 20, leading: 0, bottom: 0, trailing: 0))
             
-            ZStack(alignment: .bottomTrailing) {
-                // 여행On Component
-                ScrollView {
-                    VStack {
-                        ForEach(viewModel.travelOns) { travelOn in
-                            NavigationLink(destination: TravelOnDetailScreen(travelOnId: travelOn.id)){
-                                TravelOnComponent(travelOn: travelOn)
-                                    .padding(EdgeInsets(top: 2, leading: 0, bottom: 2, trailing: 0))
-                            }
-                        }
-                        
-                        // TODO: 작성된 여행On이 없을 때
-                        if viewModel.travelOns.count == 0 {
-                            Text("여행On 없음")
+            
+            // 여행On Component
+            ScrollView {
+                VStack {
+                    ForEach(viewModel.travelOns) { travelOn in
+                        NavigationLink(destination: TravelOnDetailScreen(travelOnId: travelOn.id)){
+                            TravelOnComponent(travelOn: travelOn)
+                                .padding(EdgeInsets(top: 2, leading: 0, bottom: 2, trailing: 0))
                         }
                     }
                 }
-                
-                // 글쓰기 버튼
-                NavigationLink(destination: TravelOnWriteScreen()) {
-                    Text("+")
-                }
-                .buttonStyle(WriteButtonStyle())
             }
         }
+    }
+    
+    var emptyView: some View {
+        HStack {
+            Spacer()
+            
+            VStack {
+                Spacer()
+                
+                Group{
+                    Text("이런, 작성된 여행On이 없어요")
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 2, trailing: 0))
+                    
+                    Text("여행On을 작성해볼까요?")
+                }
+                
+                Spacer()
+            }
+            
+            Spacer()
+        }
+        .font(.system(size: 14))
+        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+        .frame(maxHeight: .infinity)
     }
 }
 

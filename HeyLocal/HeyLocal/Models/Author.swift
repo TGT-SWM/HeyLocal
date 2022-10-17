@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Author: Decodable {
+struct Author: Codable {
     var userId: Int = 0
     var nickname: String = ""
     var activityRegion: Region = Region()
@@ -17,6 +17,7 @@ struct Author: Decodable {
     var knowHow: Int? = 0
     var ranking: Int? = 0
     var acceptedOpinionCount: Int? = 0
+    var totalOpinionCount: Int? = 0
 }
 
 struct User: Codable {

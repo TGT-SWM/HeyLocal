@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Region: Decodable, Identifiable, Hashable {
+struct Region: Codable, Identifiable, Hashable {
     var id: Int = 0
     var city: String? = nil
     var state: String = ""

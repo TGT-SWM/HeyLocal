@@ -193,10 +193,12 @@ struct TravelOnWriteScreen: View {
     
     
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.displayTabBar) var displayTabBar
     @State var showStartDatePicker: Bool = false
     @State var showEndDatePicker: Bool = false
     @State var moveBack: Bool = false
     @StateObject var viewModel = TravelOnListScreen.ViewModel()
+    @StateObject var regionViewModel = RegionPickerScreen.ViewModel()
     var body: some View {
         ZStack(alignment: .center) {
             ScrollView {
@@ -224,6 +226,7 @@ struct TravelOnWriteScreen: View {
                                 confirmMessage: "네,취소할래요",
                                 cancelWidth: 134,
                                 confirmWidth: 109,
+                                rightButtonAction: { dismiss() },
                                 destinationView: AnyView(TravelOnListScreen()))
                 }
             }
@@ -233,6 +236,7 @@ struct TravelOnWriteScreen: View {
             if ((isRevise) != nil) {
                 viewModel.fetchTravelOn(travelOnId: travelOnID!)
             }
+//            displayTabBar(false)
         }
         .navigationTitle("여행On")
         .navigationBarTitleDisplayMode(.inline)
@@ -275,7 +279,7 @@ struct TravelOnWriteScreen: View {
                     Spacer()
                         .frame(height: 0)
                     
-                    NavigationLink(destination: RegionPickerScreen(regionID: $viewModel.travelOnArray.regionId)) {
+                    NavigationLink(destination: RegionPickerScreen(regionID: $viewModel.travelOnArray.regionId, forSort: false)) {
                         ZStack(alignment: .leading) {
                             Rectangle()
                                 .fill(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
@@ -290,7 +294,7 @@ struct TravelOnWriteScreen: View {
                                         .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                                 }
                                 else {
-                                    Text("  \(viewModel.travelOnArray.regionId!)")
+                                    Text("\(regionViewModel.regionName)")
                                         .font(.system(size: 12))
                                         .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                                 }
@@ -300,6 +304,11 @@ struct TravelOnWriteScreen: View {
                                 Image(systemName: "magnifyingglass")
                                     .foregroundColor(Color(red: 110 / 255, green: 108 / 255, blue: 106 / 255))
                                     .padding()
+                            }
+                            .onAppear {
+                                if viewModel.travelOnArray.regionId != nil {
+                                    regionViewModel.getRegion(regionId: viewModel.travelOnArray.regionId!)
+                                }
                             }
                         }
                     }

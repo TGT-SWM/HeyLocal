@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct RegionComponent: View {
-    var region: Region
+    var region: Region?
     var body: some View {
         Button(action: {}) {
             HStack {
@@ -21,9 +21,17 @@ struct RegionComponent: View {
                 Spacer()
                     .frame(width: 20)
                 
-                Text("\(regionNameFormatter(region: region))")
-                    .font(.system(size: 16))
-                    .foregroundColor(Color.black)
+                if (region != nil) {
+                    Text("\(regionNameFormatter(region: region!))")
+                        .font(.system(size: 16))
+                        .foregroundColor(Color.black)
+                }
+                
+                else {
+                    Text("전체 지역 검색")
+                        .font(.system(size: 16))
+                        .foregroundColor(Color.black)
+                }
             }
         }
     }

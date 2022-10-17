@@ -1,6 +1,7 @@
 //
 //  OpinionDetailScreen.swift
 //  HeyLocal
+//  답변 상세조회 화면
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //
@@ -90,12 +91,9 @@ struct OpinionDetailScreen: View {
                     .font(.system(size: 16))
                 
                 HStack {
-//                    let printDate = viewModel.opinion.date.components(separatedBy: "T")
-//                    let yyyyMMdd = printDate[0].components(separatedBy: "-")
-//                    Text("\(yyyyMMdd[0]).\(yyyyMMdd[1]).\(yyyyMMdd[2])")
-                    
-                    // TODO: createdDate 추가되면 ..
-                    Text("2022.09.13")
+                    let printDate = viewModel.opinion.createdDate.components(separatedBy: "T")
+                    let yyyyMMdd = printDate[0].components(separatedBy: "-")
+                    Text("\(yyyyMMdd[0]).\(yyyyMMdd[1]).\(yyyyMMdd[2])")
                         .font(.system(size: 12))
                         .foregroundColor(Color(red: 117/255, green: 118/255, blue: 121/255))
                     
@@ -125,7 +123,6 @@ struct OpinionDetailScreen: View {
             
             // 공통 질문
             common
-            // Text(viewModel.opinion.place.category)
             
             // 카테고리별 질문
             switch viewModel.opinion.place.category {
@@ -174,7 +171,7 @@ struct OpinionDetailScreen: View {
                     Text("🔧 시설")
                         .font(.system(size: 14))
                         .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-                    OpinionStyle(label: viewModel.opinion.canParking ? "주차장이 있어요" : "주차장이 없어요")
+                    OpinionStyle(label: parkingToString(parking: viewModel.opinion.canParking))
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                 }
                 
@@ -184,7 +181,7 @@ struct OpinionDetailScreen: View {
                     .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                 HStack {
                     OpinionStyle(label: costToString(cost: viewModel.opinion.costPerformance))
-                    OpinionStyle(label: viewModel.opinion.waiting ? "웨이팅이 있어요" : "웨이팅이 없어요")
+                    OpinionStyle(label: waitingToString(waiting: viewModel.opinion.waiting))
                 }
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
             }
@@ -327,7 +324,7 @@ struct OpinionDetailScreen: View {
                                 .frame(width: 16)
                             
                             Text("답변수")
-                            Text("\(viewModel.opinion.author.acceptedOpinionCount!)")
+                            Text("\(viewModel.opinion.author.totalOpinionCount!)")
                         }
                         
                         HStack(alignment: .center, spacing: 3) {
@@ -490,6 +487,44 @@ struct OpinionDetailScreen: View {
             result = "방음이 잘 돼요"
         case "VERY_GOOD":
             result = "방음이 매우 잘 돼요"
+        default:
+            result = ""
+        }
+        return result
+    }
+    
+    func parkingToString(parking: String) -> String {
+        var result: String = ""
+        switch parking {
+        case "VERY_BAD":
+            result = "주차 자리가 매우 없어요"
+        case "BAD":
+            result = "주차 자리가 없어요"
+        case "NOT_BAD":
+            result = "그냥 그래요"
+        case "GOOD":
+            result = "주차할 공간이 있어요"
+        case "VERY_GOOD":
+            result = "주차 공간이 넓어요"
+        default:
+            result = ""
+        }
+        return result
+    }
+    
+    func waitingToString(waiting: String) -> String {
+        var result: String = ""
+        switch waiting {
+        case "VERY_BAD":
+            result = "웨이팅이 매우 길어요"
+        case "BAD":
+            result = "웨이팅이 길어요"
+        case "NOT_BAD":
+            result = "그냥 그래요"
+        case "GOOD":
+            result = "웨이팅이 없는 편이에요"
+        case "VERY_GOOD":
+            result = "바로 들어갈 수 있어요"
         default:
             result = ""
         }

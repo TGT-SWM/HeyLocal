@@ -13,6 +13,19 @@ struct RegionPickerScreen: View {
     @StateObject var viewModel = ViewModel()
     @Environment(\.dismiss) private var dismiss
     @Binding var regionID: Int?
+    var forSort: Bool
+    
+    var btnBack : some View {
+        Button(action: {
+            dismiss()
+        }) {
+            Image(systemName: "chevron.left")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 10)
+                .foregroundColor(.black)
+        }
+    }
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -23,6 +36,15 @@ struct RegionPickerScreen: View {
             // 지역 component 출력
             ScrollView {
                 VStack(alignment: .leading) {
+                    if forSort {
+                        RegionComponent(region: nil)
+                            .padding(EdgeInsets(top: 0, leading: 10, bottom: 10, trailing: 160))
+                            .simultaneousGesture(TapGesture().onEnded{
+                                regionID = nil
+                                dismiss()
+                            })
+                    }
+                    
                     ForEach(viewModel.regions.filter({"\($0)".contains(self.regionName) || self.regionName.isEmpty}), id: \.self) { region in
                         RegionComponent(region: region)
                             .padding(EdgeInsets(top: 0, leading: 10, bottom: 10, trailing: 160))
@@ -40,11 +62,12 @@ struct RegionPickerScreen: View {
         .navigationTitle("여행지 선택")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: btnBack)
     }
 }
 
 struct RegionPickerScreen_Previews: PreviewProvider {
     static var previews: some View {
-        RegionPickerScreen(regionID: .constant(259))
+        RegionPickerScreen(regionID: .constant(259), forSort: false)
     }
 }

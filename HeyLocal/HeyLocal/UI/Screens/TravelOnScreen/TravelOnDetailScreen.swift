@@ -14,7 +14,8 @@ struct TravelOnDetailScreen: View {
     @StateObject var viewModel = TravelOnListScreen.ViewModel()
     @StateObject var opinionViewModel = OpinionComponent.ViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
+    @Environment(\.displayTabBar) var displayTabBar
+    
     @State var showingSheet = false
     @State var showingAlert = false
     
@@ -82,7 +83,9 @@ struct TravelOnDetailScreen: View {
         .onAppear {
             viewModel.fetchTravelOn(travelOnId: travelOnId)
             opinionViewModel.fetchOpinions(travelOnId: travelOnId, opinionId: nil)
+            displayTabBar(false)
         }
+//        .onAppear { displayTabBar(false) }
         .navigationTitle("여행On")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
@@ -337,8 +340,7 @@ struct TravelOnDetailScreen: View {
                     
                     Spacer()
                     
-                    // TODO: Navigation Link
-                    Button(action: {}) {
+                    NavigationLink(destination: OpinionWriteScreen(travelOnId: travelOnId)) {
                         HStack {
                             Image(systemName: "plus")
                             Spacer()
@@ -348,6 +350,7 @@ struct TravelOnDetailScreen: View {
                         .font(.system(size: 12))
                         .foregroundColor(Color(red: 255/255, green: 153/255, blue: 0/255))
                     }
+                    
                 }
                 
                 //해당 여행On 답변 출력
@@ -357,29 +360,31 @@ struct TravelOnDetailScreen: View {
                             NavigationLink(destination: OpinionDetailScreen(travelOnId: travelOnId, opinionId: opinion.id)) {
                                 OpinionComponent(opinion: opinion)
                                     .foregroundColor(Color.black)
-                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 30))
                             }
                             
                             // TODO: 플랜에 장소 추가하는 기능
-                            ZStack {
-                                Rectangle()
-                                    .fill(Color(red: 255/255, green: 153/255, blue: 0/255))
-                                    .frame(width: 90, height: 24)
-                                    .cornerRadius(14)
-                                
-                                HStack(alignment: .center) {
-                                    Image(systemName: "plus")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 13)
-                                        .foregroundColor(Color.white)
+                            Button(action: {}) {
+                                ZStack {
+                                    Rectangle()
+                                        .fill(Color(red: 255/255, green: 153/255, blue: 0/255))
+                                        .frame(width: 90, height: 24)
+                                        .cornerRadius(14)
                                     
-                                    Text("플랜에 추가")
-                                        .font(.system(size: 12))
-                                        .foregroundColor(Color.white)
+                                    HStack(alignment: .center) {
+                                        Image(systemName: "plus")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 13)
+                                            .foregroundColor(Color.white)
+                                        
+                                        Text("플랜에 추가")
+                                            .font(.system(size: 12))
+                                            .foregroundColor(Color.white)
+                                    }
                                 }
+                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                             }
-                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                         }
                     }
                 }
