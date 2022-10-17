@@ -1,6 +1,7 @@
 //
 //  OpinionDetailScreen.swift
 //  HeyLocal
+//  답변 상세조회 화면
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //
@@ -122,7 +123,6 @@ struct OpinionDetailScreen: View {
             
             // 공통 질문
             common
-            // Text(viewModel.opinion.place.category)
             
             // 카테고리별 질문
             switch viewModel.opinion.place.category {

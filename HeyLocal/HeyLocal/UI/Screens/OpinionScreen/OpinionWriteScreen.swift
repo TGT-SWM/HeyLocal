@@ -1,6 +1,7 @@
 //
 //  OpinionWriteScreen.swift
 //  HeyLocal
+//  답변 작성·수정 화면
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //
@@ -32,8 +33,8 @@ struct OpinionWriteScreen: View {
                     makeJsonData()
                     if (viewModel.postOpinion(travelOnId: travelOnId, opinionData: opinionData) == 201) {
                         viewModel.fetchOpinions(travelOnId: travelOnId, opinionId: nil)
-                        dismiss()
                     }
+                    dismiss()
                 }) {
                     Text("작성 완료")
                         .font(.system(size: 16))
@@ -120,7 +121,6 @@ struct OpinionWriteScreen: View {
             opinionData.recommendFoodDescription = self.recommendMenu
             opinionData.quantity?.foodImgQuantity = self.foodImages.count
         }
-        
         
         // 카페
         else if self.place!.category == "CE7" {
@@ -663,7 +663,7 @@ struct OpinionWriteScreen: View {
                 }
                 
                 Group {
-                    Text("웨이팅이 긴 편인가요?")
+                    Text("웨이팅")
                     
                     HStack {
                         Button(action: {
