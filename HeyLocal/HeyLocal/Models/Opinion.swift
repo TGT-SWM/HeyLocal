@@ -28,21 +28,21 @@ struct Opinion: Codable, Identifiable {
     
     // MARK: - 공통 · 기타
     var generalImgDownloadImgUrl: [String] = []
-    var facilityCleanliness: String = "GOOD"
-    var canParking: String = "GOOD"
-    var waiting: String = "GOOD"
-    var costPerformance: String = "GOOD"
+    var facilityCleanliness: String = ""
+    var canParking: String = ""
+    var waiting: String = ""
+    var costPerformance: String = ""
     
     // MARK: - 음식점 FD6
-    var restaurantMoodType: String? = "HIP"
+    var restaurantMoodType: String? = ""
     var recommendFoodDescription: String? = ""
     var foodImgDownloadImgUrl: [String]? = []
      
     // MARK: - 카페 CE7
-    var coffeeType: String? = "BITTER"
+    var coffeeType: String? = ""
     var recommendDrinkAndDessertDescription: String? = ""
     var drinkAndDessertImgDownloadImgUrl: [String]? = []
-    var cafeMoodType: String? = "HIP"
+    var cafeMoodType: String? = ""
     
     // MARK: - 문화시설 CT1 · 관광명소 AT4
     var recommendToDo: String? = ""
@@ -51,8 +51,8 @@ struct Opinion: Codable, Identifiable {
     var photoSpotImgDownloadImgUrl: [String]? = []
     
     // MARK: - 숙박 AD5
-    var streetNoise: String? = "GOOD"
-    var deafening: String? = "GOOD"
+    var streetNoise: String? = ""
+    var deafening: String? = ""
     var hasBreakFast: Bool? = false
     
     // MARK: - POST용 데이터

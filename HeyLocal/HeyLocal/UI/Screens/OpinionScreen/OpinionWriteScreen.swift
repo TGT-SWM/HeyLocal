@@ -47,9 +47,37 @@ struct OpinionWriteScreen: View {
             }
         }
     }
+    // 작성 폼을 다 채웠는지 확인하는 함수
     func isFill() -> Bool {
-        let result: Bool = true
+        var result: Bool = false
         
+        if place != nil {
+            if description == "" || cleanInt == 0 || waitingInt == 0 || parkingInt == 0 || costInt == 0 {
+                return result
+            }
+            
+            if place?.category == "FD6" { // 음식점
+                if recommendMenu == "" || !checkArray(array: restaurantMood) {
+                    return result
+                }
+            }
+            else if place?.category == "CE7" { // 카페
+                if drinkOrDessert == "" || !checkArray(array: cafeMood) || !checkArray(array: coffeeTaste) {
+                    return result
+                }
+            }
+            else if place?.category == "CT1" || place?.category == "AT4" { // 관광명소, 문화시설
+                if haveToDo == "" || snack == "" || photoSpot == "" {
+                    return result
+                }
+            }
+            else if place?.category == "AD5" { // 숙박시설
+                if !checkArray(array: noise) || !checkArray(array: deafening) || (yesBreakfast == noBreakfast) {
+                    return result
+                }
+            }
+            result = true
+        }
         
         return result
     }
@@ -69,45 +97,20 @@ struct OpinionWriteScreen: View {
     func makeJsonData() {
         let LikertScale: [String] = ["VERY_BAD", "BAD", "NOT_BAD", "GOOD", "VERY_GOOD"]
         let restaurantMoodStr: [String] = ["LIVELY", "FORMAL", "ROMANTIC", "HIP", "COMFORTABLE"]
+        let cafeMoodStr: [String] = ["MODERN", "LARGE", "CUTE", "HIP"]
+        let coffeeTypeStr: [String] = ["BITTER", "SOUR", "GENERAL"]
         
         opinionData.place = self.place!
-        opinionData.quantity?.generalImgQuantity = 0
+        opinionData.quantity?.generalImgQuantity = self.generalImages.count
         opinionData.description = self.description
         
-        for i in 0..<5 {
-            if self.waiting[i] == true {
-                opinionData.waiting = LikertScale[i]
-            }
-            
-            if self.cost[i] == true {
-                opinionData.costPerformance = LikertScale[i]
-            }
-            
-            if self.parking[i] == true {
-                opinionData.canParking = LikertScale[i]
-            }
-            
-        }
         opinionData.facilityCleanliness = LikertScale[cleanInt - 1]
-        
-        
-        // 숙박시설
-        if self.place!.category == "AD5" {
-//            opinionData.streetNoise
-//            opinionData.deafening
-//            opinionData.hasBreakFast
-        }
-        
-        // 카페
-        else if self.place!.category == "CE7" {
-//            opinionData.coffeeType
-//            opinionData.recommendDrinkAndDessertDescription
-            opinionData.quantity?.drinkAndDessertImgQuantity = 0
-//            opinionData.cafeMoodType
-        }
+        opinionData.costPerformance = LikertScale[costInt - 1]
+        opinionData.canParking = LikertScale[parkingInt - 1]
+        opinionData.waiting = LikertScale[waitingInt - 1]
         
         // 음식점
-        else if self.place!.category == "FD6" {
+        if self.place!.category == "FD6" {
             for i in 0..<5 {
                 if restaurantMood[i] == true {
                     opinionData.restaurantMoodType = restaurantMoodStr[i]
@@ -115,15 +118,48 @@ struct OpinionWriteScreen: View {
                 }
             }
             opinionData.recommendFoodDescription = self.recommendMenu
-            opinionData.quantity?.foodImgQuantity = 0
+            opinionData.quantity?.foodImgQuantity = self.foodImages.count
+        }
+        
+        
+        // 카페
+        else if self.place!.category == "CE7" {
+            for i in 0..<3 {
+                if coffeeTaste[i] == true {
+                    opinionData.coffeeType = coffeeTypeStr[i]
+                    break
+                }
+            }
+            for i in 0..<4 {
+                if cafeMood[i] == true {
+                    opinionData.cafeMoodType = cafeMoodStr[i]
+                    break
+                }
+            }
+            opinionData.recommendDrinkAndDessertDescription = self.drinkOrDessert
+            opinionData.quantity?.drinkAndDessertImgQuantity = self.cafeImages.count
+        }
+        
+        // 숙박시설
+        else if self.place!.category == "AD5" {
+            for i in 0..<5 {
+                if noise[i] == true {
+                    opinionData.streetNoise = LikertScale[i]
+                }
+                
+                if deafening[i] == true {
+                    opinionData.deafening = LikertScale[i]
+                }
+            }
+            opinionData.hasBreakFast = self.yesBreakfast
         }
         
         // 문화시설, 관광명소
         else if self.place!.category == "CT1" ||  self.place!.category == "AT4" {
-//            opinionData.recommendToDo
-//            opinionData.recommendSnack
-//            opinionData.photoSpotDescription
-//            opinionData.quantity?.photoSpotImgQuantity
+            opinionData.recommendToDo = self.haveToDo
+            opinionData.recommendSnack = self.snack
+            opinionData.photoSpotDescription = self.photoSpot
+            opinionData.quantity?.photoSpotImgQuantity = self.photoSpotImages.count
         }
     }
     
@@ -184,17 +220,12 @@ struct OpinionWriteScreen: View {
     @State var showImagePicker: Bool = false
     @State var tmpImg: UIImage?
     @State var isPhotoPicker: Bool = false
-    @State var generalImages: [UIImage] = [UIImage]()
     
     
-    // MARK: - 변수 선택
+    // MARK: - 공통·필수 질문 변수 · View
     @State var place: Place? = nil
     @State var description: String = ""
-    @State var clean: [Bool] = [false, false, false, false, false]
-    @State var cost: [Bool] = [false, false, false, false, false]
-    @State var parking: [Bool] = [false, false, false, false, false]
-    @State var waiting: [Bool] = [false, false, false, false, false]
-    
+    @State var generalImages: [UIImage] = [UIImage]()
     var content: some View {
         VStack(alignment: .leading) {
             // 장소 -> NavigationLink 장소 선택
@@ -362,7 +393,11 @@ struct OpinionWriteScreen: View {
     @State var cleanInt: Int = 0
     @State var parkingInt: Int = 0
     @State var waitingInt: Int = 0
-    @State var costIng: Int = 0
+    @State var costInt: Int = 0
+    @State var clean: [Bool] = [false, false, false, false, false]
+    @State var cost: [Bool] = [false, false, false, false, false]
+    @State var parking: [Bool] = [false, false, false, false, false]
+    @State var waiting: [Bool] = [false, false, false, false, false]
     var common: some View {
         VStack(alignment: .leading){
             Group {
@@ -448,6 +483,92 @@ struct OpinionWriteScreen: View {
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         
                         Text("(\(cleanInt)/5)")
+                            .font(.system(size: 14))
+                            .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                    }
+                    .padding(EdgeInsets(top: 3, leading: 0, bottom: 10, trailing: 0))
+                }
+                
+                Group {
+                    Text("비용이 합리적인가요?")
+                    
+                    HStack {
+                        Button(action: {
+                            costInt = 1
+                            for i in 0..<5 {
+                                cost[i] = false
+                            }
+                            for i in 0..<costInt {
+                                cost[i] = true
+                            }
+                        }) {
+                            Image(cost[0] ? "star_fill_icon" : "star_icon")
+                                .resizable()
+                                .frame(width: 20, height: 19)
+                        }
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        
+                        Button(action: {
+                            costInt = 2
+                            for i in 0..<5 {
+                                cost[i] = false
+                            }
+                            for i in 0..<costInt {
+                                cost[i] = true
+                            }
+                        }) {
+                            Image(cost[1] ? "star_fill_icon" : "star_icon")
+                                .resizable()
+                                .frame(width: 20, height: 19)
+                        }
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        
+                        Button(action: {
+                            costInt = 3
+                            for i in 0..<5 {
+                                cost[i] = false
+                            }
+                            for i in 0..<costInt {
+                                cost[i] = true
+                            }
+                        }) {
+                            Image(cost[2] ? "star_fill_icon" : "star_icon")
+                                .resizable()
+                                .frame(width: 20, height: 19)
+                        }
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        
+                        Button(action: {
+                            costInt = 4
+                            for i in 0..<5 {
+                                cost[i] = false
+                            }
+                            for i in 0..<costInt {
+                                cost[i] = true
+                            }
+                        }) {
+                            Image(cost[3] ? "star_fill_icon" : "star_icon")
+                                .resizable()
+                                .frame(width: 20, height: 19)
+                        }
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        
+                        Button(action: {
+                            costInt = 5
+                            for i in 0..<5 {
+                                cost[i] = false
+                            }
+                            for i in 0..<costInt {
+                                cost[i] = true
+                            }
+                        }) {
+                            Image(cost[4] ? "star_fill_icon" : "star_icon")
+                                .resizable()
+                                .frame(width: 20, height: 19)
+                        }
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        
+                        Text("(\(costInt)/5)")
                             .font(.system(size: 14))
                             .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                     }
@@ -544,164 +665,97 @@ struct OpinionWriteScreen: View {
                 Group {
                     Text("웨이팅이 긴 편인가요?")
                     
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack {
-                            Button(action: {
-                                for i in 1 ..< waiting.count {
-                                    waiting[i] = false
-                                }
-                                waiting[0].toggle()
-                            }) {
-                                Text("매우 부족해요")
+                    HStack {
+                        Button(action: {
+                            waitingInt = 1
+                            for i in 0..<5 {
+                                waiting[i] = false
                             }
-                            .buttonStyle(ToggleButtonStyle(value: $waiting[0], width: 104))
-                            
-                            Button(action: {
-                                for i in 0 ..< waiting.count {
-                                    if i == 1 {
-                                        continue
-                                    }
-                                    if waiting[i] == true {
-                                        waiting[i] = false
-                                    }
-                                }
-                                waiting[1].toggle()
-                            }) {
-                                Text("부족해요")
+                            for i in 0..<waitingInt {
+                                waiting[i] = true
                             }
-                            .buttonStyle(ToggleButtonStyle(value: $waiting[1], width: 91))
-                            
-                            Button(action: {
-                                for i in 0 ..< waiting.count {
-                                    if i == 2 {
-                                        continue
-                                    }
-                                    if waiting[i] == true {
-                                        waiting[i] = false
-                                    }
-                                }
-                                waiting[2].toggle()
-                            }) {
-                                Text("그냥 그래요")
-                            }
-                            .buttonStyle(ToggleButtonStyle(value: $waiting[2], width: 93))
-                            
-                            Button(action: {
-                                for i in 0 ..< waiting.count {
-                                    if i == 3 {
-                                        continue
-                                    }
-                                    if waiting[i] == true {
-                                        waiting[i] = false
-                                    }
-                                }
-                                waiting[3].toggle()
-                            }) {
-                                Text("넉넉해요")
-                            }
-                            .buttonStyle(ToggleButtonStyle(value: $waiting[3], width: 78))
-                            
-                            Button(action: {
-                                for i in 0 ..< (waiting.count - 1) {
-                                    waiting[i] = false
-                                }
-                                waiting[4].toggle()
-                            }) {
-                                Text("매우 충분해요")
-                            }
-                            .buttonStyle(ToggleButtonStyle(value: $waiting[4], width: 104))
+                        }) {
+                            Image(waiting[0] ? "star_fill_icon" : "star_icon")
+                                .resizable()
+                                .frame(width: 20, height: 19)
                         }
-                    }
-                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
-                }
-                
-                Group {
-                    Text("비용이 합리적인가요?")
-                    
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack {
-                            Button(action: {
-                                for i in 1 ..< cost.count {
-                                    if cost[i] == true {
-                                        cost[i] = false
-                                    }
-                                }
-                                cost[0].toggle()
-                            }) {
-                                Text("매우 비싸요")
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        
+                        Button(action: {
+                            waitingInt = 2
+                            for i in 0..<5 {
+                                waiting[i] = false
                             }
-                            .buttonStyle(ToggleButtonStyle(value: $cost[0], width: 93))
-                            
-                            Button(action: {
-                                for i in 0 ..< cost.count {
-                                    if i == 1 {
-                                        continue
-                                    }
-                                    if cost[i] == true {
-                                        cost[i] = false
-                                    }
-                                }
-                                cost[1].toggle()
-                            }) {
-                                Text("비싸요")
+                            for i in 0..<waitingInt {
+                                waiting[i] = true
                             }
-                            .buttonStyle(ToggleButtonStyle(value: $cost[1], width: 66))
-                            
-                            Button(action: {
-                                for i in 0 ..< cost.count {
-                                    if i == 2 {
-                                        continue
-                                    }
-                                    if cost[i] == true {
-                                        cost[i] = false
-                                    }
-                                }
-                                cost[2].toggle()
-                            }) {
-                                Text("그냥 그래요")
-                            }
-                            .buttonStyle(ToggleButtonStyle(value: $cost[2], width: 93))
-                            
-                            Button(action: {
-                                for i in 0 ..< cost.count {
-                                    if i == 3 {
-                                        continue
-                                    }
-                                    if cost[i] == true {
-                                        cost[i] = false
-                                    }
-                                }
-                                cost[3].toggle()
-                            }) {
-                                Text("합리적이에요")
-                            }
-                            .buttonStyle(ToggleButtonStyle(value: $cost[3], width: 103))
-                            
-                            Button(action: {
-                                for i in 0 ..< (cost.count - 1) {
-                                    if cost[i] == true {
-                                        cost[i] = false
-                                    }
-                                }
-                                cost[4].toggle()
-                            }) {
-                                Text("저렴해요")
-                            }
-                            .buttonStyle(ToggleButtonStyle(value: $cost[4], width: 78))
+                        }) {
+                            Image(waiting[1] ? "star_fill_icon" : "star_icon")
+                                .resizable()
+                                .frame(width: 20, height: 19)
                         }
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        
+                        Button(action: {
+                            waitingInt = 3
+                            for i in 0..<5 {
+                                waiting[i] = false
+                            }
+                            for i in 0..<waitingInt {
+                                waiting[i] = true
+                            }
+                        }) {
+                            Image(waiting[2] ? "star_fill_icon" : "star_icon")
+                                .resizable()
+                                .frame(width: 20, height: 19)
+                        }
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        
+                        Button(action: {
+                            waitingInt = 4
+                            for i in 0..<5 {
+                                waiting[i] = false
+                            }
+                            for i in 0..<waitingInt {
+                                waiting[i] = true
+                            }
+                        }) {
+                            Image(waiting[3] ? "star_fill_icon" : "star_icon")
+                                .resizable()
+                                .frame(width: 20, height: 19)
+                        }
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        
+                        Button(action: {
+                            waitingInt = 5
+                            for i in 0..<5 {
+                                waiting[i] = false
+                            }
+                            for i in 0..<waitingInt {
+                                waiting[i] = true
+                            }
+                        }) {
+                            Image(waiting[4] ? "star_fill_icon" : "star_icon")
+                                .resizable()
+                                .frame(width: 20, height: 19)
+                        }
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        
+                        Text("(\(waitingInt)/5)")
+                            .font(.system(size: 14))
+                            .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                     }
-                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                    .padding(EdgeInsets(top: 3, leading: 0, bottom: 10, trailing: 0))
                 }
             }
             .font(.system(size: 14))
-            
         }
-        
     }
     
-    // LIVELY, FORMAL, ROMANTIC, HIP, COMFORTABLE
-    @State var restaurantMood: [Bool] = [false, false, false, false, false]
+    // MARK: - 음식점  변수 · View
+    @State var restaurantMood: [Bool] = [false, false, false, false, false]     // LIVELY, FORMAL, ROMANTIC, HIP, COMFORTABLE
     @State var recommendMenu: String = ""
+    @State var foodImages: [UIImage] = [UIImage]()
     var restaurant: some View {
         VStack(alignment: .leading) {
             Divider()
@@ -837,12 +891,12 @@ struct OpinionWriteScreen: View {
         } // vstack
     } // restaurant
     
-    @State var drinkOrDessert: String = ""
-    // MODERN, LARGE, CUTE, HIP
-    @State var cafeMood: [Bool] = [false, false, false, false]
-    // BITTER, SOUR, GENERAL
-    @State var coffeeTaste: [Bool] = [false, false, false]
     
+    // MARK: - 카페  변수 · View
+    @State var drinkOrDessert: String = ""
+    @State var cafeMood: [Bool] = [false, false, false, false]      // MODERN, LARGE, CUTE, HIP
+    @State var coffeeTaste: [Bool] = [false, false, false]          // BITTER, SOUR, GENERAL
+    @State var cafeImages: [UIImage] = [UIImage]()
     var cafe: some View {
         VStack(alignment: .leading) {
             Divider()
@@ -1018,9 +1072,11 @@ struct OpinionWriteScreen: View {
         }
     }
     
+    // MARK: - 관광명소 및 문화시설  변수 · View
     @State var haveToDo: String = ""
     @State var snack: String = ""
     @State var photoSpot: String = ""
+    @State var photoSpotImages: [UIImage] = [UIImage]()
     var sightseeing: some View {
         VStack(alignment: .leading) {
             Divider()
@@ -1133,6 +1189,7 @@ struct OpinionWriteScreen: View {
         }
     }
     
+    // MARK: - 숙박시설 변수 · View
     @State var noise: [Bool] = [false, false, false, false, false]
     @State var deafening: [Bool] = [false, false, false, false, false]
     @State var yesBreakfast: Bool = false
