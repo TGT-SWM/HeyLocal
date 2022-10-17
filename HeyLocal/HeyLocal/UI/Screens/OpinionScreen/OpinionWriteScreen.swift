@@ -663,7 +663,7 @@ struct OpinionWriteScreen: View {
                 }
                 
                 Group {
-                    Text("웨이팅")
+                    Text("웨이팅은 어떤가요?")
                     
                     HStack {
                         Button(action: {
