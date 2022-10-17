@@ -52,8 +52,13 @@ struct OpinionDetailScreen: View {
     @StateObject var viewModel = OpinionComponent.ViewModel()
     var travelOnId: Int
     var opinionId: Int
+    
     var body: some View {
         ZStack(alignment: .center) {
+            if navigationLinkActive {
+                NavigationLink("", destination: OpinionWriteScreen(travelOnId: travelOnId), isActive: $navigationLinkActive)
+            }
+            
             ZStack(alignment: .bottom) {
                 ScrollView {
                     content

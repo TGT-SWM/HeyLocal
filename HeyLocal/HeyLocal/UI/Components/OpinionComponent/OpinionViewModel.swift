@@ -1,6 +1,7 @@
 //
 //  OpinionViewModel.swift
 //  HeyLocal
+//  답변 뷰 모델
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //
@@ -48,6 +49,11 @@ extension OpinionComponent {
         // 답변 등록
         func postOpinion(travelOnId: Int, opinionData: Opinion) -> Int {
             return opinionService.postOpinion(travelOnId: travelOnId, opinionData: opinionData)
+        }
+        
+        // 답변 수정
+        func updateOpinion(travelOnId: Int, opinionId: Int, opinionData: Opinion) {
+            return opinionService.updateOpinion(travelOnId: travelOnId, opinionId: opinionId, opinionData: opinionData)
         }
     }
 }

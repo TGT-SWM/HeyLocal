@@ -1,6 +1,7 @@
 //
 //  OpinionService.swift
 //  HeyLocal
+//  답변 서비스
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //
@@ -24,5 +25,10 @@ struct OpinionService {
     // 답변 등록
     func postOpinion(travelOnId: Int, opinionData: Opinion) -> Int {
         return opinionRepository.postOpinion(travelOnId: travelOnId, opinionData: opinionData)
+    }
+    
+    // 답변 수정
+    func updateOpinion(travelOnId: Int, opinionId: Int, opinionData: Opinion) {
+        return opinionRepository.updateOpinion(travelOnId: travelOnId, opinionId: opinionId, opinionData: opinionData)
     }
 }
