@@ -46,8 +46,8 @@ extension OpinionComponent {
         }
         
         // 답변 등록
-        func postOpinion(travelOnId: Int, opinionData: String) {
-            
+        func postOpinion(travelOnId: Int, opinionData: Opinion) -> Int {
+            return opinionService.postOpinion(travelOnId: travelOnId, opinionData: opinionData)
         }
     }
 }

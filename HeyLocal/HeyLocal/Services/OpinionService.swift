@@ -22,7 +22,7 @@ struct OpinionService {
     }
     
     // 답변 등록
-    func postOpinion(travelOnId: Int) {
-        
+    func postOpinion(travelOnId: Int, opinionData: Opinion) -> Int {
+        return opinionRepository.postOpinion(travelOnId: travelOnId, opinionData: opinionData)
     }
 }

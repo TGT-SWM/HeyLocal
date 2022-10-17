@@ -24,19 +24,21 @@ struct OpinionWriteScreen: View {
     }
     
     var travelOnId: Int
+    @StateObject var viewModel = OpinionComponent.ViewModel()
     var writeBtn: some View {
         HStack {
             if isFill() {
-                NavigationLink(destination: TravelOnDetailScreen(travelOnId: travelOnId)
-                    .navigationBarTitle("")
-                    .navigationBarHidden(true)) {
+                Button(action: {
+                    makeJsonData()
+                    if (viewModel.postOpinion(travelOnId: travelOnId, opinionData: opinionData) == 201) {
+                        viewModel.fetchOpinions(travelOnId: travelOnId, opinionId: nil)
+                        dismiss()
+                    }
+                }) {
                     Text("작성 완료")
-                            .font(.system(size: 16))
-                            .foregroundColor(Color(red: 255/255, green: 153/255, blue: 0/255))
-                    }.simultaneousGesture(TapGesture().onEnded{
-                        // make()
-                        // post()
-                    })
+                        .font(.system(size: 16))
+                        .foregroundColor(Color(red: 255/255, green: 153/255, blue: 0/255))
+                }
             }
             else {
                 Text("작성 완료")
@@ -46,17 +48,119 @@ struct OpinionWriteScreen: View {
         }
     }
     func isFill() -> Bool {
-        let result: Bool = false
+        let result: Bool = true
+        
+        
+        return result
+    }
+    // 배열 값 확인
+    func checkArray(array: [Bool]) -> Bool {
+        var result: Bool = false
+        for i in 0..<array.count {
+            if array[i] {
+                result = true
+                break
+            }
+        }
         return result
     }
     
+    @State var opinionData = Opinion()
+    func makeJsonData() {
+        let LikertScale: [String] = ["VERY_BAD", "BAD", "NOT_BAD", "GOOD", "VERY_GOOD"]
+        let restaurantMoodStr: [String] = ["LIVELY", "FORMAL", "ROMANTIC", "HIP", "COMFORTABLE"]
+        
+        opinionData.place = self.place!
+        opinionData.quantity?.generalImgQuantity = 0
+        opinionData.description = self.description
+        
+        for i in 0..<5 {
+            if self.waiting[i] == true {
+                opinionData.waiting = LikertScale[i]
+            }
+            
+            if self.cost[i] == true {
+                opinionData.costPerformance = LikertScale[i]
+            }
+            
+            if self.parking[i] == true {
+                opinionData.canParking = LikertScale[i]
+            }
+            
+        }
+        opinionData.facilityCleanliness = LikertScale[cleanInt - 1]
+        
+        
+        // 숙박시설
+        if self.place!.category == "AD5" {
+//            opinionData.streetNoise
+//            opinionData.deafening
+//            opinionData.hasBreakFast
+        }
+        
+        // 카페
+        else if self.place!.category == "CE7" {
+//            opinionData.coffeeType
+//            opinionData.recommendDrinkAndDessertDescription
+            opinionData.quantity?.drinkAndDessertImgQuantity = 0
+//            opinionData.cafeMoodType
+        }
+        
+        // 음식점
+        else if self.place!.category == "FD6" {
+            for i in 0..<5 {
+                if restaurantMood[i] == true {
+                    opinionData.restaurantMoodType = restaurantMoodStr[i]
+                    break
+                }
+            }
+            opinionData.recommendFoodDescription = self.recommendMenu
+            opinionData.quantity?.foodImgQuantity = 0
+        }
+        
+        // 문화시설, 관광명소
+        else if self.place!.category == "CT1" ||  self.place!.category == "AT4" {
+//            opinionData.recommendToDo
+//            opinionData.recommendSnack
+//            opinionData.photoSpotDescription
+//            opinionData.quantity?.photoSpotImgQuantity
+        }
+    }
     
     
     // MARK: - body
+    @State private var image: UIImage? = nil
     var body: some View {
         ZStack(alignment: .center) {
             ScrollView {
                 content
+                
+                // 질문 항목
+                Group {
+                    common
+                    
+                    if place != nil {
+                        switch place!.category{
+                        case "CE7":
+                            cafe
+                            
+                        case "CT1":
+                            sightseeing
+                            
+                        case "AT4":
+                            sightseeing
+                            
+                        case "FD6":
+                            restaurant
+                            
+                        case "AD5":
+                            accommodation
+                            
+                        default:
+                            Text("")
+                        }
+                    }
+                }.padding()
             }
             
             if moveBack {
@@ -76,22 +180,21 @@ struct OpinionWriteScreen: View {
     }
     
     
-    
-    @State var description: String = ""
-    @State var clean: [Bool] = [false, false, false, false, false]
-    @State var cost: [Bool] = [false, false, false, false, false]
-    @State var yesParking: Bool = false
-    @State var noParking: Bool = false
-    @State var yesWaiting: Bool = false
-    @State var noWaiting: Bool = false
-    
-    @State var isPhotoPicker: Bool = false
-    @State var generalImages: [UIImage] = [UIImage]()
-    @State var place: Place? = nil
-    
     // MARK: - 장소 선택, 사진, 설명
     @State var showImagePicker: Bool = false
     @State var tmpImg: UIImage?
+    @State var isPhotoPicker: Bool = false
+    @State var generalImages: [UIImage] = [UIImage]()
+    
+    
+    // MARK: - 변수 선택
+    @State var place: Place? = nil
+    @State var description: String = ""
+    @State var clean: [Bool] = [false, false, false, false, false]
+    @State var cost: [Bool] = [false, false, false, false, false]
+    @State var parking: [Bool] = [false, false, false, false, false]
+    @State var waiting: [Bool] = [false, false, false, false, false]
+    
     var content: some View {
         VStack(alignment: .leading) {
             // 장소 -> NavigationLink 장소 선택
@@ -142,26 +245,47 @@ struct OpinionWriteScreen: View {
                         Image(uiImage: tmpImg!)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
+                            .frame(width: 100, height: 100)
                     }
     
                     Button(action: {
                         showImagePicker.toggle()
                     }) {
-                        ZStack {
+//                        ZStack {
+//                            Rectangle()
+//                                .fill(Color.white)
+//                                .frame(width: 100, height: 100)
+//                                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
+//                                .cornerRadius(10)
+//
+//                            ZStack {
+//                                Circle()
+//                                    .fill(Color(red: 255/255, green: 153/255, blue: 0/255))
+//                                    .frame(width: 24, height: 24)
+//
+//                                Image(systemName: "plus")
+//                                    .foregroundColor(Color.white)
+//                            }
+//                        }
+                        ZStack(alignment: .center) {
                             Rectangle()
                                 .fill(Color.white)
                                 .frame(width: 100, height: 100)
                                 .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
                                 .cornerRadius(10)
                             
-                            ZStack {
-                                Circle()
-                                    .fill(Color(red: 255/255, green: 153/255, blue: 0/255))
-                                    .frame(width: 24, height: 24)
+                            
+                            VStack(alignment: .center) {
+                                Image(systemName: "camera")
+                                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 3, trailing: 0))
                                 
-                                Image(systemName: "plus")
-                                    .foregroundColor(Color.white)
+                                Text("\(generalImages.count) / 3")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                             }
+                            
+                                
                         }
                     }
                     .sheet(isPresented: $showImagePicker){
@@ -169,8 +293,44 @@ struct OpinionWriteScreen: View {
                             self.tmpImg = image
                         }
                     }
+                    
+//                    Button(action: { showImagePicker = true }) {
+//                        Label("Choose Photos", systemImage: "photo.fill")
+//                    }
+//                    .fullScreenCover(isPresented: $showImagePicker) {
+//                        PhotoPicker(filter: .images, limit: 3) { results in
+//                            PhotoPicker.convertToUIImageArray(fromResults: results) { (imagesOrNil, errorOrNil) in
+//                                if let error = errorOrNil {
+//                                    print(error)
+//                                }
+//
+//                                if let images = imagesOrNil {
+//                                    if let first = images.first {
+//                                        print(first)
+//                                        image = first
+//                                    }
+//                                }
+//                            }
+//
+//                        }
+//                    }
+//
+//                    if let image = image {
+//                        Image(uiImage: image)
+//                            .resizable()
+//                            .aspectRatio(contentMode: .fit)
+//                            .frame(width: 100, height: 100)
+//                    }
                 }
             }
+            
+            VStack(alignment: .leading) {
+                Text("장소와 무관한 사진을 첨부하면, 게시 제한 처리될 수 있습니다.")
+                Text("사진 첨부 시 개인정보가 노출되지 않도록 유의해주세요.")
+            }
+            .font(.system(size: 12))
+            .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+            .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
             
             // 설명
             ZStack(alignment: .topLeading) {
@@ -192,16 +352,6 @@ struct OpinionWriteScreen: View {
                     .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                 }
             }
-            .padding(EdgeInsets(top: 0, leading: 0, bottom: 15, trailing: 0))
-            
-            // 공통 질문
-            common
-            
-            // 카테고리별 질문
-            cafe
-            sightseeing
-            restaurant
-            accommodation
         }
         .padding()
     }
@@ -209,6 +359,10 @@ struct OpinionWriteScreen: View {
     
     
     // MARK: - 공통 질문
+    @State var cleanInt: Int = 0
+    @State var parkingInt: Int = 0
+    @State var waitingInt: Int = 0
+    @State var costIng: Int = 0
     var common: some View {
         VStack(alignment: .leading){
             Group {
@@ -217,127 +371,246 @@ struct OpinionWriteScreen: View {
                 Group {
                     Text("시설이 청결한가요?")
                     
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack {
-                            Button(action: {
-                                for i in 1 ..< clean.count {
-                                    clean[i] = false
-                                }
-                                clean[0].toggle()
-                            }) {
-                                Text("매우 지저분해요")
+                    HStack {
+                        Button(action: {
+                            cleanInt = 1
+                            for i in 0..<5 {
+                                clean[i] = false
                             }
-                            .buttonStyle(ToggleButtonStyle(value: $clean[0], width: 117))
-                            
-                            Button(action: {
-                                for i in 0 ..< clean.count {
-                                    if i == 1 {
-                                        continue
-                                    }
-                                    if clean[i] == true {
-                                        clean[i] = false
-                                    }
-                                }
-                                clean[1].toggle()
-                            }) {
-                                Text("지저분해요")
+                            for i in 0..<cleanInt {
+                                clean[i] = true
                             }
-                            .buttonStyle(ToggleButtonStyle(value: $clean[1], width: 91))
-                            
-                            Button(action: {
-                                for i in 0 ..< clean.count {
-                                    if i == 2 {
-                                        continue
-                                    }
-                                    if clean[i] == true {
-                                        clean[i] = false
-                                    }
-                                }
-                                clean[2].toggle()
-                            }) {
-                                Text("그냥 그래요")
-                            }
-                            .buttonStyle(ToggleButtonStyle(value: $clean[2], width: 93))
-                            
-                            Button(action: {
-                                for i in 0 ..< clean.count {
-                                    if i == 3 {
-                                        continue
-                                    }
-                                    if clean[i] == true {
-                                        clean[i] = false
-                                    }
-                                }
-                                clean[3].toggle()
-                            }) {
-                                Text("청결해요")
-                            }
-                            .buttonStyle(ToggleButtonStyle(value: $clean[3], width: 78))
-                            
-                            Button(action: {
-                                for i in 0 ..< (clean.count - 1) {
-                                    clean[i] = false
-                                }
-                                clean[4].toggle()
-                            }) {
-                                Text("매우 청결해요")
-                            }
-                            .buttonStyle(ToggleButtonStyle(value: $clean[4], width: 104))
+                        }) {
+                            Image(clean[0] ? "star_fill_icon" : "star_icon")
+                                .resizable()
+                                .frame(width: 20, height: 19)
                         }
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        
+                        Button(action: {
+                            cleanInt = 2
+                            for i in 0..<5 {
+                                clean[i] = false
+                            }
+                            for i in 0..<cleanInt {
+                                clean[i] = true
+                            }
+                        }) {
+                            Image(clean[1] ? "star_fill_icon" : "star_icon")
+                                .resizable()
+                                .frame(width: 20, height: 19)
+                        }
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        
+                        Button(action: {
+                            cleanInt = 3
+                            for i in 0..<5 {
+                                clean[i] = false
+                            }
+                            for i in 0..<cleanInt {
+                                clean[i] = true
+                            }
+                        }) {
+                            Image(clean[2] ? "star_fill_icon" : "star_icon")
+                                .resizable()
+                                .frame(width: 20, height: 19)
+                        }
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        
+                        Button(action: {
+                            cleanInt = 4
+                            for i in 0..<5 {
+                                clean[i] = false
+                            }
+                            for i in 0..<cleanInt {
+                                clean[i] = true
+                            }
+                        }) {
+                            Image(clean[3] ? "star_fill_icon" : "star_icon")
+                                .resizable()
+                                .frame(width: 20, height: 19)
+                        }
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        
+                        Button(action: {
+                            cleanInt = 5
+                            for i in 0..<5 {
+                                clean[i] = false
+                            }
+                            for i in 0..<cleanInt {
+                                clean[i] = true
+                            }
+                        }) {
+                            Image(clean[4] ? "star_fill_icon" : "star_icon")
+                                .resizable()
+                                .frame(width: 20, height: 19)
+                        }
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        
+                        Text("(\(cleanInt)/5)")
+                            .font(.system(size: 14))
+                            .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                     }
-                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                    .padding(EdgeInsets(top: 3, leading: 0, bottom: 10, trailing: 0))
                 }
                 
                 
                 Group {
-                    Text("주차장이 있나요?")
+                    Text("주차 공간이 충분한가요?")
                     
                     HStack {
                         Button(action: {
-                            if noParking {
-                                noParking.toggle()
+                            parkingInt = 1
+                            for i in 0..<5 {
+                                parking[i] = false
                             }
-                            yesParking.toggle()
+                            for i in 0..<parkingInt {
+                                parking[i] = true
+                            }
                         }) {
-                            Text("있어요")
+                            Image(parking[0] ? "star_fill_icon" : "star_icon")
+                                .resizable()
+                                .frame(width: 20, height: 19)
                         }
-                        .buttonStyle(ToggleButtonStyle(value: $yesParking, width: 66))
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         
                         Button(action: {
-                            if yesParking {
-                                yesParking.toggle()
+                            parkingInt = 2
+                            for i in 0..<5 {
+                                parking[i] = false
                             }
-                            noParking.toggle()
+                            for i in 0..<parkingInt {
+                                parking[i] = true
+                            }
                         }) {
-                            Text("없어요")
+                            Image(parking[1] ? "star_fill_icon" : "star_icon")
+                                .resizable()
+                                .frame(width: 20, height: 19)
                         }
-                        .buttonStyle(ToggleButtonStyle(value: $noParking, width: 66))
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        
+                        Button(action: {
+                            parkingInt = 3
+                            for i in 0..<5 {
+                                parking[i] = false
+                            }
+                            for i in 0..<parkingInt {
+                                parking[i] = true
+                            }
+                        }) {
+                            Image(parking[2] ? "star_fill_icon" : "star_icon")
+                                .resizable()
+                                .frame(width: 20, height: 19)
+                        }
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        
+                        Button(action: {
+                            parkingInt = 4
+                            for i in 0..<5 {
+                                parking[i] = false
+                            }
+                            for i in 0..<parkingInt {
+                                parking[i] = true
+                            }
+                        }) {
+                            Image(parking[3] ? "star_fill_icon" : "star_icon")
+                                .resizable()
+                                .frame(width: 20, height: 19)
+                        }
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        
+                        Button(action: {
+                            parkingInt = 5
+                            for i in 0..<5 {
+                                parking[i] = false
+                            }
+                            for i in 0..<parkingInt {
+                                parking[i] = true
+                            }
+                        }) {
+                            Image(parking[4] ? "star_fill_icon" : "star_icon")
+                                .resizable()
+                                .frame(width: 20, height: 19)
+                        }
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        
+                        Text("(\(parkingInt)/5)")
+                            .font(.system(size: 14))
+                            .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                     }
-                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                    .padding(EdgeInsets(top: 3, leading: 0, bottom: 10, trailing: 0))
                 }
                 
                 Group {
-                    Text("웨이팅이 있나요?")
-                    HStack {
-                        Button(action: {
-                            if noWaiting {
-                                noWaiting.toggle()
+                    Text("웨이팅이 긴 편인가요?")
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            Button(action: {
+                                for i in 1 ..< waiting.count {
+                                    waiting[i] = false
+                                }
+                                waiting[0].toggle()
+                            }) {
+                                Text("매우 부족해요")
                             }
-                            yesWaiting.toggle()
-                        }) {
-                            Text("있어요")
-                        }
-                        .buttonStyle(ToggleButtonStyle(value: $yesWaiting, width: 66))
-                        
-                        Button(action: {
-                            if yesWaiting {
-                                yesWaiting.toggle()
+                            .buttonStyle(ToggleButtonStyle(value: $waiting[0], width: 104))
+                            
+                            Button(action: {
+                                for i in 0 ..< waiting.count {
+                                    if i == 1 {
+                                        continue
+                                    }
+                                    if waiting[i] == true {
+                                        waiting[i] = false
+                                    }
+                                }
+                                waiting[1].toggle()
+                            }) {
+                                Text("부족해요")
                             }
-                            noWaiting.toggle()
-                        }) {
-                            Text("없어요")
+                            .buttonStyle(ToggleButtonStyle(value: $waiting[1], width: 91))
+                            
+                            Button(action: {
+                                for i in 0 ..< waiting.count {
+                                    if i == 2 {
+                                        continue
+                                    }
+                                    if waiting[i] == true {
+                                        waiting[i] = false
+                                    }
+                                }
+                                waiting[2].toggle()
+                            }) {
+                                Text("그냥 그래요")
+                            }
+                            .buttonStyle(ToggleButtonStyle(value: $waiting[2], width: 93))
+                            
+                            Button(action: {
+                                for i in 0 ..< waiting.count {
+                                    if i == 3 {
+                                        continue
+                                    }
+                                    if waiting[i] == true {
+                                        waiting[i] = false
+                                    }
+                                }
+                                waiting[3].toggle()
+                            }) {
+                                Text("넉넉해요")
+                            }
+                            .buttonStyle(ToggleButtonStyle(value: $waiting[3], width: 78))
+                            
+                            Button(action: {
+                                for i in 0 ..< (waiting.count - 1) {
+                                    waiting[i] = false
+                                }
+                                waiting[4].toggle()
+                            }) {
+                                Text("매우 충분해요")
+                            }
+                            .buttonStyle(ToggleButtonStyle(value: $waiting[4], width: 104))
                         }
-                        .buttonStyle(ToggleButtonStyle(value: $noWaiting, width: 66))
                     }
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                 }
@@ -522,21 +795,19 @@ struct OpinionWriteScreen: View {
                     ZStack {
                         Rectangle()
                             .fill(Color.white)
-                            .frame(width: 50, height: 50)
+                            .frame(width: 100, height: 100)
                             .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
                             .cornerRadius(10)
                         
-                        ZStack {
-                            Circle()
-                                .fill(Color(red: 255/255, green: 153/255, blue: 0/255))
-                                .frame(width: 16, height: 16)
+                        
+                        VStack(alignment: .center) {
+                            Image(systemName: "camera")
+                                .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 3, trailing: 0))
                             
-                            Image(systemName: "plus")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 9)
-                                .foregroundColor(Color.white)
-                                
+                            Text("\(generalImages.count) / 3")
+                                .font(.system(size: 12))
+                                .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                         }
                     }
                 }
@@ -1060,57 +1331,116 @@ struct OpinionWriteScreen: View {
 
 
 // MARK: - Photo Picker
+//struct PhotoPicker: UIViewControllerRepresentable {
+//    @Binding var pickerResult: [UIImage] // pass images back to the SwiftUI view
+//    @Binding var isPresented: Bool // close the modal view
+//
+//    func makeUIViewController(context: Context) -> some UIViewController {
+//        var configuration = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
+//        configuration.filter = .images // filter only to images
+//        configuration.selectionLimit = 0 // ignore limit
+//
+//        let photoPickerViewController = PHPickerViewController(configuration: configuration)
+//        photoPickerViewController.delegate = context.coordinator // Use Coordinator for delegation
+//        return photoPickerViewController
+//    }
+//
+//    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) { }
+//
+//    func makeCoordinator() -> Coordinator {
+//        Coordinator(self)
+//    }
+//
+//    // Create the Coordinator, in this case it is a way to communicate with the PHPickerViewController
+//    class Coordinator: PHPickerViewControllerDelegate {
+//        private let parent: PhotoPicker
+//
+//        init(_ parent: PhotoPicker) {
+//            self.parent = parent
+//        }
+//
+//        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+//            parent.pickerResult.removeAll()
+//
+//            for image in results {
+//                if image.itemProvider.canLoadObject(ofClass: UIImage.self) {
+//                    image.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] newImage, error in
+//                        if let error = error {
+//                            print("Can't load image \(error.localizedDescription)")
+//                        } else if let image = newImage as? UIImage {
+//                            self?.parent.pickerResult.append(image)
+//                        }
+//                    }
+//                }
+//                else {
+//                    print("Can't load asset")
+//                }
+//            }
+//
+//            parent.isPresented = false
+//        }
+//    }
+//}
+
+// MARK: - PhotoPicker 2
 struct PhotoPicker: UIViewControllerRepresentable {
-    @Binding var pickerResult: [UIImage] // pass images back to the SwiftUI view
-    @Binding var isPresented: Bool // close the modal view
-
-    func makeUIViewController(context: Context) -> some UIViewController {
-        var configuration = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
-        configuration.filter = .images // filter only to images
-        configuration.selectionLimit = 0 // ignore limit
-
-        let photoPickerViewController = PHPickerViewController(configuration: configuration)
-        photoPickerViewController.delegate = context.coordinator // Use Coordinator for delegation
-        return photoPickerViewController
+    typealias UIViewControllerType = PHPickerViewController
+    let filter: PHPickerFilter
+    var limit: Int = 0
+    let onComplete: ([PHPickerResult]) -> Void
+    
+    func makeUIViewController(context: Context) -> PHPickerViewController {
+        var configuration = PHPickerConfiguration()
+        configuration.filter = filter
+        configuration.selectionLimit = limit
+        
+        let controller = PHPickerViewController(configuration: configuration)
+        controller.delegate = context.coordinator
+        return controller
     }
-
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) { }
+    
+    func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) { }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(self)
+        return Coordinator(self)
     }
     
-    // Create the Coordinator, in this case it is a way to communicate with the PHPickerViewController
     class Coordinator: PHPickerViewControllerDelegate {
         private let parent: PhotoPicker
-
+        
         init(_ parent: PhotoPicker) {
             self.parent = parent
         }
-
+        
         func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-            parent.pickerResult.removeAll()
-            
-            for image in results {
-                if image.itemProvider.canLoadObject(ofClass: UIImage.self) {
-                    image.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] newImage, error in
-                        if let error = error {
-                            print("Can't load image \(error.localizedDescription)")
-                        } else if let image = newImage as? UIImage {
-                            self?.parent.pickerResult.append(image)
-                        }
+            parent.onComplete(results)
+            picker.dismiss(animated: true)
+        }
+    }
+    
+    static func convertToUIImageArray(fromResults results: [PHPickerResult], onComplete: @escaping ([UIImage]?, Error?) -> Void) {
+        var images = [UIImage]()
+        let dispatchGroup = DispatchGroup()
+        for result in results {
+            dispatchGroup.enter()
+            let itemProvider = result.itemProvider
+            if itemProvider.canLoadObject(ofClass: UIImage.self) {
+                itemProvider.loadObject(ofClass: UIImage.self) { (imageOrNil, errorOrNil) in
+                    if let error = errorOrNil {
+                        onComplete(nil, error)
                     }
-                }
-                else {
-                    print("Can't load asset")
+                    if let image = imageOrNil as? UIImage {
+                        images.append(image)
+                    }
+                    dispatchGroup.leave()
                 }
             }
-            
-            parent.isPresented = false
+        }
+        dispatchGroup.notify(queue: .main) {
+            onComplete(images, nil)
         }
     }
 }
-
 
 
 struct OpinionWriteScreen_Previews: PreviewProvider {
