@@ -41,7 +41,6 @@ extension PlanDetailScreen {
 		
 		init(plan: Plan) {
 			self.plan = plan
-			fetchPlaces()
 		}
 	}
 }

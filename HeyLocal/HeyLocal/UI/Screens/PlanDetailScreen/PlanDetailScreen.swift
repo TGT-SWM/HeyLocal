@@ -44,7 +44,9 @@ struct PlanDetailScreen: View {
 		}
 		.onAppear {
 			displayTabBar(false)
-			viewModel.fetchPubDistances()
+			if viewModel.schedules.isEmpty {
+				viewModel.fetchPlaces()
+			}
 		}
     }
 	
