@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CustomAlert: View {
     @Binding var showingAlert: Bool
+    @Environment(\.dismiss) private var dismiss
     
     var title: String                   // Alert창 Message
     var cancelMessage: String           // 왼쪽 버튼 Message
@@ -55,12 +56,11 @@ struct CustomAlert: View {
                         .frame(width: 15)
                     
                     // 확인 버튼 -> rightButtonAction
-                    NavigationLink(destination: destinationView
-                        .navigationBarTitle("")
-                        .navigationBarHidden(true)){
+                    NavigationLink(destination: destinationView){
                         Text("\(confirmMessage)")
                     }.simultaneousGesture(TapGesture().onEnded{
                         rightButtonAction?()
+                        dismiss()
                     })
                     .buttonStyle(AlertCustomButton(value: true, width: confirmWidth))
                     

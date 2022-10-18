@@ -24,27 +24,49 @@ struct OpinionWriteScreen: View {
         }
     }
     
+    // 수정하기에서 넘어왔다면, opinionId를 받아와
+    var opinionId: Int?
     var travelOnId: Int
     @StateObject var viewModel = OpinionComponent.ViewModel()
     var writeBtn: some View {
         HStack {
             if isFill() {
-                Button(action: {
-                    makeJsonData()
-                    if (viewModel.postOpinion(travelOnId: travelOnId, opinionData: opinionData) == 201) {
-                        viewModel.fetchOpinions(travelOnId: travelOnId, opinionId: nil)
+                if opinionId == nil {
+                    Button(action: {
+                        makeJsonData()
+                        if (viewModel.postOpinion(travelOnId: travelOnId, opinionData: opinionData) == 201) {
+                            viewModel.fetchOpinions(travelOnId: travelOnId, opinionId: nil)
+                        }
+                        dismiss()
+                    }) {
+                        Text("작성 완료")
+                            .font(.system(size: 16))
+                            .foregroundColor(Color(red: 255/255, green: 153/255, blue: 0/255))
                     }
-                    dismiss()
-                }) {
-                    Text("작성 완료")
-                        .font(.system(size: 16))
-                        .foregroundColor(Color(red: 255/255, green: 153/255, blue: 0/255))
+                }
+                else {
+                    Button(action: {
+                        makeJsonData()
+                        viewModel.updateOpinion(travelOnId: travelOnId, opinionId: opinionId!, opinionData: opinionData)
+                        dismiss()
+                    }) {
+                        Text("수정 완료")
+                            .font(.system(size: 16))
+                            .foregroundColor(Color(red: 255/255, green: 153/255, blue: 0/255))
+                    }
                 }
             }
             else {
-                Text("작성 완료")
-                    .font(.system(size: 16))
-                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                if opinionId == nil {
+                    Text("작성 완료")
+                        .font(.system(size: 16))
+                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                }
+                else {
+                    Text("수정 완료")
+                        .font(.system(size: 16))
+                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                }
             }
         }
     }
