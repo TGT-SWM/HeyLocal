@@ -17,10 +17,6 @@ extension TravelOnListScreen {
         @Published var travelOnArray: TravelOnArray
         @Published var region: Region
         
-        
-        
-        @Published var memberSet: [Bool] = [false, false, false, false, false, false]
-        
         var cancellable: AnyCancellable?
         init() {
             self.travelOn = TravelOn()

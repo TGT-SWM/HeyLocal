@@ -1,6 +1,7 @@
 //
 //  OpinionComponent.swift
 //  HeyLocal
+//  답변 컴포넌트
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //
@@ -42,7 +43,6 @@ struct OpinionComponent: View {
                 .frame(width: 20)
             
             VStack(alignment: .leading) {
-                // 장소 이름
                 Text("\(opinion.place.name)")
                     .font(.system(size: 14))
                 

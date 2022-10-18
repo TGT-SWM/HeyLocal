@@ -20,8 +20,7 @@ struct OpinionPlacePickerScreen: View {
         }
     }
     
-    @Binding var place: Place?
-//    @State var placeName: String = ""
+    @Binding var place: Place
     @ObservedObject var viewModel = PlaceSearchScreen.ViewModel()
     var body: some View {
         VStack(alignment: .leading) {
@@ -97,11 +96,5 @@ struct OpinionPlacePickerScreen: View {
         }
         .frame(height: 80)
         .padding(.horizontal, 21)
-    }
-}
-
-struct OpinionPlacePickerScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        OpinionPlacePickerScreen(place: .constant(nil))
     }
 }
