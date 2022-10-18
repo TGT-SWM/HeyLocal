@@ -43,7 +43,6 @@ struct OpinionComponent: View {
                 .frame(width: 20)
             
             VStack(alignment: .leading) {
-                // 장소 이름
                 Text("\(opinion.place.name)")
                     .font(.system(size: 14))
                 

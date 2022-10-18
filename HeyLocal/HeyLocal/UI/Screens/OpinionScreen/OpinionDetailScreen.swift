@@ -248,7 +248,7 @@ struct OpinionDetailScreen: View {
             Text("추천하는 메뉴는 무엇인가요?")
                 .font(.system(size: 14))
                 .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-            OpinionStyle(label: "\(viewModel.opinion.recommendFoodDescription!)")
+            OpinionStyle(label: "\(viewModel.opinion.recommendFoodDescription)")
             
             
         }
@@ -271,7 +271,7 @@ struct OpinionDetailScreen: View {
             Text("추천하는 음료·디저트는 무엇인가요?")
                 .font(.system(size: 14))
                 .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-            OpinionStyle(label: "\(viewModel.opinion.recommendDrinkAndDessertDescription!)")
+            OpinionStyle(label: "\(viewModel.opinion.recommendDrinkAndDessertDescription)")
             
             Text("카페 분위기는 어떤가요?")
                 .font(.system(size: 14))
@@ -293,17 +293,17 @@ struct OpinionDetailScreen: View {
             Text("여기서 꼭 해봐야 하는 게 있나요?")
                 .font(.system(size: 14))
                 .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-            OpinionStyle(label: "\(viewModel.opinion.recommendToDo!)")
+            OpinionStyle(label: "\(viewModel.opinion.recommendToDo)")
             
             Text("여기서 추천하는 간식이 있나요?")
                 .font(.system(size: 14))
                 .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-            OpinionStyle(label: "\(viewModel.opinion.recommendSnack!)")
+            OpinionStyle(label: "\(viewModel.opinion.recommendSnack)")
             
             Text("여기의 사진 명소는 어디인가요?")
                 .font(.system(size: 14))
                 .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-            OpinionStyle(label: "\(viewModel.opinion.photoSpotDescription!)")
+            OpinionStyle(label: "\(viewModel.opinion.photoSpotDescription)")
         }
     }
     

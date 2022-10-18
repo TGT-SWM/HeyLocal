@@ -74,28 +74,28 @@ struct OpinionWriteScreen: View {
     func isFill() -> Bool {
         var result: Bool = false
         
-        if place != nil {
-            if description == "" || cleanInt == 0 || waitingInt == 0 || parkingInt == 0 || costInt == 0 {
+        if viewModel.opinion.place.name != "" {
+            if viewModel.opinion.description == "" || viewModel.cleanInt == 0 || viewModel.waitingInt == 0 || viewModel.parkingInt == 0 || viewModel.costInt == 0 {
                 return result
             }
             
-            if place?.category == "FD6" { // 음식점
-                if recommendMenu == "" || !checkArray(array: restaurantMood) {
+            if viewModel.opinion.place.category == "FD6" { // 음식점
+                if viewModel.opinion.recommendFoodDescription == "" || !checkArray(array: viewModel.restaurantMood) {
                     return result
                 }
             }
-            else if place?.category == "CE7" { // 카페
-                if drinkOrDessert == "" || !checkArray(array: cafeMood) || !checkArray(array: coffeeTaste) {
+            else if viewModel.opinion.place.category == "CE7" { // 카페
+                if viewModel.opinion.recommendDrinkAndDessertDescription == "" || !checkArray(array: viewModel.cafeMood) || !checkArray(array: viewModel.coffee) {
                     return result
                 }
             }
-            else if place?.category == "CT1" || place?.category == "AT4" { // 관광명소, 문화시설
-                if haveToDo == "" || snack == "" || photoSpot == "" {
+            else if viewModel.opinion.place.category == "CT1" || viewModel.opinion.place.category == "AT4" { // 관광명소, 문화시설
+                if viewModel.opinion.recommendToDo == "" || viewModel.opinion.recommendSnack == "" || viewModel.opinion.photoSpotDescription == "" {
                     return result
                 }
             }
-            else if place?.category == "AD5" { // 숙박시설
-                if !checkArray(array: noise) || !checkArray(array: deafening) || (yesBreakfast == noBreakfast) {
+            else if viewModel.opinion.place.category == "AD5" { // 숙박시설
+                if !checkArray(array: viewModel.noise) || !checkArray(array: viewModel.deafening) || (yesBreakfast == noBreakfast) {
                     return result
                 }
             }
@@ -123,53 +123,53 @@ struct OpinionWriteScreen: View {
         let cafeMoodStr: [String] = ["MODERN", "LARGE", "CUTE", "HIP"]
         let coffeeTypeStr: [String] = ["BITTER", "SOUR", "GENERAL"]
         
-        opinionData.place = self.place!
+        opinionData.place = viewModel.opinion.place
         opinionData.quantity?.generalImgQuantity = self.generalImages.count
-        opinionData.description = self.description
+        opinionData.description = viewModel.opinion.description
         
-        opinionData.facilityCleanliness = LikertScale[cleanInt - 1]
-        opinionData.costPerformance = LikertScale[costInt - 1]
-        opinionData.canParking = LikertScale[parkingInt - 1]
-        opinionData.waiting = LikertScale[waitingInt - 1]
+        opinionData.facilityCleanliness = LikertScale[viewModel.cleanInt - 1]
+        opinionData.costPerformance = LikertScale[viewModel.costInt - 1]
+        opinionData.canParking = LikertScale[viewModel.parkingInt - 1]
+        opinionData.waiting = LikertScale[viewModel.waitingInt - 1]
         
         // 음식점
-        if self.place!.category == "FD6" {
+        if viewModel.opinion.place.category == "FD6" {
             for i in 0..<5 {
-                if restaurantMood[i] == true {
+                if viewModel.restaurantMood[i] == true {
                     opinionData.restaurantMoodType = restaurantMoodStr[i]
                     break
                 }
             }
-            opinionData.recommendFoodDescription = self.recommendMenu
+            opinionData.recommendFoodDescription = viewModel.opinion.recommendFoodDescription
             opinionData.quantity?.foodImgQuantity = self.foodImages.count
         }
         
         // 카페
-        else if self.place!.category == "CE7" {
+        else if viewModel.opinion.place.category == "CE7" {
             for i in 0..<3 {
-                if coffeeTaste[i] == true {
+                if viewModel.coffee[i] == true {
                     opinionData.coffeeType = coffeeTypeStr[i]
                     break
                 }
             }
             for i in 0..<4 {
-                if cafeMood[i] == true {
+                if viewModel.cafeMood[i] == true {
                     opinionData.cafeMoodType = cafeMoodStr[i]
                     break
                 }
             }
-            opinionData.recommendDrinkAndDessertDescription = self.drinkOrDessert
+            opinionData.recommendDrinkAndDessertDescription = viewModel.opinion.recommendDrinkAndDessertDescription
             opinionData.quantity?.drinkAndDessertImgQuantity = self.cafeImages.count
         }
         
         // 숙박시설
-        else if self.place!.category == "AD5" {
+        else if viewModel.opinion.place.category == "AD5" {
             for i in 0..<5 {
-                if noise[i] == true {
+                if viewModel.noise[i] == true {
                     opinionData.streetNoise = LikertScale[i]
                 }
                 
-                if deafening[i] == true {
+                if viewModel.deafening[i] == true {
                     opinionData.deafening = LikertScale[i]
                 }
             }
@@ -177,10 +177,10 @@ struct OpinionWriteScreen: View {
         }
         
         // 문화시설, 관광명소
-        else if self.place!.category == "CT1" ||  self.place!.category == "AT4" {
-            opinionData.recommendToDo = self.haveToDo
-            opinionData.recommendSnack = self.snack
-            opinionData.photoSpotDescription = self.photoSpot
+        else if viewModel.opinion.place.category == "CT1" ||  viewModel.opinion.place.category == "AT4" {
+            opinionData.recommendToDo = viewModel.opinion.recommendToDo
+            opinionData.recommendSnack = viewModel.opinion.recommendSnack
+            opinionData.photoSpotDescription = viewModel.opinion.photoSpotDescription
             opinionData.quantity?.photoSpotImgQuantity = self.photoSpotImages.count
         }
     }
@@ -197,8 +197,8 @@ struct OpinionWriteScreen: View {
                 Group {
                     common
                     
-                    if place != nil {
-                        switch place!.category{
+                    if viewModel.opinion.place.name != "" {
+                        switch viewModel.opinion.place.category{
                         case "CE7":
                             cafe
                             
@@ -231,12 +231,16 @@ struct OpinionWriteScreen: View {
                             rightButtonAction: {dismiss()})
             }
         }
+        .onAppear {
+            if opinionId != nil {
+                viewModel.fetchOpinions(travelOnId: travelOnId, opinionId: opinionId!)
+            }
+        }
         .navigationTitle("답변 작성")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: btnBack, trailing: writeBtn)
     }
-    
     
     // MARK: - 장소 선택, 사진, 설명
     @State var showImagePicker: Bool = false
@@ -245,13 +249,11 @@ struct OpinionWriteScreen: View {
     
     
     // MARK: - 공통·필수 질문 변수 · View
-    @State var place: Place? = nil
-    @State var description: String = ""
     @State var generalImages: [UIImage] = [UIImage]()
     var content: some View {
         VStack(alignment: .leading) {
             // 장소 -> NavigationLink 장소 선택
-            NavigationLink(destination: OpinionPlacePickerScreen(place: $place)) {
+            NavigationLink(destination: OpinionPlacePickerScreen(place: $viewModel.opinion.place)) {
                 ZStack(alignment: .leading) {
                     Rectangle()
                         .fill(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
@@ -261,13 +263,13 @@ struct OpinionWriteScreen: View {
 
 
                     HStack {
-                        if place == nil {
+                        if viewModel.opinion.place.name == "" {
                             Text("  장소 검색")
                                 .font(.system(size: 12))
                                 .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                         }
                         else {
-                            Text("\(place!.name)")
+                            Text("\(viewModel.opinion.place.name)")
                                 .font(.system(size: 12))
                                 .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                         }
@@ -387,7 +389,7 @@ struct OpinionWriteScreen: View {
             
             // 설명
             ZStack(alignment: .topLeading) {
-                TextField("", text: $description)
+                TextField("", text: $viewModel.opinion.description)
                     .multilineTextAlignment(TextAlignment.leading)
                     .font(.system(size: 12))
                     .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
@@ -396,7 +398,7 @@ struct OpinionWriteScreen: View {
                     .background(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
                     .cornerRadius(10)
                 
-                if description == "" {
+                if viewModel.opinion.description == "" {
                     VStack(alignment: .leading) {
                         Text("한줄평을 작성해주세요!")
                     }
@@ -412,14 +414,6 @@ struct OpinionWriteScreen: View {
     
     
     // MARK: - 공통 질문
-    @State var cleanInt: Int = 0
-    @State var parkingInt: Int = 0
-    @State var waitingInt: Int = 0
-    @State var costInt: Int = 0
-    @State var clean: [Bool] = [false, false, false, false, false]
-    @State var cost: [Bool] = [false, false, false, false, false]
-    @State var parking: [Bool] = [false, false, false, false, false]
-    @State var waiting: [Bool] = [false, false, false, false, false]
     var common: some View {
         VStack(alignment: .leading){
             Group {
@@ -430,81 +424,81 @@ struct OpinionWriteScreen: View {
                     
                     HStack {
                         Button(action: {
-                            cleanInt = 1
+                            viewModel.cleanInt = 1
                             for i in 0..<5 {
-                                clean[i] = false
+                                viewModel.cleanArray[i] = false
                             }
-                            for i in 0..<cleanInt {
-                                clean[i] = true
+                            for i in 0..<viewModel.cleanInt {
+                                viewModel.cleanArray[i] = true
                             }
                         }) {
-                            Image(clean[0] ? "star_fill_icon" : "star_icon")
+                            Image(viewModel.cleanArray[0] ? "star_fill_icon" : "star_icon")
                                 .resizable()
                                 .frame(width: 20, height: 19)
                         }
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         
                         Button(action: {
-                            cleanInt = 2
+                            viewModel.cleanInt = 2
                             for i in 0..<5 {
-                                clean[i] = false
+                                viewModel.cleanArray[i] = false
                             }
-                            for i in 0..<cleanInt {
-                                clean[i] = true
+                            for i in 0..<viewModel.cleanInt {
+                                viewModel.cleanArray[i] = true
                             }
                         }) {
-                            Image(clean[1] ? "star_fill_icon" : "star_icon")
+                            Image(viewModel.cleanArray[1] ? "star_fill_icon" : "star_icon")
                                 .resizable()
                                 .frame(width: 20, height: 19)
                         }
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         
                         Button(action: {
-                            cleanInt = 3
+                            viewModel.cleanInt = 3
                             for i in 0..<5 {
-                                clean[i] = false
+                                viewModel.cleanArray[i] = false
                             }
-                            for i in 0..<cleanInt {
-                                clean[i] = true
+                            for i in 0..<viewModel.cleanInt {
+                                viewModel.cleanArray[i] = true
                             }
                         }) {
-                            Image(clean[2] ? "star_fill_icon" : "star_icon")
+                            Image(viewModel.cleanArray[2] ? "star_fill_icon" : "star_icon")
                                 .resizable()
                                 .frame(width: 20, height: 19)
                         }
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         
                         Button(action: {
-                            cleanInt = 4
+                            viewModel.cleanInt = 4
                             for i in 0..<5 {
-                                clean[i] = false
+                                viewModel.cleanArray[i] = false
                             }
-                            for i in 0..<cleanInt {
-                                clean[i] = true
+                            for i in 0..<viewModel.cleanInt {
+                                viewModel.cleanArray[i] = true
                             }
                         }) {
-                            Image(clean[3] ? "star_fill_icon" : "star_icon")
+                            Image(viewModel.cleanArray[3] ? "star_fill_icon" : "star_icon")
                                 .resizable()
                                 .frame(width: 20, height: 19)
                         }
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         
                         Button(action: {
-                            cleanInt = 5
+                            viewModel.cleanInt = 5
                             for i in 0..<5 {
-                                clean[i] = false
+                                viewModel.cleanArray[i] = false
                             }
-                            for i in 0..<cleanInt {
-                                clean[i] = true
+                            for i in 0..<viewModel.cleanInt {
+                                viewModel.cleanArray[i] = true
                             }
                         }) {
-                            Image(clean[4] ? "star_fill_icon" : "star_icon")
+                            Image(viewModel.cleanArray[4] ? "star_fill_icon" : "star_icon")
                                 .resizable()
                                 .frame(width: 20, height: 19)
                         }
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         
-                        Text("(\(cleanInt)/5)")
+                        Text("(\(viewModel.cleanInt)/5)")
                             .font(.system(size: 14))
                             .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                     }
@@ -516,81 +510,81 @@ struct OpinionWriteScreen: View {
                     
                     HStack {
                         Button(action: {
-                            costInt = 1
+                            viewModel.costInt = 1
                             for i in 0..<5 {
-                                cost[i] = false
+                                viewModel.costArray[i] = false
                             }
-                            for i in 0..<costInt {
-                                cost[i] = true
+                            for i in 0..<viewModel.costInt {
+                                viewModel.costArray[i] = true
                             }
                         }) {
-                            Image(cost[0] ? "star_fill_icon" : "star_icon")
+                            Image(viewModel.costArray[0] ? "star_fill_icon" : "star_icon")
                                 .resizable()
                                 .frame(width: 20, height: 19)
                         }
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         
                         Button(action: {
-                            costInt = 2
+                            viewModel.costInt = 2
                             for i in 0..<5 {
-                                cost[i] = false
+                                viewModel.costArray[i] = false
                             }
-                            for i in 0..<costInt {
-                                cost[i] = true
+                            for i in 0..<viewModel.costInt {
+                                viewModel.costArray[i] = true
                             }
                         }) {
-                            Image(cost[1] ? "star_fill_icon" : "star_icon")
+                            Image(viewModel.costArray[1] ? "star_fill_icon" : "star_icon")
                                 .resizable()
                                 .frame(width: 20, height: 19)
                         }
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         
                         Button(action: {
-                            costInt = 3
+                            viewModel.costInt = 3
                             for i in 0..<5 {
-                                cost[i] = false
+                                viewModel.costArray[i] = false
                             }
-                            for i in 0..<costInt {
-                                cost[i] = true
+                            for i in 0..<viewModel.costInt {
+                                viewModel.costArray[i] = true
                             }
                         }) {
-                            Image(cost[2] ? "star_fill_icon" : "star_icon")
+                            Image(viewModel.costArray[2] ? "star_fill_icon" : "star_icon")
                                 .resizable()
                                 .frame(width: 20, height: 19)
                         }
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         
                         Button(action: {
-                            costInt = 4
+                            viewModel.costInt = 4
                             for i in 0..<5 {
-                                cost[i] = false
+                                viewModel.costArray[i] = false
                             }
-                            for i in 0..<costInt {
-                                cost[i] = true
+                            for i in 0..<viewModel.costInt {
+                                viewModel.costArray[i] = true
                             }
                         }) {
-                            Image(cost[3] ? "star_fill_icon" : "star_icon")
+                            Image(viewModel.costArray[3] ? "star_fill_icon" : "star_icon")
                                 .resizable()
                                 .frame(width: 20, height: 19)
                         }
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         
                         Button(action: {
-                            costInt = 5
+                            viewModel.costInt = 5
                             for i in 0..<5 {
-                                cost[i] = false
+                                viewModel.costArray[i] = false
                             }
-                            for i in 0..<costInt {
-                                cost[i] = true
+                            for i in 0..<viewModel.costInt {
+                                viewModel.costArray[i] = true
                             }
                         }) {
-                            Image(cost[4] ? "star_fill_icon" : "star_icon")
+                            Image(viewModel.costArray[4] ? "star_fill_icon" : "star_icon")
                                 .resizable()
                                 .frame(width: 20, height: 19)
                         }
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         
-                        Text("(\(costInt)/5)")
+                        Text("(\(viewModel.costInt)/5)")
                             .font(.system(size: 14))
                             .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                     }
@@ -603,81 +597,81 @@ struct OpinionWriteScreen: View {
                     
                     HStack {
                         Button(action: {
-                            parkingInt = 1
+                            viewModel.parkingInt = 1
                             for i in 0..<5 {
-                                parking[i] = false
+                                viewModel.parkingArray[i] = false
                             }
-                            for i in 0..<parkingInt {
-                                parking[i] = true
+                            for i in 0..<viewModel.parkingInt {
+                                viewModel.parkingArray[i] = true
                             }
                         }) {
-                            Image(parking[0] ? "star_fill_icon" : "star_icon")
+                            Image(viewModel.parkingArray[0] ? "star_fill_icon" : "star_icon")
                                 .resizable()
                                 .frame(width: 20, height: 19)
                         }
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         
                         Button(action: {
-                            parkingInt = 2
+                            viewModel.parkingInt = 2
                             for i in 0..<5 {
-                                parking[i] = false
+                                viewModel.parkingArray[i] = false
                             }
-                            for i in 0..<parkingInt {
-                                parking[i] = true
+                            for i in 0..<viewModel.parkingInt {
+                                viewModel.parkingArray[i] = true
                             }
                         }) {
-                            Image(parking[1] ? "star_fill_icon" : "star_icon")
+                            Image(viewModel.parkingArray[1] ? "star_fill_icon" : "star_icon")
                                 .resizable()
                                 .frame(width: 20, height: 19)
                         }
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         
                         Button(action: {
-                            parkingInt = 3
+                            viewModel.parkingInt = 3
                             for i in 0..<5 {
-                                parking[i] = false
+                                viewModel.parkingArray[i] = false
                             }
-                            for i in 0..<parkingInt {
-                                parking[i] = true
+                            for i in 0..<viewModel.parkingInt {
+                                viewModel.parkingArray[i] = true
                             }
                         }) {
-                            Image(parking[2] ? "star_fill_icon" : "star_icon")
+                            Image(viewModel.parkingArray[2] ? "star_fill_icon" : "star_icon")
                                 .resizable()
                                 .frame(width: 20, height: 19)
                         }
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         
                         Button(action: {
-                            parkingInt = 4
+                            viewModel.parkingInt = 4
                             for i in 0..<5 {
-                                parking[i] = false
+                                viewModel.parkingArray[i] = false
                             }
-                            for i in 0..<parkingInt {
-                                parking[i] = true
+                            for i in 0..<viewModel.parkingInt {
+                                viewModel.parkingArray[i] = true
                             }
                         }) {
-                            Image(parking[3] ? "star_fill_icon" : "star_icon")
+                            Image(viewModel.parkingArray[3] ? "star_fill_icon" : "star_icon")
                                 .resizable()
                                 .frame(width: 20, height: 19)
                         }
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         
                         Button(action: {
-                            parkingInt = 5
+                            viewModel.parkingInt = 5
                             for i in 0..<5 {
-                                parking[i] = false
+                                viewModel.parkingArray[i] = false
                             }
-                            for i in 0..<parkingInt {
-                                parking[i] = true
+                            for i in 0..<viewModel.parkingInt {
+                                viewModel.parkingArray[i] = true
                             }
                         }) {
-                            Image(parking[4] ? "star_fill_icon" : "star_icon")
+                            Image(viewModel.parkingArray[4] ? "star_fill_icon" : "star_icon")
                                 .resizable()
                                 .frame(width: 20, height: 19)
                         }
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         
-                        Text("(\(parkingInt)/5)")
+                        Text("(\(viewModel.parkingInt)/5)")
                             .font(.system(size: 14))
                             .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                     }
@@ -689,81 +683,81 @@ struct OpinionWriteScreen: View {
                     
                     HStack {
                         Button(action: {
-                            waitingInt = 1
+                            viewModel.waitingInt = 1
                             for i in 0..<5 {
-                                waiting[i] = false
+                                viewModel.waitingArray[i] = false
                             }
-                            for i in 0..<waitingInt {
-                                waiting[i] = true
+                            for i in 0..<viewModel.waitingInt {
+                                viewModel.waitingArray[i] = true
                             }
                         }) {
-                            Image(waiting[0] ? "star_fill_icon" : "star_icon")
+                            Image(viewModel.waitingArray[0] ? "star_fill_icon" : "star_icon")
                                 .resizable()
                                 .frame(width: 20, height: 19)
                         }
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         
                         Button(action: {
-                            waitingInt = 2
+                            viewModel.waitingInt = 2
                             for i in 0..<5 {
-                                waiting[i] = false
+                                viewModel.waitingArray[i] = false
                             }
-                            for i in 0..<waitingInt {
-                                waiting[i] = true
+                            for i in 0..<viewModel.waitingInt {
+                                viewModel.waitingArray[i] = true
                             }
                         }) {
-                            Image(waiting[1] ? "star_fill_icon" : "star_icon")
+                            Image(viewModel.waitingArray[1] ? "star_fill_icon" : "star_icon")
                                 .resizable()
                                 .frame(width: 20, height: 19)
                         }
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         
                         Button(action: {
-                            waitingInt = 3
+                            viewModel.waitingInt = 3
                             for i in 0..<5 {
-                                waiting[i] = false
+                                viewModel.waitingArray[i] = false
                             }
-                            for i in 0..<waitingInt {
-                                waiting[i] = true
+                            for i in 0..<viewModel.waitingInt {
+                                viewModel.waitingArray[i] = true
                             }
                         }) {
-                            Image(waiting[2] ? "star_fill_icon" : "star_icon")
+                            Image(viewModel.waitingArray[2] ? "star_fill_icon" : "star_icon")
                                 .resizable()
                                 .frame(width: 20, height: 19)
                         }
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         
                         Button(action: {
-                            waitingInt = 4
+                            viewModel.waitingInt = 4
                             for i in 0..<5 {
-                                waiting[i] = false
+                                viewModel.waitingArray[i] = false
                             }
-                            for i in 0..<waitingInt {
-                                waiting[i] = true
+                            for i in 0..<viewModel.waitingInt {
+                                viewModel.waitingArray[i] = true
                             }
                         }) {
-                            Image(waiting[3] ? "star_fill_icon" : "star_icon")
+                            Image(viewModel.waitingArray[3] ? "star_fill_icon" : "star_icon")
                                 .resizable()
                                 .frame(width: 20, height: 19)
                         }
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         
                         Button(action: {
-                            waitingInt = 5
+                            viewModel.waitingInt = 5
                             for i in 0..<5 {
-                                waiting[i] = false
+                                viewModel.waitingArray[i] = false
                             }
-                            for i in 0..<waitingInt {
-                                waiting[i] = true
+                            for i in 0..<viewModel.waitingInt {
+                                viewModel.waitingArray[i] = true
                             }
                         }) {
-                            Image(waiting[4] ? "star_fill_icon" : "star_icon")
+                            Image(viewModel.waitingArray[4] ? "star_fill_icon" : "star_icon")
                                 .resizable()
                                 .frame(width: 20, height: 19)
                         }
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         
-                        Text("(\(waitingInt)/5)")
+                        Text("(\(viewModel.waitingInt)/5)")
                             .font(.system(size: 14))
                             .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                     }
@@ -775,8 +769,6 @@ struct OpinionWriteScreen: View {
     }
     
     // MARK: - 음식점  변수 · View
-    @State var restaurantMood: [Bool] = [false, false, false, false, false]     // LIVELY, FORMAL, ROMANTIC, HIP, COMFORTABLE
-    @State var recommendMenu: String = ""
     @State var foodImages: [UIImage] = [UIImage]()
     var restaurant: some View {
         VStack(alignment: .leading) {
@@ -789,73 +781,73 @@ struct OpinionWriteScreen: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         Button(action: {
-                            for i in 1 ..< restaurantMood.count {
-                                if restaurantMood[i] == true {
-                                    restaurantMood[i] = false
+                            for i in 1 ..< viewModel.restaurantMood.count {
+                                if viewModel.restaurantMood[i] == true {
+                                    viewModel.restaurantMood[i] = false
                                 }
                             }
-                            restaurantMood[0].toggle()
+                            viewModel.restaurantMood[0].toggle()
                         }) {
                             Text("활기찬")
                         }
-                        .buttonStyle(ToggleButtonStyle(value: $restaurantMood[0], width: 66))
+                        .buttonStyle(ToggleButtonStyle(value: $viewModel.restaurantMood[0], width: 66))
                         
                         Button(action: {
-                            for i in 0 ..< restaurantMood.count {
+                            for i in 0 ..< viewModel.restaurantMood.count {
                                 if i == 1 {
                                     continue
                                 }
-                                if restaurantMood[i] == true {
-                                    restaurantMood[i] = false
+                                if viewModel.restaurantMood[i] == true {
+                                    viewModel.restaurantMood[i] = false
                                 }
                             }
-                            restaurantMood[1].toggle()
+                            viewModel.restaurantMood[1].toggle()
                         }) {
                             Text("격식있는")
                         }
-                        .buttonStyle(ToggleButtonStyle(value: $restaurantMood[1], width: 78))
+                        .buttonStyle(ToggleButtonStyle(value: $viewModel.restaurantMood[1], width: 78))
                         
                         Button(action: {
-                            for i in 0 ..< restaurantMood.count {
+                            for i in 0 ..< viewModel.restaurantMood.count {
                                 if i == 2 {
                                     continue
                                 }
-                                if restaurantMood[i] == true {
-                                    restaurantMood[i] = false
+                                if viewModel.restaurantMood[i] == true {
+                                    viewModel.restaurantMood[i] = false
                                 }
                             }
-                            restaurantMood[2].toggle()
+                            viewModel.restaurantMood[2].toggle()
                         }) {
                             Text("로맨틱")
                         }
-                        .buttonStyle(ToggleButtonStyle(value: $restaurantMood[2], width: 66))
+                        .buttonStyle(ToggleButtonStyle(value: $viewModel.restaurantMood[2], width: 66))
                         
                         Button(action: {
-                            for i in 0 ..< restaurantMood.count {
+                            for i in 0 ..< viewModel.restaurantMood.count {
                                 if i == 3 {
                                     continue
                                 }
-                                if restaurantMood[i] == true {
-                                    restaurantMood[i] = false
+                                if viewModel.restaurantMood[i] == true {
+                                    viewModel.restaurantMood[i] = false
                                 }
                             }
-                            restaurantMood[3].toggle()
+                            viewModel.restaurantMood[3].toggle()
                         }) {
                             Text("힙한")
                         }
-                        .buttonStyle(ToggleButtonStyle(value: $restaurantMood[3], width: 54))
+                        .buttonStyle(ToggleButtonStyle(value: $viewModel.restaurantMood[3], width: 54))
                         
                         Button(action: {
-                            for i in 0 ..< (cost.count - 1) {
-                                if restaurantMood[i] == true {
-                                    restaurantMood[i] = false
+                            for i in 0 ..< (viewModel.restaurantMood.count - 1) {
+                                if viewModel.restaurantMood[i] == true {
+                                    viewModel.restaurantMood[i] = false
                                 }
                             }
-                            restaurantMood[4].toggle()
+                            viewModel.restaurantMood[4].toggle()
                         }) {
                             Text("편안한")
                         }
-                        .buttonStyle(ToggleButtonStyle(value: $restaurantMood[4], width: 66))
+                        .buttonStyle(ToggleButtonStyle(value: $viewModel.restaurantMood[4], width: 66))
                     }
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                 }
@@ -890,7 +882,7 @@ struct OpinionWriteScreen: View {
                 
                 // TextField
                 ZStack(alignment: .leading) {
-                    TextField("", text: $recommendMenu)
+                    TextField("", text: $viewModel.opinion.recommendFoodDescription)
                         .multilineTextAlignment(TextAlignment.leading)
                         .font(.system(size: 12))
                         .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
@@ -899,7 +891,7 @@ struct OpinionWriteScreen: View {
                         .background(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
                         .cornerRadius(10)
                     
-                    if recommendMenu == "" {
+                    if viewModel.opinion.recommendFoodDescription == "" {
                         VStack(alignment: .leading) {
                             Text("25자 이내로 작성해주세요")
                         }
@@ -915,9 +907,6 @@ struct OpinionWriteScreen: View {
     
     
     // MARK: - 카페  변수 · View
-    @State var drinkOrDessert: String = ""
-    @State var cafeMood: [Bool] = [false, false, false, false]      // MODERN, LARGE, CUTE, HIP
-    @State var coffeeTaste: [Bool] = [false, false, false]          // BITTER, SOUR, GENERAL
     @State var cafeImages: [UIImage] = [UIImage]()
     var cafe: some View {
         VStack(alignment: .leading) {
@@ -930,46 +919,46 @@ struct OpinionWriteScreen: View {
                 
                 HStack {
                     Button(action: {
-                        for i in 1 ..< coffeeTaste.count {
-                            if coffeeTaste[i] == true {
-                                coffeeTaste[i] = false
+                        for i in 1 ..< viewModel.coffee.count {
+                            if viewModel.coffee[i] == true {
+                                viewModel.coffee[i] = false
                             }
                         }
-                        coffeeTaste[0].toggle()
+                        viewModel.coffee[0].toggle()
                     }) {
                         Text("쓴맛")
                     }
-                    .buttonStyle(ToggleButtonStyle(value: $coffeeTaste[0], width: 66))
+                    .buttonStyle(ToggleButtonStyle(value: $viewModel.coffee[0], width: 66))
                     
                     Button(action: {
-                        for i in 0 ..< coffeeTaste.count {
+                        for i in 0 ..< viewModel.coffee.count {
                             if i == 1 {
                                 continue
                             }
-                            if coffeeTaste[i] == true {
-                                coffeeTaste[i] = false
+                            if viewModel.coffee[i] == true {
+                                viewModel.coffee[i] = false
                             }
                         }
-                        coffeeTaste[1].toggle()
+                        viewModel.coffee[1].toggle()
                     }) {
                         Text("산미가 강한")
                     }
-                    .buttonStyle(ToggleButtonStyle(value: $coffeeTaste[1], width: 93))
+                    .buttonStyle(ToggleButtonStyle(value: $viewModel.coffee[1], width: 93))
                     
                     Button(action: {
-                        for i in 0 ..< coffeeTaste.count {
+                        for i in 0 ..< viewModel.coffee.count {
                             if i == 2 {
                                 continue
                             }
-                            if coffeeTaste[i] == true {
-                                coffeeTaste[i] = false
+                            if viewModel.coffee[i] == true {
+                                viewModel.coffee[i] = false
                             }
                         }
-                        coffeeTaste[2].toggle()
+                        viewModel.coffee[2].toggle()
                     }) {
                         Text("보통")
                     }
-                    .buttonStyle(ToggleButtonStyle(value: $coffeeTaste[2], width: 54))
+                    .buttonStyle(ToggleButtonStyle(value: $viewModel.coffee[2], width: 54))
                 }
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
             }
@@ -981,61 +970,61 @@ struct OpinionWriteScreen: View {
                 
                 HStack {
                     Button(action: {
-                        for i in 1 ..< cafeMood.count {
-                            if cafeMood[i] == true {
-                                cafeMood[i] = false
+                        for i in 1 ..< viewModel.cafeMood.count {
+                            if viewModel.cafeMood[i] == true {
+                                viewModel.cafeMood[i] = false
                             }
                         }
-                        cafeMood[0].toggle()
+                        viewModel.cafeMood[0].toggle()
                     }) {
                         Text("모던한")
                     }
-                    .buttonStyle(ToggleButtonStyle(value: $cafeMood[0], width: 66))
+                    .buttonStyle(ToggleButtonStyle(value: $viewModel.cafeMood[0], width: 66))
                     
                     Button(action: {
-                        for i in 0 ..< cafeMood.count {
+                        for i in 0 ..< viewModel.cafeMood.count {
                             if i == 1 {
                                 continue
                             }
-                            if cafeMood[i] == true {
-                                cafeMood[i] = false
+                            if viewModel.cafeMood[i] == true {
+                                viewModel.cafeMood[i] = false
                             }
                         }
-                        cafeMood[1].toggle()
+                        viewModel.cafeMood[1].toggle()
                     }) {
                         Text("크고 넓은")
                     }
-                    .buttonStyle(ToggleButtonStyle(value: $cafeMood[1], width: 81))
+                    .buttonStyle(ToggleButtonStyle(value: $viewModel.cafeMood[1], width: 81))
                     
                     Button(action: {
-                        for i in 0 ..< cafeMood.count {
+                        for i in 0 ..< viewModel.cafeMood.count {
                             if i == 2 {
                                 continue
                             }
-                            if cafeMood[i] == true {
-                                cafeMood[i] = false
+                            if viewModel.cafeMood[i] == true {
+                                viewModel.cafeMood[i] = false
                             }
                         }
-                        cafeMood[2].toggle()
+                        viewModel.cafeMood[2].toggle()
                     }) {
                         Text("아기자기한")
                     }
-                    .buttonStyle(ToggleButtonStyle(value: $cafeMood[2], width: 91))
+                    .buttonStyle(ToggleButtonStyle(value: $viewModel.cafeMood[2], width: 91))
                     
                     Button(action: {
-                        for i in 0 ..< cafeMood.count {
+                        for i in 0 ..< viewModel.cafeMood.count {
                             if i == 3 {
                                 continue
                             }
-                            if cafeMood[i] == true {
-                                cafeMood[i] = false
+                            if viewModel.cafeMood[i] == true {
+                                viewModel.cafeMood[i] = false
                             }
                         }
-                        cafeMood[3].toggle()
+                        viewModel.cafeMood[3].toggle()
                     }) {
                         Text("힙한")
                     }
-                    .buttonStyle(ToggleButtonStyle(value: $cafeMood[3], width: 54))
+                    .buttonStyle(ToggleButtonStyle(value: $viewModel.cafeMood[3], width: 54))
                 }
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
             }
@@ -1071,7 +1060,7 @@ struct OpinionWriteScreen: View {
                 
                 // TextField
                 ZStack(alignment: .leading) {
-                    TextField("", text: $drinkOrDessert)
+                    TextField("", text: $viewModel.opinion.recommendDrinkAndDessertDescription)
                         .multilineTextAlignment(TextAlignment.leading)
                         .font(.system(size: 12))
                         .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
@@ -1080,7 +1069,7 @@ struct OpinionWriteScreen: View {
                         .background(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
                         .cornerRadius(10)
                     
-                    if drinkOrDessert == "" {
+                    if viewModel.opinion.recommendDrinkAndDessertDescription == "" {
                         VStack(alignment: .leading) {
                             Text("25자 이내로 작성해주세요")
                         }
@@ -1095,9 +1084,6 @@ struct OpinionWriteScreen: View {
     }
     
     // MARK: - 관광명소 및 문화시설  변수 · View
-    @State var haveToDo: String = ""
-    @State var snack: String = ""
-    @State var photoSpot: String = ""
     @State var photoSpotImages: [UIImage] = [UIImage]()
     var sightseeing: some View {
         VStack(alignment: .leading) {
@@ -1110,7 +1096,7 @@ struct OpinionWriteScreen: View {
                 
                 // TextField
                 ZStack(alignment: .leading) {
-                    TextField("", text: $haveToDo)
+                    TextField("", text: $viewModel.opinion.recommendToDo)
                         .multilineTextAlignment(TextAlignment.leading)
                         .font(.system(size: 12))
                         .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
@@ -1119,7 +1105,7 @@ struct OpinionWriteScreen: View {
                         .background(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
                         .cornerRadius(10)
                     
-                    if haveToDo == "" {
+                    if viewModel.opinion.recommendToDo == "" {
                         VStack(alignment: .leading) {
                             Text("25자 이내로 작성해주세요")
                         }
@@ -1137,7 +1123,7 @@ struct OpinionWriteScreen: View {
                 
                 // TextField
                 ZStack(alignment: .leading) {
-                    TextField("", text: $snack)
+                    TextField("", text: $viewModel.opinion.recommendSnack)
                         .multilineTextAlignment(TextAlignment.leading)
                         .font(.system(size: 12))
                         .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
@@ -1146,7 +1132,7 @@ struct OpinionWriteScreen: View {
                         .background(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
                         .cornerRadius(10)
                     
-                    if snack == "" {
+                    if viewModel.opinion.recommendSnack == "" {
                         VStack(alignment: .leading) {
                             Text("25자 이내로 작성해주세요")
                         }
@@ -1188,7 +1174,7 @@ struct OpinionWriteScreen: View {
                 
                 // TextField
                 ZStack(alignment: .leading) {
-                    TextField("", text: $photoSpot)
+                    TextField("", text: $viewModel.opinion.photoSpotDescription)
                         .multilineTextAlignment(TextAlignment.leading)
                         .font(.system(size: 12))
                         .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
@@ -1197,7 +1183,7 @@ struct OpinionWriteScreen: View {
                         .background(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
                         .cornerRadius(10)
                     
-                    if photoSpot == "" {
+                    if viewModel.opinion.photoSpotDescription == "" {
                         VStack(alignment: .leading) {
                             Text("25자 이내로 작성해주세요")
                         }
@@ -1212,8 +1198,6 @@ struct OpinionWriteScreen: View {
     }
     
     // MARK: - 숙박시설 변수 · View
-    @State var noise: [Bool] = [false, false, false, false, false]
-    @State var deafening: [Bool] = [false, false, false, false, false]
     @State var yesBreakfast: Bool = false
     @State var noBreakfast: Bool = false
     var accommodation: some View {
@@ -1226,73 +1210,73 @@ struct OpinionWriteScreen: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         Button(action: {
-                            for i in 1 ..< noise.count {
-                                if noise[i] == true {
-                                    noise[i] = false
+                            for i in 1 ..< viewModel.noise.count {
+                                if viewModel.noise[i] == true {
+                                    viewModel.noise[i] = false
                                 }
                             }
-                            noise[0].toggle()
+                            viewModel.noise[0].toggle()
                         }) {
                             Text("매우 시끄러워요")
                         }
-                        .buttonStyle(ToggleButtonStyle(value: $noise[0], width: 117))
+                        .buttonStyle(ToggleButtonStyle(value: $viewModel.noise[0], width: 117))
                         
                         Button(action: {
-                            for i in 0 ..< noise.count {
+                            for i in 0 ..< viewModel.noise.count {
                                 if i == 1 {
                                     continue
                                 }
-                                if noise[i] == true {
-                                    noise[i] = false
+                                if viewModel.noise[i] == true {
+                                    viewModel.noise[i] = false
                                 }
                             }
-                            noise[1].toggle()
+                            viewModel.noise[1].toggle()
                         }) {
                             Text("시끄러워요")
                         }
-                        .buttonStyle(ToggleButtonStyle(value: $noise[1], width: 93))
+                        .buttonStyle(ToggleButtonStyle(value: $viewModel.noise[1], width: 93))
                         
                         Button(action: {
-                            for i in 0 ..< noise.count {
+                            for i in 0 ..< viewModel.noise.count {
                                 if i == 2 {
                                     continue
                                 }
-                                if noise[i] == true {
-                                    noise[i] = false
+                                if viewModel.noise[i] == true {
+                                    viewModel.noise[i] = false
                                 }
                             }
-                            noise[2].toggle()
+                            viewModel.noise[2].toggle()
                         }) {
                             Text("그냥 그래요")
                         }
-                        .buttonStyle(ToggleButtonStyle(value: $noise[2], width: 93))
+                        .buttonStyle(ToggleButtonStyle(value: $viewModel.noise[2], width: 93))
                         
                         Button(action: {
-                            for i in 0 ..< noise.count {
+                            for i in 0 ..< viewModel.noise.count {
                                 if i == 3 {
                                     continue
                                 }
-                                if noise[i] == true {
-                                    noise[i] = false
+                                if viewModel.noise[i] == true {
+                                    viewModel.noise[i] = false
                                 }
                             }
-                            noise[3].toggle()
+                            viewModel.noise[3].toggle()
                         }) {
                             Text("괜찮아요")
                         }
-                        .buttonStyle(ToggleButtonStyle(value: $noise[3], width: 78))
+                        .buttonStyle(ToggleButtonStyle(value: $viewModel.noise[3], width: 78))
                         
                         Button(action: {
-                            for i in 0 ..< (cost.count - 1) {
-                                if noise[i] == true {
-                                    noise[i] = false
+                            for i in 0 ..< 4 {
+                                if viewModel.noise[i] == true {
+                                    viewModel.noise[i] = false
                                 }
                             }
-                            noise[4].toggle()
+                            viewModel.noise[4].toggle()
                         }) {
                             Text("조용해요")
                         }
-                        .buttonStyle(ToggleButtonStyle(value: $noise[4], width: 78))
+                        .buttonStyle(ToggleButtonStyle(value: $viewModel.noise[4], width: 78))
                     }
                 }
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
@@ -1305,73 +1289,73 @@ struct OpinionWriteScreen: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         Button(action: {
-                            for i in 1 ..< deafening.count {
-                                if deafening[i] == true {
-                                    deafening[i] = false
+                            for i in 1 ..< viewModel.deafening.count {
+                                if viewModel.deafening[i] == true {
+                                    viewModel.deafening[i] = false
                                 }
                             }
-                            deafening[0].toggle()
+                            viewModel.deafening[0].toggle()
                         }) {
                             Text("전혀 안돼요")
                         }
-                        .buttonStyle(ToggleButtonStyle(value: $deafening[0], width: 100))
+                        .buttonStyle(ToggleButtonStyle(value: $viewModel.deafening[0], width: 100))
                         
                         Button(action: {
-                            for i in 0 ..< deafening.count {
+                            for i in 0 ..< viewModel.deafening.count {
                                 if i == 1 {
                                     continue
                                 }
-                                if deafening[i] == true {
-                                    deafening[i] = false
+                                if viewModel.deafening[i] == true {
+                                    viewModel.deafening[i] = false
                                 }
                             }
-                            deafening[1].toggle()
+                            viewModel.deafening[1].toggle()
                         }) {
                             Text("잘 안돼요")
                         }
-                        .buttonStyle(ToggleButtonStyle(value: $deafening[1], width: 93))
+                        .buttonStyle(ToggleButtonStyle(value: $viewModel.deafening[1], width: 93))
                         
                         Button(action: {
-                            for i in 0 ..< deafening.count {
+                            for i in 0 ..< viewModel.deafening.count {
                                 if i == 2 {
                                     continue
                                 }
-                                if deafening[i] == true {
-                                    deafening[i] = false
+                                if viewModel.deafening[i] == true {
+                                    viewModel.deafening[i] = false
                                 }
                             }
-                            deafening[2].toggle()
+                            viewModel.deafening[2].toggle()
                         }) {
                             Text("그냥 그래요")
                         }
-                        .buttonStyle(ToggleButtonStyle(value: $deafening[2], width: 93))
+                        .buttonStyle(ToggleButtonStyle(value: $viewModel.deafening[2], width: 93))
                         
                         Button(action: {
-                            for i in 0 ..< deafening.count {
+                            for i in 0 ..< viewModel.deafening.count {
                                 if i == 3 {
                                     continue
                                 }
-                                if deafening[i] == true {
-                                    deafening[i] = false
+                                if viewModel.deafening[i] == true {
+                                    viewModel.deafening[i] = false
                                 }
                             }
-                            deafening[3].toggle()
+                            viewModel.deafening[3].toggle()
                         }) {
                             Text("잘 돼요")
                         }
-                        .buttonStyle(ToggleButtonStyle(value: $deafening[3], width: 66))
+                        .buttonStyle(ToggleButtonStyle(value: $viewModel.deafening[3], width: 66))
                         
                         Button(action: {
-                            for i in 0 ..< (deafening.count - 1) {
-                                if deafening[i] == true {
-                                    deafening[i] = false
+                            for i in 0 ..< (viewModel.deafening.count - 1) {
+                                if viewModel.deafening[i] == true {
+                                    viewModel.deafening[i] = false
                                 }
                             }
-                            deafening[4].toggle()
+                            viewModel.deafening[4].toggle()
                         }) {
                             Text("매우 잘 돼요")
                         }
-                        .buttonStyle(ToggleButtonStyle(value: $deafening[4], width: 93))
+                        .buttonStyle(ToggleButtonStyle(value: $viewModel.deafening[4], width: 93))
                     }
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                 }

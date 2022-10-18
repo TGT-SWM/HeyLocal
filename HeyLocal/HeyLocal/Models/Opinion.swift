@@ -35,19 +35,19 @@ struct Opinion: Codable, Identifiable {
     
     // MARK: - 음식점 FD6
     var restaurantMoodType: String? = "HIP"
-    var recommendFoodDescription: String? = ""
+    var recommendFoodDescription: String = ""
     var foodImgDownloadImgUrl: [String]? = []
      
     // MARK: - 카페 CE7
     var coffeeType: String? = "BITTER"
-    var recommendDrinkAndDessertDescription: String? = ""
+    var recommendDrinkAndDessertDescription: String = ""
     var drinkAndDessertImgDownloadImgUrl: [String]? = []
     var cafeMoodType: String? = "HIP"
     
     // MARK: - 문화시설 CT1 · 관광명소 AT4
-    var recommendToDo: String? = ""
-    var recommendSnack: String? = ""
-    var photoSpotDescription: String? = ""
+    var recommendToDo: String = ""
+    var recommendSnack: String = ""
+    var photoSpotDescription: String = ""
     var photoSpotImgDownloadImgUrl: [String]? = []
     
     // MARK: - 숙박 AD5
@@ -57,6 +57,10 @@ struct Opinion: Codable, Identifiable {
     
     // MARK: - POST용 데이터
     var quantity: Quantity? = Quantity()
+    var cleanArray: [Bool]? = [false, false, false, false, false]
+    var costArray: [Bool]? = [false, false, false, false, false]
+    var parkingArray: [Bool]? = [false, false, false, false, false]
+    var waitingArray: [Bool]? = [false, false, false, false, false]
 }
 struct Quantity: Codable {
     var drinkAndDessertImgQuantity: Int = 0
