@@ -117,7 +117,7 @@ extension PlanDetailScreen.ViewModel {
 							)
 						)
 						
-						sleep(1)
+						usleep(500000) // 0.5sec
 					}
 				}
 			}
