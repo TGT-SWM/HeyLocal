@@ -73,6 +73,7 @@
 		EF8FF26128B4D0B300C053B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF8FF26028B4D0B300C053B7 /* Assets.xcassets */; };
 		EF8FF26428B4D0B300C053B7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF8FF26328B4D0B300C053B7 /* Preview Assets.xcassets */; };
 		EF8FF27428B4D2D100C053B7 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8FF27328B4D2D100C053B7 /* Main.swift */; };
+		EF9D28ED28FE2DF000D2971F /* SerialQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9D28EC28FE2DF000D2971F /* SerialQueue.swift */; };
 		EFAA2AC328BBC30E00B56A3C /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA2AC228BBC30E00B56A3C /* AuthRepository.swift */; };
 		EFAA2AC528BBC48400B56A3C /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA2AC428BBC48400B56A3C /* AuthService.swift */; };
 		EFAA2AC928BBCF6E00B56A3C /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA2AC828BBCF6E00B56A3C /* Auth.swift */; };
@@ -190,6 +191,7 @@
 		EF8FF26028B4D0B300C053B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EF8FF26328B4D0B300C053B7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EF8FF27328B4D2D100C053B7 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
+		EF9D28EC28FE2DF000D2971F /* SerialQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerialQueue.swift; sourceTree = "<group>"; };
 		EFAA2AC228BBC30E00B56A3C /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		EFAA2AC428BBC48400B56A3C /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		EFAA2AC828BBCF6E00B56A3C /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 				EF26CD8728C0E9DA006D0D27 /* Config.swift */,
 				EF26CD9428C0FF12006D0D27 /* DateFormat.swift */,
 				EF6A3FC928EB3D9B003F474B /* View+Extensions.swift */,
+				EF9D28EC28FE2DF000D2971F /* SerialQueue.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -757,6 +760,7 @@
 				A80213DB28BF2EA100B6359E /* TravelOnService.swift in Sources */,
 				EF8EB5DD28F8697700F8D9EB /* ScheduleEngine.swift in Sources */,
 				EF6A3FC228E71A2F003F474B /* UserRepository.swift in Sources */,
+				EF9D28ED28FE2DF000D2971F /* SerialQueue.swift in Sources */,
 				A8AF3DEC28D407E9009B68BE /* RegionComponent.swift in Sources */,
 				EF8FF27428B4D2D100C053B7 /* Main.swift in Sources */,
 				EFAA2AC328BBC30E00B56A3C /* AuthRepository.swift in Sources */,

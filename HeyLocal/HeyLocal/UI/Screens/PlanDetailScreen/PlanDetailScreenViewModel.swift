@@ -25,6 +25,7 @@ extension PlanDetailScreen {
 		@Published var schedules: [DaySchedule] = [] {// 스케줄 정보
 			didSet {
 				calculateDistances()
+				fetchPubDistances()
 			}
 		}
 		@Published var distances: [[[Distance]]] = [] // 장소 사이의 거리 정보
@@ -96,54 +97,31 @@ extension PlanDetailScreen.ViewModel {
 		}
 		
 		// API 호출
-		for i in schedules.indices {
-			let places = schedules[i].places
+		for i in self.schedules.indices {
+			let places = self.schedules[i].places
 			
 			if places.count >= 2 {
 				for j in 0..<(places.count - 1) {
 					let cur = places[j]
 					let next = places[j + 1]
-					odsayAPIService.searchPubTrans(
-						sLat: cur.lat,
-						sLng: cur.lng,
-						eLat: next.lat,
-						eLng: next.lng,
-						distance: Binding(
-							get: { self.pubDistances[i][j] },
-							set: { self.pubDistances[i][j] = $0 }
+					
+					serialQueue.async {
+						self.odsayAPIService.searchPubTrans(
+							sLat: cur.lat,
+							sLng: cur.lng,
+							eLat: next.lat,
+							eLng: next.lng,
+							distance: Binding(
+								get: { self.pubDistances[i][j] },
+								set: { self.pubDistances[i][j] = $0 }
+							)
 						)
-					)
+						
+						sleep(1)
+					}
 				}
 			}
 		}
-		
-//		// 초기화
-//		initDistances()
-//
-//		// API 호출
-//		for i in schedules.indices {
-//			let places = schedules[i].places
-//
-//			for j in 0..<places.count {
-//				for k in (j + 1)..<places.count {
-//					let from = places[j]
-//					let to = places[k]
-//					odsayAPIService.searchPubTrans(
-//						sLat: from.lat,
-//						sLng: from.lng,
-//						eLat: to.lat,
-//						eLng: to.lng,
-//						distance: Binding(
-//							get: { self.distances[i][j][k] },
-//							set: {
-//								self.distances[i][j][k] = $0
-//								self.distances[i][k][j] = $0
-//							}
-//						)
-//					)
-//				}
-//			}
-//		}
 	}
 }
 
