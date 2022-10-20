@@ -119,11 +119,14 @@ extension PlanDetailScreen {
 		}
 		
 		// 이동 시간 문자열
-		var timeStr = ""
+		let type = (viewModel.plan.transportationType == "PUBLIC")
+			? "대중교통"
+			: "자가용"
+		var timeStr = "\(type)으로 "
 		if t < 2 {
-			timeStr = "약 1분 소요"
+			timeStr += "약 1분 소요"
 		} else {
-			timeStr = "약 \(Int(t))분 소요"
+			timeStr += "약 \(Int(t))분 소요"
 		}
 		
 		// 카카오맵 URL scheme
