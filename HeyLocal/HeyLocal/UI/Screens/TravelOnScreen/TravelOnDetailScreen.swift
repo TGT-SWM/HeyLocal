@@ -12,7 +12,6 @@ import SwiftUI
 struct TravelOnDetailScreen: View {
     @State var travelOnId: Int
     @StateObject var viewModel = TravelOnListScreen.ViewModel()
-    @StateObject var opinionViewModel = OpinionComponent.ViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Environment(\.displayTabBar) var displayTabBar
     
@@ -44,26 +43,40 @@ struct TravelOnDetailScreen: View {
                 .rotationEffect(.degrees(-90))
         }
         .confirmationDialog("", isPresented: $showingSheet, titleVisibility: .hidden) { //actionsheet
-             Button("게시글 수정") {
-                 navigationLinkActive = true
-             }
-             Button("삭제", role: .destructive) {
-                 showingAlert.toggle()
-             }
-             Button("취소", role: .cancel) {
-             }
+            Button("게시글 수정") {
+                navigationLinkActive.toggle()
+            }
+            Button("삭제", role: .destructive) {
+                showingAlert.toggle()
+            }
+            Button("취소", role: .cancel) {
+            }
         }
     }
     
     @State var navigationLinkActive = false
+    @State var images: [UIImage] = [UIImage]()
+    @State var sheet = false
     var body: some View {
         ZStack(alignment: .center) {
-            // 게시글 수정 
+            // 게시글 수정
             if navigationLinkActive {
                 NavigationLink("", destination: TravelOnWriteScreen(isRevise: true, travelOnID: viewModel.travelOn.id), isActive: $navigationLinkActive)
             }
             
             ScrollView {
+                
+                Text("\(images.count)")
+                
+                Button(action: {
+                    sheet.toggle()
+                }) {
+                    Text("Picker")
+                }
+                .sheet(isPresented: $sheet, content: {
+                        ImagePicker(isPresent: $sheet, images: $images)
+                })
+                
                 content
                 
                 opinions
@@ -82,10 +95,8 @@ struct TravelOnDetailScreen: View {
         }
         .onAppear {
             viewModel.fetchTravelOn(travelOnId: travelOnId)
-            opinionViewModel.fetchOpinions(travelOnId: travelOnId, opinionId: nil)
             displayTabBar(false)
         }
-//        .onAppear { displayTabBar(false) }
         .navigationTitle("여행On")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
@@ -354,40 +365,7 @@ struct TravelOnDetailScreen: View {
                 }
                 
                 //해당 여행On 답변 출력
-                VStack(alignment: .leading) {
-                    ForEach(opinionViewModel.opinions) { opinion in
-                        ZStack(alignment: .bottomTrailing) {
-                            NavigationLink(destination: OpinionDetailScreen(travelOnId: travelOnId, opinionId: opinion.id)) {
-                                OpinionComponent(opinion: opinion)
-                                    .foregroundColor(Color.black)
-                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 30))
-                            }
-                            
-                            // TODO: 플랜에 장소 추가하는 기능
-                            Button(action: {}) {
-                                ZStack {
-                                    Rectangle()
-                                        .fill(Color(red: 255/255, green: 153/255, blue: 0/255))
-                                        .frame(width: 90, height: 24)
-                                        .cornerRadius(14)
-                                    
-                                    HStack(alignment: .center) {
-                                        Image(systemName: "plus")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 13)
-                                            .foregroundColor(Color.white)
-                                        
-                                        Text("플랜에 추가")
-                                            .font(.system(size: 12))
-                                            .foregroundColor(Color.white)
-                                    }
-                                }
-                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
-                            }
-                        }
-                    }
-                }
+                OpinionListScreen(travelOnId: travelOnId)
             }
         }
         .frame(width: 350)

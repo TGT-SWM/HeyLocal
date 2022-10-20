@@ -243,12 +243,11 @@ struct OpinionWriteScreen: View {
     }
     
     // MARK: - 장소 선택, 사진, 설명
-    @State var showImagePicker: Bool = false
-    @State var tmpImg: UIImage?
-    @State var isPhotoPicker: Bool = false
+
     
     
     // MARK: - 공통·필수 질문 변수 · View
+    @State var showImagePicker: Bool = false
     @State var generalImages: [UIImage] = [UIImage]()
     var content: some View {
         VStack(alignment: .leading) {
@@ -295,33 +294,11 @@ struct OpinionWriteScreen: View {
 //                        }
 //                    }
 //                    Text("\(generalImages.count)")
-                    
-                    if tmpImg != nil {
-                        Image(uiImage: tmpImg!)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 100, height: 100)
-                    }
-    
+
                     Button(action: {
                         showImagePicker.toggle()
+                        print("image Picker -------> \(showImagePicker.description)")
                     }) {
-//                        ZStack {
-//                            Rectangle()
-//                                .fill(Color.white)
-//                                .frame(width: 100, height: 100)
-//                                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
-//                                .cornerRadius(10)
-//
-//                            ZStack {
-//                                Circle()
-//                                    .fill(Color(red: 255/255, green: 153/255, blue: 0/255))
-//                                    .frame(width: 24, height: 24)
-//
-//                                Image(systemName: "plus")
-//                                    .foregroundColor(Color.white)
-//                            }
-//                        }
                         ZStack(alignment: .center) {
                             Rectangle()
                                 .fill(Color.white)
@@ -343,39 +320,10 @@ struct OpinionWriteScreen: View {
                                 
                         }
                     }
-                    .sheet(isPresented: $showImagePicker){
-                        ImagePickerView(sourceType: .photoLibrary) { image in
-                            self.tmpImg = image
-                        }
-                    }
-                    
-//                    Button(action: { showImagePicker = true }) {
-//                        Label("Choose Photos", systemImage: "photo.fill")
-//                    }
-//                    .fullScreenCover(isPresented: $showImagePicker) {
-//                        PhotoPicker(filter: .images, limit: 3) { results in
-//                            PhotoPicker.convertToUIImageArray(fromResults: results) { (imagesOrNil, errorOrNil) in
-//                                if let error = errorOrNil {
-//                                    print(error)
-//                                }
-//
-//                                if let images = imagesOrNil {
-//                                    if let first = images.first {
-//                                        print(first)
-//                                        image = first
-//                                    }
-//                                }
-//                            }
-//
-//                        }
-//                    }
-//
-//                    if let image = image {
-//                        Image(uiImage: image)
-//                            .resizable()
-//                            .aspectRatio(contentMode: .fit)
-//                            .frame(width: 100, height: 100)
-//                    }
+                    .sheet(isPresented: $showImagePicker, content: {
+//                        ImagePicker(isPresent: $showImagePicker, images: $generalImages)
+                        TopicsExperienceCards(isPresented: $showImagePicker)
+                    })
                 }
             }
             
@@ -1391,120 +1339,6 @@ struct OpinionWriteScreen: View {
         }
     } // acco
 }
-
-
-// MARK: - Photo Picker
-//struct PhotoPicker: UIViewControllerRepresentable {
-//    @Binding var pickerResult: [UIImage] // pass images back to the SwiftUI view
-//    @Binding var isPresented: Bool // close the modal view
-//
-//    func makeUIViewController(context: Context) -> some UIViewController {
-//        var configuration = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
-//        configuration.filter = .images // filter only to images
-//        configuration.selectionLimit = 0 // ignore limit
-//
-//        let photoPickerViewController = PHPickerViewController(configuration: configuration)
-//        photoPickerViewController.delegate = context.coordinator // Use Coordinator for delegation
-//        return photoPickerViewController
-//    }
-//
-//    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) { }
-//
-//    func makeCoordinator() -> Coordinator {
-//        Coordinator(self)
-//    }
-//
-//    // Create the Coordinator, in this case it is a way to communicate with the PHPickerViewController
-//    class Coordinator: PHPickerViewControllerDelegate {
-//        private let parent: PhotoPicker
-//
-//        init(_ parent: PhotoPicker) {
-//            self.parent = parent
-//        }
-//
-//        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-//            parent.pickerResult.removeAll()
-//
-//            for image in results {
-//                if image.itemProvider.canLoadObject(ofClass: UIImage.self) {
-//                    image.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] newImage, error in
-//                        if let error = error {
-//                            print("Can't load image \(error.localizedDescription)")
-//                        } else if let image = newImage as? UIImage {
-//                            self?.parent.pickerResult.append(image)
-//                        }
-//                    }
-//                }
-//                else {
-//                    print("Can't load asset")
-//                }
-//            }
-//
-//            parent.isPresented = false
-//        }
-//    }
-//}
-
-// MARK: - PhotoPicker 2
-struct PhotoPicker: UIViewControllerRepresentable {
-    typealias UIViewControllerType = PHPickerViewController
-    let filter: PHPickerFilter
-    var limit: Int = 0
-    let onComplete: ([PHPickerResult]) -> Void
-    
-    func makeUIViewController(context: Context) -> PHPickerViewController {
-        var configuration = PHPickerConfiguration()
-        configuration.filter = filter
-        configuration.selectionLimit = limit
-        
-        let controller = PHPickerViewController(configuration: configuration)
-        controller.delegate = context.coordinator
-        return controller
-    }
-    
-    func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) { }
-    
-    func makeCoordinator() -> Coordinator {
-        return Coordinator(self)
-    }
-    
-    class Coordinator: PHPickerViewControllerDelegate {
-        private let parent: PhotoPicker
-        
-        init(_ parent: PhotoPicker) {
-            self.parent = parent
-        }
-        
-        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-            parent.onComplete(results)
-            picker.dismiss(animated: true)
-        }
-    }
-    
-    static func convertToUIImageArray(fromResults results: [PHPickerResult], onComplete: @escaping ([UIImage]?, Error?) -> Void) {
-        var images = [UIImage]()
-        let dispatchGroup = DispatchGroup()
-        for result in results {
-            dispatchGroup.enter()
-            let itemProvider = result.itemProvider
-            if itemProvider.canLoadObject(ofClass: UIImage.self) {
-                itemProvider.loadObject(ofClass: UIImage.self) { (imageOrNil, errorOrNil) in
-                    if let error = errorOrNil {
-                        onComplete(nil, error)
-                    }
-                    if let image = imageOrNil as? UIImage {
-                        images.append(image)
-                    }
-                    dispatchGroup.leave()
-                }
-            }
-        }
-        dispatchGroup.notify(queue: .main) {
-            onComplete(images, nil)
-        }
-    }
-}
-
 
 struct OpinionWriteScreen_Previews: PreviewProvider {
     static var previews: some View {
