@@ -106,7 +106,7 @@ extension PlanDetailScreen {
 	
 	/// 장소 사이의 거리와 길찾기 버튼을 보여주는 항목입니다.
 	func distanceItem(day: Int, index: Int) -> some View {
-		let distance = viewModel.pubDistances[day - 1][index]
+		let distance = viewModel.apiDistances[day - 1][index]
 		let d = distance.distance
 		let t = distance.time
 		

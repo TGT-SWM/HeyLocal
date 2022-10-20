@@ -37,6 +37,7 @@ class NcpAPIService {
 			.sink(receiveCompletion: { completion in
 				if case let .failure(error) = completion {
 					distance.wrappedValue = Distance(time: 0, distance: 0)
+					print(error)
 				}
 			}, receiveValue: { (resp: NcpDirectionsResponse) in
 				let paths = resp.route.trafast
@@ -51,7 +52,7 @@ class NcpAPIService {
 // MARK: - API 응답 엔티티
 
 struct NcpDirectionsResponse: Decodable {
-	var code: String
+	var code: Int
 	var message: String
 	var route: Route
 	

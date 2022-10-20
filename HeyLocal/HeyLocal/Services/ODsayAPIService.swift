@@ -79,6 +79,3 @@ struct ODsayPubTransResponse: Decodable {
 		}
 	}
 }
-
-/// 장소 사이의 이동 시간과 거리를 담는 구조체로서 사용하기 위해 typealias 선언합니다.
-typealias Info = ODsayPubTransResponse.Info
