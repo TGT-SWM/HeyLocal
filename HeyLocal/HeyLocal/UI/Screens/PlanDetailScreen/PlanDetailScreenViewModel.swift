@@ -17,6 +17,7 @@ extension PlanDetailScreen {
 		// 의존성
 		let planService = PlanService()
 		let odsayAPIService = ODsayAPIService()
+		let ncpAPIService = NcpAPIService()
 		var plan: Plan
 		
 		// 상태 값
@@ -25,9 +26,11 @@ extension PlanDetailScreen {
 		@Published var schedules: [DaySchedule] = [] {// 스케줄 정보
 			didSet {
 				calculateDistances()
+				fetchDistancesByTransportationType()
 			}
 		}
 		@Published var distances: [[[Distance]]] = [] // 장소 사이의 거리 정보
+		@Published var apiDistances: [[Distance]] = [] // API 요청으로 가져온 대중교통 거리 정보
 		@Published var editMode = EditMode.inactive // 스케줄 수정 모드
 		@Published var isPlanTitleEditing = false // 플랜 제목이 수정 중인지
 		@Published var arrivalTimeEditTarget: Binding<Place>?
@@ -39,7 +42,6 @@ extension PlanDetailScreen {
 		
 		init(plan: Plan) {
 			self.plan = plan
-			fetchPlaces()
 		}
 	}
 }
@@ -75,38 +77,71 @@ extension PlanDetailScreen.ViewModel {
 		)
 	}
 	
-	/// 스케줄 내 장소 간 이동 시간과 거리를 받아옵니다. (대중교통 기준)
+	/// 장소 사이의 이동 거리와 이동 시간 정보를 가져옵니다.
+	/// API 호출을 위한 fetcher 클로저를 파라미터로 받습니다.
 	/// 스케줄 fetch가 완료된 후에 호출되어야 합니다.
-	/// **현재 너무 많은 요청이 전송되며 에러가 반환되는 문제가 있어 사용이 어렵습니다.**
-//	func fetchDistances() {
-//		// 초기화
-//		initDistances()
-//
-//		// API 호출
-//		for i in schedules.indices {
-//			let places = schedules[i].places
-//
-//			for j in 0..<places.count {
-//				for k in (j + 1)..<places.count {
-//					let from = places[j]
-//					let to = places[k]
-//					odsayAPIService.searchPubTrans(
-//						sLat: from.lat,
-//						sLng: from.lng,
-//						eLat: to.lat,
-//						eLng: to.lng,
-//						distance: Binding(
-//							get: { self.distances[i][j][k] },
-//							set: {
-//								self.distances[i][j][k] = $0
-//								self.distances[i][k][j] = $0
-//							}
-//						)
-//					)
-//				}
-//			}
-//		}
-//	}
+	func fetchDistances(fetcher: @escaping (Double, Double, Double, Double, Binding<Distance>) -> Void) {
+		// 초기화
+		apiDistances = []
+		for schedule in schedules {
+			let places = schedule.places
+			var tmp: [Distance] = []
+			
+			if places.count >= 2 {
+				for _ in 0..<(places.count - 1) {
+					tmp.append(Distance(time: .infinity, distance: .infinity))
+				}
+			}
+			
+			apiDistances.append(tmp)
+		}
+		
+		// API 호출
+		for i in self.schedules.indices {
+			let places = self.schedules[i].places
+			
+			if places.count >= 2 {
+				for j in 0..<(places.count - 1) {
+					let cur = places[j]
+					let next = places[j + 1]
+					
+					serialQueue.async {
+						fetcher(
+							cur.lat,
+							cur.lng,
+							next.lat,
+							next.lng,
+							Binding(
+								get: { self.apiDistances[i][j] },
+								set: { self.apiDistances[i][j] = $0 }
+							)
+						)
+						
+						usleep(500000) // 0.5sec
+					}
+				}
+			}
+		}
+	}
+	
+	/// ODsay API를 호출해 대중교통 이동 시간과 거리 정보를 받아옵니다.
+	func fetchPubDistances() {
+		fetchDistances(fetcher: self.odsayAPIService.searchPubTrans)
+	}
+	
+	/// NCP Directions 5 API를 호출해 자가용 이동 시간과 거리 정보를 받아옵니다.
+	func fetchDrivingDistances() {
+		fetchDistances(fetcher: self.ncpAPIService.searchDrivingInfo)
+	}
+	
+	/// 플랜에서 사용하는 차량 정보에 따라 알맞은 이동 시간과 거리 정보를 받아옵니다. (대중교통 / 자가용)
+	func fetchDistancesByTransportationType() {
+		if plan.transportationType == "PUBLIC" {
+			fetchPubDistances()
+		} else {
+			fetchDrivingDistances()
+		}
+	}
 }
 
 
@@ -263,12 +298,6 @@ extension PlanDetailScreen.ViewModel {
 // MARK: - 이동 거리 및 시간을 계산하고 표시하는 기능
 
 extension PlanDetailScreen.ViewModel {
-	/// 이동 시간과 거리를 담기 위한 구조체입니다.
-	struct Distance {
-		var time: Double = 0 // 분
-		var distance: Double = 0 // 미터
-	}
-	
 	/// 모든 장소 사이의 이동 시간과 거리를 계산해 저장합니다.
 	func calculateDistances() {
 		// 초기화

@@ -106,24 +106,31 @@ extension PlanDetailScreen {
 	
 	/// 장소 사이의 거리와 길찾기 버튼을 보여주는 항목입니다.
 	func distanceItem(day: Int, index: Int) -> some View {
-		let distance = viewModel.distances[day - 1][index][index + 1]
+		let distance = viewModel.apiDistances[day - 1][index]
 		let d = distance.distance
 		let t = distance.time
 		
 		// 이동 거리 문자열
 		var distStr = ""
-		if d >= 1000 {
+		if d == .infinity {
+			distStr = "로드 중..."
+		} else if d >= 1000 {
 			distStr = String(format: "%.1f", d / 1000) + "km"
 		} else {
 			distStr = "\(Int(d))m"
 		}
 		
 		// 이동 시간 문자열
-		var timeStr = ""
-		if t < 2 {
-			timeStr = "약 1분 소요"
+		let type = (viewModel.plan.transportationType == "PUBLIC")
+			? "대중교통"
+			: "자가용"
+		var timeStr = "\(type)으로 "
+		if t == .infinity {
+			timeStr = "로드 중..."
+		} else if t < 2 {
+			timeStr += "약 1분 소요"
 		} else {
-			timeStr = "약 \(Int(t))분 소요"
+			timeStr += "약 \(Int(t))분 소요"
 		}
 		
 		// 카카오맵 URL scheme

@@ -17,4 +17,7 @@ struct Config {
 	static let kakaoRestKey = Bundle.main.object(forInfoDictionaryKey: "KAKAO_REST_KEY")!
 	static let odsayApiKey = Bundle.main.object(forInfoDictionaryKey: "ODSAY_API_KEY")!
 	static let odsayApiURL = Bundle.main.object(forInfoDictionaryKey: "ODSAY_API_URL")!
+	static let ncpApiId = Bundle.main.object(forInfoDictionaryKey: "NCP_API_ID")!
+	static let ncpApiSecret = Bundle.main.object(forInfoDictionaryKey: "NCP_API_SECRET")!
+	static let ncpApiURL = Bundle.main.object(forInfoDictionaryKey: "NCP_API_URL")!
 }

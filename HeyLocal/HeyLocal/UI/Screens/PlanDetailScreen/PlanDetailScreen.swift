@@ -42,7 +42,12 @@ struct PlanDetailScreen: View {
 				editButton
 			}
 		}
-		.onAppear { displayTabBar(false) }
+		.onAppear {
+			displayTabBar(false)
+			if viewModel.schedules.isEmpty {
+				viewModel.fetchPlaces()
+			}
+		}
     }
 	
 	/// 스케줄 수정 모드로 진입하기 위한 버튼입니다.
@@ -197,6 +202,6 @@ extension PlanDetailScreen {
 
 struct PlanDetailScreen_Previews: PreviewProvider {
     static var previews: some View {
-		PlanDetailScreen(plan: Plan(id: 1, title: "서울, 서울, 서울!", regionId: 1, regionState: "서울특별시", regionCity: "강남구", startDate: "2022-09-01", endDate: "2022-09-03"))
+		PlanDetailScreen(plan: Plan(id: 1, title: "서울, 서울, 서울!", regionId: 1, regionState: "서울특별시", regionCity: "강남구", startDate: "2022-09-01", endDate: "2022-09-03", transportationType: "OWN_CAR"))
     }
 }

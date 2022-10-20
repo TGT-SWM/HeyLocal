@@ -24,6 +24,7 @@ struct Plan: Decodable {
 	var regionCity: String?
 	var startDate: String
 	var endDate: String
+	var transportationType: String
 	
 	var regionName: String {
 		if let city = regionCity {
