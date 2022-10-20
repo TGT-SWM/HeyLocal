@@ -202,6 +202,6 @@ extension PlanDetailScreen {
 
 struct PlanDetailScreen_Previews: PreviewProvider {
     static var previews: some View {
-		PlanDetailScreen(plan: Plan(id: 1, title: "서울, 서울, 서울!", regionId: 1, regionState: "서울특별시", regionCity: "강남구", startDate: "2022-09-01", endDate: "2022-09-03"))
+		PlanDetailScreen(plan: Plan(id: 1, title: "서울, 서울, 서울!", regionId: 1, regionState: "서울특별시", regionCity: "강남구", startDate: "2022-09-01", endDate: "2022-09-03", transportationType: "OWN_CAR"))
     }
 }
