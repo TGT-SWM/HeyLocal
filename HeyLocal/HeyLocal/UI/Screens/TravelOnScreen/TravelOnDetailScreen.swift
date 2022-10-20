@@ -56,7 +56,7 @@ struct TravelOnDetailScreen: View {
     
     @State var navigationLinkActive = false
     @State var images: [UIImage] = [UIImage]()
-    @State var sheet = false
+    @State var showingPhotoSheet = false
     var body: some View {
         ZStack(alignment: .center) {
             // 게시글 수정
@@ -65,18 +65,59 @@ struct TravelOnDetailScreen: View {
             }
             
             ScrollView {
-                
-                Text("\(images.count)")
-                
-                Button(action: {
-                    sheet.toggle()
-                }) {
-                    Text("Picker")
+                // MARK: - 이미지 연습 ...
+                HStack {
+                    Button(action: {
+                        if images.count < 3 {
+                            showingPhotoSheet.toggle()
+                        }
+                    }) {
+                        ZStack(alignment: .center) {
+                            Rectangle()
+                                .fill(Color.white)
+                                .frame(width: 100, height: 100)
+                                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
+                                .cornerRadius(10)
+                            
+                            
+                            VStack(alignment: .center) {
+                                Image(systemName: "camera")
+                                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 3, trailing: 0))
+                                
+                                Text("\(images.count) / 3")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                            }
+                        }
+                    }
+                    .sheet(isPresented: $showingPhotoSheet, content: {
+                        ImagePicker(isPresent: $showingPhotoSheet, images: $images)
+                    })
+                    
+                    ForEach(images, id:\.self) { img in
+                        ZStack(alignment: .topTrailing) {
+                            Image(uiImage: img)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 100, height: 100)
+                                .cornerRadius(10)
+                            
+                            // 이미지 삭제버튼
+                            Button(action: {
+                                if let index = images.firstIndex(of: img) {
+                                    images.remove(at: index)
+                                }
+                            }) {
+                                Image(systemName: "multiply")
+                                    .resizable()
+                                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                                    .frame(width: 10, height: 10)
+                            }
+                        }
+                    }
                 }
-                .sheet(isPresented: $sheet, content: {
-                        ImagePicker(isPresent: $sheet, images: $images)
-                })
-                
+
                 content
                 
                 opinions

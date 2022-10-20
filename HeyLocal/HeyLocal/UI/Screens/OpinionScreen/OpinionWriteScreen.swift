@@ -316,8 +316,6 @@ struct OpinionWriteScreen: View {
                                     .font(.system(size: 12))
                                     .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                             }
-                            
-                                
                         }
                     }
                     .sheet(isPresented: $showImagePicker, content: {
