@@ -13,3 +13,6 @@ KAKAO_REST_URL = https:${SLASH}/dapi.kakao.com
 
 // ODsay LAB API URL
 ODSAY_API_URL = https:${SLASH}/api.odsay.com
+
+// 네이버 클라우드 API URL
+NCP_API_URL = https:${SLASH}/naveropenapi.apigw.ntruss.com
