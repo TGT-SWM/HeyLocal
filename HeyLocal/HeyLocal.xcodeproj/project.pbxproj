@@ -65,6 +65,7 @@
 		EF6A3FC628E93A44003F474B /* PlanCreateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A3FC528E93A44003F474B /* PlanCreateScreen.swift */; };
 		EF6A3FC828E93A68003F474B /* PlanCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A3FC728E93A68003F474B /* PlanCreateViewModel.swift */; };
 		EF6A3FCA28EB3D9B003F474B /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A3FC928EB3D9B003F474B /* View+Extensions.swift */; };
+		EF6ADB9D2901D9FC00A14D26 /* NcpAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6ADB9C2901D9FC00A14D26 /* NcpAPIService.swift */; };
 		EF74BBF328B4D5C200E09450 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF74BBF228B4D5C200E09450 /* HomeScreen.swift */; };
 		EF74BBF928B52CF200E09450 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */; };
 		EF8EB5DD28F8697700F8D9EB /* ScheduleEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8EB5DC28F8697700F8D9EB /* ScheduleEngine.swift */; };
@@ -181,6 +182,7 @@
 		EF6A3FC528E93A44003F474B /* PlanCreateScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCreateScreen.swift; sourceTree = "<group>"; };
 		EF6A3FC728E93A68003F474B /* PlanCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCreateViewModel.swift; sourceTree = "<group>"; };
 		EF6A3FC928EB3D9B003F474B /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
+		EF6ADB9C2901D9FC00A14D26 /* NcpAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NcpAPIService.swift; sourceTree = "<group>"; };
 		EF74BBF228B4D5C200E09450 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EF89F5DB28C08103001401FE /* Main.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Main.xcconfig; sourceTree = "<group>"; };
@@ -497,6 +499,7 @@
 				A877D99B28F265F000527E21 /* OpinionService.swift */,
 				EF8EB5DC28F8697700F8D9EB /* ScheduleEngine.swift */,
 				EF8EB5DE28F86F0700F8D9EB /* ODsayAPIService.swift */,
+				EF6ADB9C2901D9FC00A14D26 /* NcpAPIService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -773,6 +776,7 @@
 				EF3FCF1928C1345C00D48F9E /* Place.swift in Sources */,
 				EF8FF25D28B4D0B100C053B7 /* HeyLocalApp.swift in Sources */,
 				EF3C060E28E0E666003F3188 /* PlaceSearchViewModel.swift in Sources */,
+				EF6ADB9D2901D9FC00A14D26 /* NcpAPIService.swift in Sources */,
 				A877D99A28F2654800527E21 /* OpinionViewModel.swift in Sources */,
 				EF6A3FCA28EB3D9B003F474B /* View+Extensions.swift in Sources */,
 				A89943A728EED89E0059AAC6 /* RegionViewModel.swift in Sources */,
