@@ -41,6 +41,7 @@ class ODsayAPIService {
 			.sink(receiveCompletion: { completion in
 				if case let .failure(error) = completion {
 					distance.wrappedValue = Distance(time: 0, distance: 0)
+					print(error)
 				}
 			}, receiveValue: { (resp: ODsayPubTransResponse) in
 				let paths = resp.result.path

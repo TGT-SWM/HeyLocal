@@ -112,7 +112,9 @@ extension PlanDetailScreen {
 		
 		// 이동 거리 문자열
 		var distStr = ""
-		if d >= 1000 {
+		if d == .infinity {
+			distStr = "로드 중..."
+		} else if d >= 1000 {
 			distStr = String(format: "%.1f", d / 1000) + "km"
 		} else {
 			distStr = "\(Int(d))m"
@@ -123,7 +125,9 @@ extension PlanDetailScreen {
 			? "대중교통"
 			: "자가용"
 		var timeStr = "\(type)으로 "
-		if t < 2 {
+		if t == .infinity {
+			timeStr = "로드 중..."
+		} else if t < 2 {
 			timeStr += "약 1분 소요"
 		} else {
 			timeStr += "약 \(Int(t))분 소요"

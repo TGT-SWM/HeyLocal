@@ -89,7 +89,7 @@ extension PlanDetailScreen.ViewModel {
 			
 			if places.count >= 2 {
 				for _ in 0..<(places.count - 1) {
-					tmp.append(Distance())
+					tmp.append(Distance(time: .infinity, distance: .infinity))
 				}
 			}
 			
