@@ -89,15 +89,7 @@ extension TabBar {
 				.tag(Tab.myPlan)
             HomeScreen()
 				.tag(Tab.message)
-            ProfileScreen(author: Author(userId: 0,
-                                           nickname: "김현지",
-                                           activityRegion: Region(id: 259, state: "부산광역시"),
-                                           introduce: "안녕하세요, 부산사는 김현지입니다 ^0^*",
-                                           profileImgDownloadUrl: "",
-                                           knowHow: 500,
-                                           ranking: 350,
-                                           acceptedOpinionCount: 5,
-                                           totalOpinionCount: 0))
+            ProfileScreen()
 				.tag(Tab.myInfo)
 		}
 		.padding(.bottom, _displayTabBar ? tabBarHeight : 0)

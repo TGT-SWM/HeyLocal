@@ -12,13 +12,12 @@ struct ProfileScreen: View {
     @State var navLinkActive: Bool = false
     @State private var selectedTab: Int = 0
     let tabs: [String] = ["내가 쓴 여행 On", "내 답변"]
-    var author: Author
     
     @StateObject var viewModel = ViewModel()
     var body: some View {
         NavigationView {
             VStack {
-                ProfileComponent(author: author)
+                ProfileComponent()
                     .padding()
                 
                 GeometryReader { geo in
@@ -26,10 +25,10 @@ struct ProfileScreen: View {
                         TopTabs(tabs: tabs, geoWidth: geo.size.width, selectedTab: $selectedTab)
                         
                         TabView(selection: $selectedTab, content: {
-                            travelOn
+                            UserTravelOn()
                                 .tag(0)
                             
-                            opinion
+                            UserOpinion()
                                 .tag(1)
                         })
                         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
@@ -42,44 +41,51 @@ struct ProfileScreen: View {
             .navigationBarBackButtonHidden(true)
         }
     }
-    
-    // 작성한 여행On
-    var travelOn: some View {
+}
+
+struct UserTravelOn: View {
+    @StateObject var viewModel = ProfileScreen.ViewModel()
+    var body: some View {
         ScrollView {
             VStack {
                 ForEach(viewModel.travelOns) { travelOn in
-                    NavigationLink(destination: EmptyView()) {
+                    NavigationLink(destination: TravelOnDetailScreen(travelOnId: travelOn.id)) {
                         TravelOnComponent(travelOn: travelOn)
-                            .padding(EdgeInsets(top: 2, leading: 0, bottom: 2, trailing: 0))
+                            .padding(EdgeInsets(top: 2, leading: 0, bottom: 3, trailing: 10))
                     }
                 }
             }
         }
+        .onAppear {
+            viewModel.fetchTravelOns()
+        }
     }
-    
-    // 작성한 답변
-    var opinion: some View {
+}
+
+struct UserOpinion: View {
+    @StateObject var viewModel = ProfileScreen.ViewModel()
+    var body: some View {
         ScrollView {
             VStack {
                 ForEach(viewModel.opinions) { opinion in
-                    OpinionComponent(opinion: opinion)
-                        .padding(EdgeInsets(top: 2, leading: 0, bottom: 2, trailing: 0))
+//                    NavigationLink(destination: OpinionDetailScreen(travelOnId: opinion., opinionId: opinion.id)) {
+                        OpinionComponent(opinion: opinion)
+                            .padding(EdgeInsets(top: 4, leading: 0, bottom: 6, trailing: 10))
+//                    }
                 }
             }
+        }
+        .navigationTitle("")
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .onAppear {
+            viewModel.fetchOpinions()
         }
     }
 }
 
 struct ProfileScreen_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileScreen(author: Author(userId: 0,
-                                       nickname: "김현지",
-                                       activityRegion: Region(id: 259, state: "부산광역시"),
-                                       introduce: "안녕하세요, 부산사는 김현지입니다 ^0^*",
-                                       profileImgDownloadUrl: "",
-                                       knowHow: 500,
-                                       ranking: 350,
-                                       acceptedOpinionCount: 5,
-                                       totalOpinionCount: 0))
+        ProfileScreen()
     }
 }
