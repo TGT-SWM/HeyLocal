@@ -67,5 +67,6 @@ struct OpinionComponent: View {
             }
             .padding(EdgeInsets(top: 7, leading: 0, bottom: 0, trailing: 0))
         }
+        .foregroundColor(Color.black)
     }
 }

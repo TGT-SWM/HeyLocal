@@ -78,16 +78,52 @@ struct OpinionRepository {
         request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
         
         request.httpBody = jsonData
+        
         var httpResponseStatusCode: Int = 0
+        
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, let httpResponse = response as? HTTPURLResponse, error == nil else {
                 print(error?.localizedDescription ?? "No Data")
                 return
             }
             httpResponseStatusCode = httpResponse.statusCode
-            print(httpResponseStatusCode)
+            
             if httpResponseStatusCode == 201 {
                 self.getOpinions(travelOnId: travelOnId)
+                let resultCode = (response as? HTTPURLResponse)?.statusCode ?? 0
+                let resultLen = data
+                let resultString = String(data: resultLen, encoding: .utf8) ?? ""
+                
+                let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary
+                let generalURL = jsonObject!["GENERAL"] as? NSArray
+                let foodURL = jsonObject!["RECOMMEND_FOOD"] as? NSArray
+                let cafeURL = jsonObject!["RECOMMEND_DRINK_DESSERT"] as? NSArray
+                let photoSpotURL = jsonObject!["PHOTO_SPOT"] as? NSArray
+                print("")
+                print("====================================")
+                print("[requestPOST : http post 요청 성공]")
+                print("resultCode : ", resultCode)
+                print("resultLen : ", resultLen)
+                print("resultString : ", resultString)
+                
+                /// 이미지 업로드 링크 - Presigned URL
+                for i in 0..<generalURL!.count {
+                    print(generalURL![i])
+                    
+                }
+                for i in 0..<foodURL!.count {
+                    print(foodURL![i])
+                }
+                for i in 0..<cafeURL!.count {
+                    print(cafeURL![i])
+                }
+                for i in 0..<photoSpotURL!.count {
+                    print(photoSpotURL![i])
+                }
+                
+                print("====================================")
+                print("")
+                
             } else {
                 print("\(error?.localizedDescription)")
                 
@@ -99,6 +135,8 @@ struct OpinionRepository {
         task.resume()
         return httpResponseStatusCode
     }
+    
+
     
     // 답변 수정
     func updateOpinion(travelOnId: Int, opinionId: Int, opinionData: Opinion) {

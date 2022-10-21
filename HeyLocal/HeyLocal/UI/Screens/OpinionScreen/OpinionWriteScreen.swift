@@ -124,7 +124,7 @@ struct OpinionWriteScreen: View {
         let coffeeTypeStr: [String] = ["BITTER", "SOUR", "GENERAL"]
         
         opinionData.place = viewModel.opinion.place
-        opinionData.quantity?.generalImgQuantity = self.generalImages.count
+        opinionData.quantity?.generalImgQuantity = 2
         opinionData.description = viewModel.opinion.description
         
         opinionData.facilityCleanliness = LikertScale[viewModel.cleanInt - 1]
@@ -159,7 +159,7 @@ struct OpinionWriteScreen: View {
                 }
             }
             opinionData.recommendDrinkAndDessertDescription = viewModel.opinion.recommendDrinkAndDessertDescription
-            opinionData.quantity?.drinkAndDessertImgQuantity = self.cafeImages.count
+            opinionData.quantity?.drinkAndDessertImgQuantity = 2
         }
         
         // 숙박시설
@@ -241,14 +241,9 @@ struct OpinionWriteScreen: View {
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: btnBack, trailing: writeBtn)
     }
-    
-    // MARK: - 장소 선택, 사진, 설명
-    @State var showImagePicker: Bool = false
-    @State var tmpImg: UIImage?
-    @State var isPhotoPicker: Bool = false
-    
-    
+
     // MARK: - 공통·필수 질문 변수 · View
+    @State var showGeneralImagePicker: Bool = false
     @State var generalImages: [UIImage] = [UIImage]()
     var content: some View {
         VStack(alignment: .leading) {
@@ -286,42 +281,12 @@ struct OpinionWriteScreen: View {
             // 사진 추가
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-//                    List {
-//                        ForEach(generalImages, id:\.self) { image in
-//                            Image(uiImage: image)
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fit)
-//                                .frame(width: 100)
-//                        }
-//                    }
-//                    Text("\(generalImages.count)")
-                    
-                    if tmpImg != nil {
-                        Image(uiImage: tmpImg!)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 100, height: 100)
-                    }
-    
+                    // 이미지 추가 버튼
                     Button(action: {
-                        showImagePicker.toggle()
-                    }) {
-//                        ZStack {
-//                            Rectangle()
-//                                .fill(Color.white)
-//                                .frame(width: 100, height: 100)
-//                                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
-//                                .cornerRadius(10)
-//
-//                            ZStack {
-//                                Circle()
-//                                    .fill(Color(red: 255/255, green: 153/255, blue: 0/255))
-//                                    .frame(width: 24, height: 24)
-//
-//                                Image(systemName: "plus")
-//                                    .foregroundColor(Color.white)
-//                            }
+//                        if generalImages.count < 3 {
+//                            showGeneralImagePicker.toggle()
 //                        }
+                    }) {
                         ZStack(alignment: .center) {
                             Rectangle()
                                 .fill(Color.white)
@@ -339,43 +304,35 @@ struct OpinionWriteScreen: View {
                                     .font(.system(size: 12))
                                     .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                             }
-                            
-                                
                         }
                     }
-                    .sheet(isPresented: $showImagePicker){
-                        ImagePickerView(sourceType: .photoLibrary) { image in
-                            self.tmpImg = image
-                        }
-                    }
+                    .sheet(isPresented: $showGeneralImagePicker, content: {
+                        ImagePicker(isPresent: $showGeneralImagePicker, images: $generalImages)
+//                        TopicsExperienceCards(isPresented: $showGeneralImagePicker)
+                    })
                     
-//                    Button(action: { showImagePicker = true }) {
-//                        Label("Choose Photos", systemImage: "photo.fill")
-//                    }
-//                    .fullScreenCover(isPresented: $showImagePicker) {
-//                        PhotoPicker(filter: .images, limit: 3) { results in
-//                            PhotoPicker.convertToUIImageArray(fromResults: results) { (imagesOrNil, errorOrNil) in
-//                                if let error = errorOrNil {
-//                                    print(error)
-//                                }
-//
-//                                if let images = imagesOrNil {
-//                                    if let first = images.first {
-//                                        print(first)
-//                                        image = first
-//                                    }
-//                                }
-//                            }
-//
-//                        }
-//                    }
-//
-//                    if let image = image {
-//                        Image(uiImage: image)
-//                            .resizable()
-//                            .aspectRatio(contentMode: .fit)
-//                            .frame(width: 100, height: 100)
-//                    }
+                    // 이미지 View
+                    ForEach(generalImages, id:\.self) { img in
+                        ZStack(alignment: .topTrailing) {
+                            Image(uiImage: img)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 100, height: 100)
+                                .cornerRadius(10)
+                            
+                            // 이미지 삭제버튼
+                            Button(action: {
+                                if let index = generalImages.firstIndex(of: img) {
+                                    generalImages.remove(at: index)
+                                }
+                            }) {
+                                Image(systemName: "multiply")
+                                    .resizable()
+                                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                                    .frame(width: 10, height: 10)
+                            }
+                        }
+                    }
                 }
             }
             
@@ -769,6 +726,7 @@ struct OpinionWriteScreen: View {
     }
     
     // MARK: - 음식점  변수 · View
+    @State var showFoodImagePicker: Bool = false
     @State var foodImages: [UIImage] = [UIImage]()
     var restaurant: some View {
         VStack(alignment: .leading) {
@@ -859,23 +817,58 @@ struct OpinionWriteScreen: View {
                     .font(.system(size: 14))
                 
                 // Image
-                Button(action: {}){
-                    ZStack {
-                        Rectangle()
-                            .fill(Color.white)
-                            .frame(width: 100, height: 100)
-                            .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
-                            .cornerRadius(10)
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        // 이미지 추가 버튼
+                        Button(action: {
+//                            if foodImages.count < 3 {
+//                                showFoodImagePicker.toggle()
+//                            }
+                        }) {
+                            ZStack(alignment: .center) {
+                                Rectangle()
+                                    .fill(Color.white)
+                                    .frame(width: 100, height: 100)
+                                    .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
+                                    .cornerRadius(10)
+                                
+                                
+                                VStack(alignment: .center) {
+                                    Image(systemName: "camera")
+                                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 3, trailing: 0))
+                                    
+                                    Text("\(foodImages.count) / 3")
+                                        .font(.system(size: 12))
+                                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                                }
+                            }
+                        }
+                        .sheet(isPresented: $showFoodImagePicker, content: {
+                            ImagePicker(isPresent: $showFoodImagePicker, images: $foodImages)
+                        })
                         
-                        
-                        VStack(alignment: .center) {
-                            Image(systemName: "camera")
-                                .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 3, trailing: 0))
-                            
-                            Text("\(generalImages.count) / 3")
-                                .font(.system(size: 12))
-                                .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                        // 이미지 View
+                        ForEach(foodImages, id:\.self) { img in
+                            ZStack(alignment: .topTrailing) {
+                                Image(uiImage: img)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 100, height: 100)
+                                    .cornerRadius(10)
+                                
+                                // 이미지 삭제버튼
+                                Button(action: {
+                                    if let index = foodImages.firstIndex(of: img) {
+                                        foodImages.remove(at: index)
+                                    }
+                                }) {
+                                    Image(systemName: "multiply")
+                                        .resizable()
+                                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                                        .frame(width: 10, height: 10)
+                                }
+                            }
                         }
                     }
                 }
@@ -907,6 +900,7 @@ struct OpinionWriteScreen: View {
     
     
     // MARK: - 카페  변수 · View
+    @State var showCafeImagePicker: Bool = false
     @State var cafeImages: [UIImage] = [UIImage]()
     var cafe: some View {
         VStack(alignment: .leading) {
@@ -1035,28 +1029,62 @@ struct OpinionWriteScreen: View {
                     .font(.system(size: 14))
                 
                 // Image
-                Button(action: {}){
-                    ZStack {
-                        Rectangle()
-                            .fill(Color.white)
-                            .frame(width: 50, height: 50)
-                            .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
-                            .cornerRadius(10)
-                        
-                        ZStack {
-                            Circle()
-                                .fill(Color(red: 255/255, green: 153/255, blue: 0/255))
-                                .frame(width: 16, height: 16)
-                            
-                            Image(systemName: "plus")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 9)
-                                .foregroundColor(Color.white)
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        // 이미지 추가 버튼
+                        Button(action: {
+//                            if cafeImages.count < 3 {
+//                                showCafeImagePicker.toggle()
+//                            }
+                        }) {
+                            ZStack(alignment: .center) {
+                                Rectangle()
+                                    .fill(Color.white)
+                                    .frame(width: 100, height: 100)
+                                    .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
+                                    .cornerRadius(10)
                                 
+                                
+                                VStack(alignment: .center) {
+                                    Image(systemName: "camera")
+                                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 3, trailing: 0))
+                                    
+                                    Text("\(cafeImages.count) / 3")
+                                        .font(.system(size: 12))
+                                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                                }
+                            }
+                        }
+                        .sheet(isPresented: $showCafeImagePicker, content: {
+                            ImagePicker(isPresent: $showCafeImagePicker, images: $cafeImages)
+                        })
+                        
+                        // 이미지 View
+                        ForEach(cafeImages, id:\.self) { img in
+                            ZStack(alignment: .topTrailing) {
+                                Image(uiImage: img)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 100, height: 100)
+                                    .cornerRadius(10)
+                                
+                                // 이미지 삭제버튼
+                                Button(action: {
+                                    if let index = cafeImages.firstIndex(of: img) {
+                                        cafeImages.remove(at: index)
+                                    }
+                                }) {
+                                    Image(systemName: "multiply")
+                                        .resizable()
+                                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                                        .frame(width: 10, height: 10)
+                                }
+                            }
                         }
                     }
                 }
+                
                 
                 // TextField
                 ZStack(alignment: .leading) {
@@ -1084,6 +1112,7 @@ struct OpinionWriteScreen: View {
     }
     
     // MARK: - 관광명소 및 문화시설  변수 · View
+    @State var showPhotoSpotImagePicker: Bool = false
     @State var photoSpotImages: [UIImage] = [UIImage]()
     var sightseeing: some View {
         VStack(alignment: .leading) {
@@ -1149,25 +1178,58 @@ struct OpinionWriteScreen: View {
                     .font(.system(size: 14))
                 
                 // Image
-                Button(action: {}){
-                    ZStack {
-                        Rectangle()
-                            .fill(Color.white)
-                            .frame(width: 50, height: 50)
-                            .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
-                            .cornerRadius(10)
-                        
-                        ZStack {
-                            Circle()
-                                .fill(Color(red: 255/255, green: 153/255, blue: 0/255))
-                                .frame(width: 16, height: 16)
-                            
-                            Image(systemName: "plus")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 9)
-                                .foregroundColor(Color.white)
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        // 이미지 추가 버튼
+                        Button(action: {
+//                            if photoSpotImages.count < 3 {
+//                                showPhotoSpotImagePicker.toggle()
+//                            }
+                        }) {
+                            ZStack(alignment: .center) {
+                                Rectangle()
+                                    .fill(Color.white)
+                                    .frame(width: 100, height: 100)
+                                    .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
+                                    .cornerRadius(10)
                                 
+                                
+                                VStack(alignment: .center) {
+                                    Image(systemName: "camera")
+                                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 3, trailing: 0))
+                                    
+                                    Text("\(photoSpotImages.count) / 3")
+                                        .font(.system(size: 12))
+                                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                                }
+                            }
+                        }
+                        .sheet(isPresented: $showPhotoSpotImagePicker, content: {
+                            ImagePicker(isPresent: $showPhotoSpotImagePicker, images: $photoSpotImages)
+                        })
+                        
+                        // 이미지 View
+                        ForEach(photoSpotImages, id:\.self) { img in
+                            ZStack(alignment: .topTrailing) {
+                                Image(uiImage: img)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 100, height: 100)
+                                    .cornerRadius(10)
+                                
+                                // 이미지 삭제버튼
+                                Button(action: {
+                                    if let index = photoSpotImages.firstIndex(of: img) {
+                                        photoSpotImages.remove(at: index)
+                                    }
+                                }) {
+                                    Image(systemName: "multiply")
+                                        .resizable()
+                                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                                        .frame(width: 10, height: 10)
+                                }
+                            }
                         }
                     }
                 }
@@ -1391,120 +1453,6 @@ struct OpinionWriteScreen: View {
         }
     } // acco
 }
-
-
-// MARK: - Photo Picker
-//struct PhotoPicker: UIViewControllerRepresentable {
-//    @Binding var pickerResult: [UIImage] // pass images back to the SwiftUI view
-//    @Binding var isPresented: Bool // close the modal view
-//
-//    func makeUIViewController(context: Context) -> some UIViewController {
-//        var configuration = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
-//        configuration.filter = .images // filter only to images
-//        configuration.selectionLimit = 0 // ignore limit
-//
-//        let photoPickerViewController = PHPickerViewController(configuration: configuration)
-//        photoPickerViewController.delegate = context.coordinator // Use Coordinator for delegation
-//        return photoPickerViewController
-//    }
-//
-//    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) { }
-//
-//    func makeCoordinator() -> Coordinator {
-//        Coordinator(self)
-//    }
-//
-//    // Create the Coordinator, in this case it is a way to communicate with the PHPickerViewController
-//    class Coordinator: PHPickerViewControllerDelegate {
-//        private let parent: PhotoPicker
-//
-//        init(_ parent: PhotoPicker) {
-//            self.parent = parent
-//        }
-//
-//        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-//            parent.pickerResult.removeAll()
-//
-//            for image in results {
-//                if image.itemProvider.canLoadObject(ofClass: UIImage.self) {
-//                    image.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] newImage, error in
-//                        if let error = error {
-//                            print("Can't load image \(error.localizedDescription)")
-//                        } else if let image = newImage as? UIImage {
-//                            self?.parent.pickerResult.append(image)
-//                        }
-//                    }
-//                }
-//                else {
-//                    print("Can't load asset")
-//                }
-//            }
-//
-//            parent.isPresented = false
-//        }
-//    }
-//}
-
-// MARK: - PhotoPicker 2
-struct PhotoPicker: UIViewControllerRepresentable {
-    typealias UIViewControllerType = PHPickerViewController
-    let filter: PHPickerFilter
-    var limit: Int = 0
-    let onComplete: ([PHPickerResult]) -> Void
-    
-    func makeUIViewController(context: Context) -> PHPickerViewController {
-        var configuration = PHPickerConfiguration()
-        configuration.filter = filter
-        configuration.selectionLimit = limit
-        
-        let controller = PHPickerViewController(configuration: configuration)
-        controller.delegate = context.coordinator
-        return controller
-    }
-    
-    func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) { }
-    
-    func makeCoordinator() -> Coordinator {
-        return Coordinator(self)
-    }
-    
-    class Coordinator: PHPickerViewControllerDelegate {
-        private let parent: PhotoPicker
-        
-        init(_ parent: PhotoPicker) {
-            self.parent = parent
-        }
-        
-        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-            parent.onComplete(results)
-            picker.dismiss(animated: true)
-        }
-    }
-    
-    static func convertToUIImageArray(fromResults results: [PHPickerResult], onComplete: @escaping ([UIImage]?, Error?) -> Void) {
-        var images = [UIImage]()
-        let dispatchGroup = DispatchGroup()
-        for result in results {
-            dispatchGroup.enter()
-            let itemProvider = result.itemProvider
-            if itemProvider.canLoadObject(ofClass: UIImage.self) {
-                itemProvider.loadObject(ofClass: UIImage.self) { (imageOrNil, errorOrNil) in
-                    if let error = errorOrNil {
-                        onComplete(nil, error)
-                    }
-                    if let image = imageOrNil as? UIImage {
-                        images.append(image)
-                    }
-                    dispatchGroup.leave()
-                }
-            }
-        }
-        dispatchGroup.notify(queue: .main) {
-            onComplete(images, nil)
-        }
-    }
-}
-
 
 struct OpinionWriteScreen_Previews: PreviewProvider {
     static var previews: some View {

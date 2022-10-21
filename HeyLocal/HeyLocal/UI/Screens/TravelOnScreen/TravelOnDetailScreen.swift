@@ -12,7 +12,6 @@ import SwiftUI
 struct TravelOnDetailScreen: View {
     @State var travelOnId: Int
     @StateObject var viewModel = TravelOnListScreen.ViewModel()
-    @StateObject var opinionViewModel = OpinionComponent.ViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Environment(\.displayTabBar) var displayTabBar
     
@@ -44,26 +43,86 @@ struct TravelOnDetailScreen: View {
                 .rotationEffect(.degrees(-90))
         }
         .confirmationDialog("", isPresented: $showingSheet, titleVisibility: .hidden) { //actionsheet
-             Button("게시글 수정") {
-                 navigationLinkActive = true
-             }
-             Button("삭제", role: .destructive) {
-                 showingAlert.toggle()
-             }
-             Button("취소", role: .cancel) {
-             }
+            Button("게시글 수정") {
+                navigationLinkActive.toggle()
+            }
+            Button("삭제", role: .destructive) {
+                showingAlert.toggle()
+            }
+            Button("취소", role: .cancel) {
+            }
         }
     }
     
     @State var navigationLinkActive = false
+    @State var images: [UIImage] = [UIImage]()
+    @State var showingPhotoSheet = false
     var body: some View {
         ZStack(alignment: .center) {
-            // 게시글 수정 
+            // 게시글 수정
             if navigationLinkActive {
                 NavigationLink("", destination: TravelOnWriteScreen(isRevise: true, travelOnID: viewModel.travelOn.id), isActive: $navigationLinkActive)
             }
             
             ScrollView {
+                NavigationLink(destination: EmptyView()) {
+                    EmptyView()
+                }
+                
+                
+                // MARK: - 이미지 연습 ...
+//                HStack {
+//                    Button(action: {
+//                        if images.count < 3 {
+//                            showingPhotoSheet.toggle()
+//                        }
+//                    }) {
+//                        ZStack(alignment: .center) {
+//                            Rectangle()
+//                                .fill(Color.white)
+//                                .frame(width: 100, height: 100)
+//                                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
+//                                .cornerRadius(10)
+//                            
+//                            
+//                            VStack(alignment: .center) {
+//                                Image(systemName: "camera")
+//                                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+//                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 3, trailing: 0))
+//                                
+//                                Text("\(images.count) / 3")
+//                                    .font(.system(size: 12))
+//                                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+//                            }
+//                        }
+//                    }
+//                    .sheet(isPresented: $showingPhotoSheet, content: {
+//                        ImagePicker(isPresent: $showingPhotoSheet, images: $images)
+//                    })
+//                    
+//                    ForEach(images, id:\.self) { img in
+//                        ZStack(alignment: .topTrailing) {
+//                            Image(uiImage: img)
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fill)
+//                                .frame(width: 100, height: 100)
+//                                .cornerRadius(10)
+//                            
+//                            // 이미지 삭제버튼
+//                            Button(action: {
+//                                if let index = images.firstIndex(of: img) {
+//                                    images.remove(at: index)
+//                                }
+//                            }) {
+//                                Image(systemName: "multiply")
+//                                    .resizable()
+//                                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+//                                    .frame(width: 10, height: 10)
+//                            }
+//                        }
+//                    }
+//                }
+
                 content
                 
                 opinions
@@ -82,10 +141,8 @@ struct TravelOnDetailScreen: View {
         }
         .onAppear {
             viewModel.fetchTravelOn(travelOnId: travelOnId)
-            opinionViewModel.fetchOpinions(travelOnId: travelOnId, opinionId: nil)
             displayTabBar(false)
         }
-//        .onAppear { displayTabBar(false) }
         .navigationTitle("여행On")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
@@ -354,39 +411,10 @@ struct TravelOnDetailScreen: View {
                 }
                 
                 //해당 여행On 답변 출력
-                VStack(alignment: .leading) {
-                    ForEach(opinionViewModel.opinions) { opinion in
-                        ZStack(alignment: .bottomTrailing) {
-                            NavigationLink(destination: OpinionDetailScreen(travelOnId: travelOnId, opinionId: opinion.id)) {
-                                OpinionComponent(opinion: opinion)
-                                    .foregroundColor(Color.black)
-                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 30))
-                            }
-                            
-                            // TODO: 플랜에 장소 추가하는 기능
-                            Button(action: {}) {
-                                ZStack {
-                                    Rectangle()
-                                        .fill(Color(red: 255/255, green: 153/255, blue: 0/255))
-                                        .frame(width: 90, height: 24)
-                                        .cornerRadius(14)
-                                    
-                                    HStack(alignment: .center) {
-                                        Image(systemName: "plus")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 13)
-                                            .foregroundColor(Color.white)
-                                        
-                                        Text("플랜에 추가")
-                                            .font(.system(size: 12))
-                                            .foregroundColor(Color.white)
-                                    }
-                                }
-                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
-                            }
-                        }
-                    }
+                OpinionListScreen(travelOnId: travelOnId)
+                
+                NavigationLink(destination: EmptyView()) {
+                    EmptyView()
                 }
             }
         }

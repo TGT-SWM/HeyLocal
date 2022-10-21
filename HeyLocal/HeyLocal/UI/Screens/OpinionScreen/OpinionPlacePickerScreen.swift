@@ -79,7 +79,6 @@ struct OpinionPlacePickerScreen: View {
             Button {
                 self.place = item
                 dismiss()
-//                viewModel.addSelectedItem(item)
             } label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 100)
@@ -90,9 +89,6 @@ struct OpinionPlacePickerScreen: View {
                         .foregroundColor(.white)
                 }
             }
-//            .if(viewModel.isSelected(item)) {
-//                $0.disabled(true)
-//            }
         }
         .frame(height: 80)
         .padding(.horizontal, 21)
