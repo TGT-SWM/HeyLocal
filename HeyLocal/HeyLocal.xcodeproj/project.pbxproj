@@ -69,6 +69,7 @@
 		EF6A3FC828E93A68003F474B /* PlanCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A3FC728E93A68003F474B /* PlanCreateViewModel.swift */; };
 		EF6A3FCA28EB3D9B003F474B /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A3FC928EB3D9B003F474B /* View+Extensions.swift */; };
 		EF6ADB9D2901D9FC00A14D26 /* NcpAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6ADB9C2901D9FC00A14D26 /* NcpAPIService.swift */; };
+		EF6ADB9F290212E500A14D26 /* MealSelectScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6ADB9E290212E500A14D26 /* MealSelectScreen.swift */; };
 		EF74BBF328B4D5C200E09450 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF74BBF228B4D5C200E09450 /* HomeScreen.swift */; };
 		EF74BBF928B52CF200E09450 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */; };
 		EF8EB5DD28F8697700F8D9EB /* ScheduleEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8EB5DC28F8697700F8D9EB /* ScheduleEngine.swift */; };
@@ -189,6 +190,7 @@
 		EF6A3FC728E93A68003F474B /* PlanCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCreateViewModel.swift; sourceTree = "<group>"; };
 		EF6A3FC928EB3D9B003F474B /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		EF6ADB9C2901D9FC00A14D26 /* NcpAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NcpAPIService.swift; sourceTree = "<group>"; };
+		EF6ADB9E290212E500A14D26 /* MealSelectScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealSelectScreen.swift; sourceTree = "<group>"; };
 		EF74BBF228B4D5C200E09450 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EF89F5DB28C08103001401FE /* Main.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Main.xcconfig; sourceTree = "<group>"; };
@@ -406,6 +408,7 @@
 				EF3FCF1628C12D0800D48F9E /* PlanDetailScreenViewModel.swift */,
 				EF3FCF1B28C135B200D48F9E /* PlaceList.swift */,
 				EFF9F3C628C5C8DA00E9FCB3 /* KakaoMap.swift */,
+				EF6ADB9E290212E500A14D26 /* MealSelectScreen.swift */,
 			);
 			path = PlanDetailScreen;
 			sourceTree = "<group>";
@@ -811,6 +814,7 @@
 				EF26CD8A28C0EECA006D0D27 /* PlanService.swift in Sources */,
 				EFF223B228F4B33F00E6781D /* BackButton.swift in Sources */,
 				A877D99C28F265F000527E21 /* OpinionService.swift in Sources */,
+				EF6ADB9F290212E500A14D26 /* MealSelectScreen.swift in Sources */,
 				EF26CD8D28C0F102006D0D27 /* MyPlanScreen.swift in Sources */,
 				A8794B3128B4EB5900959D56 /* BasicButtonStyle.swift in Sources */,
 				A83DAEED28D0475B001F1F5C /* TravelOnWriteScreen.swift in Sources */,
