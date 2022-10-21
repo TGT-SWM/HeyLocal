@@ -34,7 +34,7 @@ struct TopTabs: View {
                                     }
                                     .frame(width: fixed ? (geoWidth / CGFloat(tabs.count)) : .none, height: 52)
                                     
-                                    Rectangle().fill(selectedTab == row ? Color.black : Color.clear)
+                                    Rectangle().fill(selectedTab == row ? Color("orange") : Color("lightGray"))
                                         .frame(height: 3)
                                 }.fixedSize()
                             })
