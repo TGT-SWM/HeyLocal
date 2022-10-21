@@ -57,6 +57,7 @@ struct Opinion: Codable, Identifiable {
     
     // MARK: - POST용 데이터
     var quantity: Quantity? = Quantity()
+    var travelOnId: Int? = 0
 }
 struct Quantity: Codable {
     var drinkAndDessertImgQuantity: Int = 0

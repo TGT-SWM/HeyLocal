@@ -15,11 +15,28 @@ struct ProfileComponent: View {
         VStack(alignment: .center) {
             Group {
                 ZStack() {
-                    // TODO: 사용자 프로필
-                    Circle()
-                        .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-                        .frame(width: 96, height: 96)
-                        .shadow(color: Color("gray"), radius: 3)
+                    AsyncImage(url: URL(string: viewModel.author.profileImgDownloadUrl)) { phash in
+                        if let image = phash.image {
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .clipShape(Circle())
+                                .frame(width: 96, height: 96)
+                                .shadow(color: Color("gray"), radius: 3)
+                        }
+                        else if phash.error != nil {
+                            Image(systemName: "exclamationmark.icloud.fill")
+                                .resizable()
+                                .foregroundColor(Color("gray"))
+                                .frame(width: 96, height: 96)
+                        }
+                        else {
+                            Circle()
+                                .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                .frame(width: 96, height: 96)
+                                .shadow(color: Color("gray"), radius: 3)
+                        }
+                    }
                     
                     
                     HStack{

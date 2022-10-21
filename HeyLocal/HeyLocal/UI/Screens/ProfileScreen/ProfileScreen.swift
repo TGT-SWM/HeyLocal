@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ProfileScreen: View {
-    @State var navLinkActive: Bool = false
+    @Environment(\.displayTabBar) var displayTabBar
     @State private var selectedTab: Int = 0
     let tabs: [String] = ["내가 쓴 여행 On", "내 답변"]
     
@@ -35,6 +35,9 @@ struct ProfileScreen: View {
                     }
                 }
                 .ignoresSafeArea()
+            }
+            .onAppear {
+                displayTabBar(true)
             }
             .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
@@ -68,10 +71,10 @@ struct UserOpinion: View {
         ScrollView {
             VStack {
                 ForEach(viewModel.opinions) { opinion in
-//                    NavigationLink(destination: OpinionDetailScreen(travelOnId: opinion., opinionId: opinion.id)) {
+                    NavigationLink(destination: OpinionDetailScreen(travelOnId: opinion.travelOnId!, opinionId: opinion.id)) {
                         OpinionComponent(opinion: opinion)
                             .padding(EdgeInsets(top: 4, leading: 0, bottom: 6, trailing: 10))
-//                    }
+                    }
                 }
             }
         }
