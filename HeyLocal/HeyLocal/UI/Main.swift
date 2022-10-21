@@ -89,7 +89,7 @@ extension TabBar {
 				.tag(Tab.myPlan)
             HomeScreen()
 				.tag(Tab.message)
-			MyProfileScreen()
+            ProfileScreen()
 				.tag(Tab.myInfo)
 		}
 		.padding(.bottom, _displayTabBar ? tabBarHeight : 0)

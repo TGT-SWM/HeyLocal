@@ -28,13 +28,13 @@ struct TopTabs: View {
                                 VStack(spacing: 0) {
                                     HStack {
                                         Text(tabs[row])
-                                            .font(Font.system(size: 18, weight: .semibold))
+                                            .font(Font.system(size: 14, weight: .semibold))
                                             .foregroundColor(Color.black)
                                             .padding(EdgeInsets(top: 10, leading: 3, bottom: 10, trailing: 15))
                                     }
                                     .frame(width: fixed ? (geoWidth / CGFloat(tabs.count)) : .none, height: 52)
                                     
-                                    Rectangle().fill(selectedTab == row ? Color.black : Color.clear)
+                                    Rectangle().fill(selectedTab == row ? Color("orange") : Color("lightGray"))
                                         .frame(height: 3)
                                 }.fixedSize()
                             })
