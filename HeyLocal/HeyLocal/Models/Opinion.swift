@@ -57,10 +57,6 @@ struct Opinion: Codable, Identifiable {
     
     // MARK: - POST용 데이터
     var quantity: Quantity? = Quantity()
-    var cleanArray: [Bool]? = [false, false, false, false, false]
-    var costArray: [Bool]? = [false, false, false, false, false]
-    var parkingArray: [Bool]? = [false, false, false, false, false]
-    var waitingArray: [Bool]? = [false, false, false, false, false]
 }
 struct Quantity: Codable {
     var drinkAndDessertImgQuantity: Int = 0

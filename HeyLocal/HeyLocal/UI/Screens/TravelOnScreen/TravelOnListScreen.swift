@@ -52,9 +52,14 @@ struct TravelOnListScreen: View {
                     .buttonStyle(WriteButtonStyle())
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 10))
                 }
+                
+                NavigationLink(destination: EmptyView()) {
+                    EmptyView()
+                }
             }
             .navigationBarTitle("", displayMode: .automatic)
             .navigationBarHidden(true)
+            .navigationViewStyle(StackNavigationViewStyle())
             .onAppear {
                 viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 15, regionId: regionId, sortBy: sortBy.rawValue, withOpinions: withOpinions)
                 displayTabBar(true)
