@@ -28,7 +28,7 @@ struct TopTabs: View {
                                 VStack(spacing: 0) {
                                     HStack {
                                         Text(tabs[row])
-                                            .font(Font.system(size: 18, weight: .semibold))
+                                            .font(Font.system(size: 14, weight: .semibold))
                                             .foregroundColor(Color.black)
                                             .padding(EdgeInsets(top: 10, leading: 3, bottom: 10, trailing: 15))
                                     }

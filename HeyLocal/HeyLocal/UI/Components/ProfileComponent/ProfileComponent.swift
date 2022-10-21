@@ -123,7 +123,6 @@ struct ProfileComponent: View {
                 }
             }
         }
-        .padding()
     }
 }
 
