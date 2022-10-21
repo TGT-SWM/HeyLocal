@@ -20,12 +20,21 @@ struct MyProfileScreen: View {
     
     @State var nickname: String = "김현지"
     @State var user: User = User(nickname: "김현지", imageUrl: "", knowHow: 10, ranking: 3)
-    
+    @State var author: Author = Author(userId: 0,
+                                       nickname: "",
+                                       activityRegion: Region(id: 259, state: "부산광역시"),
+                                       introduce: "",
+                                       profileImgDownloadUrl: "",
+                                       knowHow: 500,
+                                       ranking: 0,
+                                       acceptedOpinionCount: 0,
+                                       totalOpinionCount: 0)
+//    @State
     var body: some View {
         NavigationView {
             VStack {
                 ZStack {
-                    ProfileComponent(user: user)
+                    ProfileComponent(author: author)
                     
                     VStack (spacing: 30) {
                         NavigationLink(destination: SettingScreen(), label: {
@@ -69,6 +78,8 @@ struct MyProfileScreen: View {
         }
 
     }
+    
+    
 }
 
 struct MyProfileScreen_Previews: PreviewProvider {
