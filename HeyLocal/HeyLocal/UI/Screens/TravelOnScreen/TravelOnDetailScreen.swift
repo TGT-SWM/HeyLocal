@@ -12,48 +12,10 @@ import SwiftUI
 struct TravelOnDetailScreen: View {
     @State var travelOnId: Int
     @StateObject var viewModel = TravelOnListScreen.ViewModel()
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Environment(\.displayTabBar) var displayTabBar
     
     @State var showingSheet = false
     @State var showingAlert = false
-    
-    // custom Back button
-    var btnBack : some View { Button(action: {
-        self.presentationMode.wrappedValue.dismiss()
-        }) {
-            Image(systemName: "chevron.left")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 10)
-                .foregroundColor(.black)
-        }
-    }
-    
-    // Navigation Bar Item : 수정·삭제 ActionSheet 보기
-    var moreBtn: some View {
-        Button(action: {
-            showingSheet.toggle()
-        }) {
-            Image(systemName: "ellipsis")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 14)
-                .foregroundColor(.black)
-                .rotationEffect(.degrees(-90))
-        }
-        .confirmationDialog("", isPresented: $showingSheet, titleVisibility: .hidden) { //actionsheet
-            Button("게시글 수정") {
-                navigationLinkActive.toggle()
-            }
-            Button("삭제", role: .destructive) {
-                showingAlert.toggle()
-            }
-            Button("취소", role: .cancel) {
-            }
-        }
-    }
-    
     @State var navigationLinkActive = false
     @State var images: [UIImage] = [UIImage]()
     @State var showingPhotoSheet = false
@@ -65,63 +27,58 @@ struct TravelOnDetailScreen: View {
             }
             
             ScrollView {
-                NavigationLink(destination: EmptyView()) {
-                    EmptyView()
-                }
-                
-                
                 // MARK: - 이미지 연습 ...
-//                HStack {
-//                    Button(action: {
-//                        if images.count < 3 {
-//                            showingPhotoSheet.toggle()
-//                        }
-//                    }) {
-//                        ZStack(alignment: .center) {
-//                            Rectangle()
-//                                .fill(Color.white)
-//                                .frame(width: 100, height: 100)
-//                                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
-//                                .cornerRadius(10)
-//                            
-//                            
-//                            VStack(alignment: .center) {
-//                                Image(systemName: "camera")
-//                                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-//                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 3, trailing: 0))
-//                                
-//                                Text("\(images.count) / 3")
-//                                    .font(.system(size: 12))
-//                                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-//                            }
-//                        }
-//                    }
-//                    .sheet(isPresented: $showingPhotoSheet, content: {
-//                        ImagePicker(isPresent: $showingPhotoSheet, images: $images)
-//                    })
-//                    
-//                    ForEach(images, id:\.self) { img in
-//                        ZStack(alignment: .topTrailing) {
-//                            Image(uiImage: img)
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fill)
-//                                .frame(width: 100, height: 100)
-//                                .cornerRadius(10)
-//                            
-//                            // 이미지 삭제버튼
-//                            Button(action: {
-//                                if let index = images.firstIndex(of: img) {
-//                                    images.remove(at: index)
-//                                }
-//                            }) {
-//                                Image(systemName: "multiply")
-//                                    .resizable()
-//                                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-//                                    .frame(width: 10, height: 10)
-//                            }
-//                        }
-//                    }
-//                }
+                HStack {
+                    Button(action: {
+                        if images.count < 3 {
+                            showingPhotoSheet.toggle()
+                        }
+                    }) {
+                        ZStack(alignment: .center) {
+                            Rectangle()
+                                .fill(Color.white)
+                                .frame(width: 100, height: 100)
+                                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
+                                .cornerRadius(10)
+                            
+                            
+                            VStack(alignment: .center) {
+                                Image(systemName: "camera")
+                                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 3, trailing: 0))
+                                
+                                Text("\(images.count) / 3")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                            }
+                        }
+                    }
+                    .sheet(isPresented: $showingPhotoSheet, content: {
+                        ImagePicker(isPresent: $showingPhotoSheet, images: $images)
+                    })
+                    
+                    ForEach(images, id:\.self) { img in
+                        ZStack(alignment: .topTrailing) {
+                            Image(uiImage: img)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 100, height: 100)
+                                .cornerRadius(10)
+                            
+                            // 이미지 삭제버튼
+                            Button(action: {
+                                if let index = images.firstIndex(of: img) {
+                                    images.remove(at: index)
+                                }
+                            }) {
+                                Image(systemName: "multiply")
+                                    .resizable()
+                                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                                    .frame(width: 10, height: 10)
+                            }
+                        }
+                    }
+                }
 
                 content
                 
@@ -146,7 +103,8 @@ struct TravelOnDetailScreen: View {
         .navigationTitle("여행On")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: btnBack, trailing: moreBtn)
+        .navigationBarItems(leading: BackButton { displayTabBar(true) },
+                            trailing: MoreButton(showingSheet: $showingSheet, showingAlert: $showingAlert, navigationLinkActive: $navigationLinkActive))
     }
     
     var content: some View {
@@ -387,6 +345,7 @@ struct TravelOnDetailScreen: View {
     }
     
     // 답변
+    @State var goToOpinionWrite: Bool = false
     var opinions: some View {
         VStack(alignment: .leading) {
             Group {
@@ -397,7 +356,10 @@ struct TravelOnDetailScreen: View {
                     
                     Spacer()
                     
-                    NavigationLink(destination: OpinionWriteScreen(travelOnId: travelOnId)) {
+                    Button(action: {
+                        goToOpinionWrite.toggle()
+                        print(goToOpinionWrite.description)
+                    }) {
                         HStack {
                             Image(systemName: "plus")
                             Spacer()
@@ -407,6 +369,23 @@ struct TravelOnDetailScreen: View {
                         .font(.system(size: 12))
                         .foregroundColor(Color(red: 255/255, green: 153/255, blue: 0/255))
                     }
+                    
+                    NavigationLink(destination: OpinionWriteScreen(travelOnId: travelOnId), isActive: $goToOpinionWrite) {
+                        EmptyView()
+                    }
+                    
+                    
+//                    NavigationLink(destination: OpinionWriteScreen(travelOnId: travelOnId), isActive: $goToOpinionWrite) {
+//                        HStack {
+//                            Image(systemName: "plus")
+//                            Spacer()
+//                                .frame(width: 5)
+//                            Text("나도 추천하기")
+//                        }
+//                        .font(.system(size: 12))
+//                        .foregroundColor(Color(red: 255/255, green: 153/255, blue: 0/255))
+//                    }
+//
                     
                 }
                 

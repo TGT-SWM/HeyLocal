@@ -66,5 +66,55 @@ struct UserRepository {
     }
     
     /// 사용자 프로필 수정
-    
+    func updateUserProfile(userId: Int, userData: AuthorUpdate) {
+        let encoder = JSONEncoder()
+        let jsonData = try? encoder.encode(userData)
+        var jsonStr: String = ""
+        
+        if let jsonData = jsonData, let jsonString = String(data: jsonData, encoding: .utf8) {
+            jsonStr = jsonString
+        }
+        
+        let urlString = "\(userUrl)/\(userId)/profile"
+        let url = URL(string: urlString)!
+        var request = URLRequest(url: url)
+        
+        request.httpMethod = "PUT"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+        
+        request.httpBody = jsonData
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, let httpResponse = response as? HTTPURLResponse, error == nil else {
+                print(error?.localizedDescription ?? "NO Data")
+                return
+            }
+            
+            if httpResponse.statusCode == 200 {
+                self.getUser(userId: userId)
+                
+                let resultCode = (response as? HTTPURLResponse)?.statusCode ?? 0
+                let resultLen = data
+                let resultString = String(data: resultLen, encoding: .utf8) ?? ""
+                
+                let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary
+                print(jsonObject)
+                
+                
+                print("====================================")
+                print("[requestPOST : http post 요청 성공]")
+                print("resultCode : ", resultCode)
+                print("resultLen : ", resultLen)
+                print("resultString : ", resultString)
+                print("====================================")
+            } else {
+                print("\(httpResponse.statusCode)")
+                print(error?.localizedDescription)
+                return
+            }
+        }
+        task.resume()
+    }
 }

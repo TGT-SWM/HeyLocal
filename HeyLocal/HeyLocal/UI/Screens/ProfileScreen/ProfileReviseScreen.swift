@@ -10,12 +10,19 @@ import SwiftUI
 
 struct ProfileReviseScreen: View {
     @StateObject var viewModel = ProfileScreen.ViewModel()
+    @StateObject var regionViewModel = RegionPickerScreen.ViewModel()
     
-    @State var regionId: Int? = 0
+    @Environment(\.displayTabBar) var displayTabBar
+    @Environment(\.dismiss) private var dismiss
+    
     @State var showPhotoPicker:Bool = false
+    @State var userImage: [UIImage] = []
+    @State var regionId: Int? = nil
+    @State var updateData: AuthorUpdate = AuthorUpdate(activityRegionId: 0,
+                                                       introduce: "",
+                                                       nickname: "")
     var body: some View {
         VStack {
-            
             profile
             
             Spacer()
@@ -27,7 +34,23 @@ struct ProfileReviseScreen: View {
                 .frame(height: 40)
             
             // MARK: - 편집 완료 버튼
-            Button(action: {}) {
+            Button(action: {
+                print("NICKNAME : \(viewModel.authorUpdate.nickname)")
+                print("REGION : \(regionId!)")
+                print("INTRODUCE : \(viewModel.authorUpdate.introduce)")
+                
+                
+                updateData.nickname = viewModel.authorUpdate.nickname
+                if regionId == nil {
+                    updateData.activityRegionId = viewModel.authorUpdate.activityRegionId!
+                } else {
+                    updateData.activityRegionId = regionId!
+                }
+                updateData.introduce = viewModel.authorUpdate.introduce
+                
+                viewModel.updateUserProfile(userId: 2, userData: updateData)
+                dismiss()
+            }) {
                 ZStack {
                     Rectangle()
                         .fill(Color("orange"))
@@ -40,15 +63,15 @@ struct ProfileReviseScreen: View {
                         .foregroundColor(Color.white)
                 }
             }
-            
         }
         .onAppear {
             viewModel.getUserProfile(userId: 2)
+            displayTabBar(false)
         }
         .navigationTitle("프로필 편집")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: BackButton())
+        .navigationBarItems(leading: BackButton { displayTabBar(true) })
     }
     
     // MARK: - 프로필 사진
@@ -57,35 +80,44 @@ struct ProfileReviseScreen: View {
             Spacer()
             
             VStack {
-                
-                AsyncImage(url: URL(string: viewModel.author.profileImgDownloadUrl)) { phash in
-                    if let image = phash.image {
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .clipShape(Circle())
-                            .frame(width: 96, height: 96)
-                            .shadow(color: Color("gray"), radius: 3)
-                    }
-                    else if phash.error != nil {
-                        Image(systemName: "exclamationmark.icloud.fill")
-                            .resizable()
-                            .foregroundColor(Color("gray"))
-                            .frame(width: 96, height: 96)
-                    }
-                    else {
-                        ZStack {
-                            Circle()
-                                .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                if userImage.count == 0 {
+                    AsyncImage(url: URL(string: viewModel.author.profileImgDownloadUrl)) { phash in
+                        if let image = phash.image {
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .clipShape(Circle())
                                 .frame(width: 96, height: 96)
                                 .shadow(color: Color("gray"), radius: 3)
-                            
-                            Image(systemName: "person.fill")
+                        }
+                        else if phash.error != nil {
+                            Image(systemName: "exclamationmark.icloud.fill")
                                 .resizable()
-                                .frame(width: 40, height: 40)
                                 .foregroundColor(Color("gray"))
+                                .frame(width: 96, height: 96)
+                        }
+                        else {
+                            ZStack {
+                                Circle()
+                                    .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                    .frame(width: 96, height: 96)
+                                    .shadow(color: Color("gray"), radius: 3)
+                                
+                                Image(systemName: "person.fill")
+                                    .resizable()
+                                    .frame(width: 40, height: 40)
+                                    .foregroundColor(Color("gray"))
+                            }
                         }
                     }
+                }
+                else {
+                    Image(uiImage: userImage[0])
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .clipShape(Circle())
+                        .frame(width: 96, height: 96)
+                        .shadow(color: Color("gray"), radius: 3)
                 }
                 
                 
@@ -95,13 +127,22 @@ struct ProfileReviseScreen: View {
                 
                 Button(action: {
                     showPhotoPicker.toggle()
+                    
+//                    if userImage.count == 1 {
+//                        userImage.removeAll()
+//                    }
                 }) {
                     Text("프로필 사진 바꾸기")
                         .font(.system(size: 12))
                         .underline()
                         .foregroundColor(Color("orange"))
                 }
+                .sheet(isPresented: $showPhotoPicker, content: {
+                    ImagePicker(isPresent: $showPhotoPicker, images: $userImage, limit: 1)
+                    
+                })
             }
+            
             
             Spacer()
         }
@@ -119,7 +160,7 @@ struct ProfileReviseScreen: View {
                     Spacer()
                         .frame(height: 3)
                     
-                    TextField(" 2-10자 이내로 입력해주세요", text: $viewModel.author.nickname)
+                    TextField(" 2-10자 이내로 입력해주세요", text: $viewModel.authorUpdate.nickname)
                         .font(.system(size: 12))
                         .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                         .frame(width: 350, height: 44)
@@ -150,12 +191,7 @@ struct ProfileReviseScreen: View {
                                 .cornerRadius(10)
                             
                             HStack {
-                                if $viewModel.author.activityRegion.id == 0 {
-                                    Text(" 장소 검색")
-                                }
-                                else {
-                                    Text("\(viewModel.author.activityRegion.id)")
-                                }
+                                Text("\(regionViewModel.regionName)")
                                 
                                 Spacer()
                                                                 
@@ -164,6 +200,14 @@ struct ProfileReviseScreen: View {
                                     .padding()
                             }
                             .font(.system(size: 12))
+                            .onAppear {
+                                if regionId == nil {
+                                    regionViewModel.getRegion(regionId: viewModel.authorUpdate.activityRegionId!)
+                                }
+                                else {
+                                    regionViewModel.getRegion(regionId: regionId!)
+                                }
+                            }
                         }
                         .foregroundColor(Color("gray"))
                         .frame(width: 350)
@@ -184,7 +228,7 @@ struct ProfileReviseScreen: View {
                     Spacer()
                         .frame(height: 3)
                     
-                    TextField(" 2-10자 이내로 입력해주세요", text: $viewModel.author.introduce)
+                    TextField(" 2-10자 이내로 입력해주세요", text: $viewModel.authorUpdate.introduce)
                         .font(.system(size: 12))
                         .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                         .frame(width: 350, height: 44)

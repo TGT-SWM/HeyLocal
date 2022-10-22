@@ -283,9 +283,9 @@ struct OpinionWriteScreen: View {
                 HStack {
                     // 이미지 추가 버튼
                     Button(action: {
-//                        if generalImages.count < 3 {
-//                            showGeneralImagePicker.toggle()
-//                        }
+                        if generalImages.count < 3 {
+                            showGeneralImagePicker.toggle()
+                        }
                     }) {
                         ZStack(alignment: .center) {
                             Rectangle()
@@ -307,8 +307,8 @@ struct OpinionWriteScreen: View {
                         }
                     }
                     .sheet(isPresented: $showGeneralImagePicker, content: {
-                        ImagePicker(isPresent: $showGeneralImagePicker, images: $generalImages)
-//                        TopicsExperienceCards(isPresented: $showGeneralImagePicker)
+//                        ImagePicker(isPresent: $showGeneralImagePicker, images: $generalImages)
+                        TopicsExperienceCards(isPresented: $showGeneralImagePicker)
                     })
                     
                     // 이미지 View

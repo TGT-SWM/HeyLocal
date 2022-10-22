@@ -9,15 +9,27 @@ import SwiftUI
 
 struct OpinionListScreen: View {
     @StateObject var viewModel = OpinionComponent.ViewModel()
+    @State var destination: String? = ""
     var travelOnId: Int
     var body: some View {
         VStack(alignment: .leading) {
             ForEach(viewModel.opinions) { opinion in
                 ZStack(alignment: .bottomTrailing) {
-                    NavigationLink(destination: OpinionDetailScreen(travelOnId: travelOnId, opinionId: opinion.id)) {
+//                    NavigationLink(destination: OpinionDetailScreen(travelOnId: travelOnId, opinionId: opinion.id)) {
+//                        OpinionComponent(opinion: opinion)
+//                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 30))
+//                    }
+                    
+                    Button(action: {
+                        destination = "\(opinion.id)"
+                    }) {
                         OpinionComponent(opinion: opinion)
                             .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 30))
                     }
+                    NavigationLink(destination: OpinionDetailScreen(travelOnId: travelOnId, opinionId: opinion.id), tag: "\(opinion.id)", selection: $destination) {
+                        EmptyView()
+                    }
+                    
                     
                     Button(action: {}) {
                         ZStack {

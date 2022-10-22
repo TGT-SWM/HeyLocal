@@ -19,3 +19,8 @@ struct Author: Codable {
     var acceptedOpinionCount: Int? = 0
     var totalOpinionCount: Int? = 0
 }
+struct AuthorUpdate: Codable {
+    var activityRegionId: Int? = 0
+    var introduce: String = ""
+    var nickname: String = ""
+}

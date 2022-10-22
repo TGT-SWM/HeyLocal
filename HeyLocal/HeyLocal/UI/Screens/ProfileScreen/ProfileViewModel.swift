@@ -16,8 +16,10 @@ extension ProfileScreen {
         private var userService = UserService()
         
         @Published var author: Author = Author()
+        @Published var authorUpdate: AuthorUpdate = AuthorUpdate()
         @Published var travelOns: [TravelOn] = [TravelOn]()
         @Published var opinions: [Opinion] = [Opinion]()
+        
         
         // 페이징
         let size = 15
@@ -29,17 +31,19 @@ extension ProfileScreen {
         
         var cancellable: AnyCancellable?
         
-        // 사용자 프로필 정보 가져오기
+        /// 사용자 프로필 정보 가져오기
         func getUserProfile(userId: Int) {
             cancellable = userService.loadUserInfo(userId: userId)
                 .sink(receiveCompletion: {_ in
                 }, receiveValue: { author in
-                    print("USER ID IS !!!!!", userId)
                     self.author = author
+                    self.authorUpdate.nickname = self.author.nickname
+                    self.authorUpdate.activityRegionId = self.author.activityRegion.id
+                    self.authorUpdate.introduce = self.author.introduce
                 })
         }
         
-        // 작성한 Travel On 목록
+        /// 작성한 Travel On 목록
         func fetchTravelOns() {
             userService.loadTravelOnsByUser(
                 userId: 2,
@@ -60,7 +64,7 @@ extension ProfileScreen {
         }
         
         
-        // 작성한 답변 목록
+        /// 작성한 답변 목록
         func fetchOpinions() {
             userService.loadOpinionsByUser(
                 userId: 2,
@@ -72,6 +76,11 @@ extension ProfileScreen {
                 isEnd: Binding(get: { self.opinionIsEnd },
                                set: { self.opinionIsEnd = $0 })
             )
+        }
+        
+        /// 프로필 수정
+        func updateUserProfile(userId: Int, userData: AuthorUpdate) {
+            userService.updateUserInfo(userId: userId, userData: userData)
         }
     }
 }

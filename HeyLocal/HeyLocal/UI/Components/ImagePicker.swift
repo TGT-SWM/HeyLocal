@@ -13,6 +13,7 @@ import UIKit
 struct ImagePicker: UIViewControllerRepresentable {
     @Binding var isPresent: Bool
     @Binding var images: [UIImage]
+    var limit: Int?
     
     func makeCoordinator() -> Coordinator {
         return ImagePicker.Coordinator(picker: self)
@@ -21,7 +22,12 @@ struct ImagePicker: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> some UIViewController {
         var config = PHPickerConfiguration()
         // 고를 수 있는 사진의 최대 갯수 3개 (기존 포함)
-        config.selectionLimit = 3 - self.images.count
+        if limit == nil {
+            config.selectionLimit = 3 - self.images.count
+        }
+        else {
+            config.selectionLimit = self.limit!
+        }
         
         // filter 무엇을 가져올 것인지 (이미지만, 비디오만 등등)
         config.filter = .images
