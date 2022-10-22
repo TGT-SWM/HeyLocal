@@ -81,7 +81,7 @@ extension TabBar {
 extension TabBar {
 	var baseTabBar: some View {
 		TabView(selection: $selection) {
-			HomeScreen()
+			SignUpScreen()
 				.tag(Tab.home)
 			TravelOnListScreen()
 				.tag(Tab.travelOn)

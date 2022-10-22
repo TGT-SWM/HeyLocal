@@ -8,150 +8,124 @@
 
 import SwiftUI
 
+// MARK: - SignUpScreen (회원가입 화면)
+
 struct SignUpScreen: View {
-    @State private var user_id: String = ""
-    @State private var user_pwd: String = ""
-    @State private var user_nickname: String = ""
-    
-    var body: some View {
-        VStack {
-            // Title
-            Text("회원가입")
-                .font(.title)
-                .fontWeight(.bold)
-            
-            // ID · PWD · NickName
-            Group {
-                VStack {
-                    
-                    VStack {
-                        Text("아이디")
-                            .fontWeight(.bold)
-                            .frame(maxWidth: ScreenSize.width * 0.9, alignment: .leading)
-                            
-                        
-                        Spacer()
-                            .frame(height: 3)
-                        
-                        HStack{
-                            TextField("", text: $user_id)
-                                .frame(width: ScreenSize.width * 0.6, height: ScreenSize.height * 0.05)
-                                .background(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-                            
-                            Spacer()
-                                .frame(width: 10)
-                            
-                            Button(action: {
-                                
-                            }, label: {
-                                Text("중복확인")
-                            })
-                            .buttonStyle(BasicButtonStyle())
-                        }
-                        .frame(maxWidth: ScreenSize.width * 0.9, alignment: .leading)
-                    }
-                    
-                    // PASSWORD
-                    VStack{
-                        Text("비밀번호")
-                            .font(.system(size: 15))
-                            .fontWeight(.bold)
-                            .frame(maxWidth: ScreenSize.width * 0.9, alignment: .leading)
-                        
-                        Spacer()
-                            .frame(height: 3)
-                        
-                        HStack{
-                            SecureField("", text: $user_pwd)
-                                .frame(width: ScreenSize.width * 0.9, height: ScreenSize.height * 0.05)
-                                .background(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-                        }
-                        .frame(maxWidth: ScreenSize.width * 0.9, alignment: .leading)
-                    }
-                    
-                    // NICK NAME
-                    VStack{
-                        Text("닉네임")
-                            .fontWeight(.bold)
-                            .frame(maxWidth: ScreenSize.width * 0.9, alignment: .leading)
-                        
-                        Spacer()
-                            .frame(height: 3)
-                        
-                        HStack{
-                            TextField("", text: $user_nickname)
-                                .frame(width: ScreenSize.width * 0.9, height: ScreenSize.height * 0.05)
-                                .background(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-                        }
-                    }
-                    
-                    Spacer()
-                        .frame(height: 30)
-                    
-                    Button(action: {
-                        
-                    }, label: {
-                        Text("회원가입")
-                    })
-                    .buttonStyle(BasicButtonStyle())
-                    
-                    Spacer()
-                        .frame(height: 20)
-                }
-            }
-            content
-        } // end of VStack
-    }
-    
-    var content: some View {
-        VStack {
-            Divider()
-            Spacer()
-                .frame(height: 15)
-            
-            VStack (alignment: .leading){
-                Text ("SNS 아이디를 이용해서 현지야 회원으로 가입합니다.")
-                    .font(.system(size:14))
-                
-                Spacer()
-                    .frame(height: 5)
-                
-                Text ("SNS 계정 회원가입")
-                    .fontWeight(.bold)
-            }
-            .frame(width: 350)
-            
-            Spacer()
-                .frame(height: 20)
-            
-            VStack {
-                // KAKAO
-                Button(action: {
-                }, label: {
-                    HStack{
-                        Image("kakao_logo")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 60)
-                        Text("계정으로 회원가입")
-                    }
-                }).buttonStyle(SNSButtonStyle())
-                
-                // APPle
-                Button(action: {
-                }, label: {
-                    HStack{
-                        Image("apple_logo")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 60)
-                        Text("계정으로 회원가입")
-                    }
-                }).buttonStyle(SNSButtonStyle())
-            }
-        }
-    }
+	@Environment(\.displayTabBar) var displayTabBar
+	@ObservedObject var vm = ViewModel()
+	
+	var body: some View {
+		NavigationView {
+			VStack {
+				form
+				social
+				Spacer()
+			}
+			.navigationTitle("회원가입")
+			.navigationBarTitleDisplayMode(.inline)
+			.navigationBarBackButtonHidden(true)
+			.navigationBarItems(leading: BackButton())
+			.onAppear { displayTabBar(false) }
+			.onDisappear { displayTabBar(false) }
+		}
+	}
+	
+	/// 입력 폼에 대한 뷰입니다.
+	var form: some View {
+		VStack(spacing: 16) {
+			// 닉네임
+			field(name: "닉네임", value: $vm.nickname, placeholder: "2-10자 이내로 입력해주세요", secured: false)
+				.padding(.horizontal, 20)
+			
+			// 아이디
+			idField
+			
+			// 비밀번호
+			field(name: "비밀번호", value: $vm.password, placeholder: "10-20자 이내로 입력해주세요", secured: true)
+				.padding(.horizontal, 20)
+			
+			// 비밀번호 확인
+			field(name: "비밀번호 확인", value: $vm.rePassword, placeholder: "10-20자 이내로 입력해주세요", secured: true)
+				.padding(.horizontal, 20)
+			
+			// 회원가입 버튼
+			submitButton
+		}
+		.padding(.top, 42)
+	}
+	
+	/// 아이디 입력 필드에 대한 뷰입니다.
+	var idField: some View {
+		HStack(alignment: .bottom) {
+			field(name: "아이디", value: $vm.id, placeholder: "영문, 숫자  15자 이내", secured: false)
+			Button {
+			} label: {
+				Text("중복확인")
+					.font(.system(size: 14))
+					.fontWeight(.medium)
+					.foregroundColor(.white)
+			}
+			.frame(width: 80, height: 44)
+			.background(
+				RoundedRectangle(cornerRadius: 10)
+					.fill(Color("orange"))
+			)
+		}
+		.padding(.horizontal, 20)
+	}
+	
+	/// 회원가입 버튼 뷰입니다.
+	var submitButton: some View {
+		Button {
+		} label: {
+			ZStack {
+				RoundedRectangle(cornerRadius: 22)
+					.fill(Color("orange"))
+					.frame(height: 44)
+				Text("회원가입")
+					.foregroundColor(.white)
+					.font(.system(size: 14))
+					.fontWeight(.medium)
+			}
+		}
+		.padding(.horizontal, 20)
+		.padding(.top, 16)
+	}
+	
+	/// 소셜 로그인에 대한 뷰입니다.
+	var social: some View {
+		EmptyView()
+	}
+	
+	/// 입력 필드에 대한 뷰를 반환합니다.
+	func field(name: String, value: Binding<String>, placeholder: String, secured: Bool) -> some View {
+		VStack(alignment: .leading, spacing: 4) {
+			Text(name)
+				.font(.system(size: 14))
+				.fontWeight(.medium)
+			
+			ZStack {
+				RoundedRectangle(cornerRadius: 10)
+					.stroke(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), lineWidth: 1)
+					.background(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
+				
+				if secured {
+					SecureField(placeholder, text: value)
+						.font(.system(size: 12))
+						.padding(.horizontal, 12)
+				} else {
+					TextField(placeholder, text: value)
+						.font(.system(size: 12))
+						.padding(.horizontal, 12)
+				}
+			}
+			.frame(height: 44)
+		}
+	}
 }
+
+
+// MARK: - Previews
 
 struct SignUpScreen_Previews: PreviewProvider {
     static var previews: some View {
