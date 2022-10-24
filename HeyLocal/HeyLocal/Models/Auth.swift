@@ -8,6 +8,10 @@
 
 import Foundation
 
+struct CheckDuplicateIdResponse: Decodable {
+	var alreadyExist: Bool
+}
+
 /// 사용자의 로그인 정보
 struct SignInInfo: Decodable {
 	var id: Int

@@ -8,9 +8,24 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
-struct AuthService {
+class AuthService {
 	private let authRepository = AuthRepository()
+	
+	var cancelBag: Set<AnyCancellable> = []
+	
+	/// 아이디의 중복 여부를 체크합니다.
+	func checkDuplicateId(accountId: String, onReceive: @escaping (Bool) -> Void) {
+		authRepository.checkDuplicateId(accountId: accountId)
+			.sink(
+				receiveCompletion: { _ in },
+				receiveValue: {
+					onReceive($0.alreadyExist)
+				}
+			)
+			.store(in: &cancelBag)
+	}
 	
 	func signIn(accountId: String, password: String) -> AnyPublisher<SignInInfo, Error> {
 		return authRepository.signIn(accountId: accountId, password: password)

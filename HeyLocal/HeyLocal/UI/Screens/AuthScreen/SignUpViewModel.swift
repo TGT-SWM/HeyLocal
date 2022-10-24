@@ -11,10 +11,17 @@ import Foundation
 
 extension SignUpScreen {
 	class ViewModel: ObservableObject {
+		// 의존성
+		let authService = AuthService()
+		
+		// 상태 (입력 폼)
 		@Published var nickname = ""
 		@Published var id = ""
 		@Published var password = ""
 		@Published var rePassword = ""
+		
+		// 상태 (UI)
+		@Published var isDuplicateId: Bool?
 	}
 }
 
@@ -23,7 +30,9 @@ extension SignUpScreen {
 extension SignUpScreen.ViewModel {
 	/// 아이디의 중복 체크를 수행합니다.
 	func confirmDuplicateId() {
-		
+		authService.checkDuplicateId(accountId: id) { isDuplicateId in
+			self.isDuplicateId = isDuplicateId
+		}
 	}
 }
 

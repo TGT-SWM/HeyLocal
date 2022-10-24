@@ -79,20 +79,33 @@ struct SignUpScreen: View {
 	
 	/// 아이디 입력 필드에 대한 뷰입니다.
 	var idField: some View {
-		HStack(alignment: .bottom) {
-			field(name: "아이디", value: $vm.id, placeholder: "영문, 숫자  15자 이내", secured: false)
-			Button {
-			} label: {
-				Text("중복확인")
-					.font(.system(size: 14))
-					.fontWeight(.medium)
-					.foregroundColor(.white)
+		VStack(alignment: .leading) {
+			HStack(alignment: .bottom) {
+				field(name: "아이디", value: $vm.id, placeholder: "영문, 숫자  15자 이내", secured: false)
+					.keyboardType(.asciiCapable)
+					.autocapitalization(.none)
+				Button {
+					vm.confirmDuplicateId()
+				} label: {
+					Text("중복확인")
+						.font(.system(size: 14))
+						.fontWeight(.medium)
+						.foregroundColor(.white)
+				}
+				.frame(width: 80, height: 44)
+				.background(
+					RoundedRectangle(cornerRadius: 10)
+						.fill(Color("orange"))
+				)
 			}
-			.frame(width: 80, height: 44)
-			.background(
-				RoundedRectangle(cornerRadius: 10)
-					.fill(Color("orange"))
-			)
+			
+			if let showMsgForDupId = vm.isDuplicateId {
+				Text(showMsgForDupId
+					 ? "이미 사용 중인 아이디입니다."
+					 : "사용 가능한 아이디입니다."
+				)
+				.font(.system(size: 12))
+			}
 		}
 		.padding(.horizontal, 20)
 	}

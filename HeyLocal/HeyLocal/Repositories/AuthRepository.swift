@@ -12,7 +12,26 @@ import Combine
 struct AuthRepository {
 	private let agent = NetworkAgent()
 	
+	private let signUpURL = "\(Config.apiURL)/signup"
 	private let signInURL = "\(Config.apiURL)/signin"
+	
+	/// 아이디의 중복 여부를 체크합니다.
+	func checkDuplicateId(accountId: String) -> AnyPublisher<CheckDuplicateIdResponse, Error> {
+		// URLRequest
+		let urlString = "\(signUpURL)/accountid?accountId=\(accountId)"
+		let url = URL(string: urlString)!
+		var request = URLRequest(url: url)
+		
+		// HTTP Headers
+		request.httpMethod = "GET"
+		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+		request.addValue("application/json", forHTTPHeaderField: "Accept")
+		
+		print(request)
+		
+		// Return
+		return agent.run(request)
+	}
 	
 	func signIn(accountId: String, password: String) -> AnyPublisher<SignInInfo, Error> {
 		// URLRequest 객체 생성
