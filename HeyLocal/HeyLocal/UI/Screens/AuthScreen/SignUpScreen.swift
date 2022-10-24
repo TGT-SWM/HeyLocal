@@ -33,68 +33,16 @@ struct SignUpScreen: View {
 	/// 입력 폼에 대한 뷰입니다.
 	var form: some View {
 		VStack(spacing: 16) {
-			// 닉네임
-			field(name: "닉네임", value: $vm.nickname, placeholder: "2-10자 이내로 입력해주세요", secured: false)
-				.padding(.horizontal, 20)
-			
-			// 아이디
+			// 입력 필드
+			nicknameField
 			idField
-			
-			// 비밀번호
-			field(name: "비밀번호", value: $vm.password, placeholder: "10-20자 이내로 입력해주세요", secured: true)
-				.padding(.horizontal, 20)
-			
-			// 비밀번호 확인
-			field(name: "비밀번호 확인", value: $vm.rePassword, placeholder: "10-20자 이내로 입력해주세요", secured: true)
-				.padding(.horizontal, 20)
+			passwordField
+			rePasswordField
 			
 			// 회원가입 버튼
 			submitButton
 		}
 		.padding(.top, 42)
-	}
-	
-	/// 아이디 입력 필드에 대한 뷰입니다.
-	var idField: some View {
-		HStack(alignment: .bottom) {
-			field(name: "아이디", value: $vm.id, placeholder: "영문, 숫자  15자 이내", secured: false)
-			Button {
-			} label: {
-				Text("중복확인")
-					.font(.system(size: 14))
-					.fontWeight(.medium)
-					.foregroundColor(.white)
-			}
-			.frame(width: 80, height: 44)
-			.background(
-				RoundedRectangle(cornerRadius: 10)
-					.fill(Color("orange"))
-			)
-		}
-		.padding(.horizontal, 20)
-	}
-	
-	/// 회원가입 버튼 뷰입니다.
-	var submitButton: some View {
-		Button {
-		} label: {
-			ZStack {
-				RoundedRectangle(cornerRadius: 22)
-					.fill(Color("orange"))
-					.frame(height: 44)
-				Text("회원가입")
-					.foregroundColor(.white)
-					.font(.system(size: 14))
-					.fontWeight(.medium)
-			}
-		}
-		.padding(.horizontal, 20)
-		.padding(.top, 16)
-	}
-	
-	/// 소셜 로그인에 대한 뷰입니다.
-	var social: some View {
-		EmptyView()
 	}
 	
 	/// 입력 필드에 대한 뷰를 반환합니다.
@@ -121,6 +69,67 @@ struct SignUpScreen: View {
 			}
 			.frame(height: 44)
 		}
+	}
+	
+	/// 닉네임 입력 필드에 대한 뷰입니다.
+	var nicknameField: some View {
+		field(name: "닉네임", value: $vm.nickname, placeholder: "2-10자 이내로 입력해주세요", secured: false)
+			.padding(.horizontal, 20)
+	}
+	
+	/// 아이디 입력 필드에 대한 뷰입니다.
+	var idField: some View {
+		HStack(alignment: .bottom) {
+			field(name: "아이디", value: $vm.id, placeholder: "영문, 숫자  15자 이내", secured: false)
+			Button {
+			} label: {
+				Text("중복확인")
+					.font(.system(size: 14))
+					.fontWeight(.medium)
+					.foregroundColor(.white)
+			}
+			.frame(width: 80, height: 44)
+			.background(
+				RoundedRectangle(cornerRadius: 10)
+					.fill(Color("orange"))
+			)
+		}
+		.padding(.horizontal, 20)
+	}
+	
+	/// 패스워드 입력 필드에 대한 뷰입니다.
+	var passwordField: some View {
+		field(name: "비밀번호", value: $vm.password, placeholder: "10-20자 이내로 입력해주세요", secured: true)
+			.padding(.horizontal, 20)
+	}
+	
+	/// 패스워드 재입력 필드에 대한 뷰입니다.
+	var rePasswordField: some View {
+		field(name: "비밀번호 확인", value: $vm.rePassword, placeholder: "10-20자 이내로 입력해주세요", secured: true)
+			.padding(.horizontal, 20)
+	}
+	
+	/// 회원가입 버튼 뷰입니다.
+	var submitButton: some View {
+		Button {
+		} label: {
+			ZStack {
+				RoundedRectangle(cornerRadius: 22)
+					.fill(Color("orange"))
+					.frame(height: 44)
+				Text("회원가입")
+					.foregroundColor(.white)
+					.font(.system(size: 14))
+					.fontWeight(.medium)
+			}
+		}
+		.padding(.horizontal, 20)
+		.padding(.top, 16)
+	}
+	
+	/// 소셜 로그인에 대한 뷰입니다.
+	var social: some View {
+		EmptyView()
 	}
 }
 
