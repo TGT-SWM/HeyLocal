@@ -71,6 +71,7 @@
 		EF6A3FC828E93A68003F474B /* PlanCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A3FC728E93A68003F474B /* PlanCreateViewModel.swift */; };
 		EF6A3FCA28EB3D9B003F474B /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A3FC928EB3D9B003F474B /* View+Extensions.swift */; };
 		EF6ADB9D2901D9FC00A14D26 /* NcpAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6ADB9C2901D9FC00A14D26 /* NcpAPIService.swift */; };
+		EF6ADBC52903BDFF00A14D26 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6ADBC42903BDFF00A14D26 /* SignUpViewModel.swift */; };
 		EF74BBF328B4D5C200E09450 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF74BBF228B4D5C200E09450 /* HomeScreen.swift */; };
 		EF74BBF928B52CF200E09450 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */; };
 		EF8EB5DD28F8697700F8D9EB /* ScheduleEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8EB5DC28F8697700F8D9EB /* ScheduleEngine.swift */; };
@@ -86,6 +87,7 @@
 		EFAA2ACD28BBD19400B56A3C /* SignInScreenTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA2ACC28BBD19400B56A3C /* SignInScreenTest.swift */; };
 		EFDC441B28C0735400E8747C /* PlanRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFDC441A28C0735400E8747C /* PlanRepository.swift */; };
 		EFDC441D28C073E000E8747C /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFDC441C28C073E000E8747C /* Plan.swift */; };
+		EFF086BE29073ED20090EC93 /* ConfirmModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF086BD29073ED20090EC93 /* ConfirmModal.swift */; };
 		EFF223B028F4A03E00E6781D /* FlatLinkStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF223AF28F4A03E00E6781D /* FlatLinkStyle.swift */; };
 		EFF223B228F4B33F00E6781D /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF223B128F4B33F00E6781D /* BackButton.swift */; };
 		EFF9F39528C5523200E9FCB3 /* map_pinup_custom@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EFF9F37028C5523200E9FCB3 /* map_pinup_custom@3x.png */; };
@@ -193,6 +195,7 @@
 		EF6A3FC728E93A68003F474B /* PlanCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCreateViewModel.swift; sourceTree = "<group>"; };
 		EF6A3FC928EB3D9B003F474B /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		EF6ADB9C2901D9FC00A14D26 /* NcpAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NcpAPIService.swift; sourceTree = "<group>"; };
+		EF6ADBC42903BDFF00A14D26 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		EF74BBF228B4D5C200E09450 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EF89F5DB28C08103001401FE /* Main.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Main.xcconfig; sourceTree = "<group>"; };
@@ -210,6 +213,7 @@
 		EFAA2ACC28BBD19400B56A3C /* SignInScreenTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreenTest.swift; sourceTree = "<group>"; };
 		EFDC441A28C0735400E8747C /* PlanRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanRepository.swift; sourceTree = "<group>"; };
 		EFDC441C28C073E000E8747C /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
+		EFF086BD29073ED20090EC93 /* ConfirmModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmModal.swift; sourceTree = "<group>"; };
 		EFF223AF28F4A03E00E6781D /* FlatLinkStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatLinkStyle.swift; sourceTree = "<group>"; };
 		EFF223B128F4B33F00E6781D /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		EFF9F37028C5523200E9FCB3 /* map_pinup_custom@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_pinup_custom@3x.png"; sourceTree = "<group>"; };
@@ -323,6 +327,7 @@
 			isa = PBXGroup;
 			children = (
 				A8794B2E28B4E93A00959D56 /* SignUpScreen.swift */,
+				EF6ADBC42903BDFF00A14D26 /* SignUpViewModel.swift */,
 				A84E841128B8C28600128D9B /* SignInScreen.swift */,
 				EFAA2ACC28BBD19400B56A3C /* SignInScreenTest.swift */,
 			);
@@ -561,6 +566,7 @@
 				EF4DD9A028E24CAE00E0D072 /* FAB.swift */,
 				EFF223B128F4B33F00E6781D /* BackButton.swift */,
 				A814DF7A28ED5D5500DBF383 /* CustomAlert.swift */,
+				EFF086BD29073ED20090EC93 /* ConfirmModal.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -780,6 +786,7 @@
 				EF6A3FC428E71EE5003F474B /* UserService.swift in Sources */,
 				A80213DB28BF2EA100B6359E /* TravelOnService.swift in Sources */,
 				EF8EB5DD28F8697700F8D9EB /* ScheduleEngine.swift in Sources */,
+				EFF086BE29073ED20090EC93 /* ConfirmModal.swift in Sources */,
 				EF6A3FC228E71A2F003F474B /* UserRepository.swift in Sources */,
 				EF9D28ED28FE2DF000D2971F /* SerialQueue.swift in Sources */,
 				A8AF3DEC28D407E9009B68BE /* RegionComponent.swift in Sources */,
@@ -833,6 +840,7 @@
 				A8B91E5029000F0900B62E70 /* ImagePicker.swift in Sources */,
 				EFDC441D28C073E000E8747C /* Plan.swift in Sources */,
 				EF26CD9528C0FF12006D0D27 /* DateFormat.swift in Sources */,
+				EF6ADBC52903BDFF00A14D26 /* SignUpViewModel.swift in Sources */,
 				A814DF7D28ED60B300DBF383 /* AlertCustomButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
