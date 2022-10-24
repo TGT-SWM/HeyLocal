@@ -27,7 +27,25 @@ struct AuthRepository {
 		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 		request.addValue("application/json", forHTTPHeaderField: "Accept")
 		
-		print(request)
+		// Return
+		return agent.run(request)
+	}
+	
+	/// 회원가입을 요청합니다.
+	func signUp(accountId: String, nickname: String, password: String) -> AnyPublisher<EmptyResponse, Error> {
+		// URLRequest
+		let urlString = "\(signUpURL)"
+		let url = URL(string: urlString)!
+		var request = URLRequest(url: url)
+		
+		// HTTP Headers
+		request.httpMethod = "POST"
+		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+		request.addValue("application/json", forHTTPHeaderField: "Accept")
+		
+		// HTTP Body
+		let body = ["accountId": accountId, "nickname": nickname, "password": password]
+		request.httpBody = try? JSONSerialization.data(withJSONObject: body)
 		
 		// Return
 		return agent.run(request)

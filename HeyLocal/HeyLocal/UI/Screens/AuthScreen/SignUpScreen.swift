@@ -11,15 +11,26 @@ import SwiftUI
 // MARK: - SignUpScreen (회원가입 화면)
 
 struct SignUpScreen: View {
+	@Environment(\.dismiss) var dismiss
 	@Environment(\.displayTabBar) var displayTabBar
 	@ObservedObject var vm = ViewModel()
 	
 	var body: some View {
 		NavigationView {
-			VStack {
-				form
-				social
-				Spacer()
+			ZStack {
+				VStack {
+					form
+					social
+					Spacer()
+				}
+				
+				if vm.showAlert {
+					ConfirmModal(
+						title: "안내",
+						message: vm.alertMsg,
+						showModal: $vm.showAlert
+					)
+				}
 			}
 			.navigationTitle("회원가입")
 			.navigationBarTitleDisplayMode(.inline)
@@ -29,7 +40,11 @@ struct SignUpScreen: View {
 			.onDisappear { displayTabBar(false) }
 		}
 	}
-	
+}
+
+
+// MARK: - 입력 폼
+extension SignUpScreen {
 	/// 입력 폼에 대한 뷰입니다.
 	var form: some View {
 		VStack(spacing: 16) {
@@ -125,6 +140,9 @@ struct SignUpScreen: View {
 	/// 회원가입 버튼 뷰입니다.
 	var submitButton: some View {
 		Button {
+			vm.signUp {
+				dismiss()
+			}
 		} label: {
 			ZStack {
 				RoundedRectangle(cornerRadius: 22)
@@ -139,10 +157,31 @@ struct SignUpScreen: View {
 		.padding(.horizontal, 20)
 		.padding(.top, 16)
 	}
-	
+}
+
+
+// MARK: - 소셜 로그인
+extension SignUpScreen {
 	/// 소셜 로그인에 대한 뷰입니다.
 	var social: some View {
 		EmptyView()
+	}
+}
+
+
+// MARK: - 알림 모달
+
+extension SignUpScreen {
+	var alert: some View {
+		ZStack(alignment: .center) {
+			Color.black.opacity(0.15)
+				.edgesIgnoringSafeArea(.all)
+			
+			RoundedRectangle(cornerRadius: 10)
+				.fill(.white)
+				.shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 1)
+				.shadow(color: .black.opacity(0.3), radius: 6, x: 0, y: 2)
+		}
 	}
 }
 
