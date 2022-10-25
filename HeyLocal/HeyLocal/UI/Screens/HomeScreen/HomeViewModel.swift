@@ -12,16 +12,19 @@ extension HomeScreen {
     class ViewModel: ObservableObject {
         private var userService = UserService()
         private var placeService = PlaceService()
+        private var travelOnService = TravelOnService()
         
         @Published var users: [Author]
         @Published var rankings: [Author]
         @Published var hotplaces: [Place]
+        @Published var travelOns: [TravelOn]
         
         var cancellable: AnyCancellable?
         init() {
             self.users = [Author]()
             self.rankings = [Author]()
             self.hotplaces = [Place]()
+            self.travelOns = [TravelOn]()
         }
         
         // 사용자 랭킹
@@ -43,6 +46,15 @@ extension HomeScreen {
                 .sink(receiveCompletion: { _ in
                 }, receiveValue: { places in
                     self.hotplaces = places
+                })
+        }
+        
+        // 여행On 
+        func getRecentTravelOns() {
+            cancellable = travelOnService.getTravelOnLists(lastItemId: nil, pageSize: 5, regionId: nil, sortBy: "DATE", withOpinions: nil)
+                .sink(receiveCompletion: { _ in
+                }, receiveValue: { travelOns in
+                    self.travelOns = travelOns
                 })
         }
     }
