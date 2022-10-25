@@ -48,13 +48,26 @@ class AuthService {
 			.store(in: &cancelBag)
 	}
 	
-	func signIn(accountId: String, password: String) -> AnyPublisher<SignInInfo, Error> {
-		return authRepository.signIn(accountId: accountId, password: password)
-			.map({ signInInfo in
-				// TODO: KeyChain 저장 로직
-				print(signInInfo) // REMOVE LATER
-				return signInInfo
-			})
-			.eraseToAnyPublisher()
+	/// 로그인을 요청합니다.
+	func signIn(accountId: String, password: String, onComplete: @escaping (String?) -> Void) {
+		authRepository.signIn(accountId: accountId, password: password)
+			.sink(
+				receiveCompletion: { completion in
+					switch completion {
+					case .failure(let error):
+						if let apiError = error as? APIError {
+							onComplete(apiError.description)
+						} else {
+							onComplete("로그인 중 오류가 발생했습니다.")
+						}
+					case .finished:
+						onComplete(nil)
+					}
+				},
+				receiveValue: { resp in
+					// TODO: 디바이스에 저장합니다.
+				}
+			)
+			.store(in: &cancelBag)
 	}
 }
