@@ -14,20 +14,23 @@ struct UserRankingScreen: View {
     private var limit: Int = 3
     var gridItems = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
     var body: some View {
-        LazyVGrid(columns: gridItems) {
-            ForEach(viewModel.users) { user in
-                ProfileComponent(author: user)
-                    .padding()
+        VStack {
+            LazyVGrid(columns: gridItems) {
+                ForEach(viewModel.users) { user in
+                    ProfileComponent(author: user)
+                        .padding()
+                }
             }
+            Spacer()
         }
         .onAppear {
             viewModel.getUserRanking()
-            displayTabBar(true)
+            displayTabBar(false)
         }
         .navigationTitle("노하우 랭킹")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-//        .navigationBarItems(leading: BackButton { displayTabBar(false) })
+        .navigationBarItems(leading: BackButton { displayTabBar(true) })
     }
 }
 

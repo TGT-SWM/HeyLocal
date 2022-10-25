@@ -10,6 +10,16 @@ import SwiftUI
 
 struct HomeScreen: View {
     @StateObject var viewModel = ViewModel()
+    
+    var alarmButton: some View {
+        NavigationLink(destination: EmptyView()) {
+            Image(systemName: "bell")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 24, height: 24)
+                .foregroundColor(Color.black)
+        }
+    }
     var body: some View {
         NavigationView {
             ScrollView {
@@ -83,8 +93,10 @@ struct HomeScreen: View {
                 }
             }
             .navigationBarTitle("", displayMode: .automatic)
-            .navigationBarHidden(true)
+            .navigationBarItems(trailing: alarmButton)
+//            .navigationBarHidden(true)
             .navigationViewStyle(StackNavigationViewStyle())
+            
         }
     }
 }
