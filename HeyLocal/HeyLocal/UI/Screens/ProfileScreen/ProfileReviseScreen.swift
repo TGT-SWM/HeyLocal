@@ -15,7 +15,9 @@ struct ProfileReviseScreen: View {
     @Environment(\.displayTabBar) var displayTabBar
     @Environment(\.dismiss) private var dismiss
     
+    @State var showingSheet: Bool = false
     @State var showPhotoPicker:Bool = false
+    @State var isDeleted: Bool = false
     @State var userImage: [UIImage] = []
     @State var regionId: Int? = nil
     @State var updateData: AuthorUpdate = AuthorUpdate(activityRegionId: 0,
@@ -35,11 +37,6 @@ struct ProfileReviseScreen: View {
             
             // MARK: - 편집 완료 버튼
             Button(action: {
-                print("NICKNAME : \(viewModel.authorUpdate.nickname)")
-                print("REGION : \(regionId!)")
-                print("INTRODUCE : \(viewModel.authorUpdate.introduce)")
-                
-                
                 updateData.nickname = viewModel.authorUpdate.nickname
                 if regionId == nil {
                     updateData.activityRegionId = viewModel.authorUpdate.activityRegionId!
@@ -48,7 +45,12 @@ struct ProfileReviseScreen: View {
                 }
                 updateData.introduce = viewModel.authorUpdate.introduce
                 
-                viewModel.updateUserProfile(userId: 2, userData: updateData)
+                
+                if userImage.count > 0 {
+                    isDeleted = false
+                }
+                
+                viewModel.updateUserProfile(userId: 2, userData: updateData, profileImage: userImage, isDeleted: isDeleted)
                 dismiss()
             }) {
                 ZStack {
@@ -81,32 +83,47 @@ struct ProfileReviseScreen: View {
             
             VStack {
                 if userImage.count == 0 {
-                    AsyncImage(url: URL(string: viewModel.author.profileImgDownloadUrl)) { phash in
-                        if let image = phash.image {
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .clipShape(Circle())
+                    if isDeleted {
+                        ZStack {
+                            Circle()
+                                .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
                                 .frame(width: 96, height: 96)
                                 .shadow(color: Color("gray"), radius: 3)
-                        }
-                        else if phash.error != nil {
-                            Image(systemName: "exclamationmark.icloud.fill")
+                            
+                            Image(systemName: "person.fill")
                                 .resizable()
+                                .frame(width: 40, height: 40)
                                 .foregroundColor(Color("gray"))
-                                .frame(width: 96, height: 96)
                         }
-                        else {
-                            ZStack {
-                                Circle()
-                                    .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                    }
+                    else {
+                        AsyncImage(url: URL(string: viewModel.author.profileImgDownloadUrl)) { phash in
+                            if let image = phash.image {
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .clipShape(Circle())
                                     .frame(width: 96, height: 96)
                                     .shadow(color: Color("gray"), radius: 3)
-                                
-                                Image(systemName: "person.fill")
+                            }
+                            else if phash.error != nil {
+                                Image(systemName: "exclamationmark.icloud.fill")
                                     .resizable()
-                                    .frame(width: 40, height: 40)
                                     .foregroundColor(Color("gray"))
+                                    .frame(width: 96, height: 96)
+                            }
+                            else {
+                                ZStack {
+                                    Circle()
+                                        .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                        .frame(width: 96, height: 96)
+                                        .shadow(color: Color("gray"), radius: 3)
+                                    
+                                    Image(systemName: "person.fill")
+                                        .resizable()
+                                        .frame(width: 40, height: 40)
+                                        .foregroundColor(Color("gray"))
+                                }
                             }
                         }
                     }
@@ -126,7 +143,7 @@ struct ProfileReviseScreen: View {
                 
                 
                 Button(action: {
-                    showPhotoPicker.toggle()
+                    showingSheet.toggle()
                     
 //                    if userImage.count == 1 {
 //                        userImage.removeAll()
@@ -141,6 +158,16 @@ struct ProfileReviseScreen: View {
                     ImagePicker(isPresent: $showPhotoPicker, images: $userImage, limit: 1)
                     
                 })
+            }
+            .confirmationDialog("", isPresented: $showingSheet, titleVisibility: .hidden) {
+                Button("앨범에서 선택") {
+                    showPhotoPicker.toggle()
+                }
+                Button("프로필 사진 삭제", role: .destructive) {
+                    isDeleted = true
+                }
+                Button("취소", role: .cancel) {
+                }
             }
             
             

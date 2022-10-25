@@ -57,8 +57,8 @@ class UserService {
         return userRepository.getUser(userId: userId)
     }
     
-    func updateUserInfo(userId: Int, userData: AuthorUpdate) {
-        return userRepository.updateUserProfile(userId: userId, userData: userData)
+    func updateUserInfo(userId: Int, userData: AuthorUpdate, profileImage: [UIImage], isDeleted: Bool) {
+        return userRepository.updateUserProfile(userId: userId, userData: userData, profileImage: profileImage, isDeleted: isDeleted)
     }
     
 }

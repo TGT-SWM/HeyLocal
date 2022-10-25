@@ -16,7 +16,7 @@ struct ImagePicker: UIViewControllerRepresentable {
     var limit: Int?
     
     func makeCoordinator() -> Coordinator {
-        return ImagePicker.Coordinator(picker: self)
+        return ImagePicker.Coordinator(picker: self, limit: limit)
     }
     
     func makeUIViewController(context: Context) -> some UIViewController {
@@ -40,18 +40,21 @@ struct ImagePicker: UIViewControllerRepresentable {
     
     class Coordinator: PHPickerViewControllerDelegate {
         var picker: ImagePicker
+        let limit: Int?
         
-        init(picker: ImagePicker) {
+        init(picker: ImagePicker, limit: Int?) {
             self.picker = picker
+            self.limit = limit
         }
         
         func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
             self.picker.isPresent = false
-//             가져올때마다 초기화 하고 다시 가져온다
-//            self.picker.images.removeAll()
-//            if self.picker.images.count == 3 {
-//                
-//            }
+            
+            // 가져올때마다 초기화 하고 다시 가져온다 (프로필 수정)
+            if self.limit == 1 {
+                self.picker.images.removeAll()
+            }
+            
             for img in results {
                 
                 if img.itemProvider.canLoadObject(ofClass: UIImage.self) {

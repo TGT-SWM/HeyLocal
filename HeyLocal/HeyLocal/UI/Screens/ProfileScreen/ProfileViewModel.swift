@@ -37,6 +37,7 @@ extension ProfileScreen {
                 .sink(receiveCompletion: {_ in
                 }, receiveValue: { author in
                     self.author = author
+                    
                     self.authorUpdate.nickname = self.author.nickname
                     self.authorUpdate.activityRegionId = self.author.activityRegion.id
                     self.authorUpdate.introduce = self.author.introduce
@@ -79,8 +80,8 @@ extension ProfileScreen {
         }
         
         /// 프로필 수정
-        func updateUserProfile(userId: Int, userData: AuthorUpdate) {
-            userService.updateUserInfo(userId: userId, userData: userData)
+        func updateUserProfile(userId: Int, userData: AuthorUpdate, profileImage: [UIImage], isDeleted: Bool) {
+            userService.updateUserInfo(userId: userId, userData: userData, profileImage: profileImage, isDeleted: isDeleted)
         }
     }
 }
