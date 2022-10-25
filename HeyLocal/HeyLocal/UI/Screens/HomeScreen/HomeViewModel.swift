@@ -11,6 +11,8 @@ import Combine
 extension HomeScreen {
     class ViewModel: ObservableObject {
         private var userService = UserService()
+        private var placeService = PlaceService()
+        
         @Published var users: [Author]
         @Published var rankings: [Author]
         @Published var hotplaces: [Place]
@@ -37,7 +39,11 @@ extension HomeScreen {
         
         // Hot한 장소
         func getHotPlaces() {
-            
+            cancellable = placeService.getHotPlaces()
+                .sink(receiveCompletion: { _ in
+                }, receiveValue: { places in
+                    self.hotplaces = places
+                })
         }
     }
 }

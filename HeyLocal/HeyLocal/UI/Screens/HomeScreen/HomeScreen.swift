@@ -17,12 +17,39 @@ struct HomeScreen: View {
                     // TODO: 아티클
                     
                     // TODO: HOT한 장소
-                    hotPlace
+                    Group {
+                        Text("요즘 HOT한 장소🔥")
+                            .font(.system(size: 16))
+                            .fontWeight(.medium)
+                            .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+                        
+                        HotPlace()
+                            .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 10))
+                    }
                     
                     // TODO: Travel-On
                     
                     // 사용자 랭킹
-                    ranking
+                    Group {
+                        HStack {
+                            Text("노하우 랭킹👑")
+                                .font(.system(size: 16))
+                                .fontWeight(.medium)
+                            
+                            Spacer()
+                            
+                            NavigationLink(destination: UserRankingScreen()) {
+                                Text("더보기")
+                                    .underline()
+                                    .font(.system(size: 12))
+                                    .foregroundColor(Color("gray"))
+                            }
+                        }
+                        .padding()
+                        
+                        Ranking()
+                            .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+                    }
                 }
             }
             .navigationBarTitle("", displayMode: .automatic)
@@ -30,53 +57,46 @@ struct HomeScreen: View {
             .navigationViewStyle(StackNavigationViewStyle())
         }
     }
-    
-    //MARK: - Hot한 장소
-    var hotPlace: some View {
-        VStack {
-            Text("요즘 HOT한 장소🔥")
-                .font(.system(size: 16))
-                .fontWeight(.medium)
-                .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 0))
-            
+}
+
+// MARK: - Hot한 장소
+extension HomeScreen {
+    struct HotPlace: View {
+        @StateObject var viewModel = ViewModel()
+        var body: some View {
             ScrollView(.horizontal, showsIndicators: false) {
-                
+                HStack {
+                    ForEach(viewModel.hotplaces) { place in
+                        HotPlaceComponent(place: place)
+                            .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
+                    }
+                }
+            }
+            .onAppear {
+                viewModel.getHotPlaces()
             }
         }
     }
-    
-    
-    //MARK: - 노하우 랭킹
-    var gridItems = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
-    var ranking: some View {
-        VStack {
-            HStack {
-                Text("노하우 랭킹👑")
-                    .font(.system(size: 16))
-                    .fontWeight(.medium)
-                    .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 0))
-                
-                Spacer()
-                
-                NavigationLink(destination: UserRankingScreen()) {
-                    Text("더보기")
-                        .underline()
-                        .font(.system(size: 12))
-                        .foregroundColor(Color("gray"))
-                }
-                .padding()
-            }
+}
 
-            LazyVGrid(columns: gridItems) {
-                ForEach(viewModel.rankings) { user in
-                    ProfileComponent(author: user)
-                        .padding()
+
+// MARK: - 사용자 노하우 랭킹
+extension HomeScreen {
+    struct Ranking: View {
+        
+        var gridItems = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
+        @StateObject var viewModel = ViewModel()
+        var body: some View {
+            VStack(alignment: .leading) {
+                LazyVGrid(columns: gridItems) {
+                    ForEach(viewModel.rankings) { user in
+                        ProfileComponent(author: user)
+                    }
                 }
             }
-            
-        }
-        .onAppear {
-            viewModel.getUserRanking()
+            .onAppear {
+                viewModel.getUserRanking()
+            }
         }
     }
 }
