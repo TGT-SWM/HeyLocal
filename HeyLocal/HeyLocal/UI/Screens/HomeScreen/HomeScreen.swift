@@ -16,7 +16,7 @@ struct HomeScreen: View {
                 VStack(alignment: .leading) {
                     // TODO: 아티클
                     
-                    // TODO: HOT한 장소
+                    // HOT한 장소
                     Group {
                         Text("요즘 HOT한 장소🔥")
                             .font(.system(size: 16))
@@ -25,12 +25,36 @@ struct HomeScreen: View {
                         
                         HotPlace()
                             .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 10))
+                        
+                        Spacer()
+                            .frame(height: 20)
+                        
                     }
                     
                     // TODO: Travel-On
-                    
+                    Group {
+                        Divider()
+                        
+                        Spacer()
+                            .frame(height: 20)
+                
+                        Text("현지인의 추천이 궁금해요😮")
+                            .font(.system(size: 16))
+                            .fontWeight(.medium)
+                            .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+                        
+                        RecentTravelOn()
+                        
+                        Spacer()
+                            .frame(height: 20)
+                    }
                     // 사용자 랭킹
                     Group {
+                        Divider()
+                        
+                        Spacer()
+                            .frame(height: 10)
+                        
                         HStack {
                             Text("노하우 랭킹👑")
                                 .font(.system(size: 16))
@@ -79,6 +103,26 @@ extension HomeScreen {
     }
 }
 
+
+// MARK: - 여행On
+extension HomeScreen {
+    struct RecentTravelOn: View {
+        @StateObject var viewModel = ViewModel()
+        var body: some View {
+            VStack {
+                ForEach(viewModel.travelOns) { travelOn in
+                    NavigationLink(destination: TravelOnDetailScreen(travelOnId: travelOn.id)){
+                        TravelOnComponent(travelOn: travelOn)
+                            .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
+                    }
+                }
+            }
+            .onAppear {
+                viewModel.getRecentTravelOns()
+            }
+        }
+    }
+}
 
 // MARK: - 사용자 노하우 랭킹
 extension HomeScreen {
