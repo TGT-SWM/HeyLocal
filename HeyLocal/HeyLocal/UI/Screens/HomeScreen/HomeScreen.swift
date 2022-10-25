@@ -10,7 +10,21 @@ import SwiftUI
 
 struct HomeScreen: View {
     var body: some View {
-        Text("Home")
+        NavigationView {
+            ScrollView {
+                // TODO: 아티클
+                
+                // TODO: HOT한 장소
+                
+                // TODO: Travel-On
+                
+                // TODO: Ranking
+                UserRankingScreen()
+            }
+            .navigationBarTitle("", displayMode: .automatic)
+            .navigationBarHidden(true)
+            .navigationViewStyle(StackNavigationViewStyle())
+        }
     }
 }
 

@@ -182,17 +182,20 @@ struct UserRepository {
         }
         task.resume()
     }
-}
-
-
-struct uploadImage {
-    static let shared = uploadImage()
     
-    func uploadToBinary(image: UIImage, completion: @escaping (String) -> Void)  {
-        let semaphore = DispatchSemaphore(value: 0)
-        var fileKey = String()
+    /// 사용자 랭킹 조회
+    func getUserRanking() -> AnyPublisher<[Author], Error> {
+        let urlString = "\(userUrl)/ranking"
+        let url = URL(string: urlString)!
+        var request = URLRequest(url: url)
         
-        let imageToData = image.jpegData(compressionQuality: 1)
+        request.httpMethod = "GET"
         
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+        
+        // Publisher 반환
+        return agent.run(request)
     }
 }

@@ -18,6 +18,7 @@ struct ProfileScreen: View {
         NavigationView {
             VStack {
                 UserComponent()
+                    .padding(EdgeInsets(top: 20, leading: 0, bottom: 0, trailing: 0))
                 
                 GeometryReader { geo in
                     VStack {
@@ -38,9 +39,8 @@ struct ProfileScreen: View {
             .onAppear {
                 displayTabBar(true)
             }
-            .navigationTitle("")
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarBackButtonHidden(true)
+            .navigationBarTitle("", displayMode: .automatic)
+            .navigationBarHidden(true)
         }
     }
 }
@@ -165,7 +165,7 @@ struct UserComponent: View {
                 Spacer()
                     .frame(height: 15)
                 
-                Text("\(regionNameFormatter(region: viewModel.author.activityRegion))")
+                Text("\(regionNameFormatter(region: viewModel.author.activityRegion!))")
                     .font(.system(size: 12))
                 
                 Spacer()
@@ -175,7 +175,7 @@ struct UserComponent: View {
                     .font(.system(size: 16))
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 0))
                 
-                Text("\(viewModel.author.introduce)")
+                Text("\(viewModel.author.introduce!)")
                     .font(.system(size: 12))
                     .foregroundColor(Color("gray"))
                 
@@ -240,7 +240,7 @@ struct UserOpinion: View {
                 ForEach(viewModel.opinions) { opinion in
                     NavigationLink(destination: OpinionDetailScreen(travelOnId: opinion.travelOnId!, opinionId: opinion.id)) {
                         OpinionComponent(opinion: opinion)
-                            .padding(EdgeInsets(top: 4, leading: 0, bottom: 6, trailing: 10))
+                            .padding()
                     }
                 }
             }

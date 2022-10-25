@@ -61,4 +61,7 @@ class UserService {
         return userRepository.updateUserProfile(userId: userId, userData: userData, profileImage: profileImage, isDeleted: isDeleted)
     }
     
+    func getUserRanking() -> AnyPublisher<[Author], Error> {
+        return userRepository.getUserRanking()
+    }
 }

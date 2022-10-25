@@ -299,7 +299,7 @@ struct OpinionDetailScreen: View {
                         .frame(width: 15)
                     
                     VStack(alignment: .leading, spacing: 5) {
-                        Text("\(regionNameFormatter(region: viewModel.opinion.author.activityRegion))")
+                        Text("\(regionNameFormatter(region: viewModel.opinion.author.activityRegion!))")
                             .font(.system(size: 12))
                         
                         Text("\(viewModel.opinion.author.nickname)")
@@ -335,7 +335,7 @@ struct OpinionDetailScreen: View {
                 Spacer()
                     .frame(height: 15)
                 
-                Text("\(viewModel.opinion.author.introduce)")
+                Text("\(viewModel.opinion.author.introduce!)")
                     .font(.system(size: 12))
                 
             } // vstack
