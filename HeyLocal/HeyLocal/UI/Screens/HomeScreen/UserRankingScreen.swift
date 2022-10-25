@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct UserRankingScreen: View {
-    @StateObject var viewModel = ViewModel()
+    @StateObject var viewModel = HomeScreen.ViewModel()
     @Environment(\.displayTabBar) var displayTabBar
     
     private var limit: Int = 3
