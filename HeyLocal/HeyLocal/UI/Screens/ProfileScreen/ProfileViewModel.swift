@@ -39,8 +39,8 @@ extension ProfileScreen {
                     self.author = author
                     
                     self.authorUpdate.nickname = self.author.nickname
-                    self.authorUpdate.activityRegionId = self.author.activityRegion.id
-                    self.authorUpdate.introduce = self.author.introduce
+                    self.authorUpdate.activityRegionId = self.author.activityRegion!.id
+                    self.authorUpdate.introduce = self.author.introduce!
                 })
         }
         

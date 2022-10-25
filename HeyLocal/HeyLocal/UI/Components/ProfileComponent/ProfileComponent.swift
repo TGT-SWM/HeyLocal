@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct ProfileComponent: View {
-    
     var author: Author
     var body: some View {
         VStack(alignment: .center) {
@@ -25,18 +24,17 @@ struct ProfileComponent: View {
                         if let image = phash.image {
                             image
                                 .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .clipShape(Rectangle())
-                                .cornerRadius(10.0)
                                 .frame(width: 109, height: 109)
+                                .aspectRatio(contentMode: .fill)
+                                .cornerRadius(10.0)
                                 .shadow(color: Color("gray"), radius: 3)
                         }
                         else if phash.error != nil {
                             ZStack {
-                                Circle()
+                                Rectangle()
                                     .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-                                    .frame(width: 96, height: 96)
-                                    .shadow(color: Color("gray"), radius: 3)
+                                    .cornerRadius(10.0)
+                                    .frame(width: 109, height: 109)
                                 
                                 Image(systemName: "person.fill")
                                     .resizable()
@@ -46,10 +44,10 @@ struct ProfileComponent: View {
                         }
                         else {
                             ZStack {
-                                Circle()
+                                Rectangle()
                                     .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-                                    .frame(width: 96, height: 96)
-                                    .shadow(color: Color("gray"), radius: 3)
+                                    .cornerRadius(10.0)
+                                    .frame(width: 109, height: 109)
                                 
                                 Image(systemName: "person.fill")
                                     .resizable()
@@ -60,11 +58,12 @@ struct ProfileComponent: View {
                     }
                 }
                 
-                
                 VStack {
-                    Text("\(regionNameFormatter(region: author.activityRegion))")
-                        .font(.system(size: 12))
-                        .foregroundColor(Color("gray"))
+                    if author.activityRegion != nil {
+                        Text("\(regionNameFormatter(region: author.activityRegion!))")
+                            .font(.system(size: 12))
+                            .foregroundColor(Color("gray"))
+                    }
                     
                     Text("\(author.nickname)")
                         .font(.system(size: 14))
