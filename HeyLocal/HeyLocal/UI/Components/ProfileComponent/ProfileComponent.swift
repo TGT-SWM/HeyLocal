@@ -1,7 +1,7 @@
 //
 //  ProfileComponent.swift
 //  HeyLocal
-//  프로필 화면 컴포넌트
+//  프로필 컴포넌트 (User 랭킹)
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //
@@ -10,144 +10,132 @@ import SwiftUI
 
 struct ProfileComponent: View {
     
-    @StateObject var viewModel = ProfileScreen.ViewModel()
+    var author: Author
     var body: some View {
         VStack(alignment: .center) {
-            Group {
-                ZStack() {
-                    AsyncImage(url: URL(string: viewModel.author.profileImgDownloadUrl!)) { phash in
+            ZStack(alignment: .bottom) {
+                if author.profileImgDownloadUrl == nil {
+                    Rectangle()
+                        .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                        .cornerRadius(10.0)
+                        .frame(width: 109, height: 109)
+                }
+                else {
+                    AsyncImage(url: URL(string: author.profileImgDownloadUrl!)) { phash in
                         if let image = phash.image {
                             image
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-                                .clipShape(Circle())
-                                .frame(width: 96, height: 96)
+                                .clipShape(Rectangle())
+                                .cornerRadius(10.0)
+                                .frame(width: 109, height: 109)
                                 .shadow(color: Color("gray"), radius: 3)
                         }
                         else if phash.error != nil {
-                            Image(systemName: "exclamationmark.icloud.fill")
-                                .resizable()
-                                .foregroundColor(Color("gray"))
-                                .frame(width: 96, height: 96)
+                            ZStack {
+                                Circle()
+                                    .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                    .frame(width: 96, height: 96)
+                                    .shadow(color: Color("gray"), radius: 3)
+                                
+                                Image(systemName: "person.fill")
+                                    .resizable()
+                                    .frame(width: 40, height: 40)
+                                    .foregroundColor(Color("gray"))
+                            }
                         }
                         else {
-                            Circle()
-                                .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-                                .frame(width: 96, height: 96)
-                                .shadow(color: Color("gray"), radius: 3)
-                        }
-                    }
-                    
-                    
-                    HStack{
-                        Spacer()
-                        
-                        VStack(alignment: .trailing) {
-                            // TODO: 프로필 설정화면으로 이동
-                            NavigationLink(destination: EmptyView()) {
-                                Image("setting_icon")
+                            ZStack {
+                                Circle()
+                                    .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                    .frame(width: 96, height: 96)
+                                    .shadow(color: Color("gray"), radius: 3)
+                                
+                                Image(systemName: "person.fill")
                                     .resizable()
-                                    .frame(width: 24, height: 24)
+                                    .frame(width: 40, height: 40)
+                                    .foregroundColor(Color("gray"))
                             }
-                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
-                            
-                            Spacer()
-                            
-                            // TODO: 프로필 수정화면으로 이동
-                            NavigationLink(destination: ProfileReviseScreen()) {
-                                HStack {
-                                    Image("pencil_orange_icon")
-                                        .resizable()
-                                        .frame(width: 16, height: 16)
-                                    
-                                    Spacer()
-                                        .frame(width: 2)
-                                    
-                                    Text("편집하기")
-                                        .underline()
-                                        .font(.system(size: 12))
-                                        .foregroundColor(Color("orange"))
-                                }
-                            }
-                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
                         }
-                        
                     }
                 }
-                .frame(height: 96)
                 
-                Spacer()
-                    .frame(height: 15)
                 
-                Text("\(regionNameFormatter(region: viewModel.author.activityRegion))")
-                    .font(.system(size: 12))
-                
-                Spacer()
-                    .frame(height: 3)
-                
-                Text("\(viewModel.author.nickname)")
-                    .font(.system(size: 16))
-                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 0))
-                
-                Text("\(viewModel.author.introduce)")
-                    .font(.system(size: 12))
-                    .foregroundColor(Color("gray"))
-                
-                Spacer()
-                    .frame(height: 30)
+                VStack {
+                    Text("\(regionNameFormatter(region: author.activityRegion))")
+                        .font(.system(size: 12))
+                        .foregroundColor(Color("gray"))
+                    
+                    Text("\(author.nickname)")
+                        .font(.system(size: 14))
+                    
+                    Spacer()
+                        .frame(height: 5)
+                }
             }
             
-            Group {
-                HStack {
-                    Spacer()
-                    // knowHow
-                    VStack(alignment: .center) {
-                        Text("\(viewModel.author.knowHow!)")
-                            .font(.system(size: 16))
-                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 2, trailing: 0))
-                        
-                        Text("내 노하우")
-                            .font(.system(size: 12))
-                            .foregroundColor(Color("gray"))
-                    }
-                    
-                    Spacer()
-                    
-                    // Ranking
-                    VStack(alignment: .center) {
-                        Text("\(viewModel.author.ranking!)")
-                            .font(.system(size: 16))
-                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 2, trailing: 0))
-                        
-                        Text("내 랭킹")
-                            .font(.system(size: 12))
-                            .foregroundColor(Color("gray"))
-                    }
-                    
-                    Spacer()
-                    
-                    // Opinion
-                    VStack(alignment: .center) {
-                        Text("\(viewModel.author.acceptedOpinionCount!)")
-                            .font(.system(size: 16))
-                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 2, trailing: 0))
-                        
-                        Text("채택 답변")
-                            .font(.system(size: 12))
-                            .foregroundColor(Color("gray"))
-                    }
-                    Spacer()
-                }
+            Spacer()
+                .frame(height: 10)
+            
+            // 답변 수
+            HStack {
+                Image("comment_black_icon")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 16, height: 16)
+                
+                Spacer()
+                    .frame(width: 3)
+                
+                Text("답변수")
+                
+                Spacer()
+                    .frame(width: 3)
+                
+                Text("\(author.totalOpinionCount!)")
             }
+            .font(.system(size: 12))
+            .foregroundColor(Color("gray"))
+            
+            Spacer()
+                .frame(height: 3)
+            
+            // 채택 수
+            HStack {
+                Image("heart_black_icon")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 16, height: 16)
+                
+                Spacer()
+                    .frame(width: 3)
+                
+                Text("채택수")
+                
+                Spacer()
+                    .frame(width: 3)
+                
+                Text("\(author.acceptedOpinionCount!)")
+            }
+            .font(.system(size: 12))
+            .foregroundColor(Color("gray"))
         }
         .onAppear {
-            viewModel.getUserProfile(userId: 2)
+            
         }
     }
 }
 
 struct ProfileComponent_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileComponent()
+        ProfileComponent(author: Author(userId: 2,
+                                        nickname: "김현지",
+                                        activityRegion: Region(id: 259, state: "부산광역시"),
+                                        introduce: "",
+                                        profileImgDownloadUrl: nil,
+                                        knowHow: 1,
+                                        ranking: 1,
+                                        acceptedOpinionCount: 845,
+                                        totalOpinionCount: 189))
     }
 }
