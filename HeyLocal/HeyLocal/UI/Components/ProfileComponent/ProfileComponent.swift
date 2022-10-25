@@ -15,7 +15,7 @@ struct ProfileComponent: View {
         VStack(alignment: .center) {
             Group {
                 ZStack() {
-                    AsyncImage(url: URL(string: viewModel.author.profileImgDownloadUrl)) { phash in
+                    AsyncImage(url: URL(string: viewModel.author.profileImgDownloadUrl!)) { phash in
                         if let image = phash.image {
                             image
                                 .resizable()
@@ -54,7 +54,7 @@ struct ProfileComponent: View {
                             Spacer()
                             
                             // TODO: 프로필 수정화면으로 이동
-                            NavigationLink(destination: EmptyView()) {
+                            NavigationLink(destination: ProfileReviseScreen()) {
                                 HStack {
                                     Image("pencil_orange_icon")
                                         .resizable()

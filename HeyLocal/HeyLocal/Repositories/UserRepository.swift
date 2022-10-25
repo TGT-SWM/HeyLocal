@@ -8,6 +8,8 @@
 
 import Foundation
 import Combine
+import SwiftUI
+
 
 struct UserRepository {
 	let agent = NetworkAgent()
@@ -66,5 +68,131 @@ struct UserRepository {
     }
     
     /// 사용자 프로필 수정
+    func updateUserProfile(userId: Int, userData: AuthorUpdate, profileImage: [UIImage], isDeleted: Bool) {
+        let encoder = JSONEncoder()
+        let jsonData = try? encoder.encode(userData)
+        var jsonStr: String = ""
+        
+        if let jsonData = jsonData, let jsonString = String(data: jsonData, encoding: .utf8) {
+            jsonStr = jsonString
+        }
+        
+        let urlString = "\(userUrl)/\(userId)/profile"
+        let url = URL(string: urlString)!
+        var request = URLRequest(url: url)
+        
+        request.httpMethod = "PUT"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+        
+        request.httpBody = jsonData
+        
+        let httpBody = String(data: jsonData!, encoding: .utf8) ?? ""
+        print("HTTP BODY", httpBody)
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, let httpResponse = response as? HTTPURLResponse, error == nil else {
+                print(error?.localizedDescription ?? "NO Data")
+                return
+            }
+            
+            if httpResponse.statusCode == 200 {
+                self.getUser(userId: userId)
+                
+                let resultCode = (response as? HTTPURLResponse)?.statusCode ?? 0
+                let resultLen = data
+                let resultString = String(data: resultLen, encoding: .utf8) ?? ""
+                
+                let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary
+                let deleteURL = jsonObject!["deleteUrl"]
+                let updateURL = jsonObject!["updatePutUrl"]
+                let putURL = jsonObject!["newPutUrl"]
+                
+                print("====================================")
+                print("[requestPOST : http post 요청 성공]")
+                print("resultCode : ", resultCode)
+                print("resultLen : ", resultLen)
+                print("resultString : ", resultString)
+                print("deleteUrl : ", deleteURL!)
+                print("updateUrl : ", updateURL!)
+                print("putUrl : ", putURL!)
+                print("====================================")
+                
+                
+                /// 프로필 이미지 삭제
+                if isDeleted {
+                    let deleteUrl = URL(string: deleteURL as! String)!
+                    var deleteRequest = URLRequest(url: deleteUrl)
+                    
+                    deleteRequest.httpMethod = "DELETE"
+//                    deleteRequest.addValue("image/png", forHTTPHeaderField: "Content-Type")
+                    
+                    let deleteTask = URLSession.shared.dataTask(with: deleteRequest) { data, response, error in
+                        guard let data = data, let response = response as? HTTPURLResponse, error == nil else {
+                            print(error?.localizedDescription ?? "NO Data")
+                            return
+                        }
+                    }
+                    
+                    deleteTask.resume()
+                }
+                else {
+                    
+                    /// 프로필 이미지 수정
+                    if (updateURL! as! String) != "" {
+                        let updateUrl = URL(string: updateURL as! String)!
+                        var updateRequest = URLRequest(url: updateUrl)
+                        
+                        updateRequest.httpMethod = "PUT"
+                        updateRequest.addValue("image/png", forHTTPHeaderField: "Content-Type")
+                        
+                        updateRequest.httpBody = profileImage[0].jpegData(compressionQuality: 1)
+                        
+                        let updateTask = URLSession.shared.dataTask(with: updateRequest) { data, response, error in
+                            guard let data = data else {
+                                return
+                            }
+                        }
+                        updateTask.resume()
+                    }
+                    
+                    /// 프로필 이미지 등록
+                    else {
+                        let putUrl = URL(string: putURL as! String)!
+                        var putRequest = URLRequest(url: putUrl)
+
+                        putRequest.httpMethod = "PUT"
+                        putRequest.addValue("image/png", forHTTPHeaderField: "Content-Type")
+
+                        putRequest.httpBody = profileImage[0].jpegData(compressionQuality: 1)
+
+                        let putTask = URLSession.shared.dataTask(with: putRequest) { data, response, error in
+                            guard let data = data else {
+                                return
+                            }
+                        }
+                        putTask.resume()
+                    }
+                }
+            } else {
+                print("\(httpResponse.statusCode)")
+                print(error?.localizedDescription)
+                return
+            }
+        }
+        task.resume()
+    }
+}
+
+
+struct uploadImage {
+    static let shared = uploadImage()
     
+    func uploadToBinary(image: UIImage, completion: @escaping (String) -> Void)  {
+        let semaphore = DispatchSemaphore(value: 0)
+        var fileKey = String()
+        
+        let imageToData = image.jpegData(compressionQuality: 1)
+        
+    }
 }

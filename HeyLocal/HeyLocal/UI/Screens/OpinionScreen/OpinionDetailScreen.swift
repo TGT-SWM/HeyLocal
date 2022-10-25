@@ -8,72 +8,17 @@
 
 import SwiftUI
 
-struct MoreButton: View {
-    @Binding var showingSheet: Bool
-    @Binding var showingAlert: Bool
-    
-    var body: some View {
-        Button(action: {
-            showingSheet.toggle()
-        }) {
-            Image(systemName: "ellipsis")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 14)
-                .foregroundColor(.black)
-                .rotationEffect(.degrees(-90))
-        }
-        .confirmationDialog("", isPresented: $showingSheet, titleVisibility: .hidden) {
-            Button("삭제", role: .destructive) {
-                showingAlert.toggle()
-            }
-            
-            Button("취소", role: .cancel) {
-            }
-        }
-    }
-}
 
 struct OpinionDetailScreen: View {
     // custom Back button
     @Environment(\.dismiss) private var dismiss
-    var btnBack : some View { Button(action: {
-        dismiss()
-        }) {
-            Image(systemName: "chevron.left")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 10)
-                .foregroundColor(.black)
-        }
-    }
+    @Environment(\.displayTabBar) var displayTabBar
     
     // Navigation Bar Item : 수정·삭제 ActionSheet 보기
     @State var showingSheet = false
     @State var showingAlert = false
     @State var navigationLinkActive = false
-//    var moreBtn: some View {
-//        Button(action: {
-//            opinionSheet.toggle()
-//        }) {
-//            Image(systemName: "ellipsis")
-//                .resizable()
-//                .scaledToFit()
-//                .frame(width: 14)
-//                .foregroundColor(.black)
-//                .rotationEffect(.degrees(-90))
-//        }
-//        .confirmationDialog(Text("답변"), isPresented: $opinionSheet, titleVisibility: .hidden) { //actionsheet
-//             Button("답변 수정") {
-//                 opinionNavigationLink = true
-//             }
-//             Button("삭제", role: .destructive) {
-//                 opinionAlert = true
-//             }
-//             Button("취소", role: .cancel) {
-//             }
-//        }
-//    }
+
     
     @StateObject var viewModel = OpinionComponent.ViewModel()
     var travelOnId: Int
@@ -85,7 +30,8 @@ struct OpinionDetailScreen: View {
             }
             
             ZStack(alignment: .bottom) {
-                ScrollView {
+                
+                ScrollView {   
                     content
                         .padding()
                 }
@@ -103,11 +49,13 @@ struct OpinionDetailScreen: View {
         }
         .onAppear {
             viewModel.fetchOpinions(travelOnId: travelOnId, opinionId: opinionId)
+            displayTabBar(false)
         }
         .navigationTitle("답변 상세")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: btnBack, trailing: MoreButton(showingSheet: $showingSheet, showingAlert: $showingAlert))
+        .navigationBarItems(leading: BackButton { displayTabBar(true) },
+                            trailing: MoreButton(showingSheet: $showingSheet, showingAlert: $showingAlert, navigationLinkActive: $navigationLinkActive))
     }
     
     

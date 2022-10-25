@@ -14,7 +14,7 @@ class UserService {
 	let userRepository = UserRepository()
 	
 	var cancellable: AnyCancellable?
-    // 여행On
+    /// 여행On
 	func loadTravelOnsByUser(userId: Int, lastItemId: Binding<Int?>, size: Int, travelOns: Binding<[TravelOn]>, isEnd: Binding<Bool>) {
 		cancellable = userRepository.getTravelOnsByUser(
 			userId: userId,
@@ -33,7 +33,7 @@ class UserService {
 		)
 	}
     
-    // 답변
+    /// 답변
     func loadOpinionsByUser(userId: Int, lastItemId: Binding<Int?>, size: Int, opinions: Binding<[Opinion]>, isEnd: Binding<Bool>) {
         cancellable = userRepository.getOpinionsByUser(
             userId: userId,
@@ -52,9 +52,13 @@ class UserService {
         )
     }
     
-    // 사용자 프로필 정보
+    /// 사용자 프로필 정보
     func loadUserInfo(userId: Int) -> AnyPublisher<Author, Error> {
         return userRepository.getUser(userId: userId)
+    }
+    
+    func updateUserInfo(userId: Int, userData: AuthorUpdate, profileImage: [UIImage], isDeleted: Bool) {
+        return userRepository.updateUserProfile(userId: userId, userData: userData, profileImage: profileImage, isDeleted: isDeleted)
     }
     
 }

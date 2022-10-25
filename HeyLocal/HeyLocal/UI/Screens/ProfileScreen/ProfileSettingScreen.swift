@@ -8,14 +8,14 @@
 
 import SwiftUI
 
-struct SettingScreen: View {
+struct ProfileSettingScreen: View {
     var body: some View {
         Text("SETTING SCREEN")
     }
 }
 
-struct SettingScreen_Previews: PreviewProvider {
+struct ProfileSettingScreen_Previews: PreviewProvider {
     static var previews: some View {
-        SettingScreen()
+        ProfileSettingScreen()
     }
 }
