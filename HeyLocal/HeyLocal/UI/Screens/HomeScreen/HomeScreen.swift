@@ -15,9 +15,15 @@ struct HomeScreen: View {
             ScrollView {
                 VStack(alignment: .leading) {
                     // TODO: 아티클
+                    Group {
+                        Article()
+                    }
                     
                     // HOT한 장소
                     Group {
+                        Spacer()
+                            .frame(height: 210)
+                        
                         Text("요즘 HOT한 장소🔥")
                             .font(.system(size: 16))
                             .fontWeight(.medium)
@@ -31,7 +37,7 @@ struct HomeScreen: View {
                         
                     }
                     
-                    // TODO: Travel-On
+                    // 여행On
                     Group {
                         Divider()
                         
@@ -82,6 +88,57 @@ struct HomeScreen: View {
         }
     }
 }
+
+// MARK: - Article
+extension HomeScreen {
+    struct Article: View {
+        let imageLink: [String] = ["https://blog.kakaocdn.net/dn/o1KIw/btqu9mflPY6/rGk1mM3iugV1c6jj9Z3E80/img.jpg", "https://cdn.epnc.co.kr/news/photo/202001/93682_85075_3859.jpg", "https://www.agoda.com/wp-content/uploads/2020/12/E-WORLD-83-Tower-places-to-visit-in-daegu-south-korea.jpg"]
+        let textArray: [String] = ["떠나요, 제주로", "부산 밤바다", "대구가 궁금해요"]
+        
+        var body: some View {
+            VStack {
+                GeometryReader { geo in
+                    let width = geo.size.width
+                    let height = 182
+                    
+                    TabView {
+                        ForEach(0..<3) { idx in
+                            ZStack(alignment: .leading) {
+                                // 이미지
+                                AsyncImage(url: URL(string: imageLink[idx])) { phash in
+                                    if let image = phash.image {
+                                        ZStack {
+                                            image
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                                .frame(width: width, height: CGFloat(height))
+                                        }
+                                        
+                                    }
+                                    else if phash.error != nil {
+                                        Text("")
+                                    }
+                                    else {
+                                        Text("")
+                                    }
+                                }
+                                
+                                // 글
+                                Text("\(textArray[idx])")
+                                    .font(.system(size: 22))
+                                    .foregroundColor(Color.white)
+                                    .padding()
+                            }
+                        }
+                    }
+                    .tabViewStyle(.page)
+                    .frame(width: width, height: CGFloat(height))
+                }
+            }
+        }
+    }
+}
+
 
 // MARK: - Hot한 장소
 extension HomeScreen {
