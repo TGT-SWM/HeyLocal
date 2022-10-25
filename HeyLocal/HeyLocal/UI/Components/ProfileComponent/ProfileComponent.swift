@@ -43,7 +43,7 @@ struct ProfileComponent: View {
                                     .fill(Color.black)
                                     .cornerRadius(10.0)
                                     .frame(width: 109, height: 109)
-                                    .opacity(0.5)
+                                    .opacity(0.3)
                                 
                             }
                             
