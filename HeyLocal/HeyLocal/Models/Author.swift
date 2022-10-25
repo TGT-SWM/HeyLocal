@@ -13,7 +13,7 @@ struct Author: Codable {
     var nickname: String = ""
     var activityRegion: Region = Region()
     var introduce: String = ""
-    var profileImgDownloadUrl: String = ""
+    var profileImgDownloadUrl: String? = ""
     var knowHow: Int? = 0
     var ranking: Int? = 0
     var acceptedOpinionCount: Int? = 0

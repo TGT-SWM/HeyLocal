@@ -97,32 +97,54 @@ struct ProfileReviseScreen: View {
                         }
                     }
                     else {
-                        AsyncImage(url: URL(string: viewModel.author.profileImgDownloadUrl)) { phash in
-                            if let image = phash.image {
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .clipShape(Circle())
+                        if viewModel.author.profileImgDownloadUrl == nil {
+                            ZStack {
+                                Circle()
+                                    .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
                                     .frame(width: 96, height: 96)
                                     .shadow(color: Color("gray"), radius: 3)
-                            }
-                            else if phash.error != nil {
-                                Image(systemName: "exclamationmark.icloud.fill")
+                                
+                                Image(systemName: "person.fill")
                                     .resizable()
+                                    .frame(width: 40, height: 40)
                                     .foregroundColor(Color("gray"))
-                                    .frame(width: 96, height: 96)
                             }
-                            else {
-                                ZStack {
-                                    Circle()
-                                        .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                        }
+                        else {
+                            AsyncImage(url: URL(string: viewModel.author.profileImgDownloadUrl!)) { phash in
+                                if let image = phash.image {
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .clipShape(Circle())
                                         .frame(width: 96, height: 96)
                                         .shadow(color: Color("gray"), radius: 3)
-                                    
-                                    Image(systemName: "person.fill")
-                                        .resizable()
-                                        .frame(width: 40, height: 40)
-                                        .foregroundColor(Color("gray"))
+                                }
+                                else if phash.error != nil {
+                                    ZStack {
+                                        Circle()
+                                            .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                            .frame(width: 96, height: 96)
+                                            .shadow(color: Color("gray"), radius: 3)
+                                        
+                                        Image(systemName: "person.fill")
+                                            .resizable()
+                                            .frame(width: 40, height: 40)
+                                            .foregroundColor(Color("gray"))
+                                    }
+                                }
+                                else {
+                                    ZStack {
+                                        Circle()
+                                            .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                            .frame(width: 96, height: 96)
+                                            .shadow(color: Color("gray"), radius: 3)
+                                        
+                                        Image(systemName: "person.fill")
+                                            .resizable()
+                                            .frame(width: 40, height: 40)
+                                            .foregroundColor(Color("gray"))
+                                    }
                                 }
                             }
                         }

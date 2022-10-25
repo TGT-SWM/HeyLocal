@@ -71,26 +71,55 @@ struct UserComponent: View {
         VStack(alignment: .center) {
             Group {
                 ZStack() {
-                    AsyncImage(url: URL(string: viewModel.author.profileImgDownloadUrl)) { phash in
-                        if let image = phash.image {
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .clipShape(Circle())
-                                .frame(width: 96, height: 96)
-                                .shadow(color: Color("gray"), radius: 3)
-                        }
-                        else if phash.error != nil {
-                            Image(systemName: "exclamationmark.icloud.fill")
-                                .resizable()
-                                .foregroundColor(Color("gray"))
-                                .frame(width: 96, height: 96)
-                        }
-                        else {
+                    if viewModel.author.profileImgDownloadUrl == nil {
+                        ZStack {
                             Circle()
                                 .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
                                 .frame(width: 96, height: 96)
                                 .shadow(color: Color("gray"), radius: 3)
+                            
+                            Image(systemName: "person.fill")
+                                .resizable()
+                                .frame(width: 40, height: 40)
+                                .foregroundColor(Color("gray"))
+                        }
+                    }
+                    else {
+                        AsyncImage(url: URL(string: viewModel.author.profileImgDownloadUrl!)) { phash in
+                            if let image = phash.image {
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .clipShape(Circle())
+                                    .frame(width: 96, height: 96)
+                                    .shadow(color: Color("gray"), radius: 3)
+                            }
+                            else if phash.error != nil {
+                                ZStack {
+                                    Circle()
+                                        .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                        .frame(width: 96, height: 96)
+                                        .shadow(color: Color("gray"), radius: 3)
+                                    
+                                    Image(systemName: "person.fill")
+                                        .resizable()
+                                        .frame(width: 40, height: 40)
+                                        .foregroundColor(Color("gray"))
+                                }
+                            }
+                            else {
+                                ZStack {
+                                    Circle()
+                                        .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                        .frame(width: 96, height: 96)
+                                        .shadow(color: Color("gray"), radius: 3)
+                                    
+                                    Image(systemName: "person.fill")
+                                        .resizable()
+                                        .frame(width: 40, height: 40)
+                                        .foregroundColor(Color("gray"))
+                                }
+                            }
                         }
                     }
                     
@@ -109,7 +138,7 @@ struct UserComponent: View {
                             
                             Spacer()
                             
-                            // TODO: 프로필 수정화면으로 이동
+                            // 프로필 수정화면으로 이동
                             NavigationLink(destination: ProfileReviseScreen()) {
                                 HStack {
                                     Image("pencil_orange_icon")

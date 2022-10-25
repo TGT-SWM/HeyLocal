@@ -121,26 +121,58 @@ struct UserRepository {
                 
                 /// 프로필 이미지 삭제
                 if isDeleted {
+                    let deleteUrl = URL(string: deleteURL as! String)!
+                    var deleteRequest = URLRequest(url: deleteUrl)
                     
-                }
-                else {
-                    /// 프로필 이미지 수정
-                    let updateUrl = URL(string: updateURL as! String)!
-                    var updateRequest = URLRequest(url: updateUrl)
+                    deleteRequest.httpMethod = "DELETE"
+//                    deleteRequest.addValue("image/png", forHTTPHeaderField: "Content-Type")
                     
-                    updateRequest.httpMethod = "PUT"
-                    updateRequest.addValue("image/png", forHTTPHeaderField: "Content-Type")
-                    
-                    updateRequest.httpBody = profileImage[0].jpegData(compressionQuality: 1)
-                    
-                    let updateTask = URLSession.shared.dataTask(with: updateRequest) { data, response, error in
-                        guard let data = data else {
+                    let deleteTask = URLSession.shared.dataTask(with: deleteRequest) { data, response, error in
+                        guard let data = data, let response = response as? HTTPURLResponse, error == nil else {
+                            print(error?.localizedDescription ?? "NO Data")
                             return
                         }
                     }
-                    updateTask.resume()
+                    
+                    deleteTask.resume()
+                }
+                else {
+                    
+                    /// 프로필 이미지 수정
+                    if (updateURL! as! String) != "" {
+                        let updateUrl = URL(string: updateURL as! String)!
+                        var updateRequest = URLRequest(url: updateUrl)
+                        
+                        updateRequest.httpMethod = "PUT"
+                        updateRequest.addValue("image/png", forHTTPHeaderField: "Content-Type")
+                        
+                        updateRequest.httpBody = profileImage[0].jpegData(compressionQuality: 1)
+                        
+                        let updateTask = URLSession.shared.dataTask(with: updateRequest) { data, response, error in
+                            guard let data = data else {
+                                return
+                            }
+                        }
+                        updateTask.resume()
+                    }
                     
                     /// 프로필 이미지 등록
+                    else {
+                        let putUrl = URL(string: putURL as! String)!
+                        var putRequest = URLRequest(url: putUrl)
+
+                        putRequest.httpMethod = "PUT"
+                        putRequest.addValue("image/png", forHTTPHeaderField: "Content-Type")
+
+                        putRequest.httpBody = profileImage[0].jpegData(compressionQuality: 1)
+
+                        let putTask = URLSession.shared.dataTask(with: putRequest) { data, response, error in
+                            guard let data = data else {
+                                return
+                            }
+                        }
+                        putTask.resume()
+                    }
                 }
             } else {
                 print("\(httpResponse.statusCode)")

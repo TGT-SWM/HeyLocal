@@ -15,7 +15,7 @@ struct ProfileComponent: View {
         VStack(alignment: .center) {
             Group {
                 ZStack() {
-                    AsyncImage(url: URL(string: viewModel.author.profileImgDownloadUrl)) { phash in
+                    AsyncImage(url: URL(string: viewModel.author.profileImgDownloadUrl!)) { phash in
                         if let image = phash.image {
                             image
                                 .resizable()
