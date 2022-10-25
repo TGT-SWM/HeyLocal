@@ -14,6 +14,7 @@ extension UserRankingScreen {
         private var userService = UserService()
         @Published var users: [Author]
         
+        
         var cancellable: AnyCancellable?
         init() {
             self.users = [Author()]

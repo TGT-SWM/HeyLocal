@@ -12,28 +12,22 @@ struct UserRankingScreen: View {
     @Environment(\.displayTabBar) var displayTabBar
     
     private var limit: Int = 3
+    var gridItems = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
     var body: some View {
-        LazyVStack {
-            HStack {
-                
-                
-            }
+        LazyVGrid(columns: gridItems) {
             ForEach(viewModel.users) { user in
-//                for i in 0..<3 {
-                    // TODO: 사용자 프로필 화면으로 이동
-                    ProfileComponent(author: user)
-                        .padding()
-//                }
-                
+                ProfileComponent(author: user)
+                    .padding()
             }
         }
         .onAppear {
             viewModel.getUserRanking()
+            displayTabBar(true)
         }
         .navigationTitle("노하우 랭킹")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: BackButton { displayTabBar(true) })
+//        .navigationBarItems(leading: BackButton { displayTabBar(false) })
     }
 }
 

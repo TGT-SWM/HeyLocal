@@ -14,20 +14,39 @@ struct ProfileComponent: View {
         VStack(alignment: .center) {
             ZStack(alignment: .bottom) {
                 if author.profileImgDownloadUrl == nil {
-                    Rectangle()
-                        .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-                        .cornerRadius(10.0)
-                        .frame(width: 109, height: 109)
+                    ZStack {
+                        Rectangle()
+                            .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                            .cornerRadius(10.0)
+                            .frame(width: 109, height: 109)
+                        
+                        Image(systemName: "person.fill")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                            .foregroundColor(Color("gray"))
+                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0))
+                    }
                 }
                 else {
                     AsyncImage(url: URL(string: author.profileImgDownloadUrl!)) { phash in
                         if let image = phash.image {
-                            image
-                                .resizable()
-                                .frame(width: 109, height: 109)
-                                .aspectRatio(contentMode: .fill)
-                                .cornerRadius(10.0)
-                                .shadow(color: Color("gray"), radius: 3)
+                            ZStack {
+                                image
+                                    .resizable()
+                                    .frame(width: 109, height: 109)
+                                    .aspectRatio(contentMode: .fill)
+                                    .cornerRadius(10.0)
+                                    .shadow(color: Color("gray"), radius: 3)
+                                
+                                
+                                Rectangle()
+                                    .fill(Color.black)
+                                    .cornerRadius(10.0)
+                                    .frame(width: 109, height: 109)
+                                    .opacity(0.5)
+                                
+                            }
+                            
                         }
                         else if phash.error != nil {
                             ZStack {
@@ -62,7 +81,6 @@ struct ProfileComponent: View {
                     if author.activityRegion != nil {
                         Text("\(regionNameFormatter(region: author.activityRegion!))")
                             .font(.system(size: 12))
-                            .foregroundColor(Color("gray"))
                     }
                     
                     Text("\(author.nickname)")
@@ -71,6 +89,7 @@ struct ProfileComponent: View {
                     Spacer()
                         .frame(height: 5)
                 }
+                .foregroundColor(Color.white)
             }
             
             Spacer()

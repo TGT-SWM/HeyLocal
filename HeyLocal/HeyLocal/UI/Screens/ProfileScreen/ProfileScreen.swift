@@ -240,7 +240,7 @@ struct UserOpinion: View {
                 ForEach(viewModel.opinions) { opinion in
                     NavigationLink(destination: OpinionDetailScreen(travelOnId: opinion.travelOnId!, opinionId: opinion.id)) {
                         OpinionComponent(opinion: opinion)
-                            .padding(EdgeInsets(top: 4, leading: 0, bottom: 6, trailing: 10))
+                            .padding()
                     }
                 }
             }

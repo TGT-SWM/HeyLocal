@@ -66,6 +66,8 @@ struct OpinionComponent: View {
                 .font(.system(size: 12))
             }
             .padding(EdgeInsets(top: 7, leading: 0, bottom: 0, trailing: 0))
+            
+            Spacer()
         }
         .foregroundColor(Color.black)
     }
