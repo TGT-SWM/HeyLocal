@@ -184,7 +184,7 @@ struct TravelOnRepository {
                 print(error?.localizedDescription ?? "No data")
                 return
             }
-        
+//        
             if httpResponse.statusCode == 201 {
                 self.getTravelOnLists(lastItemId: nil, pageSize: 15, regionId: nil, sortBy: "DATE", withOpinions: false)
             } else {

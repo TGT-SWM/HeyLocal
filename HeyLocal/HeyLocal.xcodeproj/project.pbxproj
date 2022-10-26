@@ -39,16 +39,22 @@
 		A87F6C9F28C0A1050076046E /* TopTabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6C9E28C0A1050076046E /* TopTabs.swift */; };
 		A87F6CA228C0A22B0076046E /* ProfileComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA128C0A22B0076046E /* ProfileComponent.swift */; };
 		A87F6CA428C0A37A0076046E /* ProfileReviseScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA328C0A37A0076046E /* ProfileReviseScreen.swift */; };
-		A87F6CA628C0A3AB0076046E /* SettingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA528C0A3AB0076046E /* SettingScreen.swift */; };
+		A87F6CA628C0A3AB0076046E /* ProfileSettingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA528C0A3AB0076046E /* ProfileSettingScreen.swift */; };
 		A88E19282901081A004E327D /* OpinionListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88E19272901081A004E327D /* OpinionListScreen.swift */; };
 		A89943A528EEC6140059AAC6 /* RegionPickerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89943A428EEC6140059AAC6 /* RegionPickerScreen.swift */; };
 		A89943A728EED89E0059AAC6 /* RegionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89943A628EED89E0059AAC6 /* RegionViewModel.swift */; };
 		A89EB76B28F69D2500257C83 /* OpinionPlacePickerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89EB76A28F69D2500257C83 /* OpinionPlacePickerScreen.swift */; };
 		A8AF3DEC28D407E9009B68BE /* RegionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AF3DEB28D407E9009B68BE /* RegionComponent.swift */; };
+		A8B0E7392907A4C9005B585F /* UserRankingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B0E7382907A4C9005B585F /* UserRankingScreen.swift */; };
+		A8B0E73E2907E01C005B585F /* HotPlaceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B0E73D2907E01C005B585F /* HotPlaceComponent.swift */; };
+		A8B0E7402907E545005B585F /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B0E73F2907E545005B585F /* HomeViewModel.swift */; };
+		A8B0E7422907E8B3005B585F /* PlaceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B0E7412907E8B3005B585F /* PlaceRepository.swift */; };
+		A8B0E7442907E8C1005B585F /* PlaceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B0E7432907E8C1005B585F /* PlaceService.swift */; };
 		A8B2C29128F52D61008EA020 /* OpinionStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B2C29028F52D61008EA020 /* OpinionStyle.swift */; };
 		A8B2C29328F57979008EA020 /* OpinionWriteScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B2C29228F57979008EA020 /* OpinionWriteScreen.swift */; };
 		A8B91E5029000F0900B62E70 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B91E4F29000F0900B62E70 /* ImagePicker.swift */; };
 		A8CD70A228F40A62007E8395 /* OpinionDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CD70A128F40A62007E8395 /* OpinionDetailScreen.swift */; };
+		A8F1EA09290387CD0049C72B /* MoreButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F1EA08290387CD0049C72B /* MoreButton.swift */; };
 		EF1E4CCF28B53A6200D985E3 /* NetworkAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */; };
 		EF26CD8828C0E9DA006D0D27 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF26CD8728C0E9DA006D0D27 /* Config.swift */; };
 		EF26CD8A28C0EECA006D0D27 /* PlanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF26CD8928C0EECA006D0D27 /* PlanService.swift */; };
@@ -161,16 +167,22 @@
 		A87F6C9E28C0A1050076046E /* TopTabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabs.swift; sourceTree = "<group>"; };
 		A87F6CA128C0A22B0076046E /* ProfileComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileComponent.swift; sourceTree = "<group>"; };
 		A87F6CA328C0A37A0076046E /* ProfileReviseScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileReviseScreen.swift; sourceTree = "<group>"; };
-		A87F6CA528C0A3AB0076046E /* SettingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingScreen.swift; sourceTree = "<group>"; };
+		A87F6CA528C0A3AB0076046E /* ProfileSettingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingScreen.swift; sourceTree = "<group>"; };
 		A88E19272901081A004E327D /* OpinionListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionListScreen.swift; sourceTree = "<group>"; };
 		A89943A428EEC6140059AAC6 /* RegionPickerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionPickerScreen.swift; sourceTree = "<group>"; };
 		A89943A628EED89E0059AAC6 /* RegionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionViewModel.swift; sourceTree = "<group>"; };
 		A89EB76A28F69D2500257C83 /* OpinionPlacePickerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionPlacePickerScreen.swift; sourceTree = "<group>"; };
 		A8AF3DEB28D407E9009B68BE /* RegionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionComponent.swift; sourceTree = "<group>"; };
+		A8B0E7382907A4C9005B585F /* UserRankingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRankingScreen.swift; sourceTree = "<group>"; };
+		A8B0E73D2907E01C005B585F /* HotPlaceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotPlaceComponent.swift; sourceTree = "<group>"; };
+		A8B0E73F2907E545005B585F /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		A8B0E7412907E8B3005B585F /* PlaceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceRepository.swift; sourceTree = "<group>"; };
+		A8B0E7432907E8C1005B585F /* PlaceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceService.swift; sourceTree = "<group>"; };
 		A8B2C29028F52D61008EA020 /* OpinionStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionStyle.swift; sourceTree = "<group>"; };
 		A8B2C29228F57979008EA020 /* OpinionWriteScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionWriteScreen.swift; sourceTree = "<group>"; };
 		A8B91E4F29000F0900B62E70 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		A8CD70A128F40A62007E8395 /* OpinionDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionDetailScreen.swift; sourceTree = "<group>"; };
+		A8F1EA08290387CD0049C72B /* MoreButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreButton.swift; sourceTree = "<group>"; };
 		EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAgent.swift; sourceTree = "<group>"; };
 		EF1E4CD028B5426F00D985E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		EF26CD8728C0E9DA006D0D27 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
@@ -336,7 +348,7 @@
 			children = (
 				A87F6C9C28C099EE0076046E /* ProfileScreen.swift */,
 				A87F6CA328C0A37A0076046E /* ProfileReviseScreen.swift */,
-				A87F6CA528C0A3AB0076046E /* SettingScreen.swift */,
+				A87F6CA528C0A3AB0076046E /* ProfileSettingScreen.swift */,
 				A862E3CD290261B1007EFCD6 /* ProfileViewModel.swift */,
 			);
 			path = ProfileScreen;
@@ -367,6 +379,14 @@
 			path = RegionComponent;
 			sourceTree = "<group>";
 		};
+		A8B0E73C2907E00C005B585F /* HotPlaceComponent */ = {
+			isa = PBXGroup;
+			children = (
+				A8B0E73D2907E01C005B585F /* HotPlaceComponent.swift */,
+			);
+			path = HotPlaceComponent;
+			sourceTree = "<group>";
+		};
 		A8CD70A028F40A41007E8395 /* OpinionScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -374,7 +394,6 @@
 				A8CD70A128F40A62007E8395 /* OpinionDetailScreen.swift */,
 				A8B2C29228F57979008EA020 /* OpinionWriteScreen.swift */,
 				A89EB76A28F69D2500257C83 /* OpinionPlacePickerScreen.swift */,
-				A8B91E4F29000F0900B62E70 /* ImagePicker.swift */,
 			);
 			path = OpinionScreen;
 			sourceTree = "<group>";
@@ -422,6 +441,8 @@
 			isa = PBXGroup;
 			children = (
 				EF74BBF228B4D5C200E09450 /* HomeScreen.swift */,
+				A8B0E7382907A4C9005B585F /* UserRankingScreen.swift */,
+				A8B0E73F2907E545005B585F /* HomeViewModel.swift */,
 			);
 			path = HomeScreen;
 			sourceTree = "<group>";
@@ -501,6 +522,7 @@
 				A80213D428BF2C4900B6359E /* TravelOnRepository.swift */,
 				EF6A3FC128E71A2F003F474B /* UserRepository.swift */,
 				A877D99D28F2662100527E21 /* OpinionRepository.swift */,
+				A8B0E7412907E8B3005B585F /* PlaceRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -517,6 +539,7 @@
 				EF8EB5DC28F8697700F8D9EB /* ScheduleEngine.swift */,
 				EF8EB5DE28F86F0700F8D9EB /* ODsayAPIService.swift */,
 				EF6ADB9C2901D9FC00A14D26 /* NcpAPIService.swift */,
+				A8B0E7432907E8C1005B585F /* PlaceService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -554,6 +577,7 @@
 		EF8FF26F28B4D1D000C053B7 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				A8B0E73C2907E00C005B585F /* HotPlaceComponent */,
 				A8212BB528F1E2E900FD4063 /* OpinionComponent */,
 				A8AF3DEA28D407D7009B68BE /* RegionComponent */,
 				A87F6CA028C0A1EE0076046E /* ProfileComponent */,
@@ -564,6 +588,8 @@
 				EFF223B128F4B33F00E6781D /* BackButton.swift */,
 				A814DF7A28ED5D5500DBF383 /* CustomAlert.swift */,
 				EFF086BD29073ED20090EC93 /* ConfirmModal.swift */,
+				A8B91E4F29000F0900B62E70 /* ImagePicker.swift */,
+				A8F1EA08290387CD0049C72B /* MoreButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -756,6 +782,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8F1EA09290387CD0049C72B /* MoreButton.swift in Sources */,
 				A8212BB728F1E2FD00FD4063 /* OpinionComponent.swift in Sources */,
 				EF3FCF1728C12D0800D48F9E /* PlanDetailScreenViewModel.swift in Sources */,
 				A80213D328BF2C2100B6359E /* TravelOnViewModel.swift in Sources */,
@@ -792,6 +819,7 @@
 				EF26CD9328C0F15E006D0D27 /* MyPlanListViewModel.swift in Sources */,
 				A80B903628C9EA200026866A /* TravelOnDetailScreen.swift in Sources */,
 				A877D99828F2607D00527E21 /* Opinion.swift in Sources */,
+				A8B0E7442907E8C1005B585F /* PlaceService.swift in Sources */,
 				A8B2C29128F52D61008EA020 /* OpinionStyle.swift in Sources */,
 				A80B903C28CA105F0026866A /* TravelOnComponent.swift in Sources */,
 				EFDC441B28C0735400E8747C /* PlanRepository.swift in Sources */,
@@ -813,13 +841,14 @@
 				A83F100D28BCCCE000978711 /* TravelOnListScreen.swift in Sources */,
 				A80213D728BF2C9800B6359E /* TravelOn.swift in Sources */,
 				EF74BBF328B4D5C200E09450 /* HomeScreen.swift in Sources */,
-				A87F6CA628C0A3AB0076046E /* SettingScreen.swift in Sources */,
+				A87F6CA628C0A3AB0076046E /* ProfileSettingScreen.swift in Sources */,
 				A87F6CA228C0A22B0076046E /* ProfileComponent.swift in Sources */,
 				EF3C061228E0EDC4003F3188 /* KakaoAPIService.swift in Sources */,
 				A84E841228B8C28600128D9B /* SignInScreen.swift in Sources */,
 				EF26CD8A28C0EECA006D0D27 /* PlanService.swift in Sources */,
 				EFF223B228F4B33F00E6781D /* BackButton.swift in Sources */,
 				A877D99C28F265F000527E21 /* OpinionService.swift in Sources */,
+				A8B0E7402907E545005B585F /* HomeViewModel.swift in Sources */,
 				EF26CD8D28C0F102006D0D27 /* MyPlanScreen.swift in Sources */,
 				A8794B3128B4EB5900959D56 /* BasicButtonStyle.swift in Sources */,
 				A83DAEED28D0475B001F1F5C /* TravelOnWriteScreen.swift in Sources */,
@@ -830,14 +859,17 @@
 				A836925828C6F48D00DBDB06 /* SearchBar.swift in Sources */,
 				EF26CD8828C0E9DA006D0D27 /* Config.swift in Sources */,
 				EF8EB5DF28F86F0700F8D9EB /* ODsayAPIService.swift in Sources */,
+				A8B0E7422907E8B3005B585F /* PlaceRepository.swift in Sources */,
 				A80213D528BF2C4900B6359E /* TravelOnRepository.swift in Sources */,
 				EF3FCF1C28C135B200D48F9E /* PlaceList.swift in Sources */,
 				A8794B2F28B4E93A00959D56 /* SignUpScreen.swift in Sources */,
 				A8B91E5029000F0900B62E70 /* ImagePicker.swift in Sources */,
+				A8B0E7392907A4C9005B585F /* UserRankingScreen.swift in Sources */,
 				EFDC441D28C073E000E8747C /* Plan.swift in Sources */,
 				EF26CD9528C0FF12006D0D27 /* DateFormat.swift in Sources */,
 				EF6ADBC52903BDFF00A14D26 /* SignUpViewModel.swift in Sources */,
 				A814DF7D28ED60B300DBF383 /* AlertCustomButton.swift in Sources */,
+				A8B0E73E2907E01C005B585F /* HotPlaceComponent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
