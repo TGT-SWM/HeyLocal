@@ -23,6 +23,14 @@ struct SignInScreen: View {
 					signUp
 					Spacer()
 				}
+				
+				if vm.showAlert {
+					ConfirmModal(
+						title: "안내",
+						message: vm.alertMsg,
+						showModal: $vm.showAlert
+					)
+				}
 			}
         }
     }
@@ -82,8 +90,7 @@ extension SignInScreen {
 	
 	/// 로그인 버튼 뷰입니다.
 	var submitButton: some View {
-		Button {
-		} label: {
+		Button(action: vm.signIn) {
 			ZStack {
 				RoundedRectangle(cornerRadius: 22)
 					.fill(Color("orange"))
