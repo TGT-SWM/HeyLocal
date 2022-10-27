@@ -51,7 +51,8 @@ struct AuthRepository {
 		return agent.run(request)
 	}
 	
-	func signIn(accountId: String, password: String) -> AnyPublisher<SignInInfo, Error> {
+	/// 로그인을 요청합니다.
+	func signIn(accountId: String, password: String) -> AnyPublisher<Auth, Error> {
 		// URLRequest 객체 생성
 		let url = URL(string: signInURL)!
 		var request = URLRequest(url: url)

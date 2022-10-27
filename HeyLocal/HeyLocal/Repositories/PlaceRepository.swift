@@ -21,7 +21,7 @@ struct PlaceRepository {
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+        request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
         
         // Publisher 반환
         return agent.run(request)

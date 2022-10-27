@@ -59,7 +59,7 @@ struct TravelOnRepository {
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+        request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
         
         
         // Publisher 반환
@@ -77,7 +77,7 @@ struct TravelOnRepository {
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+        request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
         
         // Publisher 반환
         return agent.run(request)
@@ -102,7 +102,7 @@ struct TravelOnRepository {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+        request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
         
         request.httpBody = jsonData
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -138,7 +138,7 @@ struct TravelOnRepository {
         
         request.httpMethod = "DELETE"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+        request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
         
         
         URLSession.shared.dataTask(with: request) { data, response, error in
@@ -176,7 +176,7 @@ struct TravelOnRepository {
         request.httpMethod = "PUT"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+        request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
         
         request.httpBody = jsonData
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
