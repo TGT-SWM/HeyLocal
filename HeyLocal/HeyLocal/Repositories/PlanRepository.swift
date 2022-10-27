@@ -25,7 +25,7 @@ struct PlanRepository {
 		request.httpMethod = "GET"
 		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 		request.addValue("application/json", forHTTPHeaderField: "Accept")
-		request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+		request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
 		
 		// Publisher 반환
 		return agent.run(request)
@@ -41,7 +41,7 @@ struct PlanRepository {
 		request.httpMethod = "POST"
 		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 		request.addValue("application/json", forHTTPHeaderField: "Accept")
-		request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+		request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
 		
 		let body = ["travelOnId": travelOnId]
 		request.httpBody = try? JSONSerialization.data(withJSONObject: body)
@@ -60,7 +60,7 @@ struct PlanRepository {
 		request.httpMethod = "PUT"
 		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 		request.addValue("application/json", forHTTPHeaderField: "Accept")
-		request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+		request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
 		
 		let body = ["title": planTitle]
 		request.httpBody = try? JSONSerialization.data(withJSONObject: body)
@@ -79,7 +79,7 @@ struct PlanRepository {
 		request.httpMethod = "DELETE"
 		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 		request.addValue("application/json", forHTTPHeaderField: "Accept")
-		request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+		request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
 		
 		// Publisher 반환
 		return agent.run(request)
@@ -96,7 +96,7 @@ struct PlanRepository {
 		request.httpMethod = "GET"
 		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 		request.addValue("application/json", forHTTPHeaderField: "Accept")
-		request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+		request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
 		
 		// Publisher 반환
 		return agent.run(request)
@@ -113,7 +113,7 @@ struct PlanRepository {
 		request.httpMethod = "PUT"
 		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 		request.addValue("application/json", forHTTPHeaderField: "Accept")
-		request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+		request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
 		
 		// HTTP 바디 구성
 		let encoder = JSONEncoder()

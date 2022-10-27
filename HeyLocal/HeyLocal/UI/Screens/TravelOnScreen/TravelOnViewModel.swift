@@ -221,7 +221,7 @@ func getRegion(regionId: Int) -> String {
     request.httpMethod = "GET"
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
     request.addValue("application/json", forHTTPHeaderField: "Accept")
-    request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+    request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
     
     
     

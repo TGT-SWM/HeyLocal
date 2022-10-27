@@ -16,6 +16,14 @@ class AuthManager: ObservableObject {
 	
 	@Published var authorized: Auth?
 	
+	var accessToken: String {
+		if let auth = authorized {
+			return auth.accessToken
+		} else {
+			return ""
+		}
+	}
+	
 	private init() {}
 	
 	func fetch() {
