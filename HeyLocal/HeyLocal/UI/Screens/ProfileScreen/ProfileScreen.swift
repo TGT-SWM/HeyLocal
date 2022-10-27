@@ -128,8 +128,8 @@ struct UserComponent: View {
                         Spacer()
                         
                         VStack(alignment: .trailing) {
-                            // TODO: 프로필 설정화면으로 이동
-                            NavigationLink(destination: EmptyView()) {
+                            // 프로필 설정화면으로 이동
+                            NavigationLink(destination: ProfileSettingScreen()) {
                                 Image("setting_icon")
                                     .resizable()
                                     .frame(width: 24, height: 24)

@@ -9,8 +9,105 @@
 import SwiftUI
 
 struct ProfileSettingScreen: View {
+    @Environment(\.displayTabBar) var displayTabBar
     var body: some View {
-        Text("SETTING SCREEN")
+        VStack(alignment: .leading) {
+            alarmSetting
+                .padding()
+            accountSetting
+                .padding()
+            etcSetting
+                .padding()
+            
+            Spacer()
+            
+        }
+        .navigationTitle("프로필 설정")
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: BackButton { displayTabBar(true) })
+    }
+    
+    // MARK: - 알림 설정
+    var alarmSetting: some View {
+        VStack(alignment: .leading) {
+            Text("알림 설정")
+                .font(.system(size: 14))
+                .foregroundColor(Color("gray"))
+            
+            Spacer()
+                .frame(height: 10)
+            
+            /// 알림 설정 페이지
+            NavigationLink(destination: EmptyView()) {
+                HStack {
+                    Text("푸쉬 알림 설정")
+                        .font(.system(size: 16))
+                    
+                    Spacer()
+                    
+                    Image(systemName: "chevron.right")
+                }
+                .foregroundColor(Color.black)
+            }
+        }
+    }
+    
+    // MARK: - 계정 설정
+    var accountSetting: some View {
+        VStack(alignment: .leading) {
+            Text("계정 설정")
+                .font(.system(size: 14))
+                .foregroundColor(Color("gray"))
+            
+            
+            /// 연결된 계정
+            HStack {
+                Text("연결된 계정")
+                    .font(.system(size: 16))
+                
+                Spacer()
+                
+                Image("logo-kakao")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 54)
+            }
+            
+            
+            /// 로그아웃
+            Text("로그아웃")
+            
+            Spacer()
+                .frame(height: 10)
+            
+            /// 회원탈퇴
+            Text("회원탈퇴")
+        }
+    }
+    
+    var etcSetting: some View {
+        VStack(alignment: .leading) {
+            Text("기타")
+                .font(.system(size: 14))
+                .foregroundColor(Color("gray"))
+            
+            Spacer()
+                .frame(height: 10)
+            
+            /// 이용약관
+            NavigationLink(destination: EmptyView()) {
+                HStack {
+                    Text("이용약관")
+                        .font(.system(size: 16))
+                    
+                    Spacer()
+                    
+                    Image(systemName: "chevron.right")
+                }
+                .foregroundColor(Color.black)
+            }
+        }
     }
 }
 
