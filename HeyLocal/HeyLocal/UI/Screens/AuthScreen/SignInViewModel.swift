@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 // MARK: - SignInScreen.ViewModel (뷰 모델)
 
@@ -33,8 +34,6 @@ extension SignInScreen.ViewModel {
 		authService.signIn(accountId: id, password: password) { errMsg in
 			if let msg = errMsg { // 로그인 실패
 				self.alert(message: msg)
-			} else { // 로그인 성공
-				print("로그인 성공") // LOG
 			}
 		}
 	}

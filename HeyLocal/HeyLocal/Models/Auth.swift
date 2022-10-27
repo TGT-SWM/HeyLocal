@@ -14,11 +14,22 @@ struct CheckDuplicateIdResponse: Decodable {
 }
 
 /// 로그인 성공 시 응답 데이터
-struct SignInResponse: Decodable {
+struct Auth: Decodable {
 	var id: Int
 	var accountId: String
 	var nickname: String
 	var userRole: String
 	var accessToken: String
 	var refreshToken: String
+	
+	static func from(_ authorization: Authorization) -> Auth {
+		return Auth(
+			id: Int(truncatingIfNeeded: authorization.id),
+			accountId: authorization.accountId ?? "",
+			nickname: authorization.nickname ?? "",
+			userRole: authorization.userRole ?? "",
+			accessToken: authorization.accessToken ?? "",
+			refreshToken: authorization.refreshToken ?? ""
+		)
+	}
 }

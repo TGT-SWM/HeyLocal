@@ -9,9 +9,11 @@
 import Foundation
 import Combine
 import SwiftUI
+import CoreData
 
 class AuthService {
 	private let authRepository = AuthRepository()
+	let context = PersistenceController.shared.container.viewContext
 	
 	var cancelBag: Set<AnyCancellable> = []
 	
@@ -64,8 +66,8 @@ class AuthService {
 						onComplete(nil)
 					}
 				},
-				receiveValue: { resp in
-					// TODO: 디바이스에 저장합니다.
+				receiveValue: {
+					AuthManager.shared.save($0)
 				}
 			)
 			.store(in: &cancelBag)
