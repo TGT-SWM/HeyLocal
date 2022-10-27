@@ -55,6 +55,8 @@
 		A8B91E5029000F0900B62E70 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B91E4F29000F0900B62E70 /* ImagePicker.swift */; };
 		A8CD70A228F40A62007E8395 /* OpinionDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CD70A128F40A62007E8395 /* OpinionDetailScreen.swift */; };
 		A8F1EA09290387CD0049C72B /* MoreButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F1EA08290387CD0049C72B /* MoreButton.swift */; };
+		EF113197290931EB006A00DA /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF113196290931EB006A00DA /* SignInViewModel.swift */; };
+		EF113199290933F2006A00DA /* AuthTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF113198290933F2006A00DA /* AuthTextField.swift */; };
 		EF1E4CCF28B53A6200D985E3 /* NetworkAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */; };
 		EF26CD8828C0E9DA006D0D27 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF26CD8728C0E9DA006D0D27 /* Config.swift */; };
 		EF26CD8A28C0EECA006D0D27 /* PlanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF26CD8928C0EECA006D0D27 /* PlanService.swift */; };
@@ -183,6 +185,8 @@
 		A8B91E4F29000F0900B62E70 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		A8CD70A128F40A62007E8395 /* OpinionDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionDetailScreen.swift; sourceTree = "<group>"; };
 		A8F1EA08290387CD0049C72B /* MoreButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreButton.swift; sourceTree = "<group>"; };
+		EF113196290931EB006A00DA /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		EF113198290933F2006A00DA /* AuthTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTextField.swift; sourceTree = "<group>"; };
 		EF1E4CCE28B53A6200D985E3 /* NetworkAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAgent.swift; sourceTree = "<group>"; };
 		EF1E4CD028B5426F00D985E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		EF26CD8728C0E9DA006D0D27 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
@@ -339,6 +343,8 @@
 				A8794B2E28B4E93A00959D56 /* SignUpScreen.swift */,
 				EF6ADBC42903BDFF00A14D26 /* SignUpViewModel.swift */,
 				A84E841128B8C28600128D9B /* SignInScreen.swift */,
+				EF113196290931EB006A00DA /* SignInViewModel.swift */,
+				EF113198290933F2006A00DA /* AuthTextField.swift */,
 			);
 			path = AuthScreen;
 			sourceTree = "<group>";
@@ -801,6 +807,7 @@
 				EF6A3FC828E93A68003F474B /* PlanCreateViewModel.swift in Sources */,
 				A87F6C9F28C0A1050076046E /* TopTabs.swift in Sources */,
 				A813CA3028B4F033000F0ADF /* SNSButtonStyle.swift in Sources */,
+				EF113197290931EB006A00DA /* SignInViewModel.swift in Sources */,
 				EF26CD9128C0F153006D0D27 /* MyPlanList.swift in Sources */,
 				EF3C060C28E0E53F003F3188 /* PlaceSearchScreen.swift in Sources */,
 				A8CD70A228F40A62007E8395 /* OpinionDetailScreen.swift in Sources */,
@@ -832,6 +839,7 @@
 				A89943A728EED89E0059AAC6 /* RegionViewModel.swift in Sources */,
 				A80213D928BF2D6C00B6359E /* Author.swift in Sources */,
 				A83972EA28E430AB000E323E /* CustomToggleStyle.swift in Sources */,
+				EF113199290933F2006A00DA /* AuthTextField.swift in Sources */,
 				A89943A528EEC6140059AAC6 /* RegionPickerScreen.swift in Sources */,
 				A87F6C9D28C099EE0076046E /* ProfileScreen.swift in Sources */,
 				EFAA2AC528BBC48400B56A3C /* AuthService.swift in Sources */,

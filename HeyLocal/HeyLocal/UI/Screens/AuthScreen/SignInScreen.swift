@@ -8,100 +8,108 @@
 
 import SwiftUI
 
+// MARK: - SignInScreen (로그인 화면)
+
 struct SignInScreen: View {
-    @State private var user_id: String = ""
-    @State private var user_pwd: String = ""
+    @ObservedObject var vm = ViewModel()
     
     var body: some View {
         NavigationView {
-            VStack {
-                Image("logo")
-                    .resizable()    // 이미지 크기 조절
-                    .scaledToFit()  // 이미지 비율 유지
-                    .frame(width: 150)
-                
-                Group {
-                    VStack{
-                        VStack{
-                            Text("아이디")
-                                .fontWeight(.bold)
-                                .frame(maxWidth: ScreenSize.width * 0.9, alignment: .leading)
-
-                            Spacer()
-                                .frame(height: 3)
-
-                            TextField("", text: $user_id)
-                                .frame(width: ScreenSize.width * 0.9, height: ScreenSize.height * 0.05)
-                                .background(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-                        }
-
-                        VStack{
-                            Text("패스워드")
-                                .fontWeight(.bold)
-                                .frame(maxWidth: ScreenSize.width * 0.9, alignment: .leading)
-
-                            Spacer()
-                                .frame(height: 3)
-
-                            TextField("", text: $user_pwd)
-                                .frame(width: ScreenSize.width * 0.9, height: ScreenSize.height * 0.05)
-                                .background(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-                        }
-
-                        Spacer()
-                            .frame(height: 20)
-
-                        // 로그인 버튼
-                        Button(action: {
-
-                        }, label: {
-                            Text("로그인")
-                        })
-                        .buttonStyle(BasicButtonStyle())
-                    }
-                    Divider()
-                    Spacer()
-                        .frame(height: 20)
-
-                    
-                }
-                content
-                
-                NavigationLink("현지야 회원가입", destination: SignUpScreen())
-            }
+			ZStack {
+				VStack(spacing: 0) {
+					logo
+					form
+					social
+					signUp
+					Spacer()
+				}
+			}
         }
     }
-    
-    var content: some View {
-        VStack {
-            VStack {
-                // KAKAO
-                Button(action: {
-                }, label: {
-                    HStack{
-                        Image("kakao_logo")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 60)
-                        Text("계정으로 로그인")
-                    }
-                }).buttonStyle(SNSButtonStyle())
-                
-                // APPle
-                Button(action: {
-                }, label: {
-                    HStack{
-                        Image("apple_logo")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 60)
-                        Text("계정으로 로그인")
-                    }
-                }).buttonStyle(SNSButtonStyle())
-            }
-        }
-    }
+	
+	/// 서비스 로고 이미지에 대한 뷰입니다.
+	var logo: some View {
+		Image("logo")
+			.resizable()
+			.scaledToFit()
+			.frame(height: 32)
+			.padding(.vertical, 80)
+	}
+	
+	/// 회원가입 화면으로 이동하는 버튼에 대한 뷰입니다.
+	var signUp: some View {
+		HStack {
+			Text("반가워요, 현지야 첫 방문이신가요?")
+				.font(.system(size: 12))
+				.foregroundColor(Color("gray"))
+			NavigationLink(destination: SignUpScreen()) {
+				Text("회원가입")
+					.font(.system(size: 14))
+					.fontWeight(.medium)
+					.foregroundColor(.black)
+					.underline()
+			}
+		}
+	}
 }
+
+
+// MARK: - 입력 폼
+
+extension SignInScreen {
+	/// 로그인 정보 입력 폼에 대한 뷰입니다.
+	var form: some View {
+		VStack {
+			idField
+			passwordField
+			submitButton
+		}
+	}
+	
+	/// 로그인 아이디 입력 필드에 대한 뷰입니다.
+	var idField: some View {
+		AuthTextField(value: $vm.id, placeholder: "아이디")
+			.keyboardType(.asciiCapable)
+			.autocapitalization(.none)
+			.padding(.horizontal, 20)
+	}
+	
+	/// 로그인 패스워드 입력 필드에 대한 뷰입니다.
+	var passwordField: some View {
+		AuthTextField(value: $vm.password, placeholder: "비밀번호", secured: true)
+			.padding(.horizontal, 20)
+	}
+	
+	/// 로그인 버튼 뷰입니다.
+	var submitButton: some View {
+		Button {
+		} label: {
+			ZStack {
+				RoundedRectangle(cornerRadius: 22)
+					.fill(Color("orange"))
+					.frame(height: 44)
+				Text("로그인")
+					.foregroundColor(.white)
+					.font(.system(size: 14))
+					.fontWeight(.medium)
+			}
+		}
+		.padding(.horizontal, 20)
+		.padding(.vertical, 20)
+	}
+}
+
+
+// MARK: - 소셜 로그인
+
+extension SignInScreen {
+	var social: some View {
+		EmptyView()
+	}
+}
+
+
+// MARK: - Previews
 
 struct SignInScreen_Previews: PreviewProvider {
     static var previews: some View {
