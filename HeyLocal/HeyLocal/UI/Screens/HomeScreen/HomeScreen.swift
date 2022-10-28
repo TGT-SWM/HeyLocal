@@ -95,7 +95,6 @@ struct HomeScreen: View {
             }
             .navigationBarTitle("", displayMode: .automatic)
             .navigationBarItems(trailing: alarmButton)
-//            .navigationBarHidden(true)
             .navigationViewStyle(StackNavigationViewStyle())
             
         }
@@ -204,14 +203,13 @@ extension HomeScreen {
 // MARK: - 사용자 노하우 랭킹
 extension HomeScreen {
     struct Ranking: View {
-        
-        var gridItems = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
         @StateObject var viewModel = ViewModel()
         var body: some View {
             VStack(alignment: .leading) {
-                LazyVGrid(columns: gridItems) {
+                HStack {
                     ForEach(viewModel.rankings) { user in
                         ProfileComponent(author: user)
+                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 5))
                     }
                 }
             }
