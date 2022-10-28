@@ -106,6 +106,7 @@ extension PlanDetailScreen.ViewModel {
 					let next = places[j + 1]
 					
 					serialQueue.async {
+						if j >= self.apiDistances[i].count { return }
 						fetcher(
 							cur.lat,
 							cur.lng,
