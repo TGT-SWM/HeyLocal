@@ -864,6 +864,7 @@ struct OpinionWriteScreen: View {
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 100, height: 100)
                                     .cornerRadius(10)
+                                    .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
                                 
                                 // 이미지 삭제버튼
                                 Button(action: {
@@ -1083,6 +1084,7 @@ struct OpinionWriteScreen: View {
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 100, height: 100)
                                     .cornerRadius(10)
+                                    .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
                                 
                                 // 이미지 삭제버튼
                                 Button(action: {
@@ -1239,6 +1241,7 @@ struct OpinionWriteScreen: View {
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 100, height: 100)
                                     .cornerRadius(10)
+                                    .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
                                 
                                 // 이미지 삭제버튼
                                 Button(action: {
