@@ -28,7 +28,7 @@ struct UserRepository {
 		let url = components.url!
 		var request = URLRequest(url: url)
 		request.httpMethod = "GET"
-		request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+		request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
 		
 		// API Call
 		return agent.run(request)
@@ -47,7 +47,7 @@ struct UserRepository {
         var request = URLRequest(url: url)
         
         request.httpMethod = "GET"
-        request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+        request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
         
         return agent.run(request)
     }
@@ -61,7 +61,7 @@ struct UserRepository {
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+        request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
         
         // Publisher 반환
         return agent.run(request)
@@ -84,7 +84,7 @@ struct UserRepository {
         request.httpMethod = "PUT"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+        request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
         
         request.httpBody = jsonData
         
@@ -193,7 +193,7 @@ struct UserRepository {
         
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+        request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
         
         // Publisher 반환
         return agent.run(request)

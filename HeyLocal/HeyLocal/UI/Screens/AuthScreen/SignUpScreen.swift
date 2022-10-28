@@ -16,29 +16,27 @@ struct SignUpScreen: View {
 	@ObservedObject var vm = ViewModel()
 	
 	var body: some View {
-		NavigationView {
-			ZStack {
-				VStack {
-					form
-					social
-					Spacer()
-				}
-				
-				if vm.showAlert {
-					ConfirmModal(
-						title: "안내",
-						message: vm.alertMsg,
-						showModal: $vm.showAlert
-					)
-				}
+		ZStack {
+			VStack {
+				form
+				social
+				Spacer()
 			}
-			.navigationTitle("회원가입")
-			.navigationBarTitleDisplayMode(.inline)
-			.navigationBarBackButtonHidden(true)
-			.navigationBarItems(leading: BackButton())
-			.onAppear { displayTabBar(false) }
-			.onDisappear { displayTabBar(false) }
+			
+			if vm.showAlert {
+				ConfirmModal(
+					title: "안내",
+					message: vm.alertMsg,
+					showModal: $vm.showAlert
+				)
+			}
 		}
+		.navigationTitle("회원가입")
+		.navigationBarTitleDisplayMode(.inline)
+		.navigationBarBackButtonHidden(true)
+		.navigationBarItems(leading: BackButton())
+		.onAppear { displayTabBar(false) }
+		.onDisappear { displayTabBar(false) }
 	}
 }
 
@@ -60,35 +58,9 @@ extension SignUpScreen {
 		.padding(.top, 42)
 	}
 	
-	/// 입력 필드에 대한 뷰를 반환합니다.
-	func field(name: String, value: Binding<String>, placeholder: String, secured: Bool) -> some View {
-		VStack(alignment: .leading, spacing: 4) {
-			Text(name)
-				.font(.system(size: 14))
-				.fontWeight(.medium)
-			
-			ZStack {
-				RoundedRectangle(cornerRadius: 10)
-					.stroke(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), lineWidth: 1)
-					.background(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
-				
-				if secured {
-					SecureField(placeholder, text: value)
-						.font(.system(size: 12))
-						.padding(.horizontal, 12)
-				} else {
-					TextField(placeholder, text: value)
-						.font(.system(size: 12))
-						.padding(.horizontal, 12)
-				}
-			}
-			.frame(height: 44)
-		}
-	}
-	
 	/// 닉네임 입력 필드에 대한 뷰입니다.
 	var nicknameField: some View {
-		field(name: "닉네임", value: $vm.nickname, placeholder: "2-10자 이내로 입력해주세요", secured: false)
+		AuthTextField(name: "닉네임", value: $vm.nickname, placeholder: "2-10자 이내로 입력해주세요", secured: false)
 			.padding(.horizontal, 20)
 	}
 	
@@ -96,7 +68,7 @@ extension SignUpScreen {
 	var idField: some View {
 		VStack(alignment: .leading) {
 			HStack(alignment: .bottom) {
-				field(name: "아이디", value: $vm.id, placeholder: "영문, 숫자  15자 이내", secured: false)
+				AuthTextField(name: "아이디", value: $vm.id, placeholder: "영문, 숫자  15자 이내", secured: false)
 					.keyboardType(.asciiCapable)
 					.autocapitalization(.none)
 				Button {
@@ -127,13 +99,13 @@ extension SignUpScreen {
 	
 	/// 패스워드 입력 필드에 대한 뷰입니다.
 	var passwordField: some View {
-		field(name: "비밀번호", value: $vm.password, placeholder: "10-20자 이내로 입력해주세요", secured: true)
+		AuthTextField(name: "비밀번호", value: $vm.password, placeholder: "10-20자 이내로 입력해주세요", secured: true)
 			.padding(.horizontal, 20)
 	}
 	
 	/// 패스워드 재입력 필드에 대한 뷰입니다.
 	var rePasswordField: some View {
-		field(name: "비밀번호 확인", value: $vm.rePassword, placeholder: "10-20자 이내로 입력해주세요", secured: true)
+		AuthTextField(name: "비밀번호 확인", value: $vm.rePassword, placeholder: "10-20자 이내로 입력해주세요", secured: true)
 			.padding(.horizontal, 20)
 	}
 	

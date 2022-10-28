@@ -23,7 +23,7 @@ struct OpinionRepository {
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+        request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
         
         return agent.run(request)
     }
@@ -37,7 +37,7 @@ struct OpinionRepository {
         // HTTP 헤더 구성
         request.httpMethod = "DELETE"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+        request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
         
         
         URLSession.shared.dataTask(with: request) { data, response, error in
@@ -75,7 +75,7 @@ struct OpinionRepository {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+        request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
         
         request.httpBody = jsonData
         
@@ -156,7 +156,7 @@ struct OpinionRepository {
         request.httpMethod = "PUT"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("Bearer \(Config.accessToken)", forHTTPHeaderField: "Authorization")
+        request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
         
         request.httpBody = jsonData
         var httpResponseStatusCode: Int = 0

@@ -60,6 +60,11 @@ extension OpinionComponent {
                 }, receiveValue: { opinions in
                     self.opinions = opinions
                     
+                    // 답변 채택 수로 Sorting
+                    self.opinions.sort { (left: Opinion, right: Opinion ) -> Bool in
+                        return left.countAccept > right.countAccept
+                    }
+                    
                     // 답변 상세조회
                     if opinionId != nil {
                         for i in 0 ..< self.opinions.count {

@@ -1,14 +1,14 @@
 //
 //  Main.swift
 //  HeyLocal
-//	메인 뷰 (뷰의 엔트리 포인트)
+//	메인 뷰
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //
 
 import SwiftUI
 
-// MARK: - Main (뷰의 엔트리 포인트)
+// MARK: - Main
 
 struct Main: View {
 	var body: some View {

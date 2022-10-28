@@ -12,7 +12,7 @@ import SwiftUI
 struct HeyLocalApp: App {
     var body: some Scene {
         WindowGroup {
-            Main()
+            ContentView()
         }
     }
 }
