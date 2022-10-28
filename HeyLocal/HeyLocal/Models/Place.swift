@@ -10,7 +10,7 @@ import Foundation
 
 // MARK: - Place (장소)
 
-struct Place: Codable, Equatable, Identifiable {
+struct Place: Codable, Equatable, Identifiable, Hashable {
 	var id: Int
 	var name: String
 	var category: String

@@ -77,6 +77,7 @@
 		EF4EDBAF290B10A500068196 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4EDBAE290B10A500068196 /* PersistenceController.swift */; };
 		EF4EDBB1290B165300068196 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4EDBB0290B165300068196 /* ContentView.swift */; };
 		EF4EDBB3290B18E500068196 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4EDBB2290B18E500068196 /* AuthManager.swift */; };
+		EF4EDBB5290B5EFC00068196 /* MealSelectScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4EDBB4290B5EFC00068196 /* MealSelectScreen.swift */; };
 		EF6A3FC228E71A2F003F474B /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A3FC128E71A2F003F474B /* UserRepository.swift */; };
 		EF6A3FC428E71EE5003F474B /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A3FC328E71EE5003F474B /* UserService.swift */; };
 		EF6A3FC628E93A44003F474B /* PlanCreateScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6A3FC528E93A44003F474B /* PlanCreateScreen.swift */; };
@@ -212,6 +213,7 @@
 		EF4EDBAE290B10A500068196 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		EF4EDBB0290B165300068196 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		EF4EDBB2290B18E500068196 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		EF4EDBB4290B5EFC00068196 /* MealSelectScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealSelectScreen.swift; sourceTree = "<group>"; };
 		EF6A3FC128E71A2F003F474B /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		EF6A3FC328E71EE5003F474B /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		EF6A3FC528E93A44003F474B /* PlanCreateScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCreateScreen.swift; sourceTree = "<group>"; };
@@ -457,6 +459,7 @@
 				EF3FCF1628C12D0800D48F9E /* PlanDetailScreenViewModel.swift */,
 				EF3FCF1B28C135B200D48F9E /* PlaceList.swift */,
 				EFF9F3C628C5C8DA00E9FCB3 /* KakaoMap.swift */,
+				EF4EDBB4290B5EFC00068196 /* MealSelectScreen.swift */,
 			);
 			path = PlanDetailScreen;
 			sourceTree = "<group>";
@@ -902,6 +905,7 @@
 				EF6ADBC52903BDFF00A14D26 /* SignUpViewModel.swift in Sources */,
 				A814DF7D28ED60B300DBF383 /* AlertCustomButton.swift in Sources */,
 				A8B0E73E2907E01C005B585F /* HotPlaceComponent.swift in Sources */,
+				EF4EDBB5290B5EFC00068196 /* MealSelectScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

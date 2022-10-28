@@ -211,13 +211,12 @@ extension PlanDetailScreen {
 extension PlanDetailScreen {
 	/// 여행 장소 추가 버튼과 최적루트 재정렬 버튼을 표시합니다.
 	func scheduleToolbar(day: Int?) -> some View {
-		HStack(alignment: .center) {
+		VStack(alignment: .center) {
 			addPlacesButton
 			if let day = day {
 				rearrangeButton(day: day)
 			}
 		}
-		.frame(height: 56)
 		.background(Color.white)
 	}
 	
@@ -237,6 +236,7 @@ extension PlanDetailScreen {
 			.opacity(0)
 		}
 		.foregroundColor(Color(red: 126 / 255, green: 0, blue: 217 / 255))
+		.frame(height: 48)
 		.frame(maxWidth: .infinity)
 	}
 	
@@ -253,6 +253,7 @@ extension PlanDetailScreen {
 		}
 		.buttonStyle(PlainButtonStyle())
 		.foregroundColor(Color(red: 126 / 255, green: 0, blue: 217 / 255))
+		.frame(height: 48)
 		.frame(maxWidth: .infinity)
 	}
 }
