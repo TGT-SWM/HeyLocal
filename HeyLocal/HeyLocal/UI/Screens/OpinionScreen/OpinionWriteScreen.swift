@@ -311,22 +311,30 @@ struct OpinionWriteScreen: View {
                         // 이미지 View
                         ForEach(generalImages, id:\.self) { img in
                             ZStack(alignment: .topTrailing) {
+                                /// 이미지
                                 Image(uiImage: img.image)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 100, height: 100)
                                     .cornerRadius(10)
+                                    .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
                                 
-                                // 이미지 삭제버튼
+                                /// 이미지 삭제버튼
                                 Button(action: {
                                     if let index = generalImages.firstIndex(of: img) {
                                         generalImages.remove(at: index)
                                     }
                                 }) {
-                                    Image(systemName: "multiply")
-                                        .resizable()
-                                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-                                        .frame(width: 10, height: 10)
+                                    ZStack {
+                                        Circle()
+                                            .fill(Color("orange"))
+                                            .frame(width: 18, height: 18)
+                                        
+                                        Image(systemName: "multiply")
+                                            .resizable()
+                                            .foregroundColor(Color.white)
+                                            .frame(width: 10, height: 10)
+                                    }
                                 }
                             }
                         }
@@ -863,10 +871,16 @@ struct OpinionWriteScreen: View {
                                         foodImages.remove(at: index)
                                     }
                                 }) {
-                                    Image(systemName: "multiply")
-                                        .resizable()
-                                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-                                        .frame(width: 10, height: 10)
+                                    ZStack {
+                                        Circle()
+                                            .fill(Color("orange"))
+                                            .frame(width: 18, height: 18)
+                                        
+                                        Image(systemName: "multiply")
+                                            .resizable()
+                                            .foregroundColor(Color.white)
+                                            .frame(width: 10, height: 10)
+                                    }
                                 }
                             }
                         }
@@ -1076,10 +1090,16 @@ struct OpinionWriteScreen: View {
                                         cafeImages.remove(at: index)
                                     }
                                 }) {
-                                    Image(systemName: "multiply")
-                                        .resizable()
-                                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-                                        .frame(width: 10, height: 10)
+                                    ZStack {
+                                        Circle()
+                                            .fill(Color("orange"))
+                                            .frame(width: 18, height: 18)
+                                        
+                                        Image(systemName: "multiply")
+                                            .resizable()
+                                            .foregroundColor(Color.white)
+                                            .frame(width: 10, height: 10)
+                                    }
                                 }
                             }
                         }
@@ -1226,10 +1246,16 @@ struct OpinionWriteScreen: View {
                                         photoSpotImages.remove(at: index)
                                     }
                                 }) {
-                                    Image(systemName: "multiply")
-                                        .resizable()
-                                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-                                        .frame(width: 10, height: 10)
+                                    ZStack {
+                                        Circle()
+                                            .fill(Color("orange"))
+                                            .frame(width: 18, height: 18)
+                                        
+                                        Image(systemName: "multiply")
+                                            .resizable()
+                                            .foregroundColor(Color.white)
+                                            .frame(width: 10, height: 10)
+                                    }
                                 }
                             }
                         }
