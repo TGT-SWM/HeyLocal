@@ -292,8 +292,84 @@ struct OpinionDetailScreen: View {
             
             VStack(alignment: .leading) {
                 HStack {
-                    Circle()
-                        .frame(width: 56, height: 56)
+                    // 프로필사진
+                    Group {
+                        if viewModel.opinion.author.profileImgDownloadUrl == nil {
+                            ZStack {
+                                ZStack {
+                                    Circle()
+                                        .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                        .frame(width: 20, height: 20)
+                                        .shadow(color: .black, radius: 1)
+                                    
+                                    Image(systemName: "person.fill")
+                                        .resizable()
+                                        .frame(width: 13, height: 13)
+                                        .foregroundColor(Color("gray"))
+                                }
+                                
+                                Circle()
+                                    .strokeBorder(.white, lineWidth: 1)
+                                    .frame(width: 20, height: 20)
+                            }
+                        }
+                        else {
+                            AsyncImage(url: URL(string: viewModel.opinion.author.profileImgDownloadUrl!)) { phash in
+                                if let image = phash.image {
+                                    ZStack {
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .clipShape(Circle())
+                                            .frame(width: 56, height: 56)
+                                            .shadow(color: .gray, radius: 3)
+                                        
+                                        Circle()
+                                            .strokeBorder(.white, lineWidth: 1)
+                                            .frame(width: 56, height: 56)
+                                    }
+                                }
+                                else if phash.error != nil {
+                                    ZStack {
+                                        ZStack {
+                                            Circle()
+                                                .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                                .frame(width: 56, height: 56)
+                                                .shadow(color: .black, radius: 1)
+                                            
+                                            Image(systemName: "person.fill")
+                                                .resizable()
+                                                .frame(width: 40, height: 40)
+                                                .foregroundColor(Color("gray"))
+                                        }
+                                        
+                                        Circle()
+                                            .strokeBorder(.white, lineWidth: 1)
+                                            .frame(width: 56, height: 56)
+                                    }
+                                }
+                                else {
+                                    ZStack {
+                                        ZStack {
+                                            Circle()
+                                                .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                                .frame(width: 56, height: 56)
+                                                .shadow(color: .black, radius: 1)
+                                            
+                                            Image(systemName: "person.fill")
+                                                .resizable()
+                                                .frame(width: 40, height: 40)
+                                                .foregroundColor(Color("gray"))
+                                        }
+                                        
+                                        Circle()
+                                            .strokeBorder(.white, lineWidth: 1)
+                                            .frame(width: 56, height: 56)
+                                    }
+                                }
+                            }
+                        }
+                    }
                     
                     Spacer()
                         .frame(width: 15)

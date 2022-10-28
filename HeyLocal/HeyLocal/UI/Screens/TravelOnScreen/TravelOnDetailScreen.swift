@@ -161,7 +161,7 @@ struct TravelOnDetailScreen: View {
             .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
             
             
-            // TODO: When + Member + Where
+            // When + Member + Where
             Group {
                 VStack(alignment: .leading) {
                     HStack {
@@ -323,17 +323,85 @@ struct TravelOnDetailScreen: View {
                 HStack {
                     Spacer()
                     
-                    ZStack {
-                        Circle()
-                            .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-                            .frame(width: 20, height: 20)
-                            .shadow(color: .black, radius: 1)
+                    /// 프로필 사진
+                    if viewModel.travelOn.author.profileImgDownloadUrl == nil {
+                        ZStack {
+                            ZStack {
+                                Circle()
+                                    .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                    .frame(width: 20, height: 20)
+                                    .shadow(color: .black, radius: 1)
+                                
+                                Image(systemName: "person.fill")
+                                    .resizable()
+                                    .frame(width: 13, height: 13)
+                                    .foregroundColor(Color("gray"))
+                            }
                             
-                        
-                        Circle()
-                            .strokeBorder(.white, lineWidth: 1)
-                            .frame(width: 20, height: 20)
+                            Circle()
+                                .strokeBorder(.white, lineWidth: 1)
+                                .frame(width: 20, height: 20)
+                        }
                     }
+                    // 프로필 사진이 있을 때
+                    else {
+                        AsyncImage(url: URL(string: viewModel.travelOn.author.profileImgDownloadUrl!)) { phash in
+                            if let image = phash.image {
+                                ZStack {
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .clipShape(Circle())
+                                        .frame(width: 20, height: 20)
+                                        .shadow(color: .gray, radius: 3)
+                                    
+                                    Circle()
+                                        .strokeBorder(.white, lineWidth: 1)
+                                        .frame(width: 20, height: 20)
+                                }
+                            }
+                            else if phash.error != nil {
+                                ZStack {
+                                    ZStack {
+                                        Circle()
+                                            .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                            .frame(width: 20, height: 20)
+                                            .shadow(color: .black, radius: 1)
+                                        
+                                        Image(systemName: "person.fill")
+                                            .resizable()
+                                            .frame(width: 13, height: 13)
+                                            .foregroundColor(Color("gray"))
+                                    }
+                                    
+                                    Circle()
+                                        .strokeBorder(.white, lineWidth: 1)
+                                        .frame(width: 20, height: 20)
+                                }
+                            }
+                            else {
+                                ZStack {
+                                    ZStack {
+                                        Circle()
+                                            .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                            .frame(width: 20, height: 20)
+                                            .shadow(color: .black, radius: 1)
+                                        
+                                        Image(systemName: "person.fill")
+                                            .resizable()
+                                            .frame(width: 13, height: 13)
+                                            .foregroundColor(Color("gray"))
+                                    }
+                                    
+                                    Circle()
+                                        .strokeBorder(.white, lineWidth: 1)
+                                        .frame(width: 20, height: 20)
+                                }
+                            }
+                        }
+                        
+                    }
+                    
                     Text("\(viewModel.travelOn.author.nickname)")
                         .font(.system(size: 12))
                         .foregroundColor(Color(red: 117/255, green: 118/255, blue: 121/255))

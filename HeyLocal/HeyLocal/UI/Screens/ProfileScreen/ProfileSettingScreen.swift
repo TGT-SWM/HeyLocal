@@ -68,6 +68,7 @@ struct ProfileSettingScreen: View {
                 
                 Spacer()
                 
+                // TODO: 연결된 계정 뜨기 해야 함
                 Image("logo-kakao")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -76,7 +77,7 @@ struct ProfileSettingScreen: View {
             
             
             /// 로그아웃
-            // TODO: Alert 후 
+            // TODO: Alert 후
             Button(action: {
                 AuthManager.shared.removeAll()
             }) {
