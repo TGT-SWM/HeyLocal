@@ -124,7 +124,7 @@ struct OpinionWriteScreen: View {
         let coffeeTypeStr: [String] = ["BITTER", "SOUR", "GENERAL"]
         
         opinionData.place = viewModel.opinion.place
-        opinionData.quantity?.generalImgQuantity = 2
+        opinionData.quantity?.generalImgQuantity = self.generalImages.count
         opinionData.description = viewModel.opinion.description
         
         opinionData.facilityCleanliness = LikertScale[viewModel.cleanInt - 1]
@@ -159,7 +159,7 @@ struct OpinionWriteScreen: View {
                 }
             }
             opinionData.recommendDrinkAndDessertDescription = viewModel.opinion.recommendDrinkAndDessertDescription
-            opinionData.quantity?.drinkAndDessertImgQuantity = 2
+            opinionData.quantity?.drinkAndDessertImgQuantity = self.cafeImages.count
         }
         
         // 숙박시설
@@ -333,7 +333,6 @@ struct OpinionWriteScreen: View {
                     }
                     
                     if self.showGeneralImagePicker {
-//                        CustomImagePicker(selectedImages: self.$generalImages, showingPicker: self.$showGeneralImagePicker)
                         NavigationLink("", destination: CustomImagePicker(selectedImages: self.$generalImages, showingPicker: self.$showGeneralImagePicker), isActive: $showGeneralImagePicker)
                     }
                 }
@@ -731,7 +730,7 @@ struct OpinionWriteScreen: View {
     
     // MARK: - 음식점  변수 · View
     @State var showFoodImagePicker: Bool = false
-    @State var foodImages: [UIImage] = [UIImage]()
+    @State var foodImages: [SelectedImage] = []
     var restaurant: some View {
         VStack(alignment: .leading) {
             Divider()
@@ -825,9 +824,9 @@ struct OpinionWriteScreen: View {
                     HStack {
                         // 이미지 추가 버튼
                         Button(action: {
-//                            if foodImages.count < 3 {
-//                                showFoodImagePicker.toggle()
-//                            }
+                            if foodImages.count < 3 {
+                                showFoodImagePicker.toggle()
+                            }
                         }) {
                             ZStack(alignment: .center) {
                                 Rectangle()
@@ -848,14 +847,11 @@ struct OpinionWriteScreen: View {
                                 }
                             }
                         }
-                        .sheet(isPresented: $showFoodImagePicker, content: {
-                            ImagePicker(isPresent: $showFoodImagePicker, images: $foodImages)
-                        })
                         
                         // 이미지 View
                         ForEach(foodImages, id:\.self) { img in
                             ZStack(alignment: .topTrailing) {
-                                Image(uiImage: img)
+                                Image(uiImage: img.image)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 100, height: 100)
@@ -873,6 +869,10 @@ struct OpinionWriteScreen: View {
                                         .frame(width: 10, height: 10)
                                 }
                             }
+                        }
+                        
+                        if self.showFoodImagePicker {
+                            NavigationLink("", destination: CustomImagePicker(selectedImages: self.$foodImages, showingPicker: self.$showFoodImagePicker), isActive: $showFoodImagePicker)
                         }
                     }
                 }
@@ -905,7 +905,7 @@ struct OpinionWriteScreen: View {
     
     // MARK: - 카페  변수 · View
     @State var showCafeImagePicker: Bool = false
-    @State var cafeImages: [UIImage] = [UIImage]()
+    @State var cafeImages: [SelectedImage] = []
     var cafe: some View {
         VStack(alignment: .leading) {
             Divider()
@@ -1037,9 +1037,9 @@ struct OpinionWriteScreen: View {
                     HStack {
                         // 이미지 추가 버튼
                         Button(action: {
-//                            if cafeImages.count < 3 {
-//                                showCafeImagePicker.toggle()
-//                            }
+                            if cafeImages.count < 3 {
+                                showCafeImagePicker.toggle()
+                            }
                         }) {
                             ZStack(alignment: .center) {
                                 Rectangle()
@@ -1060,14 +1060,11 @@ struct OpinionWriteScreen: View {
                                 }
                             }
                         }
-                        .sheet(isPresented: $showCafeImagePicker, content: {
-                            ImagePicker(isPresent: $showCafeImagePicker, images: $cafeImages)
-                        })
                         
                         // 이미지 View
                         ForEach(cafeImages, id:\.self) { img in
                             ZStack(alignment: .topTrailing) {
-                                Image(uiImage: img)
+                                Image(uiImage: img.image)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 100, height: 100)
@@ -1085,6 +1082,10 @@ struct OpinionWriteScreen: View {
                                         .frame(width: 10, height: 10)
                                 }
                             }
+                        }
+                        
+                        if self.showCafeImagePicker {
+                            NavigationLink("", destination: CustomImagePicker(selectedImages: self.$cafeImages, showingPicker: self.$showCafeImagePicker), isActive: $showCafeImagePicker)
                         }
                     }
                 }
@@ -1117,7 +1118,7 @@ struct OpinionWriteScreen: View {
     
     // MARK: - 관광명소 및 문화시설  변수 · View
     @State var showPhotoSpotImagePicker: Bool = false
-    @State var photoSpotImages: [UIImage] = [UIImage]()
+    @State var photoSpotImages: [SelectedImage] = []
     var sightseeing: some View {
         VStack(alignment: .leading) {
             Divider()
@@ -1186,9 +1187,9 @@ struct OpinionWriteScreen: View {
                     HStack {
                         // 이미지 추가 버튼
                         Button(action: {
-//                            if photoSpotImages.count < 3 {
-//                                showPhotoSpotImagePicker.toggle()
-//                            }
+                            if photoSpotImages.count < 3 {
+                                showPhotoSpotImagePicker.toggle()
+                            }
                         }) {
                             ZStack(alignment: .center) {
                                 Rectangle()
@@ -1209,14 +1210,11 @@ struct OpinionWriteScreen: View {
                                 }
                             }
                         }
-                        .sheet(isPresented: $showPhotoSpotImagePicker, content: {
-                            ImagePicker(isPresent: $showPhotoSpotImagePicker, images: $photoSpotImages)
-                        })
                         
                         // 이미지 View
                         ForEach(photoSpotImages, id:\.self) { img in
                             ZStack(alignment: .topTrailing) {
-                                Image(uiImage: img)
+                                Image(uiImage: img.image)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 100, height: 100)
@@ -1234,6 +1232,10 @@ struct OpinionWriteScreen: View {
                                         .frame(width: 10, height: 10)
                                 }
                             }
+                        }
+                        
+                        if self.showPhotoSpotImagePicker {
+                            NavigationLink("", destination: CustomImagePicker(selectedImages: self.$photoSpotImages, showingPicker: self.$showPhotoSpotImagePicker), isActive: $showPhotoSpotImagePicker)
                         }
                     }
                 }

@@ -36,6 +36,9 @@ struct CustomImagePicker: View {
                 
                 /// 사진 선택 버튼
                 Button(action: {
+                    
+                    
+                    
                     self.showingPicker.toggle()
                     dismiss()
                 }) {
@@ -74,7 +77,6 @@ struct CustomImagePicker: View {
         .navigationTitle("사진선택")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: BackButton { displayTabBar(false) })
     } // body
     
     
