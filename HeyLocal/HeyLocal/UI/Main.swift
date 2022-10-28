@@ -87,7 +87,7 @@ extension TabBar {
 				.tag(Tab.travelOn)
 			MyPlanScreen()
 				.tag(Tab.myPlan)
-            HomeScreen()
+            CustomImagePickerScreen()
 				.tag(Tab.message)
             ProfileScreen()
 				.tag(Tab.myInfo)

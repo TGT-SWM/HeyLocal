@@ -40,6 +40,7 @@
 		A87F6CA228C0A22B0076046E /* ProfileComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA128C0A22B0076046E /* ProfileComponent.swift */; };
 		A87F6CA428C0A37A0076046E /* ProfileReviseScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA328C0A37A0076046E /* ProfileReviseScreen.swift */; };
 		A87F6CA628C0A3AB0076046E /* ProfileSettingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA528C0A3AB0076046E /* ProfileSettingScreen.swift */; };
+		A885F111290B5964006EF018 /* CustomImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A885F110290B5964006EF018 /* CustomImagePicker.swift */; };
 		A88E19282901081A004E327D /* OpinionListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88E19272901081A004E327D /* OpinionListScreen.swift */; };
 		A89943A528EEC6140059AAC6 /* RegionPickerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89943A428EEC6140059AAC6 /* RegionPickerScreen.swift */; };
 		A89943A728EED89E0059AAC6 /* RegionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89943A628EED89E0059AAC6 /* RegionViewModel.swift */; };
@@ -169,6 +170,7 @@
 		A87F6CA128C0A22B0076046E /* ProfileComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileComponent.swift; sourceTree = "<group>"; };
 		A87F6CA328C0A37A0076046E /* ProfileReviseScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileReviseScreen.swift; sourceTree = "<group>"; };
 		A87F6CA528C0A3AB0076046E /* ProfileSettingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingScreen.swift; sourceTree = "<group>"; };
+		A885F110290B5964006EF018 /* CustomImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImagePicker.swift; sourceTree = "<group>"; };
 		A88E19272901081A004E327D /* OpinionListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionListScreen.swift; sourceTree = "<group>"; };
 		A89943A428EEC6140059AAC6 /* RegionPickerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionPickerScreen.swift; sourceTree = "<group>"; };
 		A89943A628EED89E0059AAC6 /* RegionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionViewModel.swift; sourceTree = "<group>"; };
@@ -593,6 +595,7 @@
 				EFF086BD29073ED20090EC93 /* ConfirmModal.swift */,
 				A8B91E4F29000F0900B62E70 /* ImagePicker.swift */,
 				A8F1EA08290387CD0049C72B /* MoreButton.swift */,
+				A885F110290B5964006EF018 /* CustomImagePicker.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -829,6 +832,7 @@
 				EF3FCF1928C1345C00D48F9E /* Place.swift in Sources */,
 				EF8FF25D28B4D0B100C053B7 /* HeyLocalApp.swift in Sources */,
 				EF3C060E28E0E666003F3188 /* PlaceSearchViewModel.swift in Sources */,
+				A885F111290B5964006EF018 /* CustomImagePicker.swift in Sources */,
 				EF6ADB9D2901D9FC00A14D26 /* NcpAPIService.swift in Sources */,
 				A877D99A28F2654800527E21 /* OpinionViewModel.swift in Sources */,
 				EF6A3FCA28EB3D9B003F474B /* View+Extensions.swift in Sources */,
@@ -1003,7 +1007,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20221014;
+				CURRENT_PROJECT_VERSION = 20221028;
 				DEVELOPMENT_ASSET_PATHS = "\"HeyLocal/Preview Content\"";
 				DEVELOPMENT_TEAM = 5B94TFMJJ4;
 				ENABLE_PREVIEWS = YES;
@@ -1018,6 +1022,7 @@
 				INFOPLIST_FILE = HeyLocal/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "현지야";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "지도를 통해 현재 위치를 제공하기 위해 위치 권한이 필요합니다.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1032,7 +1037,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tgt.HeyLocal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1049,7 +1054,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20221014;
+				CURRENT_PROJECT_VERSION = 20221028;
 				DEVELOPMENT_ASSET_PATHS = "\"HeyLocal/Preview Content\"";
 				DEVELOPMENT_TEAM = 5B94TFMJJ4;
 				ENABLE_PREVIEWS = YES;
@@ -1063,6 +1068,7 @@
 				INFOPLIST_FILE = HeyLocal/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "현지야";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "지도를 통해 현재 위치를 제공하기 위해 위치 권한이 필요합니다.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1077,7 +1083,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tgt.HeyLocal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

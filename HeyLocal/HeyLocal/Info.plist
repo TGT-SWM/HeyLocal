@@ -18,6 +18,12 @@
 	<array>
 		<string>kakaomap</string>
 	</array>
+	<key>NCP_API_ID</key>
+	<string>${NCP_API_ID}</string>
+	<key>NCP_API_SECRET</key>
+	<string>${NCP_API_SECRET}</string>
+	<key>NCP_API_URL</key>
+	<string>${NCP_API_URL}</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
@@ -27,12 +33,6 @@
 	<string>${ODSAY_API_KEY}</string>
 	<key>ODSAY_API_URL</key>
 	<string>${ODSAY_API_URL}</string>
-	<key>NCP_API_ID</key>
-	<string>${NCP_API_ID}</string>
-	<key>NCP_API_SECRET</key>
-	<string>${NCP_API_SECRET}</string>
-	<key>NCP_API_URL</key>
-	<string>${NCP_API_URL}</string>
 	<key>REFRESH_TOKEN</key>
 	<string>${REFRESH_TOKEN}</string>
 </dict>
