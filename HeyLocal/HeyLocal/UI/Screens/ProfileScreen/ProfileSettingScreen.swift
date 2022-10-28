@@ -76,13 +76,26 @@ struct ProfileSettingScreen: View {
             
             
             /// 로그아웃
-            Text("로그아웃")
+            // TODO: Alert 후 
+            Button(action: {
+                AuthManager.shared.removeAll()
+            }) {
+                Text("로그아웃")
+                    .font(.system(size: 16))
+                    .foregroundColor(.black)
+            }
             
             Spacer()
                 .frame(height: 10)
             
             /// 회원탈퇴
-            Text("회원탈퇴")
+            Button(action: {
+                
+            }) {
+                Text("회원탈퇴")
+                    .font(.system(size: 16))
+                    .foregroundColor(.black)
+            }
         }
     }
     

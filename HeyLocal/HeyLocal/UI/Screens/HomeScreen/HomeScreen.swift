@@ -24,10 +24,6 @@ struct HomeScreen: View {
         NavigationView {
             ScrollView {
                 VStack(alignment: .leading) {
-					// TODO: Remove later
-					Button("로그아웃") {
-						AuthManager.shared.removeAll()
-					}
 					
                     // TODO: 아티클
                     Group {
