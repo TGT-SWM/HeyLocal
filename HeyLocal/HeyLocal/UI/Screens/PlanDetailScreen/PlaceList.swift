@@ -211,7 +211,7 @@ extension PlanDetailScreen {
 extension PlanDetailScreen {
 	/// 여행 장소 추가 버튼과 최적루트 재정렬 버튼을 표시합니다.
 	func scheduleToolbar(day: Int?) -> some View {
-		VStack(alignment: .center) {
+		Group {
 			addPlacesButton
 			if let day = day {
 				rearrangeButton(day: day)
@@ -242,14 +242,22 @@ extension PlanDetailScreen {
 	
 	/// 스케줄을 자동으로 재정렬합니다.
 	func rearrangeButton(day: Int) -> some View {
-		Button {
-			viewModel.rearrange(day: day)
-		} label: {
+		HStack {
 			Image("refresh_purple_icon")
 				.frame(width: 24, height: 24)
 			Text("최적루트 재정렬")
 				.font(.system(size: 14))
 				.fontWeight(.medium)
+
+			NavigationLink(destination: MealSelectScreen(
+				places: viewModel.scheduleOf(day: day).wrappedValue,
+				onComplete: { selected in
+					viewModel.rearrange(day: day, meals: selected)
+				}
+			))
+			{ EmptyView() }
+			.frame(width: 0)
+			.opacity(0)
 		}
 		.buttonStyle(PlainButtonStyle())
 		.foregroundColor(Color(red: 126 / 255, green: 0, blue: 217 / 255))

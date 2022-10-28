@@ -22,6 +22,7 @@ class TSPScheduleEngine: ScheduleEngine {
 	private(set) var weights: [[Double]]
 	private(set) var startTime: Date
 	private(set) var isLastDay: Bool
+	private(set) var meals: [Place?]
 	
 	// 스케줄 생성을 위한 데이터
 	private var accomodations: [Place] = [] // 숙소
@@ -30,11 +31,12 @@ class TSPScheduleEngine: ScheduleEngine {
 	private var _weights: [[Double]] = [] // 숙소와 식당을 제외한 이동 시간 행렬
 	private var cache: [[Double]] = [] // 이동 시간에 대한 캐시
 	
-	init(places: [Place], weights: [[Double]], startTime: Date, isLastDay: Bool) {
+	init(places: [Place], weights: [[Double]], startTime: Date, isLastDay: Bool, meals: [Place?]) {
 		self.places = places
 		self.weights = weights
 		self.startTime = startTime
 		self.isLastDay = isLastDay
+		self.meals = meals
 	}
 	
 	/// 스케줄 생성 전, 필요한 데이터들을 만들어 저장합니다.
