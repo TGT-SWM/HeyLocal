@@ -307,10 +307,6 @@ struct OpinionWriteScreen: View {
                                 }
                             }
                         }
-//                        .sheet(isPresented: $showGeneralImagePicker, content: {
-//    //                        ImagePicker(isPresent: $showGeneralImagePicker, images: $generalImages)
-//                            TopicsExperienceCards(isPresented: $showGeneralImagePicker)
-//                        })
                         
                         // 이미지 View
                         ForEach(generalImages, id:\.self) { img in
@@ -337,7 +333,8 @@ struct OpinionWriteScreen: View {
                     }
                     
                     if self.showGeneralImagePicker {
-                        CustomImagePicker(selectedImages: self.$generalImages, showingPicker: self.$showGeneralImagePicker)
+//                        CustomImagePicker(selectedImages: self.$generalImages, showingPicker: self.$showGeneralImagePicker)
+                        NavigationLink("", destination: CustomImagePicker(selectedImages: self.$generalImages, showingPicker: self.$showGeneralImagePicker), isActive: $showGeneralImagePicker)
                     }
                 }
                 

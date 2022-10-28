@@ -208,8 +208,10 @@ extension HomeScreen {
             VStack(alignment: .leading) {
                 HStack {
                     ForEach(viewModel.rankings) { user in
-                        ProfileComponent(author: user)
-                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 5))
+                        ZStack {
+                            ProfileComponent(author: user)
+                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 5))
+                        }
                     }
                 }
             }
