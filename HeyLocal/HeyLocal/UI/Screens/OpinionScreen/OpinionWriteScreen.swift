@@ -34,7 +34,7 @@ struct OpinionWriteScreen: View {
                 if opinionId == nil {
                     Button(action: {
                         makeJsonData()
-                        if (viewModel.postOpinion(travelOnId: travelOnId, opinionData: opinionData) == 201) {
+                        if (viewModel.postOpinion(travelOnId: travelOnId, opinionData: opinionData, generalImages: generalImages, foodImages: foodImages, cafeImages: cafeImages, photoSpotImages: photoSpotImages) == 201) {
                             viewModel.fetchOpinions(travelOnId: travelOnId, opinionId: nil)
                         }
                         dismiss()
@@ -124,7 +124,7 @@ struct OpinionWriteScreen: View {
         let coffeeTypeStr: [String] = ["BITTER", "SOUR", "GENERAL"]
         
         opinionData.place = viewModel.opinion.place
-        opinionData.quantity?.generalImgQuantity = 2
+        opinionData.quantity?.generalImgQuantity = self.generalImages.count
         opinionData.description = viewModel.opinion.description
         
         opinionData.facilityCleanliness = LikertScale[viewModel.cleanInt - 1]
@@ -159,7 +159,7 @@ struct OpinionWriteScreen: View {
                 }
             }
             opinionData.recommendDrinkAndDessertDescription = viewModel.opinion.recommendDrinkAndDessertDescription
-            opinionData.quantity?.drinkAndDessertImgQuantity = 2
+            opinionData.quantity?.drinkAndDessertImgQuantity = self.cafeImages.count
         }
         
         // 숙박시설
@@ -244,7 +244,7 @@ struct OpinionWriteScreen: View {
 
     // MARK: - 공통·필수 질문 변수 · View
     @State var showGeneralImagePicker: Bool = false
-    @State var generalImages: [UIImage] = [UIImage]()
+    @State var generalImages: [SelectedImage] = []
     var content: some View {
         VStack(alignment: .leading) {
             // 장소 -> NavigationLink 장소 선택
@@ -280,60 +280,63 @@ struct OpinionWriteScreen: View {
 
             // 사진 추가
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    // 이미지 추가 버튼
-                    Button(action: {
-                        if generalImages.count < 3 {
-                            showGeneralImagePicker.toggle()
-                        }
-                    }) {
-                        ZStack(alignment: .center) {
-                            Rectangle()
-                                .fill(Color.white)
-                                .frame(width: 100, height: 100)
-                                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
-                                .cornerRadius(10)
-                            
-                            
-                            VStack(alignment: .center) {
-                                Image(systemName: "camera")
-                                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 3, trailing: 0))
+                ZStack {
+                    HStack {
+                        // 이미지 추가 버튼
+                        Button(action: {
+                            if generalImages.count < 3 {
+                                showGeneralImagePicker.toggle()
+                            }
+                        }) {
+                            ZStack(alignment: .center) {
+                                Rectangle()
+                                    .fill(Color.white)
+                                    .frame(width: 100, height: 100)
+                                    .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
+                                    .cornerRadius(10)
                                 
-                                Text("\(generalImages.count) / 3")
-                                    .font(.system(size: 12))
-                                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                                
+                                VStack(alignment: .center) {
+                                    Image(systemName: "camera")
+                                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 3, trailing: 0))
+                                    
+                                    Text("\(generalImages.count) / 3")
+                                        .font(.system(size: 12))
+                                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                                }
+                            }
+                        }
+                        
+                        // 이미지 View
+                        ForEach(generalImages, id:\.self) { img in
+                            ZStack(alignment: .topTrailing) {
+                                Image(uiImage: img.image)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 100, height: 100)
+                                    .cornerRadius(10)
+                                
+                                // 이미지 삭제버튼
+                                Button(action: {
+                                    if let index = generalImages.firstIndex(of: img) {
+                                        generalImages.remove(at: index)
+                                    }
+                                }) {
+                                    Image(systemName: "multiply")
+                                        .resizable()
+                                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                                        .frame(width: 10, height: 10)
+                                }
                             }
                         }
                     }
-                    .sheet(isPresented: $showGeneralImagePicker, content: {
-//                        ImagePicker(isPresent: $showGeneralImagePicker, images: $generalImages)
-                        TopicsExperienceCards(isPresented: $showGeneralImagePicker)
-                    })
                     
-                    // 이미지 View
-                    ForEach(generalImages, id:\.self) { img in
-                        ZStack(alignment: .topTrailing) {
-                            Image(uiImage: img)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 100, height: 100)
-                                .cornerRadius(10)
-                            
-                            // 이미지 삭제버튼
-                            Button(action: {
-                                if let index = generalImages.firstIndex(of: img) {
-                                    generalImages.remove(at: index)
-                                }
-                            }) {
-                                Image(systemName: "multiply")
-                                    .resizable()
-                                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-                                    .frame(width: 10, height: 10)
-                            }
-                        }
+                    if self.showGeneralImagePicker {
+                        NavigationLink("", destination: CustomImagePicker(selectedImages: self.$generalImages, showingPicker: self.$showGeneralImagePicker), isActive: $showGeneralImagePicker)
                     }
                 }
+                
             }
             
             VStack(alignment: .leading) {
@@ -727,7 +730,7 @@ struct OpinionWriteScreen: View {
     
     // MARK: - 음식점  변수 · View
     @State var showFoodImagePicker: Bool = false
-    @State var foodImages: [UIImage] = [UIImage]()
+    @State var foodImages: [SelectedImage] = []
     var restaurant: some View {
         VStack(alignment: .leading) {
             Divider()
@@ -821,9 +824,9 @@ struct OpinionWriteScreen: View {
                     HStack {
                         // 이미지 추가 버튼
                         Button(action: {
-//                            if foodImages.count < 3 {
-//                                showFoodImagePicker.toggle()
-//                            }
+                            if foodImages.count < 3 {
+                                showFoodImagePicker.toggle()
+                            }
                         }) {
                             ZStack(alignment: .center) {
                                 Rectangle()
@@ -844,14 +847,11 @@ struct OpinionWriteScreen: View {
                                 }
                             }
                         }
-                        .sheet(isPresented: $showFoodImagePicker, content: {
-                            ImagePicker(isPresent: $showFoodImagePicker, images: $foodImages)
-                        })
                         
                         // 이미지 View
                         ForEach(foodImages, id:\.self) { img in
                             ZStack(alignment: .topTrailing) {
-                                Image(uiImage: img)
+                                Image(uiImage: img.image)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 100, height: 100)
@@ -869,6 +869,10 @@ struct OpinionWriteScreen: View {
                                         .frame(width: 10, height: 10)
                                 }
                             }
+                        }
+                        
+                        if self.showFoodImagePicker {
+                            NavigationLink("", destination: CustomImagePicker(selectedImages: self.$foodImages, showingPicker: self.$showFoodImagePicker), isActive: $showFoodImagePicker)
                         }
                     }
                 }
@@ -901,7 +905,7 @@ struct OpinionWriteScreen: View {
     
     // MARK: - 카페  변수 · View
     @State var showCafeImagePicker: Bool = false
-    @State var cafeImages: [UIImage] = [UIImage]()
+    @State var cafeImages: [SelectedImage] = []
     var cafe: some View {
         VStack(alignment: .leading) {
             Divider()
@@ -1033,9 +1037,9 @@ struct OpinionWriteScreen: View {
                     HStack {
                         // 이미지 추가 버튼
                         Button(action: {
-//                            if cafeImages.count < 3 {
-//                                showCafeImagePicker.toggle()
-//                            }
+                            if cafeImages.count < 3 {
+                                showCafeImagePicker.toggle()
+                            }
                         }) {
                             ZStack(alignment: .center) {
                                 Rectangle()
@@ -1056,14 +1060,11 @@ struct OpinionWriteScreen: View {
                                 }
                             }
                         }
-                        .sheet(isPresented: $showCafeImagePicker, content: {
-                            ImagePicker(isPresent: $showCafeImagePicker, images: $cafeImages)
-                        })
                         
                         // 이미지 View
                         ForEach(cafeImages, id:\.self) { img in
                             ZStack(alignment: .topTrailing) {
-                                Image(uiImage: img)
+                                Image(uiImage: img.image)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 100, height: 100)
@@ -1081,6 +1082,10 @@ struct OpinionWriteScreen: View {
                                         .frame(width: 10, height: 10)
                                 }
                             }
+                        }
+                        
+                        if self.showCafeImagePicker {
+                            NavigationLink("", destination: CustomImagePicker(selectedImages: self.$cafeImages, showingPicker: self.$showCafeImagePicker), isActive: $showCafeImagePicker)
                         }
                     }
                 }
@@ -1113,7 +1118,7 @@ struct OpinionWriteScreen: View {
     
     // MARK: - 관광명소 및 문화시설  변수 · View
     @State var showPhotoSpotImagePicker: Bool = false
-    @State var photoSpotImages: [UIImage] = [UIImage]()
+    @State var photoSpotImages: [SelectedImage] = []
     var sightseeing: some View {
         VStack(alignment: .leading) {
             Divider()
@@ -1182,9 +1187,9 @@ struct OpinionWriteScreen: View {
                     HStack {
                         // 이미지 추가 버튼
                         Button(action: {
-//                            if photoSpotImages.count < 3 {
-//                                showPhotoSpotImagePicker.toggle()
-//                            }
+                            if photoSpotImages.count < 3 {
+                                showPhotoSpotImagePicker.toggle()
+                            }
                         }) {
                             ZStack(alignment: .center) {
                                 Rectangle()
@@ -1205,14 +1210,11 @@ struct OpinionWriteScreen: View {
                                 }
                             }
                         }
-                        .sheet(isPresented: $showPhotoSpotImagePicker, content: {
-                            ImagePicker(isPresent: $showPhotoSpotImagePicker, images: $photoSpotImages)
-                        })
                         
                         // 이미지 View
                         ForEach(photoSpotImages, id:\.self) { img in
                             ZStack(alignment: .topTrailing) {
-                                Image(uiImage: img)
+                                Image(uiImage: img.image)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 100, height: 100)
@@ -1230,6 +1232,10 @@ struct OpinionWriteScreen: View {
                                         .frame(width: 10, height: 10)
                                 }
                             }
+                        }
+                        
+                        if self.showPhotoSpotImagePicker {
+                            NavigationLink("", destination: CustomImagePicker(selectedImages: self.$photoSpotImages, showingPicker: self.$showPhotoSpotImagePicker), isActive: $showPhotoSpotImagePicker)
                         }
                     }
                 }

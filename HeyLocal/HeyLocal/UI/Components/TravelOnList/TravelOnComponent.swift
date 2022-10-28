@@ -90,17 +90,82 @@ struct TravelOnComponent: View {
                     Spacer()
                     
                     Group {
-                        ZStack {
-                            Circle()
-                                .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-                                .frame(width: 20, height: 20)
-                                .shadow(color: .black, radius: 1)
+                        if travelOn.author.profileImgDownloadUrl == nil {
+                            ZStack {
+                                ZStack {
+                                    Circle()
+                                        .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                        .frame(width: 20, height: 20)
+                                        .shadow(color: .black, radius: 1)
+                                    
+                                    Image(systemName: "person.fill")
+                                        .resizable()
+                                        .frame(width: 13, height: 13)
+                                        .foregroundColor(Color("gray"))
+                                }
                                 
-                            
-                            Circle()
-                                .strokeBorder(.white, lineWidth: 1)
-                                .frame(width: 20, height: 20)
+                                Circle()
+                                    .strokeBorder(.white, lineWidth: 1)
+                                    .frame(width: 20, height: 20)
+                            }
                         }
+                        else {
+                            AsyncImage(url: URL(string: travelOn.author.profileImgDownloadUrl!)) { phash in
+                                if let image = phash.image {
+                                    ZStack {
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .clipShape(Circle())
+                                            .frame(width: 20, height: 20)
+                                            .shadow(color: .gray, radius: 3)
+                                        
+                                        Circle()
+                                            .strokeBorder(.white, lineWidth: 1)
+                                            .frame(width: 20, height: 20)
+                                    }
+                                }
+                                else if phash.error != nil {
+                                    ZStack {
+                                        ZStack {
+                                            Circle()
+                                                .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                                .frame(width: 20, height: 20)
+                                                .shadow(color: .black, radius: 1)
+                                            
+                                            Image(systemName: "person.fill")
+                                                .resizable()
+                                                .frame(width: 13, height: 13)
+                                                .foregroundColor(Color("gray"))
+                                        }
+                                        
+                                        Circle()
+                                            .strokeBorder(.white, lineWidth: 1)
+                                            .frame(width: 20, height: 20)
+                                    }
+                                }
+                                else {
+                                    ZStack {
+                                        ZStack {
+                                            Circle()
+                                                .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                                .frame(width: 20, height: 20)
+                                                .shadow(color: .black, radius: 1)
+                                            
+                                            Image(systemName: "person.fill")
+                                                .resizable()
+                                                .frame(width: 13, height: 13)
+                                                .foregroundColor(Color("gray"))
+                                        }
+                                        
+                                        Circle()
+                                            .strokeBorder(.white, lineWidth: 1)
+                                            .frame(width: 20, height: 20)
+                                    }
+                                }
+                            }
+                        }
+                        
                         Text("\(travelOn.author.nickname)")
                         
                     }

@@ -68,6 +68,7 @@ struct ProfileSettingScreen: View {
                 
                 Spacer()
                 
+                // TODO: 연결된 계정 뜨기 해야 함
                 Image("logo-kakao")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -76,13 +77,26 @@ struct ProfileSettingScreen: View {
             
             
             /// 로그아웃
-            Text("로그아웃")
+            // TODO: Alert 후
+            Button(action: {
+                AuthManager.shared.removeAll()
+            }) {
+                Text("로그아웃")
+                    .font(.system(size: 16))
+                    .foregroundColor(.black)
+            }
             
             Spacer()
                 .frame(height: 10)
             
             /// 회원탈퇴
-            Text("회원탈퇴")
+            Button(action: {
+                
+            }) {
+                Text("회원탈퇴")
+                    .font(.system(size: 16))
+                    .foregroundColor(.black)
+            }
         }
     }
     

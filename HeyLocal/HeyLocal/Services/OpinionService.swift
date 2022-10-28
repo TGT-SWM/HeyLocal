@@ -23,8 +23,8 @@ struct OpinionService {
     }
     
     // 답변 등록
-    func postOpinion(travelOnId: Int, opinionData: Opinion) -> Int {
-        return opinionRepository.postOpinion(travelOnId: travelOnId, opinionData: opinionData)
+    func postOpinion(travelOnId: Int, opinionData: Opinion, generalImages: [SelectedImage], foodImages: [SelectedImage], cafeImages: [SelectedImage], photoSpotImages: [SelectedImage]) -> Int {
+        return opinionRepository.postOpinion(travelOnId: travelOnId, opinionData: opinionData, generalImages: generalImages, foodImages: foodImages, cafeImages: cafeImages, photoSpotImages: photoSpotImages)
     }
     
     // 답변 수정

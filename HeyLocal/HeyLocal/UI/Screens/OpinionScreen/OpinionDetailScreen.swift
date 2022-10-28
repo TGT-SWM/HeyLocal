@@ -106,6 +106,29 @@ struct OpinionDetailScreen: View {
                 
                 
                 // TODO: 이미지
+                if !viewModel.opinion.generalImgDownloadImgUrl.isEmpty {
+                    HStack {
+                        ForEach(viewModel.opinion.generalImgDownloadImgUrl, id:\.self) { url in
+                            AsyncImage(url: URL(string: url)) { phash in
+                                if let image = phash.image {
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 100, height: 100)
+                                        .cornerRadius(10)
+                                }
+                                else if phash.error != nil {
+                                    Text("")
+                                }
+                                else {
+                                    Text("")
+                                }
+                             
+                            }
+                        }
+                    }
+                }
+                
                 
                 Text("\(viewModel.opinion.description)")
                     .font(.system(size: 14))
@@ -199,6 +222,28 @@ struct OpinionDetailScreen: View {
             OpinionStyle(label: "\(viewModel.opinion.recommendFoodDescription)")
             
             
+            if !viewModel.opinion.foodImgDownloadImgUrl!.isEmpty {
+                HStack {
+                    ForEach(viewModel.opinion.foodImgDownloadImgUrl!, id:\.self) { url in
+                        AsyncImage(url: URL(string: url)) { phash in
+                            if let image = phash.image {
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 100, height: 100)
+                                    .cornerRadius(10)
+                            }
+                            else if phash.error != nil {
+                                Text("")
+                            }
+                            else {
+                                Text("")
+                            }
+                         
+                        }
+                    }
+                }
+            }
         }
     }
     
@@ -220,6 +265,29 @@ struct OpinionDetailScreen: View {
                 .font(.system(size: 14))
                 .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
             OpinionStyle(label: "\(viewModel.opinion.recommendDrinkAndDessertDescription)")
+            
+            if !viewModel.opinion.drinkAndDessertImgDownloadImgUrl!.isEmpty {
+                HStack {
+                    ForEach(viewModel.opinion.drinkAndDessertImgDownloadImgUrl!, id:\.self) { url in
+                        AsyncImage(url: URL(string: url)) { phash in
+                            if let image = phash.image {
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 100, height: 100)
+                                    .cornerRadius(10)
+                            }
+                            else if phash.error != nil {
+                                Text("")
+                            }
+                            else {
+                                Text("")
+                            }
+                         
+                        }
+                    }
+                }
+            }
             
             Text("카페 분위기는 어떤가요?")
                 .font(.system(size: 14))
@@ -252,6 +320,29 @@ struct OpinionDetailScreen: View {
                 .font(.system(size: 14))
                 .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
             OpinionStyle(label: "\(viewModel.opinion.photoSpotDescription)")
+            
+            if !viewModel.opinion.photoSpotImgDownloadImgUrl!.isEmpty {
+                HStack {
+                    ForEach(viewModel.opinion.photoSpotImgDownloadImgUrl!, id:\.self) { url in
+                        AsyncImage(url: URL(string: url)) { phash in
+                            if let image = phash.image {
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 100, height: 100)
+                                    .cornerRadius(10)
+                            }
+                            else if phash.error != nil {
+                                Text("")
+                            }
+                            else {
+                                Text("")
+                            }
+                         
+                        }
+                    }
+                }
+            }
         }
     }
     
@@ -292,8 +383,84 @@ struct OpinionDetailScreen: View {
             
             VStack(alignment: .leading) {
                 HStack {
-                    Circle()
-                        .frame(width: 56, height: 56)
+                    // 프로필사진
+                    Group {
+                        if viewModel.opinion.author.profileImgDownloadUrl == nil {
+                            ZStack {
+                                ZStack {
+                                    Circle()
+                                        .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                        .frame(width: 20, height: 20)
+                                        .shadow(color: .black, radius: 1)
+                                    
+                                    Image(systemName: "person.fill")
+                                        .resizable()
+                                        .frame(width: 13, height: 13)
+                                        .foregroundColor(Color("gray"))
+                                }
+                                
+                                Circle()
+                                    .strokeBorder(.white, lineWidth: 1)
+                                    .frame(width: 20, height: 20)
+                            }
+                        }
+                        else {
+                            AsyncImage(url: URL(string: viewModel.opinion.author.profileImgDownloadUrl!)) { phash in
+                                if let image = phash.image {
+                                    ZStack {
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .clipShape(Circle())
+                                            .frame(width: 56, height: 56)
+                                            .shadow(color: .gray, radius: 3)
+                                        
+                                        Circle()
+                                            .strokeBorder(.white, lineWidth: 1)
+                                            .frame(width: 56, height: 56)
+                                    }
+                                }
+                                else if phash.error != nil {
+                                    ZStack {
+                                        ZStack {
+                                            Circle()
+                                                .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                                .frame(width: 56, height: 56)
+                                                .shadow(color: .black, radius: 1)
+                                            
+                                            Image(systemName: "person.fill")
+                                                .resizable()
+                                                .frame(width: 40, height: 40)
+                                                .foregroundColor(Color("gray"))
+                                        }
+                                        
+                                        Circle()
+                                            .strokeBorder(.white, lineWidth: 1)
+                                            .frame(width: 56, height: 56)
+                                    }
+                                }
+                                else {
+                                    ZStack {
+                                        ZStack {
+                                            Circle()
+                                                .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                                .frame(width: 56, height: 56)
+                                                .shadow(color: .black, radius: 1)
+                                            
+                                            Image(systemName: "person.fill")
+                                                .resizable()
+                                                .frame(width: 40, height: 40)
+                                                .foregroundColor(Color("gray"))
+                                        }
+                                        
+                                        Circle()
+                                            .strokeBorder(.white, lineWidth: 1)
+                                            .frame(width: 56, height: 56)
+                                    }
+                                }
+                            }
+                        }
+                    }
                     
                     Spacer()
                         .frame(width: 15)

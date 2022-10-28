@@ -28,57 +28,57 @@ struct TravelOnDetailScreen: View {
             
             ScrollView {
                 // MARK: - 이미지 연습 ...
-                HStack {
-                    Button(action: {
-                        if images.count < 3 {
-                            showingPhotoSheet.toggle()
-                        }
-                    }) {
-                        ZStack(alignment: .center) {
-                            Rectangle()
-                                .fill(Color.white)
-                                .frame(width: 100, height: 100)
-                                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
-                                .cornerRadius(10)
-                            
-                            
-                            VStack(alignment: .center) {
-                                Image(systemName: "camera")
-                                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 3, trailing: 0))
-                                
-                                Text("\(images.count) / 3")
-                                    .font(.system(size: 12))
-                                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-                            }
-                        }
-                    }
-                    .sheet(isPresented: $showingPhotoSheet, content: {
-                        ImagePicker(isPresent: $showingPhotoSheet, images: $images)
-                    })
-                    
-                    ForEach(images, id:\.self) { img in
-                        ZStack(alignment: .topTrailing) {
-                            Image(uiImage: img)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 100, height: 100)
-                                .cornerRadius(10)
-                            
-                            // 이미지 삭제버튼
-                            Button(action: {
-                                if let index = images.firstIndex(of: img) {
-                                    images.remove(at: index)
-                                }
-                            }) {
-                                Image(systemName: "multiply")
-                                    .resizable()
-                                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-                                    .frame(width: 10, height: 10)
-                            }
-                        }
-                    }
-                }
+//                HStack {
+//                    Button(action: {
+//                        if images.count < 3 {
+//                            showingPhotoSheet.toggle()
+//                        }
+//                    }) {
+//                        ZStack(alignment: .center) {
+//                            Rectangle()
+//                                .fill(Color.white)
+//                                .frame(width: 100, height: 100)
+//                                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
+//                                .cornerRadius(10)
+//
+//
+//                            VStack(alignment: .center) {
+//                                Image(systemName: "camera")
+//                                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+//                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 3, trailing: 0))
+//
+//                                Text("\(images.count) / 3")
+//                                    .font(.system(size: 12))
+//                                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+//                            }
+//                        }
+//                    }
+//                    .sheet(isPresented: $showingPhotoSheet, content: {
+//                        ImagePicker(isPresent: $showingPhotoSheet, images: $images)
+//                    })
+//
+//                    ForEach(images, id:\.self) { img in
+//                        ZStack(alignment: .topTrailing) {
+//                            Image(uiImage: img)
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fill)
+//                                .frame(width: 100, height: 100)
+//                                .cornerRadius(10)
+//
+//                            // 이미지 삭제버튼
+//                            Button(action: {
+//                                if let index = images.firstIndex(of: img) {
+//                                    images.remove(at: index)
+//                                }
+//                            }) {
+//                                Image(systemName: "multiply")
+//                                    .resizable()
+//                                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+//                                    .frame(width: 10, height: 10)
+//                            }
+//                        }
+//                    }
+//                }
 
                 content
                 
@@ -161,7 +161,7 @@ struct TravelOnDetailScreen: View {
             .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
             
             
-            // TODO: When + Member + Where
+            // When + Member + Where
             Group {
                 VStack(alignment: .leading) {
                     HStack {
@@ -323,17 +323,85 @@ struct TravelOnDetailScreen: View {
                 HStack {
                     Spacer()
                     
-                    ZStack {
-                        Circle()
-                            .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-                            .frame(width: 20, height: 20)
-                            .shadow(color: .black, radius: 1)
+                    /// 프로필 사진
+                    if viewModel.travelOn.author.profileImgDownloadUrl == nil {
+                        ZStack {
+                            ZStack {
+                                Circle()
+                                    .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                    .frame(width: 20, height: 20)
+                                    .shadow(color: .black, radius: 1)
+                                
+                                Image(systemName: "person.fill")
+                                    .resizable()
+                                    .frame(width: 13, height: 13)
+                                    .foregroundColor(Color("gray"))
+                            }
                             
-                        
-                        Circle()
-                            .strokeBorder(.white, lineWidth: 1)
-                            .frame(width: 20, height: 20)
+                            Circle()
+                                .strokeBorder(.white, lineWidth: 1)
+                                .frame(width: 20, height: 20)
+                        }
                     }
+                    // 프로필 사진이 있을 때
+                    else {
+                        AsyncImage(url: URL(string: viewModel.travelOn.author.profileImgDownloadUrl!)) { phash in
+                            if let image = phash.image {
+                                ZStack {
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .clipShape(Circle())
+                                        .frame(width: 20, height: 20)
+                                        .shadow(color: .gray, radius: 3)
+                                    
+                                    Circle()
+                                        .strokeBorder(.white, lineWidth: 1)
+                                        .frame(width: 20, height: 20)
+                                }
+                            }
+                            else if phash.error != nil {
+                                ZStack {
+                                    ZStack {
+                                        Circle()
+                                            .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                            .frame(width: 20, height: 20)
+                                            .shadow(color: .black, radius: 1)
+                                        
+                                        Image(systemName: "person.fill")
+                                            .resizable()
+                                            .frame(width: 13, height: 13)
+                                            .foregroundColor(Color("gray"))
+                                    }
+                                    
+                                    Circle()
+                                        .strokeBorder(.white, lineWidth: 1)
+                                        .frame(width: 20, height: 20)
+                                }
+                            }
+                            else {
+                                ZStack {
+                                    ZStack {
+                                        Circle()
+                                            .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                            .frame(width: 20, height: 20)
+                                            .shadow(color: .black, radius: 1)
+                                        
+                                        Image(systemName: "person.fill")
+                                            .resizable()
+                                            .frame(width: 13, height: 13)
+                                            .foregroundColor(Color("gray"))
+                                    }
+                                    
+                                    Circle()
+                                        .strokeBorder(.white, lineWidth: 1)
+                                        .frame(width: 20, height: 20)
+                                }
+                            }
+                        }
+                        
+                    }
+                    
                     Text("\(viewModel.travelOn.author.nickname)")
                         .font(.system(size: 12))
                         .foregroundColor(Color(red: 117/255, green: 118/255, blue: 121/255))
