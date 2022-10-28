@@ -11,6 +11,7 @@ import Photos
 struct CustomImagePicker: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.displayTabBar) var displayTabBar
+    
     @Binding var selectedImages: [SelectedImage]
     @Binding var showingPicker: Bool
     
@@ -36,9 +37,6 @@ struct CustomImagePicker: View {
                 
                 /// 사진 선택 버튼
                 Button(action: {
-                    
-                    
-                    
                     self.showingPicker.toggle()
                     dismiss()
                 }) {
@@ -133,6 +131,7 @@ struct Card: View {
         .frame(width: (UIScreen.main.bounds.width - 80) / 3, height: 90)
         .onTapGesture{
             if !self.data.selected {
+                /// 전체 사진 갯수가 3개 미만일 시
                 if self.selectedImages.count < 3{
                     self.data.selected = true
                     DispatchQueue.global(qos: .background).async {

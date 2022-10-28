@@ -34,7 +34,7 @@ struct OpinionWriteScreen: View {
                 if opinionId == nil {
                     Button(action: {
                         makeJsonData()
-                        if (viewModel.postOpinion(travelOnId: travelOnId, opinionData: opinionData) == 201) {
+                        if (viewModel.postOpinion(travelOnId: travelOnId, opinionData: opinionData, generalImages: generalImages, foodImages: foodImages, cafeImages: cafeImages, photoSpotImages: photoSpotImages) == 201) {
                             viewModel.fetchOpinions(travelOnId: travelOnId, opinionId: nil)
                         }
                         dismiss()

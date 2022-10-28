@@ -57,7 +57,7 @@ struct OpinionRepository {
     }
     
     // 답변 등록
-    func postOpinion(travelOnId: Int, opinionData: Opinion) -> Int {
+    func postOpinion(travelOnId: Int, opinionData: Opinion, generalImages: [SelectedImage], foodImages: [SelectedImage], cafeImages: [SelectedImage], photoSpotImages: [SelectedImage]) -> Int {
         // opinionData to JSON Encoding
         let encoder = JSONEncoder()
         let jsonData = try? encoder.encode(opinionData)
@@ -109,16 +109,68 @@ struct OpinionRepository {
                 /// 이미지 업로드 링크 - Presigned URL
                 for i in 0..<generalURL!.count {
                     print(generalURL![i])
+                    let putUrl = URL(string: generalURL![i] as! String)!
+                    var putRequest = URLRequest(url: putUrl)
                     
+                    putRequest.httpMethod = "PUT"
+                    putRequest.addValue("image/png", forHTTPHeaderField: "Content-Type")
+                    
+                    putRequest.httpBody = generalImages[i].image.jpegData(compressionQuality: 1)
+                    let putTask = URLSession.shared.dataTask(with: putRequest) { data, response, error in
+                        guard let data = data else {
+                            return
+                        }
+                    }
+                    putTask.resume()
                 }
                 for i in 0..<foodURL!.count {
                     print(foodURL![i])
+                    let putUrl = URL(string: foodURL![i] as! String)!
+                    var putRequest = URLRequest(url: putUrl)
+                    
+                    putRequest.httpMethod = "PUT"
+                    putRequest.addValue("image/png", forHTTPHeaderField: "Content-Type")
+                    
+                    putRequest.httpBody = foodImages[i].image.jpegData(compressionQuality: 1)
+                    let putTask = URLSession.shared.dataTask(with: putRequest) { data, response, error in
+                        guard let data = data else {
+                            return
+                        }
+                    }
+                    putTask.resume()
                 }
                 for i in 0..<cafeURL!.count {
                     print(cafeURL![i])
+                    let putUrl = URL(string: cafeURL![i] as! String)!
+                    var putRequest = URLRequest(url: putUrl)
+                    
+                    putRequest.httpMethod = "PUT"
+                    putRequest.addValue("image/png", forHTTPHeaderField: "Content-Type")
+                    
+                    putRequest.httpBody = cafeImages[i].image.jpegData(compressionQuality: 1)
+                    let putTask = URLSession.shared.dataTask(with: putRequest) { data, response, error in
+                        guard let data = data else {
+                            return
+                        }
+                    }
+                    putTask.resume()
+                    
                 }
                 for i in 0..<photoSpotURL!.count {
                     print(photoSpotURL![i])
+                    let putUrl = URL(string: photoSpotURL![i] as! String)!
+                    var putRequest = URLRequest(url: putUrl)
+                    
+                    putRequest.httpMethod = "PUT"
+                    putRequest.addValue("image/png", forHTTPHeaderField: "Content-Type")
+                    
+                    putRequest.httpBody = photoSpotImages[i].image.jpegData(compressionQuality: 1)
+                    let putTask = URLSession.shared.dataTask(with: putRequest) { data, response, error in
+                        guard let data = data else {
+                            return
+                        }
+                    }
+                    putTask.resume()
                 }
                 
                 print("====================================")
@@ -167,8 +219,29 @@ struct OpinionRepository {
             }
             httpResponseStatusCode = httpResponse.statusCode
             print(httpResponseStatusCode)
-            if httpResponseStatusCode == 201 {
+            if httpResponseStatusCode == 200 {
                 self.getOpinions(travelOnId: travelOnId)
+                let resultCode = (response as? HTTPURLResponse)?.statusCode ?? 0
+                let resultLen = data
+                let resultString = String(data: resultLen, encoding: .utf8) ?? ""
+                
+                let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary
+                let generalURL = jsonObject!["GENERAL"] as? NSArray
+                let foodURL = jsonObject!["RECOMMEND_FOOD"] as? NSArray
+                let cafeURL = jsonObject!["RECOMMEND_DRINK_DESSERT"] as? NSArray
+                let photoSpotURL = jsonObject!["PHOTO_SPOT"] as? NSArray
+                print("")
+                print("====================================")
+                print("[requestPOST : http post 요청 성공]")
+                print("resultCode : ", resultCode)
+                print("resultLen : ", resultLen)
+                print("resultString : ", resultString)
+                print("generalString : ", generalURL!)
+                print("foodString : ", foodURL!)
+                print("cafeString : ", cafeURL!)
+                print("photoString : ", photoSpotURL!)
+                
+                
             } else {
                 print("\(error?.localizedDescription)")
                 

@@ -106,6 +106,29 @@ struct OpinionDetailScreen: View {
                 
                 
                 // TODO: 이미지
+                if !viewModel.opinion.generalImgDownloadImgUrl.isEmpty {
+                    HStack {
+                        ForEach(viewModel.opinion.generalImgDownloadImgUrl, id:\.self) { url in
+                            AsyncImage(url: URL(string: url)) { phash in
+                                if let image = phash.image {
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 100, height: 100)
+                                        .cornerRadius(10)
+                                }
+                                else if phash.error != nil {
+                                    Text("")
+                                }
+                                else {
+                                    Text("")
+                                }
+                             
+                            }
+                        }
+                    }
+                }
+                
                 
                 Text("\(viewModel.opinion.description)")
                     .font(.system(size: 14))
@@ -199,6 +222,28 @@ struct OpinionDetailScreen: View {
             OpinionStyle(label: "\(viewModel.opinion.recommendFoodDescription)")
             
             
+            if !viewModel.opinion.foodImgDownloadImgUrl!.isEmpty {
+                HStack {
+                    ForEach(viewModel.opinion.foodImgDownloadImgUrl!, id:\.self) { url in
+                        AsyncImage(url: URL(string: url)) { phash in
+                            if let image = phash.image {
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 100, height: 100)
+                                    .cornerRadius(10)
+                            }
+                            else if phash.error != nil {
+                                Text("")
+                            }
+                            else {
+                                Text("")
+                            }
+                         
+                        }
+                    }
+                }
+            }
         }
     }
     
@@ -220,6 +265,29 @@ struct OpinionDetailScreen: View {
                 .font(.system(size: 14))
                 .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
             OpinionStyle(label: "\(viewModel.opinion.recommendDrinkAndDessertDescription)")
+            
+            if !viewModel.opinion.drinkAndDessertImgDownloadImgUrl!.isEmpty {
+                HStack {
+                    ForEach(viewModel.opinion.drinkAndDessertImgDownloadImgUrl!, id:\.self) { url in
+                        AsyncImage(url: URL(string: url)) { phash in
+                            if let image = phash.image {
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 100, height: 100)
+                                    .cornerRadius(10)
+                            }
+                            else if phash.error != nil {
+                                Text("")
+                            }
+                            else {
+                                Text("")
+                            }
+                         
+                        }
+                    }
+                }
+            }
             
             Text("카페 분위기는 어떤가요?")
                 .font(.system(size: 14))
@@ -252,6 +320,29 @@ struct OpinionDetailScreen: View {
                 .font(.system(size: 14))
                 .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
             OpinionStyle(label: "\(viewModel.opinion.photoSpotDescription)")
+            
+            if !viewModel.opinion.photoSpotImgDownloadImgUrl!.isEmpty {
+                HStack {
+                    ForEach(viewModel.opinion.photoSpotImgDownloadImgUrl!, id:\.self) { url in
+                        AsyncImage(url: URL(string: url)) { phash in
+                            if let image = phash.image {
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 100, height: 100)
+                                    .cornerRadius(10)
+                            }
+                            else if phash.error != nil {
+                                Text("")
+                            }
+                            else {
+                                Text("")
+                            }
+                         
+                        }
+                    }
+                }
+            }
         }
     }
     
