@@ -377,12 +377,12 @@ extension PlanDetailScreen.ViewModel {
 // MARK: - 최적 루트 재정렬 기능
 
 extension PlanDetailScreen.ViewModel {
-	func rearrange(day: Int, meals: (Place?, Place?, Place?)) {
+	func rearrange(day: Int, meals: [Place?]) {
 		let places = scheduleOf(day: day).wrappedValue
 		let weights = distances[day - 1].map { row in
 			row.map { $0.time }
 		}
-		let startTime = DateFormat.strToDate("09:00:00", "HH:mm:ss")
+		let startTime = DateFormat.strToDate("08:00:00", "HH:mm:ss")
 		let isLastDay = day >= schedules.count
 		
 		// 초기화

@@ -13,7 +13,7 @@ struct MealSelectScreen: View {
 	@Environment(\.dismiss) var dismiss
 	
 	var places: [Place]
-	var onComplete: ((Place?, Place?, Place?)) -> Void
+	var onComplete: ([Place?]) -> Void
 	
 	var restaurants: [Place] {
 		places.filter {
@@ -21,13 +21,13 @@ struct MealSelectScreen: View {
 		}
 	}
 	
-	@State var selected: (Place?, Place?, Place?) = (nil, nil, nil)
+	@State var selected: [Place?] = [nil, nil, nil]
 	
     var body: some View {
 		VStack {
-			mealPicker(title: "아침", selection: $selected.0)
-			mealPicker(title: "점심", selection: $selected.1)
-			mealPicker(title: "저녁", selection: $selected.2)
+			mealPicker(title: "아침", selection: $selected[0])
+			mealPicker(title: "점심", selection: $selected[1])
+			mealPicker(title: "저녁", selection: $selected[2])
 		}
 		.navigationTitle("최적루트 재정렬")
 		.navigationBarBackButtonHidden(true)

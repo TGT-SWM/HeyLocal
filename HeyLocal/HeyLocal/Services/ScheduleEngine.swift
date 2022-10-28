@@ -22,16 +22,23 @@ class TSPScheduleEngine: ScheduleEngine {
 	private(set) var weights: [[Double]]
 	private(set) var startTime: Date
 	private(set) var isLastDay: Bool
-	private(set) var meals: (Place?, Place?, Place?)
+	private(set) var meals: [Place?]
 	
 	// 스케줄 생성을 위한 데이터
 	private var accomodations: [Place] = [] // 숙소
-	private var restaurants: [Place] = [] // 식당
 	private var _places: [Place] = [] // 숙소와 식당을 제외한 장소들
 	private var _weights: [[Double]] = [] // 숙소와 식당을 제외한 이동 시간 행렬
 	private var cache: [[Double]] = [] // 이동 시간에 대한 캐시
 	
-	init(places: [Place], weights: [[Double]], startTime: Date, isLastDay: Bool, meals: (Place?, Place?, Place?)) {
+	// 상수
+	let mealTime: [Date] = [
+		DateFormat.strToDate("07:00", "HH:mm"),
+		DateFormat.strToDate("11:00", "HH:mm"),
+		DateFormat.strToDate("17:00", "HH:mm")
+	]
+	let stayingTime = 60 // minutes
+	
+	init(places: [Place], weights: [[Double]], startTime: Date, isLastDay: Bool, meals: [Place?]) {
 		self.places = places
 		self.weights = weights
 		self.startTime = startTime
@@ -43,19 +50,16 @@ class TSPScheduleEngine: ScheduleEngine {
 	private func preprocess() {
 		// 데이터들을 초기화합니다.
 		accomodations = []
-		restaurants = []
 		_places = []
 		_weights = []
 		cache = []
 		
 		// 카테고리에 따라 장소를 분류하여 저장합니다.
-		// _places에는 숙소도 식당도 아닌 장소들만 저장합니다.
+		// _places에는 숙소가 아닌 장소들만 저장합니다.
 		for i in places.indices {
 			switch places[i].category {
 			case "AD5":
 				accomodations.append(places[i])
-			case "FD6":
-				restaurants.append(places[i])
 			default:
 				_places.append(places[i])
 			}
@@ -117,6 +121,36 @@ class TSPScheduleEngine: ScheduleEngine {
 			return cache[cur][visited]
 		}
 		
+//		// 식사 시간에 도달한 경우, 식당 우선
+//		var restaurantIdx = -1
+//		for i in mealTime.indices {
+//			if (hadMeal & (1 << i)) == 0 && curTime >= mealTime[i] {
+//				restaurantIdx = i
+//				break
+//			}
+//		}
+//
+//		if restaurantIdx != -1 {
+//			// 해당 장소 인덱스 구하기
+//			let restaurant = meals[restaurantIdx]!
+//			let next = _places.firstIndex(of: restaurant)!
+//
+//			// 해당 장소 방문 후 종료 시간
+//			let minutes = _weights[cur][next] + Double(stayingTime)
+//			let nextTime = curTime.advanced(by: TimeInterval(minutes * 60))
+//
+//			// 최소 시간 계산
+//			let t = _weights[cur][next] + getTravelTime(
+//				cur: next,
+//				visited: visited | (1 << next),
+//				hadMeal: hadMeal | (1 << restaurantIdx),
+//				curTime: nextTime
+//			)
+//
+//			cache[cur][visited] = t
+//			return t
+//		}
+		
 		// 최소 시간 구하기
 		var mn = Double.infinity
 		for next in _places.indices {
@@ -130,8 +164,15 @@ class TSPScheduleEngine: ScheduleEngine {
 				continue
 			}
 			
+//			// 해당 장소 방문 후 종료 시간
+//			let minutes = _weights[cur][next] + Double(stayingTime)
+//			let nextTime = curTime.advanced(by: TimeInterval(minutes * 60))
+			
 			// 최소 시간 계산
-			let t = _weights[cur][next] + getTravelTime(cur: next, visited: visited | (1 << next))
+			let t = _weights[cur][next] + getTravelTime(
+				cur: next,
+				visited: visited | (1 << next)
+			)
 			mn = min(mn, t)
 		}
 		
@@ -190,7 +231,7 @@ class TSPScheduleEngine: ScheduleEngine {
 			let curIdx = places.firstIndex(where: { $0.id == cur.id })!
 			
 			let minutes = weights[prevIdx][curIdx]
-			let seconds = TimeInterval(minutes * 60 + 3600) // 각 장소마다 1시간(3600sec) 머무른다고 가정
+			let seconds = TimeInterval(Int(minutes) * 60 + stayingTime * 60) // 각 장소마다 1시간(3600sec) 머무른다고 가정
 			
 			curTime = curTime.advanced(by: seconds)
 			result[i].arrivalTime = DateFormat.dateToStr(curTime, "HH:mm:ss")
@@ -205,7 +246,6 @@ class TSPScheduleEngine: ScheduleEngine {
 		
 		// 최소 이동 시간의 스케줄을 계산합니다.
 		let travelTime = getTravelTime(cur: 0, visited: 1)
-		print(travelTime)
 		
 		// 방문한 경로를 가져옵니다.
 		var travelPath = getTravelPath(travelTime: travelTime)
