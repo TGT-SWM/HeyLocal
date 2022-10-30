@@ -124,4 +124,25 @@ struct PlanRepository {
 		// Publisher 반환
 		return agent.run(request)
 	}
+	
+	/// 의견을 채택하여 플랜에 장소를 추가합니다.
+	func acceptOpinion(planId: Int, day: Int, opinionId: Int) -> AnyPublisher<EmptyResponse, Error> {
+		// URLRequest 객체 생성
+		let urlString = "\(Config.apiURL)/plans/\(planId)/places/\(day)"
+		let url = URL(string: urlString)!
+		var request = URLRequest(url: url)
+		
+		// HTTP 헤더 구성
+		request.httpMethod = "POST"
+		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+		request.addValue("application/json", forHTTPHeaderField: "Accept")
+		request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
+		
+		// HTTP 바디 구성
+		let body = ["opinionId": opinionId]
+		request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+		
+		// Publisher 반환
+		return agent.run(request)
+	}
 }

@@ -11,8 +11,7 @@ import Combine
 
 class PlanService {
 	private let planRepository = PlanRepository()
-	
-	var cancellable: AnyCancellable?
+	var cancelBag: Set<AnyCancellable> = []
 	
 	/// 마이플랜을 조회합니다.
 	func getMyPlans() -> AnyPublisher<MyPlans, Error> {
@@ -26,27 +25,32 @@ class PlanService {
 	
 	/// 플랜을 생성합니다.
 	func createPlan(travelOnId: Int, onCompletion: @escaping () -> Void, onError: @escaping (Error) -> Void) {
-		cancellable = planRepository.createPlan(travelOnId: travelOnId)
-			.sink(receiveCompletion: { completion in
-				switch (completion) {
-				case .finished:
-					onCompletion()
-				case .failure(let error):
-					onError(error)
-				}
-			}, receiveValue: { _ in })
+		planRepository.createPlan(travelOnId: travelOnId)
+			.sink(
+				receiveCompletion: { completion in
+					switch (completion) {
+					case .finished:
+						onCompletion()
+					case .failure(let error):
+						onError(error)
+					}
+				}, receiveValue: { _ in }
+			)
+			.store(in: &cancelBag)
 	}
 	
 	/// 플랜 정보를 수정합니다.
 	func updatePlan(planId: Int, planTitle: String) {
-		cancellable = planRepository.updatePlan(planId: planId, planTitle: planTitle)
+		planRepository.updatePlan(planId: planId, planTitle: planTitle)
 			.sink(receiveCompletion: { _ in }, receiveValue: { _ in })
+			.store(in: &cancelBag)
 	}
 	
 	/// 플랜을 삭제합니다.
 	func deletePlan(planId: Int) {
-		cancellable = planRepository.deletePlan(planId: planId)
+		planRepository.deletePlan(planId: planId)
 			.sink(receiveCompletion: { _ in }, receiveValue: { _ in })
+			.store(in: &cancelBag)
 	}
 	
 	/// 플랜의 스케줄을 조회합니다.
@@ -63,7 +67,15 @@ class PlanService {
 			}
 		}
 		
-		cancellable = planRepository.updateSchedules(planId: planId, schedules: indexedSchedules)
+		planRepository.updateSchedules(planId: planId, schedules: indexedSchedules)
 			.sink(receiveCompletion: { _ in }, receiveValue: { _ in })
+			.store(in: &cancelBag)
+	}
+	
+	/// 의견을 채택하여 플랜에 장소를 추가합니다.
+	func acceptOpinion(planId: Int, day: Int, opinionId: Int) {
+		planRepository.acceptOpinion(planId: planId, day: day, opinionId: opinionId)
+			.sink(receiveCompletion: { _ in }, receiveValue: { _ in })
+			.store(in: &cancelBag)
 	}
 }

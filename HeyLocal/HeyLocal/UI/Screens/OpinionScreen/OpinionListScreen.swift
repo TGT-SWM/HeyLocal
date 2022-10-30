@@ -31,7 +31,7 @@ struct OpinionListScreen: View {
                     }
                     
                     
-                    Button(action: {}) {
+					NavigationLink(destination: PlanSelectScreen(opinionId: opinion.id)) {
                         ZStack {
                             Rectangle()
                                 .fill(Color(red: 255/255, green: 153/255, blue: 0/255))
