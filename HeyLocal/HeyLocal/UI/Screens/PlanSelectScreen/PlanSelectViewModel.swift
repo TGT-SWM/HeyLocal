@@ -16,6 +16,8 @@ extension PlanSelectScreen {
 		var cancellable: AnyCancellable? // Cancellable 임시 저장
 		
 		@Published var myPlans = MyPlans() // 마이플랜
+		@Published var selectedPlan: Plan?
+		@Published var showSheet = false // 바텀시트 표시 여부
 	}
 }
 
@@ -38,5 +40,38 @@ extension PlanSelectScreen.ViewModel {
 	
 	var isMyPlanEmpty: Bool { // 마이플랜이 비어 있는지의 여부
 		ongoing.isEmpty && upcoming.isEmpty && past.isEmpty
+	}
+}
+
+
+// MARK: - 일자 선택 기능
+
+extension PlanSelectScreen.ViewModel {
+	// 플랜을 선택하고 일자 선택 시트를 표시합니다.
+	func selectPlan(plan: Plan) {
+		self.selectedPlan = plan
+		self.showSheet = true
+	}
+	
+	// 선택된 플랜의 일자들을 문자열 배열로 반환합니다.
+	var daysOfSelectedPlan: [[String]] {
+		guard let plan = self.selectedPlan else { return [] }
+		
+		let start = DateFormat.strToDate(plan.startDate, "yyyy-MM-dd")
+		let end = DateFormat.strToDate(plan.endDate, "yyyy-MM-dd")
+		let dayInterval = TimeInterval(24 * 60 * 60)
+		
+		var result: [[String]] = []
+		var curDay = 1
+		var curDate = start
+		
+		while curDate <= end {
+			let dateStr = DateFormat.dateToStr(curDate, "MM.dd")
+			result.append([String(curDay), dateStr])
+			curDate = curDate.advanced(by: dayInterval)
+			curDay += 1
+		}
+		
+		return result
 	}
 }
