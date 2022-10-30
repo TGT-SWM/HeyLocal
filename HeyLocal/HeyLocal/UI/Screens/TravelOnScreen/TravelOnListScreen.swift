@@ -45,7 +45,6 @@ struct TravelOnListScreen: View {
                     }
                     else {
                         emptyView
-                            .frame(width: 350)
                     }
                     // 글쓰기 버튼
                     NavigationLink(destination: TravelOnWriteScreen()) {
@@ -53,10 +52,6 @@ struct TravelOnListScreen: View {
                     }
                     .buttonStyle(WriteButtonStyle())
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 10))
-                }
-                
-                NavigationLink(destination: EmptyView()) {
-                    EmptyView()
                 }
             }
             .navigationBarTitle("", displayMode: .automatic)

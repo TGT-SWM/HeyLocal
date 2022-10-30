@@ -209,7 +209,7 @@ extension HomeScreen {
                 HStack {
                     ForEach(viewModel.rankings) { user in
                         ZStack {
-                            ProfileComponent(author: user)
+                            RankingProfileComponent(author: user)
                                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 5))
                         }
                     }

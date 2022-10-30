@@ -1,7 +1,6 @@
 //
 //  ProfileComponent.swift
 //  HeyLocal
-//  프로필 컴포넌트 (User 랭킹)
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //
@@ -11,149 +10,115 @@ import SwiftUI
 struct ProfileComponent: View {
     var author: Author
     var body: some View {
-        VStack(alignment: .center) {
-            ZStack(alignment: .bottom) {
-                if author.profileImgDownloadUrl == nil {
-                    ZStack {
-                        Rectangle()
-                            .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-                            .cornerRadius(10.0)
-                            .frame(width: 109, height: 109)
-                        
-                        Image(systemName: "person.fill")
-                            .resizable()
-                            .frame(width: 40, height: 40)
-                            .foregroundColor(Color("gray"))
-                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 0))
+        VStack(alignment: .leading) {
+            HStack {
+                /// 프로필 사진 · 지역 · 이름
+                HStack {
+                    // 프로필 사진
+                    if author.profileImgDownloadUrl == nil {
+                        ZStack {
+                            Circle()
+                                .fill(Color("lightGray"))
+                                .frame(width: 48, height: 48)
+                                .shadow(color: Color("gray"), radius: 1)
+                            
+                            Image(systemName: "person.fill")
+                                .resizable()
+                                .frame(width: 40, height: 40)
+                                .foregroundColor(Color("gray"))
+                        }
                     }
-                }
-                else {
-                    AsyncImage(url: URL(string: author.profileImgDownloadUrl!)) { phash in
-                        if let image = phash.image {
-                            ZStack {
+                    else {
+                        AsyncImage(url: URL(string: author.profileImgDownloadUrl!)) { phash in
+                            if let image = phash.image {
                                 image
                                     .resizable()
-                                    .frame(width: 109, height: 109)
                                     .aspectRatio(contentMode: .fill)
-                                    .cornerRadius(10.0)
-                                    .shadow(color: Color("gray"), radius: 3)
-                                
-                                
-                                Rectangle()
-                                    .fill(Color.black)
-                                    .cornerRadius(10.0)
-                                    .frame(width: 109, height: 109)
-                                    .opacity(0.3)
-                                
+                                    .clipShape(Circle())
+                                    .frame(width: 48, height: 48)
+                                    .shadow(color: Color("gray"), radius: 1)
                             }
-                            
-                        }
-                        else if phash.error != nil {
-                            ZStack {
-                                Rectangle()
-                                    .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-                                    .cornerRadius(10.0)
-                                    .frame(width: 109, height: 109)
-                                
-                                Image(systemName: "person.fill")
-                                    .resizable()
-                                    .frame(width: 40, height: 40)
-                                    .foregroundColor(Color("gray"))
-                            }
-                        }
-                        else {
-                            ZStack {
-                                Rectangle()
-                                    .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-                                    .cornerRadius(10.0)
-                                    .frame(width: 109, height: 109)
-                                
-                                Image(systemName: "person.fill")
-                                    .resizable()
-                                    .frame(width: 40, height: 40)
-                                    .foregroundColor(Color("gray"))
+                            else {
+                                ZStack {
+                                    Circle()
+                                        .fill(Color("lightGray"))
+                                        .frame(width: 48, height: 48)
+                                        .shadow(color: Color("gray"), radius: 1)
+                                    
+                                    Image(systemName: "person.fill")
+                                        .resizable()
+                                        .frame(width: 40, height: 40)
+                                        .foregroundColor(Color("gray"))
+                                }
                             }
                         }
                     }
-                }
-                
-                VStack {
-                    if author.activityRegion != nil {
-                        Text("\(regionNameFormatter(region: author.activityRegion!))")
-                            .font(.system(size: 12))
-                    }
-                    
-                    Text("\(author.nickname)")
-                        .font(.system(size: 14))
                     
                     Spacer()
-                        .frame(height: 5)
+                        .frame(width: 15)
+                    
+                    VStack(alignment: .leading) {
+                        Text("\(regionNameFormatter(region: author.activityRegion!))")
+                            .font(.system(size: 12))
+                        
+                        // TODO: 프로필화면으로 이동
+                        NavigationLink(destination: EmptyView()) {
+                            HStack {
+                                Text("\(author.nickname)")
+                                    .font(.system(size: 16))
+                                    
+                                Image(systemName: "chevron.right")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 12, height: 12)
+                            }
+                            .foregroundColor(.black)
+                        }
+                    }
                 }
-                .foregroundColor(Color.white)
+                .padding()
+                
+                Spacer()
+                
+                /// 답변수 · 채탤수
+                VStack {
+                    HStack {
+                        Image("message-text")
+                            .resizable()
+                            .frame(width: 13, height: 13)
+                        
+                        Text("답변수")
+                        
+                        Text("\(author.totalOpinionCount!)")
+                    }
+                    
+                    HStack {
+                        Image("heart")
+                            .resizable()
+                            .frame(width: 13, height: 13)
+                        
+                        Text("채택수")
+                        
+                        Text("\(author.acceptedOpinionCount!)")
+                    }
+                }
+                .foregroundColor(Color("gray"))
+                .font(.system(size: 12))
+                .padding()
             }
             
-            Spacer()
-                .frame(height: 10)
-            
-            // 답변 수
-            HStack {
-                Image("comment_black_icon")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 16, height: 16)
+            /// 소개
+            ZStack(alignment: .topLeading) {
+                Rectangle()
+                    .fill(Color(red: 248/255, green: 248/255, blue: 248/255))
+                    .frame(width: ScreenSize.width, height: 64)
                 
-                Spacer()
-                    .frame(width: 3)
+                Text("\(author.introduce!)")
+                    .font(.system(size: 12))
+                    .foregroundColor(Color("gray"))
+                    .padding()
                 
-                Text("답변수")
-                
-                Spacer()
-                    .frame(width: 3)
-                
-                Text("\(author.totalOpinionCount!)")
             }
-            .font(.system(size: 12))
-            .foregroundColor(Color("gray"))
-            
-            Spacer()
-                .frame(height: 3)
-            
-            // 채택 수
-            HStack {
-                Image("heart_black_icon")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 16, height: 16)
-                
-                Spacer()
-                    .frame(width: 3)
-                
-                Text("채택수")
-                
-                Spacer()
-                    .frame(width: 3)
-                
-                Text("\(author.acceptedOpinionCount!)")
-            }
-            .font(.system(size: 12))
-            .foregroundColor(Color("gray"))
         }
-        .onAppear {
-            
-        }
-    }
-}
-
-struct ProfileComponent_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileComponent(author: Author(userId: 2,
-                                        nickname: "김현지",
-                                        activityRegion: Region(id: 259, state: "부산광역시"),
-                                        introduce: "",
-                                        profileImgDownloadUrl: nil,
-                                        knowHow: 1,
-                                        ranking: 1,
-                                        acceptedOpinionCount: 845,
-                                        totalOpinionCount: 189))
     }
 }

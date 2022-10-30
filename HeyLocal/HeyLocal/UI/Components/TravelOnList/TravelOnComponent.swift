@@ -54,7 +54,7 @@ struct TravelOnComponent: View {
                 
                 HStack(alignment: .bottom, spacing: 3) {
                     Group {
-                        Image("view_icon")
+                        Image("eye-alt")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 16)

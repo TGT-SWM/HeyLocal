@@ -17,8 +17,7 @@ struct TravelOnDetailScreen: View {
     @State var showingSheet = false
     @State var showingAlert = false
     @State var navigationLinkActive = false
-    @State var images: [UIImage] = [UIImage]()
-    @State var showingPhotoSheet = false
+    
     var body: some View {
         ZStack(alignment: .center) {
             // 게시글 수정
@@ -27,60 +26,11 @@ struct TravelOnDetailScreen: View {
             }
             
             ScrollView {
-                // MARK: - 이미지 연습 ...
-//                HStack {
-//                    Button(action: {
-//                        if images.count < 3 {
-//                            showingPhotoSheet.toggle()
-//                        }
-//                    }) {
-//                        ZStack(alignment: .center) {
-//                            Rectangle()
-//                                .fill(Color.white)
-//                                .frame(width: 100, height: 100)
-//                                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
-//                                .cornerRadius(10)
-//
-//
-//                            VStack(alignment: .center) {
-//                                Image(systemName: "camera")
-//                                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-//                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 3, trailing: 0))
-//
-//                                Text("\(images.count) / 3")
-//                                    .font(.system(size: 12))
-//                                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-//                            }
-//                        }
-//                    }
-//                    .sheet(isPresented: $showingPhotoSheet, content: {
-//                        ImagePicker(isPresent: $showingPhotoSheet, images: $images)
-//                    })
-//
-//                    ForEach(images, id:\.self) { img in
-//                        ZStack(alignment: .topTrailing) {
-//                            Image(uiImage: img)
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fill)
-//                                .frame(width: 100, height: 100)
-//                                .cornerRadius(10)
-//
-//                            // 이미지 삭제버튼
-//                            Button(action: {
-//                                if let index = images.firstIndex(of: img) {
-//                                    images.remove(at: index)
-//                                }
-//                            }) {
-//                                Image(systemName: "multiply")
-//                                    .resizable()
-//                                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-//                                    .frame(width: 10, height: 10)
-//                            }
-//                        }
-//                    }
-//                }
-
                 content
+                
+                travelType
+                
+                ProfileComponent(author: viewModel.travelOn.author)
                 
                 opinions
             }
@@ -93,7 +43,8 @@ struct TravelOnDetailScreen: View {
                             cancelWidth: 134,
                             confirmWidth: 109,
                             rightButtonAction: {
-                    viewModel.deleteTravelOn(travelOnId: viewModel.travelOn.id) }, destinationView: AnyView(TravelOnListScreen()))
+                    viewModel.deleteTravelOn(travelOnId: viewModel.travelOn.id) },
+                            destinationView: AnyView(TravelOnListScreen()))
             }
         }
         .onAppear {
@@ -107,16 +58,69 @@ struct TravelOnDetailScreen: View {
                             trailing: MoreButton(showingSheet: $showingSheet, showingAlert: $showingAlert, navigationLinkActive: $navigationLinkActive))
     }
     
+    var travelDate: some View {
+        VStack {
+            
+        }
+    }
+    
+    
+    /// 여행 취향
+    var travelType: some View {
+        VStack(alignment: .leading) {
+            Text("나의 여행취향")
+                .font(.system(size: 14))
+                .foregroundColor(Color("gray"))
+            
+            HStack {
+                if viewModel.travelOn.travelTypeGroup?.placeTasteType == "FAMOUS" {
+                    Image("PlaceType_popular_yellow")
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                }
+                else {
+                    Image("PlaceType_new_yellow")
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                }
+                
+                if viewModel.travelOn.travelTypeGroup?.activityTasteType == "HARD" {
+                    Image("ActivityType_busy_yellow")
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                }
+                else {
+                    Image("ActivityType_slow_yellow")
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                }
+                
+                if viewModel.travelOn.travelTypeGroup?.snsTasteType == "YES" {
+                    Image("SnsType_yes_yellow")
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                }
+                else {
+                    Image("SnsType_no_yellow")
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                }
+            }
+        }
+    }
+    
+    
+    
     var content: some View {
         VStack(alignment: .leading) {
-            // Title
+            /// Title
             Group {
                 Text("\(viewModel.travelOn.title)")
                     .font(.system(size: 22))
                     .fontWeight(.medium)
             }
             
-            // Upload Date - Region - Views
+            /// Upload Date - Region - Views
             Group {
                 HStack {
                     // createdDateTime
@@ -129,7 +133,7 @@ struct TravelOnDetailScreen: View {
                     
                     // Region
                     HStack {
-                        Image("pin_black_icon")
+                        Image("location")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 16)
@@ -144,7 +148,7 @@ struct TravelOnDetailScreen: View {
                     
                     // Views
                     HStack(alignment: .bottom) {
-                        Image("view_icon")
+                        Image("eye-alt")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 16)
@@ -160,161 +164,180 @@ struct TravelOnDetailScreen: View {
             .font(.system(size: 12))
             .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
             
-            
-            // When + Member + Where
-            Group {
-                VStack(alignment: .leading) {
-                    HStack {
-                        let startDate = viewModel.travelOn.travelStartDate!.components(separatedBy: "-")
-                        let endDate = viewModel.travelOn.travelEndDate!.components(separatedBy: "-")
-                        
-                        Text("\(startDate[1])월 \(startDate[2])일부터 \(endDate[1])월 \(endDate[2])일에")
-                            .underline()
-                    }
-                    
-                    HStack {
-                        ForEach(viewModel.travelOn.travelMemberSet!) { member in
-                            Text("\(memToString(mem: member.type))")
-                                .underline()
-                        }
-                        
-                        Text("가는")
-                            .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-                        
-                        Text("\(regionNameFormatter(region: viewModel.travelOn.region)) 여행")
-                            .underline()
-                    }
-                }
-                
-            }
-            .font(.system(size: 14))
-            .foregroundColor(Color(red: 255/255, green: 153/255, blue: 0/255))
-            .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
-            
-            Spacer()
-                .frame(height: 20)
-            
-            // Taste + Accom + Food + Drink
-            Group {
-                VStack (alignment: .leading){
-                    // Taste
-                    HStack {
-                        
-                    }
-                    
-                    // Accom
-                    HStack {
-                        // 가격 상관 없어요 선택 시
-                        if viewModel.travelOn.accommodationMaxCost == 0 {
-                            Text("가격 상관없이")
-                                .underline()
-                                .foregroundColor(Color(red: 17/255, green: 17/255, blue: 17/255))
-                        }
-                        else {
-                            Text("\(viewModel.travelOn.accommodationMaxCost! / 10000)만원 이하의 ")
-                                .underline()
-                                .foregroundColor(Color(red: 17/255, green: 17/255, blue: 17/255))
-                        }
-                        
-                        
-                        // 숙소 어디든 선택 시
-                        if viewModel.travelOn.hopeAccommodationSet![0].type == "ALL" {
-                            Text("숙소 어디든")
-                                .underline()
-                                .foregroundColor(Color(red: 17/255, green: 17/255, blue: 17/255))
-                        }
-                        else {
-                            Group {
-                                ForEach(viewModel.travelOn.hopeAccommodationSet!) { accom in
-                                    Text("\(accomToString(accom: accom.type))")
-                                        .underline()
-                                }
-                            }
-                            .foregroundColor(Color(red: 17/255, green: 17/255, blue: 17/255))
-                        }
-                        Text("추천해주세요!")
-                    }
-                    
-                    // Food
-                    HStack {
-                        Group {
-                            ForEach(viewModel.travelOn.hopeFoodSet!) { food in
-                                Text("\(foodToString(food: food.type))")
-                                    .underline()
-                            }
-                        }
-                        .foregroundColor(Color(red: 17/255, green: 17/255, blue: 17/255))
-                        
-                        Text("을 추천해주세요!")
-                    }
-                    
-                    // Drink
-                    HStack {
-                        if viewModel.travelOn.hopeDrinkSet![0].type == "NO_ALCOHOL" {
-                            Text("술은 안마셔요")
-                        }
-                        else {
-                            Group {
-                                ForEach(viewModel.travelOn.hopeDrinkSet!) { drink in
-                                    Text("\(drinkToString(drink: drink.type))")
-                                        .underline()
-                                }
-                            }
-                            .foregroundColor(Color(red: 17/255, green: 17/255, blue: 17/255))
-                            
-                            Text("을 추천해주세요!")
-                        }
-                    }
-                }
-            }
-            .font(.system(size: 14))
-            .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-            
-            Spacer()
-                .frame(height: 20)
-            
-            // Transportation
+            /// 여행 출발일 - 여행 도착일
             Group {
                 HStack {
-                    Text("주로")
+                    VStack(alignment: .leading) {
+                        let startDate = viewModel.travelOn.travelStartDate!.components(separatedBy: "-")
+                        Text("여행 출발일")
+                            .font(.system(size: 14))
+                        
+                        Spacer()
+                            .frame(height: 4)
+                        
+                        ZStack(alignment: .leading) {
+                            Rectangle()
+                                .fill(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
+                                .frame(width: 171, height: 36)
+                                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
+                                .cornerRadius(10)
+                            
+                            HStack {
+                                Spacer()
+                                    .frame(width: 10)
+                                
+                                Image("calendar")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 16)
+                                
+                                Text("\(startDate[0])-\(startDate[1])-\(startDate[2])")
+                                    .font(.system(size: 14))
+                            }
+                        }
+                    }
                     
-                    Text("\(transToString(trans: viewModel.travelOn.transportationType!))")
-                        .underline()
-                        .fontWeight(.medium)
-                        .foregroundColor(Color(red: 17/255, green: 17/255, blue: 17/255))
                     
-                    Spacer()
-                        .frame(width: 2)
-                
-                    Text("을 이용하여 움직입니다.")
+                    VStack(alignment: .leading) {
+                        let endDate = viewModel.travelOn.travelEndDate!.components(separatedBy: "-")
+                        Text("여행 도착일")
+                            .font(.system(size: 14))
+                        
+                        Spacer()
+                            .frame(height: 4)
+                        
+                        ZStack(alignment: .leading) {
+                            Rectangle()
+                                .fill(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
+                                .frame(width: 171, height: 36)
+                                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
+                                .cornerRadius(10)
+                            
+                            HStack {
+                                Spacer()
+                                    .frame(width: 10)
+                                
+                                Image("calendar")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 16)
+                                
+                                Text("\(endDate[0])-\(endDate[1])-\(endDate[2])")
+                                    .font(.system(size: 14))
+                            }
+                        }
+                    }
                 }
             }
-            .font(.system(size: 14))
-            .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
             
-            Spacer()
-                .frame(height: 10)
-            
-            // Description
+            ///
             Group {
-                Text("덧붙이자면,")
-                    .underline()
-                    .fontWeight(.medium)
-                    .foregroundColor(Color(red: 17/255, green: 17/255, blue: 17/255))
+                Divider()
                 
-                ZStack(alignment: .topLeading) {
-                    Rectangle()
-                        .fill(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
-                        .frame(width: 350, height: 160)
-                        .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
-                        .cornerRadius(10)
+                VStack(alignment: .leading) {
+                    Text("이런 여행 원해요!")
+                        .font(.system(size: 22))
+                        .fontWeight(.medium)
+
+                    Divider()
                     
-                    
-                    Text("\(viewModel.travelOn.description)")
-                        .padding()
+                    HStack(alignment: .firstTextBaseline) {
+                        VStack(alignment: .leading) {
+                            Text("동행자")
+                            Text("숙소형태")
+                            Text("선호 음식")
+                            Text("선호 음주류")
+                            Text("교통수단")
+                        }
+                        .foregroundColor(Color("gray"))
+                        
+                        Spacer()
+                            .frame(width: 20)
+                        
+                        VStack(alignment: .leading) {
+                            /// 동행자
+                            HStack {
+                                ForEach(viewModel.travelOn.travelMemberSet!) { member in
+                                    Text("\(memToString(mem: member.type))")
+                                }
+                                Text("떠나는 여행")
+                            }
+                            
+                            /// 숙소형태
+                            HStack {
+                                // 가격 상관 없어요 선택 시
+                                if viewModel.travelOn.accommodationMaxCost == 0 {
+                                    Text("가격 상관없이")
+                                }
+                                else {
+                                    Text("\(viewModel.travelOn.accommodationMaxCost! / 10000)만원 이하의 ")
+                                }
+        
+                                // 숙소 어디든 선택 시
+                                if viewModel.travelOn.hopeAccommodationSet![0].type == "ALL" {
+                                    Text("숙소 어디든")
+                                }
+                                else {
+                                    Group {
+                                        ForEach(viewModel.travelOn.hopeAccommodationSet!) { accom in
+                                            Text("\(accomToString(accom: accom.type))")
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            /// 선호 음식
+                            HStack {
+                                Group {
+                                    ForEach(viewModel.travelOn.hopeFoodSet!) { food in
+                                        Text("\(foodToString(food: food.type))")
+                                    }
+                                }
+                            }
+                            
+                            /// 선호 음주류
+                            HStack {
+                                if viewModel.travelOn.hopeDrinkSet![0].type == "NO_ALCOHOL" {
+                                    Text("술은 안마셔요")
+                                }
+                                else {
+                                    Group {
+                                        ForEach(viewModel.travelOn.hopeDrinkSet!) { drink in
+                                            Text("\(drinkToString(drink: drink.type))")
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            /// 교통수단
+                            Text("\(transToString(trans: viewModel.travelOn.transportationType!))")
+                        }
+                    }
+                    .font(.system(size: 14))
                 }
             }
-            .font(.system(size: 14))
+            
+            
+//            // Description
+//            Group {
+//                Text("덧붙이자면,")
+//                    .underline()
+//                    .fontWeight(.medium)
+//                    .foregroundColor(Color(red: 17/255, green: 17/255, blue: 17/255))
+//
+//                ZStack(alignment: .topLeading) {
+//                    Rectangle()
+//                        .fill(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
+//                        .frame(width: 350, height: 160)
+//                        .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
+//                        .cornerRadius(10)
+//
+//
+//                    Text("\(viewModel.travelOn.description)")
+//                        .padding()
+//                }
+//            }
+//            .font(.system(size: 14))
             
             Group {
                 Spacer()

@@ -17,7 +17,7 @@ struct UserRankingScreen: View {
         VStack {
             LazyVGrid(columns: gridItems) {
                 ForEach(viewModel.users) { user in
-                    ProfileComponent(author: user)
+                    RankingProfileComponent(author: user)
                         .padding()
                 }
             }
