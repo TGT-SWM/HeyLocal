@@ -60,7 +60,7 @@ struct TravelOnComponent: View {
                             .frame(width: 16)
                         
                         Text("조회수")
-                            .foregroundColor(Color(red: 121 / 255, green: 119 / 255, blue: 117 / 255))
+                            
                         Text("\(travelOn.views)")
                     }
                     
@@ -74,11 +74,12 @@ struct TravelOnComponent: View {
                             .frame(width: 16)
                         
                         Text("답변수")
-                            .foregroundColor(Color(red: 121 / 255, green: 119 / 255, blue: 117 / 255))
+                            
                         Text("\(travelOn.opinionQuantity!)")
                     }
                 }
                 .font(.system(size: 12))
+                .foregroundColor(Color("gray"))
                 
                 Spacer()
                 
@@ -173,7 +174,6 @@ struct TravelOnComponent: View {
                 .font(.system(size: 12))
                 .foregroundColor(Color(red: 117 / 255, green: 118 / 255, blue: 121 / 255))
             }
-//            .frame(width: 200, height: 90, alignment: .topLeading)
             .padding()
         }
         .foregroundColor(Color.black)

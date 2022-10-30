@@ -13,7 +13,7 @@ struct ProfileComponent: View {
         VStack(alignment: .leading) {
             HStack {
                 /// 프로필 사진 · 지역 · 이름
-                HStack {
+                HStack(alignment: .center) {
                     // 프로필 사진
                     if author.profileImgDownloadUrl == nil {
                         ZStack {
@@ -24,7 +24,7 @@ struct ProfileComponent: View {
                             
                             Image(systemName: "person.fill")
                                 .resizable()
-                                .frame(width: 40, height: 40)
+                                .frame(width: 30, height: 30)
                                 .foregroundColor(Color("gray"))
                         }
                     }
@@ -47,7 +47,7 @@ struct ProfileComponent: View {
                                     
                                     Image(systemName: "person.fill")
                                         .resizable()
-                                        .frame(width: 40, height: 40)
+                                        .frame(width: 30, height: 30)
                                         .foregroundColor(Color("gray"))
                                 }
                             }
@@ -60,6 +60,9 @@ struct ProfileComponent: View {
                     VStack(alignment: .leading) {
                         Text("\(regionNameFormatter(region: author.activityRegion!))")
                             .font(.system(size: 12))
+                        
+                        Spacer()
+                            .frame(height: 7)
                         
                         // TODO: 프로필화면으로 이동
                         NavigationLink(destination: EmptyView()) {
@@ -80,24 +83,38 @@ struct ProfileComponent: View {
                 
                 Spacer()
                 
-                /// 답변수 · 채탤수
-                VStack {
-                    HStack {
+                /// 답변수 · 채택수
+                VStack(alignment: .leading) {
+                    HStack(alignment: .center) {
                         Image("message-text")
                             .resizable()
-                            .frame(width: 13, height: 13)
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 16, height: 16)
+                        
+                        Spacer()
+                            .frame(width: 5)
                         
                         Text("답변수")
+                        
+                        Spacer()
+                            .frame(width: 3)
                         
                         Text("\(author.totalOpinionCount!)")
                     }
                     
-                    HStack {
+                    HStack(alignment: .center) {
                         Image("heart")
                             .resizable()
-                            .frame(width: 13, height: 13)
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 14, height: 14)
+                        
+                        Spacer()
+                            .frame(width: 5)
                         
                         Text("채택수")
+                        
+                        Spacer()
+                            .frame(width: 3)
                         
                         Text("\(author.acceptedOpinionCount!)")
                     }
@@ -120,5 +137,6 @@ struct ProfileComponent: View {
                 
             }
         }
+        .background(.white)
     }
 }
