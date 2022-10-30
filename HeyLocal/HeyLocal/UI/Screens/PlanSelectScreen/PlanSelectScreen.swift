@@ -8,9 +8,16 @@
 import SwiftUI
 
 struct PlanSelectScreen: View {
-	@ObservedObject var viewModel = ViewModel()
+	@Environment(\.dismiss) var dismiss
+	
+	@ObservedObject var viewModel: ViewModel
 	
 	var opinionId: Int
+	
+	init(opinionId: Int) {
+		self.opinionId = opinionId
+		self.viewModel = ViewModel(opinionId: opinionId)
+	}
 	
     var body: some View {
 		ZStack {
@@ -115,10 +122,27 @@ extension PlanSelectScreen {
 	/// 바텀시트 뷰입니다.
 	var bottomSheet: some View {
 		BottomSheet(showSheet: $viewModel.showSheet) {
-			Text("날짜선택")
-				.font(.system(size: 14))
-				.fontWeight(.medium)
-				.padding(.bottom)
+			HStack {
+				Text("날짜선택")
+					.font(.system(size: 14))
+					.fontWeight(.medium)
+					.padding(.bottom)
+				
+				Spacer()
+				
+				if viewModel.selectedDay != nil {
+					Button {
+						viewModel.addPlaceToPlan()
+						dismiss()
+					} label: {
+						Text("확인")
+							.font(.system(size: 14))
+							.fontWeight(.medium)
+							.padding(.bottom)
+							.foregroundColor(Color("orange"))
+					}
+				}
+			}
 			
 			dayList
 		}
@@ -138,7 +162,12 @@ extension PlanSelectScreen {
 	
 	/// 일자 리스트의 각 항목을 나타내는 뷰입니다.
 	func dayListItem(day: String, date: String) -> some View {
-		HStack(alignment: .center, spacing: 12) {
+		var isSelectedDay = false
+		if let selectedDay = viewModel.selectedDay {
+			isSelectedDay = (Int(day) == selectedDay)
+		}
+		
+		return HStack(alignment: .center, spacing: 12) {
 			Text("DAY \(day)")
 				.font(.system(size: 16))
 				.fontWeight(.medium)
@@ -146,8 +175,19 @@ extension PlanSelectScreen {
 				.font(.system(size: 14))
 				.fontWeight(.medium)
 			Spacer()
+			
+			if isSelectedDay {
+				Image(systemName: "checkmark")
+					.foregroundColor(Color("orange"))
+			}
 		}
 		.frame(height: 48)
+		.if(isSelectedDay) {
+			$0.foregroundColor(Color("orange"))
+		}
+		.onTapGesture {
+			viewModel.selectedDay = Int(day)
+		}
 	}
 }
 

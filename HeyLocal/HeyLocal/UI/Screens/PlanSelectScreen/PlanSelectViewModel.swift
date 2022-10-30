@@ -16,8 +16,15 @@ extension PlanSelectScreen {
 		var cancellable: AnyCancellable? // Cancellable 임시 저장
 		
 		@Published var myPlans = MyPlans() // 마이플랜
-		@Published var selectedPlan: Plan?
 		@Published var showSheet = false // 바텀시트 표시 여부
+		@Published var selectedPlan: Plan?
+		@Published var selectedDay: Int?
+		
+		var opinionId: Int // 파라미터
+		
+		init(opinionId: Int) {
+			self.opinionId = opinionId
+		}
 	}
 }
 
@@ -47,9 +54,21 @@ extension PlanSelectScreen.ViewModel {
 // MARK: - 일자 선택 기능
 
 extension PlanSelectScreen.ViewModel {
+	// 의견 채택을 요청합니다.
+	func addPlaceToPlan() {
+		if let plan = selectedPlan, let day = selectedDay {
+			planService.acceptOpinion(
+				planId: plan.id,
+				day: day,
+				opinionId: opinionId
+			)
+		}
+	}
+	
 	// 플랜을 선택하고 일자 선택 시트를 표시합니다.
 	func selectPlan(plan: Plan) {
 		self.selectedPlan = plan
+		self.selectedDay = nil
 		self.showSheet = true
 	}
 	
