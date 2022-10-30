@@ -97,6 +97,8 @@
 		EFAA2AC328BBC30E00B56A3C /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA2AC228BBC30E00B56A3C /* AuthRepository.swift */; };
 		EFAA2AC528BBC48400B56A3C /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA2AC428BBC48400B56A3C /* AuthService.swift */; };
 		EFAA2AC928BBCF6E00B56A3C /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA2AC828BBCF6E00B56A3C /* Auth.swift */; };
+		EFBCFDD8290F16BB00834DEE /* PlanSelectScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBCFDD7290F16BB00834DEE /* PlanSelectScreen.swift */; };
+		EFBCFDDA290F171300834DEE /* PlanSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBCFDD9290F171300834DEE /* PlanSelectViewModel.swift */; };
 		EFDC441B28C0735400E8747C /* PlanRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFDC441A28C0735400E8747C /* PlanRepository.swift */; };
 		EFDC441D28C073E000E8747C /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFDC441C28C073E000E8747C /* Plan.swift */; };
 		EFF086BE29073ED20090EC93 /* ConfirmModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF086BD29073ED20090EC93 /* ConfirmModal.swift */; };
@@ -235,6 +237,8 @@
 		EFAA2AC228BBC30E00B56A3C /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		EFAA2AC428BBC48400B56A3C /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		EFAA2AC828BBCF6E00B56A3C /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
+		EFBCFDD7290F16BB00834DEE /* PlanSelectScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanSelectScreen.swift; sourceTree = "<group>"; };
+		EFBCFDD9290F171300834DEE /* PlanSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanSelectViewModel.swift; sourceTree = "<group>"; };
 		EFDC441A28C0735400E8747C /* PlanRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanRepository.swift; sourceTree = "<group>"; };
 		EFDC441C28C073E000E8747C /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
 		EFF086BD29073ED20090EC93 /* ConfirmModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmModal.swift; sourceTree = "<group>"; };
@@ -588,6 +592,7 @@
 		EF8FF26E28B4D1C400C053B7 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				EFBCFDDB290F1AEA00834DEE /* PlanSelectScreen */,
 				A89943A328EEC5FD0059AAC6 /* RegionPickerScreen */,
 				EF3C060A28E0E52F003F3188 /* PlaceSearchScreen */,
 				A87F6C9B28C099940076046E /* ProfileScreen */,
@@ -636,6 +641,15 @@
 				A8B2C29028F52D61008EA020 /* OpinionStyle.swift */,
 			);
 			path = Styles;
+			sourceTree = "<group>";
+		};
+		EFBCFDDB290F1AEA00834DEE /* PlanSelectScreen */ = {
+			isa = PBXGroup;
+			children = (
+				EFBCFDD7290F16BB00834DEE /* PlanSelectScreen.swift */,
+				EFBCFDD9290F171300834DEE /* PlanSelectViewModel.swift */,
+			);
+			path = PlanSelectScreen;
 			sourceTree = "<group>";
 		};
 		EFF9F36E28C5523200E9FCB3 /* DaumMap.embeddedframework */ = {
@@ -839,6 +853,7 @@
 				EFF9F3C728C5C8DA00E9FCB3 /* KakaoMap.swift in Sources */,
 				A89EB76B28F69D2500257C83 /* OpinionPlacePickerScreen.swift in Sources */,
 				EF6A3FC428E71EE5003F474B /* UserService.swift in Sources */,
+				EFBCFDD8290F16BB00834DEE /* PlanSelectScreen.swift in Sources */,
 				A80213DB28BF2EA100B6359E /* TravelOnService.swift in Sources */,
 				EF8EB5DD28F8697700F8D9EB /* ScheduleEngine.swift in Sources */,
 				EFF086BE29073ED20090EC93 /* ConfirmModal.swift in Sources */,
@@ -902,6 +917,7 @@
 				A8B91E5029000F0900B62E70 /* ImagePicker.swift in Sources */,
 				A8B0E7392907A4C9005B585F /* UserRankingScreen.swift in Sources */,
 				EFDC441D28C073E000E8747C /* Plan.swift in Sources */,
+				EFBCFDDA290F171300834DEE /* PlanSelectViewModel.swift in Sources */,
 				EF26CD9528C0FF12006D0D27 /* DateFormat.swift in Sources */,
 				EF6ADBC52903BDFF00A14D26 /* SignUpViewModel.swift in Sources */,
 				A814DF7D28ED60B300DBF383 /* AlertCustomButton.swift in Sources */,
