@@ -32,7 +32,7 @@ class PlaceService {
 				opinions.wrappedValue.append(contentsOf: $0)
 				lastItemId.wrappedValue = $0.last?.id
 				
-				if $0.isEmpty {
+				if $0.count < size {
 					isEnd.wrappedValue = true
 				}
 			}
