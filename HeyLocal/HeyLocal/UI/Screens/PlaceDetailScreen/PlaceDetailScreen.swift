@@ -20,9 +20,13 @@ struct PlaceDetailScreen: View {
 	
     var body: some View {
 		ScrollView {
-			header
-			if vm.displayMenu { menuList }
-			opinionList
+			header // 상단 영역
+			if vm.displayMenu { menuList } // 메뉴 (음식점, 카페)
+			Divider() // 구분선
+				.frame(minHeight: 8)
+				.frame(maxWidth: .infinity)
+				.overlay(Color("lightGray"))
+			opinionList // 답변 목록
 		}
 		.navigationTitle("장소 상세정보")
 		.navigationBarTitleDisplayMode(.inline)
@@ -47,13 +51,21 @@ extension PlaceDetailScreen {
 			addressView
 			openingTimeView
 		}
+		.padding(20)
 	}
 	
 	/// 장소의 이름과 카테고리에 대한 뷰입니다.
 	var titleView: some View {
-		HStack {
+		HStack(alignment: .bottom) {
 			Text(place.name)
+				.font(.system(size: 22))
+				.fontWeight(.medium)
+			
 			Text(place.categoryName)
+				.font(.system(size: 12))
+				.foregroundColor(Color("orange"))
+			
+			Spacer()
 		}
 	}
 	
@@ -61,10 +73,16 @@ extension PlaceDetailScreen {
 	var addressView: some View {
 		HStack(alignment: .top) {
 			Image("location")
-			VStack {
+				.font(.system(size: 10))
+			
+			VStack(alignment: .leading) {
 				Text(place.roadAddress)
 				Text(place.address)
 			}
+			.font(.system(size: 12))
+			.foregroundColor(Color("gray"))
+			
+			Spacer()
 		}
 	}
 	
@@ -72,7 +90,13 @@ extension PlaceDetailScreen {
 	var openingTimeView: some View {
 		HStack {
 			Image("clock-outline")
+				.font(.system(size: 10))
+			
 			Text(vm.openingTime)
+				.font(.system(size: 12))
+				.foregroundColor(Color("gray"))
+			
+			Spacer()
 		}
 	}
 }
@@ -83,21 +107,33 @@ extension PlaceDetailScreen {
 extension PlaceDetailScreen {
 	/// 메뉴 리스트에 대한 뷰입니다.
 	var menuList: some View {
-		VStack {
+		VStack(alignment: .leading, spacing: 0) {
 			Text("메뉴")
+				.font(.system(size: 16))
+				.fontWeight(.medium)
 			
-			ForEach(vm.menus, id: \.self) {
-				menuListItem(menu: $0)
+			VStack(spacing: 0) {
+				ForEach(vm.menus, id: \.self) {
+					menuListItem(menu: $0)
+				}
 			}
+			.padding(.vertical, 16)
 		}
+		.padding(.horizontal, 20)
 	}
 	
 	/// 메뉴 리스트의 각 항목에 대한 뷰입니다.
 	func menuListItem(menu: PlaceMenu) -> some View {
 		HStack {
 			Text(menu.name)
+				.font(.system(size: 12))
+			
+			Spacer()
+			
 			Text(menu.price)
+				.font(.system(size: 12))
 		}
+		.frame(height: 24)
 	}
 }
 
@@ -107,8 +143,10 @@ extension PlaceDetailScreen {
 extension PlaceDetailScreen {
 	/// 답변 리스트에 대한 뷰입니다.
 	var opinionList: some View {
-		VStack {
+		VStack(alignment: .leading) {
 			Text("이 장소 관련 답변")
+				.font(.system(size: 16))
+				.fontWeight(.medium)
 			
 			LazyVStack {
 				ForEach(vm.opinions) {
@@ -122,6 +160,8 @@ extension PlaceDetailScreen {
 				}
 			}
 		}
+		.padding(.horizontal, 20)
+		.padding(.vertical, 12)
 	}
 }
 
@@ -131,7 +171,7 @@ extension PlaceDetailScreen {
 struct PlaceDetailScreen_Previews: PreviewProvider {
     static var previews: some View {
 		PlaceDetailScreen(place: Place(
-			id: 1,
+			id: 100,
 			name: "할머니 밀면집",
 			category: "FD6",
 			address: "부산광역시 중구 남포동2가 17-1",
