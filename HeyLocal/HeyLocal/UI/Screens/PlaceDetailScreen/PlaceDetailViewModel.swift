@@ -16,6 +16,7 @@ extension PlaceDetailScreen {
 		let placeService = PlaceService()
 		
 		// 상태 (장소 상세 정보)
+		@Published var openingTime = ""
 		@Published var menus: [PlaceMenu] = []
 		
 		// 상태 (답변 리스트)
@@ -40,6 +41,7 @@ extension PlaceDetailScreen.ViewModel {
 	/// 식당 또는 카페의 상세 정보를 조회합니다.
 	func fetchDetailInfo() {
 		// TODO: API 연동하여 아래 대체할 것
+		openingTime = "매일 10:30 - 21:30"
 		menus = [
 			PlaceMenu(name: "메뉴 A", price: "13,500원"),
 			PlaceMenu(name: "메뉴 B", price: "12,500원"),
@@ -51,7 +53,12 @@ extension PlaceDetailScreen.ViewModel {
 		]
 	}
 	
-	
+	/// 메뉴를 표시할 것인지의 여부를 반환합니다.
+	/// 식당 또는 카페이면서, 불러온 메뉴가 있으면 메뉴를 표시합니다.
+	var displayMenu: Bool {
+		["FD6", "CE7"].contains(place.category) &&
+		!menus.isEmpty
+	}
 }
 
 

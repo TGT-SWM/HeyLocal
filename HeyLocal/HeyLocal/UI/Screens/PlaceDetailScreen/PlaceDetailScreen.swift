@@ -21,7 +21,7 @@ struct PlaceDetailScreen: View {
     var body: some View {
 		ScrollView {
 			header
-			menuList
+			if vm.displayMenu { menuList }
 			opinionList
 		}
 		.navigationTitle("장소 상세정보")
@@ -32,6 +32,7 @@ struct PlaceDetailScreen: View {
 				BackButton()
 			}
 		}
+		.onAppear(perform: vm.fetchDetailInfo)
     }
 }
 
@@ -71,7 +72,7 @@ extension PlaceDetailScreen {
 	var openingTimeView: some View {
 		HStack {
 			Image("clock-outline")
-			Text("매일 10:30 - 21:30")
+			Text(vm.openingTime)
 		}
 	}
 }
@@ -89,7 +90,6 @@ extension PlaceDetailScreen {
 				menuListItem(menu: $0)
 			}
 		}
-		.onAppear(perform: vm.fetchDetailInfo)
 	}
 	
 	/// 메뉴 리스트의 각 항목에 대한 뷰입니다.
