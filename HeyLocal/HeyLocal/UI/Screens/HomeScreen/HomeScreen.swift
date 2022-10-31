@@ -189,7 +189,7 @@ extension HomeScreen {
                 ForEach(viewModel.travelOns) { travelOn in
                     NavigationLink(destination: TravelOnDetailScreen(travelOnId: travelOn.id)){
                         TravelOnComponent(travelOn: travelOn)
-                            .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
+                            .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
                     }
                 }
             }

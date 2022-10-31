@@ -181,7 +181,7 @@ struct TravelOnListScreen: View {
                 ForEach(viewModel.travelOns) { travelOn in
                     NavigationLink(destination: TravelOnDetailScreen(travelOnId: travelOn.id)){
                         TravelOnComponent(travelOn: travelOn)
-                            .padding(EdgeInsets(top: 2, leading: 10, bottom: 2, trailing: 10))
+                            .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
                     }
                 }
             }

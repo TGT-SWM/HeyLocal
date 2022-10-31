@@ -97,7 +97,7 @@ struct RankingProfileComponent: View {
             
             // 답변 수
             HStack {
-                Image("comment_black_icon")
+                Image("message-text")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 16, height: 16)
@@ -120,7 +120,7 @@ struct RankingProfileComponent: View {
             
             // 채택 수
             HStack {
-                Image("heart_black_icon")
+                Image("heart")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 16, height: 16)
