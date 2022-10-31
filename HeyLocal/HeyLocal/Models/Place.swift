@@ -79,9 +79,9 @@ struct Distance {
 }
 
 
-// MARK: - Menu (식당 메뉴)
+// MARK: - PlaceMenu (식당 메뉴)
 
-struct Menu: Hashable {
+struct PlaceMenu: Hashable {
 	var name: String
 	var price: String
 }

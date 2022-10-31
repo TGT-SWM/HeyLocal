@@ -16,7 +16,7 @@ extension PlaceDetailScreen {
 		let placeService = PlaceService()
 		
 		// 상태 (장소 추가 정보)
-		@Published var menus: [Menu] = []
+		@Published var menus: [PlaceMenu] = []
 		
 		// 상태 (답변 리스트)
 		@Published var opinions: [Opinion] = []
@@ -41,13 +41,13 @@ extension PlaceDetailScreen.ViewModel {
 	func fetchAdditionalInfo() {
 		// TODO: API 연동하여 아래 대체할 것
 		menus = [
-			Menu(name: "메뉴 A", price: "13,500원"),
-			Menu(name: "메뉴 B", price: "12,500원"),
-			Menu(name: "메뉴 C", price: "9,000원"),
-			Menu(name: "메뉴 D", price: "9,500원"),
-			Menu(name: "메뉴 E", price: "10,000원"),
-			Menu(name: "메뉴 F", price: "26,000원"),
-			Menu(name: "메뉴 G", price: "50,000원"),
+			PlaceMenu(name: "메뉴 A", price: "13,500원"),
+			PlaceMenu(name: "메뉴 B", price: "12,500원"),
+			PlaceMenu(name: "메뉴 C", price: "9,000원"),
+			PlaceMenu(name: "메뉴 D", price: "9,500원"),
+			PlaceMenu(name: "메뉴 E", price: "10,000원"),
+			PlaceMenu(name: "메뉴 F", price: "26,000원"),
+			PlaceMenu(name: "메뉴 G", price: "50,000원"),
 		]
 	}
 }

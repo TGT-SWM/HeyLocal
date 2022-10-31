@@ -27,7 +27,14 @@ class PlaceService {
 			size: size
 		)
 		.sink(
-			receiveCompletion: { _ in },
+			receiveCompletion: { completion in
+				switch completion {
+				case .finished:
+					print("finished")
+				case .failure(let err):
+					print(err)
+				}
+			},
 			receiveValue: {
 				opinions.wrappedValue.append(contentsOf: $0)
 				lastItemId.wrappedValue = $0.last?.id

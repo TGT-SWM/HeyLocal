@@ -89,10 +89,11 @@ extension PlaceDetailScreen {
 				menuListItem(menu: $0)
 			}
 		}
+		.onAppear(perform: vm.fetchAdditionalInfo)
 	}
 	
 	/// 메뉴 리스트의 각 항목에 대한 뷰입니다.
-	func menuListItem(menu: Menu) -> some View {
+	func menuListItem(menu: PlaceMenu) -> some View {
 		HStack {
 			Text(menu.name)
 			Text(menu.price)
