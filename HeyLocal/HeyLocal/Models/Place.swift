@@ -77,3 +77,11 @@ struct Distance {
 	var time: Double = 0 // 분
 	var distance: Double = 0 // 미터
 }
+
+
+// MARK: - Menu (식당 메뉴)
+
+struct Menu: Hashable {
+	var name: String
+	var price: String
+}

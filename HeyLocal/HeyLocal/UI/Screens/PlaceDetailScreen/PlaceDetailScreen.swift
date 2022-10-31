@@ -80,9 +80,22 @@ extension PlaceDetailScreen {
 // MARK: - menuList (메뉴 뷰)
 
 extension PlaceDetailScreen {
+	/// 메뉴 리스트에 대한 뷰입니다.
 	var menuList: some View {
 		VStack {
 			Text("메뉴")
+			
+			ForEach(vm.menus, id: \.self) {
+				menuListItem(menu: $0)
+			}
+		}
+	}
+	
+	/// 메뉴 리스트의 각 항목에 대한 뷰입니다.
+	func menuListItem(menu: Menu) -> some View {
+		HStack {
+			Text(menu.name)
+			Text(menu.price)
 		}
 	}
 }
@@ -91,6 +104,7 @@ extension PlaceDetailScreen {
 // MARK: - opinionList (답변 리스트 뷰)
 
 extension PlaceDetailScreen {
+	/// 답변 리스트에 대한 뷰입니다.
 	var opinionList: some View {
 		VStack {
 			Text("이 장소 관련 답변")
