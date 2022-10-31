@@ -147,10 +147,11 @@ extension PlaceDetailScreen {
 			Text("이 장소 관련 답변")
 				.font(.system(size: 16))
 				.fontWeight(.medium)
+				.padding(.bottom, 12)
 			
-			LazyVStack {
+			LazyVStack(spacing: 12) {
 				ForEach(vm.opinions) {
-					OpinionComponent(opinion: $0)
+					opinionListItem(opinion: $0)
 				}
 				
 				// 더 이상 로드할 컨텐츠가 없는 경우 표시하지 않습니다.
@@ -162,6 +163,35 @@ extension PlaceDetailScreen {
 		}
 		.padding(.horizontal, 20)
 		.padding(.vertical, 12)
+	}
+	
+	/// 답변 리스트의 각 항목에 대한 뷰입니다.
+	func opinionListItem(opinion: Opinion) -> some View {
+		ZStack(alignment: .bottomTrailing) {
+			NavigationLink(destination: OpinionDetailScreen(
+				travelOnId: opinion.travelOnId!,
+				opinionId: opinion.id
+			)) {
+				OpinionComponent(opinion: opinion)
+			}
+			
+			addPlaceButton(opinion: opinion)
+		}
+	}
+	
+	/// '플랜에 추가' 버튼 뷰입니다.
+	func addPlaceButton(opinion: Opinion) -> some View {
+		NavigationLink(destination: PlanSelectScreen(opinionId: opinion.id)) {
+			ZStack(alignment: .center) {
+				RoundedRectangle(cornerRadius: 100)
+					.fill(Color("orange"))
+					.frame(width: 80, height: 32)
+				
+				Text("플랜에 추가")
+					.font(.system(size: 12))
+					.foregroundColor(.white)
+			}
+		}
 	}
 }
 
