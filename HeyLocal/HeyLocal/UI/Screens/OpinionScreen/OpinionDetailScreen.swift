@@ -29,14 +29,27 @@ struct OpinionDetailScreen: View {
                 NavigationLink("", destination: OpinionWriteScreen(opinionId: opinionId, travelOnId: travelOnId), isActive: $navigationLinkActive)
             }
             
-            ZStack(alignment: .bottom) {
+            ScrollView {
+                opinionInfo
                 
-                ScrollView {   
-                    content
-                        .padding()
+                if viewModel.opinion.generalImgDownloadImgUrl.isEmpty {
+                    Spacer()
+                        .frame(height: 8)
                 }
-                user
+                
+                commonOpinion
+                Spacer()
+                    .frame(height: 8)
+                
+                if (viewModel.opinion.place.category == "FD6") || (viewModel.opinion.place.category == "CE7") || (viewModel.opinion.place.category == "CT1") || (viewModel.opinion.place.category == "AT4") || (viewModel.opinion.place.category == "AD5") {
+                    categoryOpinion
+                    Spacer()
+                        .frame(height: 8)
+                }
+                
+                ProfileComponent(author: viewModel.opinion.author)
             }
+            
             if showingAlert {
                 CustomAlert(showingAlert: $showingAlert,
                             title: "삭제하시겠습니까?",
@@ -47,6 +60,7 @@ struct OpinionDetailScreen: View {
                             rightButtonAction: { viewModel.deleteOpinion(travelOnId: travelOnId, opinionId: opinionId) })
             }
         }
+        .background(Color("lightGray"))
         .onAppear {
             viewModel.fetchOpinions(travelOnId: travelOnId, opinionId: opinionId)
             displayTabBar(false)
@@ -58,478 +72,608 @@ struct OpinionDetailScreen: View {
                             trailing: MoreButton(showingSheet: $showingSheet, showingAlert: $showingAlert, navigationLinkActive: $navigationLinkActive))
     }
     
-    
-    var content: some View {
+    var opinionInfo: some View {
         VStack(alignment: .leading) {
-            // 장소명, 시간, region, 사진, description
-            Group {
-                HStack {
-                    Text("\(viewModel.opinion.place.name)")
-                        .foregroundColor(Color.black)
+            // 첨부된 사진이 없다면,
+            if viewModel.opinion.generalImgDownloadImgUrl.isEmpty {
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text("\(viewModel.opinion.place.name)")
+                            .foregroundColor(.black)
+                            .font(.system(size: 22))
+                            .fontWeight(.semibold)
+                        
+                        Spacer()
+                        
+                        // TODO: 수정 · 삭제 버튼
+                    }
                     
                     Spacer()
-                    
-                    Group {
-                        Button("수정") {
-                            navigationLinkActive = true
-                        }
-                        Button("삭제") {
-                            showingAlert.toggle()
-                        }
-                    }
-                    .foregroundColor(Color(red: 117/255, green: 118/255, blue: 121/255))
-                }
-                .font(.system(size: 16))
-                
-                
-                HStack {
-                    let printDate = viewModel.opinion.createdDate.components(separatedBy: "T")
-                    let yyyyMMdd = printDate[0].components(separatedBy: "-")
-                    Text("\(yyyyMMdd[0]).\(yyyyMMdd[1]).\(yyyyMMdd[2])")
-                        .font(.system(size: 12))
-                        .foregroundColor(Color(red: 117/255, green: 118/255, blue: 121/255))
+                        .frame(height: 5)
                     
                     HStack {
-                        Image("pin_black_icon")
+                        Image("location")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 16)
+                            .frame(width: 12)
                         
                         Spacer()
                             .frame(width: 3)
                         
-                        Text("\(viewModel.opinion.place.address)")
-                            .font(.system(size: 12))
-                            .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                        Text("\(viewModel.opinion.place.roadAddress)")
                     }
+                    .foregroundColor(Color("gray"))
+                    .font(.system(size: 12))
                 }
-                
-                
-                // TODO: 이미지
-                if !viewModel.opinion.generalImgDownloadImgUrl.isEmpty {
-                    HStack {
-                        ForEach(viewModel.opinion.generalImgDownloadImgUrl, id:\.self) { url in
-                            AsyncImage(url: URL(string: url)) { phash in
-                                if let image = phash.image {
-                                    image
-                                        .resizable()
+                .padding()
+            }
+            
+            
+            // 첨부된 사진이 있다면,
+            else {
+                ZStack(alignment: .bottomLeading) {
+                    /// 이미지
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            ForEach((0..<viewModel.opinion.generalImgDownloadImgUrl.count)) { idx in
+                                ZStack(alignment: .top) {
+                                    AsyncImage(url: URL(string: viewModel.opinion.generalImgDownloadImgUrl[idx])) { phash in
+                                        if let image = phash.image {
+                                            image
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                                .frame(width: ScreenSize.width)
+                                        } else {
+                                            Text("")
+                                        }
+                                    }
+                                    
+                                    Rectangle()
+                                        .fill(.black)
                                         .aspectRatio(contentMode: .fill)
-                                        .frame(width: 100, height: 100)
-                                        .cornerRadius(10)
+                                        .frame(width: ScreenSize.width)
+                                        .opacity(0.3)
+                                    
+                                    Text("\(idx + 1)/\(viewModel.opinion.generalImgDownloadImgUrl.count)")
+                                        .foregroundColor(.white)
+                                        .font(.system(size: 12))
+                                        .padding()
                                 }
-                                else if phash.error != nil {
-                                    Text("")
-                                }
-                                else {
-                                    Text("")
-                                }
-                             
                             }
                         }
                     }
+                    
+                    VStack(alignment: .leading) {
+                        Text("\(viewModel.opinion.place.name)")
+                            .font(.system(size: 22))
+                            .fontWeight(.semibold)
+                            .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 20))
+                        
+                        Spacer()
+                            .frame(height: 2)
+                        
+                        HStack {
+                            Image("location_white")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 12)
+                            
+                            Spacer()
+                                .frame(width: 3)
+                            
+                            Text("\(viewModel.opinion.place.roadAddress)")
+                        }
+                        .font(.system(size: 12))
+                        .padding(EdgeInsets(top: 0, leading: 20, bottom: 20, trailing: 20))
+                    }
+                    .foregroundColor(.white)
                 }
-                
-                
-                Text("\(viewModel.opinion.description)")
-                    .font(.system(size: 14))
-            }
-            
-            Divider()
-            
-            // 공통 질문
-            common
-            
-            // 카테고리별 질문
-            switch viewModel.opinion.place.category {
-            case "FD6": // 음식점
-                food
-                
-            case "CE7": // 식당
-                cafe
-                
-            case "CT1": // 문화시설
-                sightseeing
-                
-            case "AT4": // 관광명소
-                sightseeing
-                
-            case "AD5": // 숙박
-                accommodation
-            
-            default:
-                Text("")
+                .ignoresSafeArea()
             }
         }
+        .background(.white)
     }
     
     
-    // MARK: - '기타' · '공통' 답변
-    var common: some View {
+    // MARK: - 공통 질문
+    var commonOpinion: some View {
         VStack(alignment: .leading) {
-            Group {
-                Text("어떤 점이 좋았나요?")
-                    .font(.system(size: 16))
-                    .padding(EdgeInsets(top: 15, leading: 0, bottom: 5, trailing: 0))
-                
-                
-                Group {
-                    Text("✨ 청결도")
+            HStack(alignment: .firstTextBaseline) {
+                /// 질문
+                VStack(alignment: .leading) {
+                    Text("시설이 청결한가요?")
                         .font(.system(size: 14))
-                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                    Spacer()
+                        .frame(height: 32)
                     
-                    OpinionStyle(label: "\(facilityToString(facility: viewModel.opinion.facilityCleanliness))")
-                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
-                }
-                
-                
-                Group {
-                    Text("🔧 시설")
+                    Text("비용이 합리적인가요?")
                         .font(.system(size: 14))
-                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-                    OpinionStyle(label: parkingToString(parking: viewModel.opinion.canParking))
-                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                    Spacer()
+                        .frame(height: 32)
+                    
+                    Text("주차장이 있나요?")
+                        .font(.system(size: 14))
+                    Spacer()
+                        .frame(height: 32)
+                    
+                    Text("웨이팅이 있나요?")
+                        .font(.system(size: 14))
                 }
                 
+                Spacer()
                 
-                Text("💰 비용")
-                    .font(.system(size: 14))
-                    .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-                HStack {
-                    OpinionStyle(label: costToString(cost: viewModel.opinion.costPerformance))
-                    OpinionStyle(label: waitingToString(waiting: viewModel.opinion.waiting))
+                /// 별점들
+                VStack(alignment: .leading) {
+                    
+                    /// 청결
+                    VStack(alignment: .leading) {
+                        HStack {
+                            ForEach(viewModel.cleanArray, id:\.self) { clean in
+                                if clean {
+                                    Image("star_yellow")
+                                        .resizable()
+                                        .frame(width: 22, height: 22)
+                                }
+                                else {
+                                    Image("star-outline")
+                                        .resizable()
+                                        .frame(width: 22, height: 22)
+                                }
+                            }
+                            
+                            Spacer()
+                                .frame(width: 3)
+                            
+                            Text("(\(viewModel.cleanInt)/5)")
+                                .foregroundColor(Color("gray"))
+                        }
+                        
+                        Spacer()
+                            .frame(height: 2)
+                        
+                        Text("\(facilityToString(facility: viewModel.opinion.facilityCleanliness))")
+                            .foregroundColor(Color("orange"))
+                    }
+                    
+                    /// 비용
+                    VStack(alignment: .leading) {
+                        HStack {
+                            ForEach(viewModel.costArray, id:\.self) { cost in
+                                if cost {
+                                    Image("star_yellow")
+                                        .resizable()
+                                        .frame(width: 22, height: 22)
+                                }
+                                else {
+                                    Image("star-outline")
+                                        .resizable()
+                                        .frame(width: 22, height: 22)
+                                }
+                            }
+                            
+                            Spacer()
+                                .frame(width: 3)
+                            
+                            Text("(\(viewModel.costInt)/5)")
+                                .foregroundColor(Color("gray"))
+                        }
+                        
+                        Spacer()
+                            .frame(height: 2)
+                        
+                        Text("\(costToString(cost: viewModel.opinion.costPerformance))")
+                            .foregroundColor(Color("orange"))
+                    }
+                    
+                    /// 주차장
+                    VStack(alignment: .leading) {
+                        HStack {
+                            ForEach(viewModel.parkingArray, id:\.self) { park in
+                                if park {
+                                    Image("star_yellow")
+                                        .resizable()
+                                        .frame(width: 22, height: 22)
+                                }
+                                else {
+                                    Image("star-outline")
+                                        .resizable()
+                                        .frame(width: 22, height: 22)
+                                }
+                            }
+                            
+                            Spacer()
+                                .frame(width: 3)
+                            
+                            Text("(\(viewModel.parkingInt)/5)")
+                                .foregroundColor(Color("gray"))
+                        }
+                        
+                        Spacer()
+                            .frame(height: 2)
+                        
+                        Text("\(parkingToString(parking: viewModel.opinion.canParking))")
+                            .foregroundColor(Color("orange"))
+                    }
+                    
+                    /// 웨이팅
+                    VStack(alignment: .leading) {
+                        HStack {
+                            ForEach(viewModel.waitingArray, id:\.self) { wait in
+                                if wait {
+                                    Image("star_yellow")
+                                        .resizable()
+                                        .frame(width: 22, height: 22)
+                                }
+                                else {
+                                    Image("star-outline")
+                                        .resizable()
+                                        .frame(width: 22, height: 22)
+                                }
+                            }
+                            
+                            Spacer()
+                                .frame(width: 3)
+                            
+                            Text("(\(viewModel.waitingInt)/5)")
+                                .foregroundColor(Color("gray"))
+                        }
+                        
+                        Spacer()
+                            .frame(height: 2)
+                        
+                        Text("\(waitingToString(waiting: viewModel.opinion.waiting))")
+                            .foregroundColor(Color("orange"))
+                    }
                 }
-                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                .font(.system(size: 12))
+                .frame(width: 180)
+            }
+            .padding()
+            
+
+            Divider()
+            
+            Text("\(viewModel.opinion.description)")
+                .font(.system(size: 14))
+                .padding()
+            
+        }
+        .background(.white)
+    }
+    
+    // MARK: - 카테고리별 질문
+    var categoryOpinion: some View {
+        VStack(alignment: .leading) {
+            Text("현지인의 꿀팁전수🍯")
+                .font(.system(size: 22))
+                .fontWeight(.semibold)
+                .padding()
+            
+            Divider()
+            
+            if viewModel.opinion.place.category == "FD6" {
+                food
+            }
+            else if viewModel.opinion.place.category == "CE7" {
+                cafe
+            }
+            else if viewModel.opinion.place.category == "CT1" || viewModel.opinion.place.category == "AT4" {
+                sightseeing
+            }
+            else if viewModel.opinion.place.category == "AD5" {
+                accommodation
             }
         }
+        .background(.white)
     }
     
     // MARK: - '음식점' 답변
     var food: some View {
         VStack(alignment: .leading) {
+            
+            VStack(alignment: .leading) {
+                Text("가게 분위기는 어떤가요?")
+                    .foregroundColor(Color("gray"))
+                
+                Spacer()
+                    .frame(height: 5)
+                
+                Text("\(restaurantMoodToString(mood: viewModel.opinion.restaurantMoodType!))")
+            }
+            .padding()
+            
             Divider()
             
-            Text("추가의견")
-                .font(.system(size: 16))
-            
-            Text("가게 분위기는 어떤가요")
-                .font(.system(size: 14))
-                .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-            OpinionStyle(label: restaurantMoodToString(mood: viewModel.opinion.restaurantMoodType!))
-            
-            Text("추천하는 메뉴는 무엇인가요?")
-                .font(.system(size: 14))
-                .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-            OpinionStyle(label: "\(viewModel.opinion.recommendFoodDescription)")
-            
-            
-            if !viewModel.opinion.foodImgDownloadImgUrl!.isEmpty {
-                HStack {
-                    ForEach(viewModel.opinion.foodImgDownloadImgUrl!, id:\.self) { url in
-                        AsyncImage(url: URL(string: url)) { phash in
-                            if let image = phash.image {
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 100, height: 100)
-                                    .cornerRadius(10)
+            VStack(alignment: .leading) {
+                Text("추천하는 메뉴는 무엇인가요?")
+                    .foregroundColor(Color("gray"))
+                
+                if !viewModel.opinion.foodImgDownloadImgUrl!.isEmpty {
+                    Spacer()
+                        .frame(height: 12)
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            ForEach(viewModel.opinion.foodImgDownloadImgUrl!, id:\.self) { url in
+                                AsyncImage(url: URL(string: url)) { phash in
+                                    if let image = phash.image {
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 350, height: 350)
+                                            .cornerRadius(10)
+                                    }
+                                    else if phash.error != nil {
+                                        Text("")
+                                    }
+                                    else {
+                                        Text("")
+                                    }
+                                }
                             }
-                            else if phash.error != nil {
-                                Text("")
-                            }
-                            else {
-                                Text("")
-                            }
-                         
                         }
                     }
                 }
+                
+                Spacer()
+                    .frame(height: 5)
+                
+                Text("\(viewModel.opinion.recommendFoodDescription)")
             }
+            .padding()
         }
+        .font(.system(size: 14))
     }
     
     // MARK: - '카페' 답변
     var cafe: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading){
+            
+            VStack(alignment: .leading) {
+                Text("커피스타일이 어떤가요?")
+                    .foregroundColor(Color("gray"))
+                
+                Spacer()
+                    .frame(height: 5)
+                
+                Text("\(coffeeToString(coffee: viewModel.opinion.coffeeType!))")
+            }
+            .padding()
+        
             Divider()
             
-            Text("추가의견")
-                .font(.system(size: 16))
-            
-            Text("커피 스타일은 어떤가요?")
-                .font(.system(size: 14))
-                .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-            OpinionStyle(label: coffeeToString(coffee: viewModel.opinion.coffeeType!))
-            
-            
-            Text("추천하는 음료·디저트는 무엇인가요?")
-                .font(.system(size: 14))
-                .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-            OpinionStyle(label: "\(viewModel.opinion.recommendDrinkAndDessertDescription)")
-            
-            if !viewModel.opinion.drinkAndDessertImgDownloadImgUrl!.isEmpty {
-                HStack {
-                    ForEach(viewModel.opinion.drinkAndDessertImgDownloadImgUrl!, id:\.self) { url in
-                        AsyncImage(url: URL(string: url)) { phash in
-                            if let image = phash.image {
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 100, height: 100)
-                                    .cornerRadius(10)
+            VStack(alignment: .leading) {
+                Text("추천 음료나 디저트는 무엇인가요?")
+                    .foregroundColor(Color("gray"))
+                
+                // 사진이 있다면,
+                if !viewModel.opinion.drinkAndDessertImgDownloadImgUrl!.isEmpty {
+                    Spacer()
+                        .frame(height: 12)
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            ForEach(viewModel.opinion.drinkAndDessertImgDownloadImgUrl!, id:\.self) { url in
+                                AsyncImage(url: URL(string: url)) { phash in
+                                    if let image = phash.image {
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 350, height: 350)
+                                            .cornerRadius(10)
+                                    }
+                                    else if phash.error != nil {
+                                        Text("")
+                                    }
+                                    else {
+                                        Text("")
+                                    }
+                                }
                             }
-                            else if phash.error != nil {
-                                Text("")
-                            }
-                            else {
-                                Text("")
-                            }
-                         
                         }
                     }
                 }
+                
+                Spacer()
+                    .frame(height: 5)
+                
+                Text("\(viewModel.opinion.recommendDrinkAndDessertDescription)")
             }
+            .padding()
             
-            Text("카페 분위기는 어떤가요?")
-                .font(.system(size: 14))
-                .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-            OpinionStyle(label: cafeMoodToString(mood: viewModel.opinion.cafeMoodType!))
+            Divider()
             
+            VStack(alignment: .leading) {
+                Text("카페 분위기는 어떤가요?")
+                    .foregroundColor(Color("gray"))
+                
+                Spacer()
+                    .frame(height: 5)
+                
+                Text("\(cafeMoodToString(mood: viewModel.opinion.cafeMoodType!))")
+            }
+            .padding()
             
         }
+        .font(.system(size: 14))
     }
     
     // MARK: - '문화시설' · '관광명소' 답변
     var sightseeing: some View {
         VStack(alignment: .leading) {
+            VStack(alignment: .leading){
+                Text("여기서 꼭 해야 하는 것이 있나요?")
+                    .foregroundColor(Color("gray"))
+                
+                Spacer()
+                    .frame(height: 5)
+                
+                Text("\(viewModel.opinion.recommendToDo)")
+            }
+            .padding()
+            
             Divider()
             
-            Text("추가의견")
-                .font(.system(size: 16))
+            VStack(alignment: .leading){
+                Text("추천 간식이 있나요?")
+                    .foregroundColor(Color("gray"))
+                
+                Spacer()
+                    .frame(height: 5)
+                
+                Text("\(viewModel.opinion.recommendSnack)")
+            }
+            .padding()
             
-            Text("여기서 꼭 해봐야 하는 게 있나요?")
-                .font(.system(size: 14))
-                .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-            OpinionStyle(label: "\(viewModel.opinion.recommendToDo)")
             
-            Text("여기서 추천하는 간식이 있나요?")
-                .font(.system(size: 14))
-                .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-            OpinionStyle(label: "\(viewModel.opinion.recommendSnack)")
+            Divider()
             
-            Text("여기의 사진 명소는 어디인가요?")
-                .font(.system(size: 14))
-                .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-            OpinionStyle(label: "\(viewModel.opinion.photoSpotDescription)")
             
-            if !viewModel.opinion.photoSpotImgDownloadImgUrl!.isEmpty {
-                HStack {
-                    ForEach(viewModel.opinion.photoSpotImgDownloadImgUrl!, id:\.self) { url in
-                        AsyncImage(url: URL(string: url)) { phash in
-                            if let image = phash.image {
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 100, height: 100)
-                                    .cornerRadius(10)
+            VStack(alignment: .leading){
+                Text("이곳의 사진명소는 어디인가요?")
+                    .foregroundColor(Color("gray"))
+                
+                if !viewModel.opinion.photoSpotImgDownloadImgUrl!.isEmpty {
+                    Spacer()
+                        .frame(height: 12)
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            ForEach(viewModel.opinion.photoSpotImgDownloadImgUrl!, id:\.self) { url in
+                                AsyncImage(url: URL(string: url)) { phash in
+                                    if let image = phash.image {
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 350, height: 350)
+                                            .cornerRadius(10)
+                                    }
+                                    else if phash.error != nil {
+                                        Text("")
+                                    }
+                                    else {
+                                        Text("")
+                                    }
+                                }
                             }
-                            else if phash.error != nil {
-                                Text("")
-                            }
-                            else {
-                                Text("")
-                            }
-                         
                         }
                     }
                 }
+                
+                Spacer()
+                    .frame(height: 5)
+                
+                Text("\(viewModel.opinion.photoSpotDescription)")
             }
+            .padding()
         }
+        .font(.system(size: 14))
     }
     
     // MARK: - '숙박' 답변
     var accommodation: some View {
         VStack(alignment: .leading) {
-            Divider()
-            
-            Text("추가의견")
-                .font(.system(size: 16))
-            
-            Text("주변이 시끄럽나요?")
-                .font(.system(size: 14))
-                .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-            OpinionStyle(label: noiseToString(noise: viewModel.opinion.streetNoise!))
-            
-            Text("방음이 잘 되나요?")
-                .font(.system(size: 14))
-                .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-            OpinionStyle(label: deafeningToString(deafening: viewModel.opinion.deafening!))
-            
-            Text("조식이 나오나요?")
-                .font(.system(size: 14))
-                .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-            OpinionStyle(label: viewModel.opinion.hasBreakFast! ? "조식이 나와요" : "조식은 없어요")
-            
-        }
-    }
-    
-    
-    
-    // MARK: - 작성자 정보
-    var user: some View {
-        ZStack(alignment: .topLeading) {
-            Rectangle()
-                .fill(Color(red: 85/255, green: 85/255, blue: 85/255))
-                .frame(width: ScreenSize.width, height: 136)
-            
+            // 주변
             VStack(alignment: .leading) {
-                HStack {
-                    // 프로필사진
-                    Group {
-                        if viewModel.opinion.author.profileImgDownloadUrl == nil {
-                            ZStack {
-                                ZStack {
-                                    Circle()
-                                        .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-                                        .frame(width: 20, height: 20)
-                                        .shadow(color: .black, radius: 1)
-                                    
-                                    Image(systemName: "person.fill")
-                                        .resizable()
-                                        .frame(width: 13, height: 13)
-                                        .foregroundColor(Color("gray"))
-                                }
-                                
-                                Circle()
-                                    .strokeBorder(.white, lineWidth: 1)
-                                    .frame(width: 20, height: 20)
-                            }
-                        }
-                        else {
-                            AsyncImage(url: URL(string: viewModel.opinion.author.profileImgDownloadUrl!)) { phash in
-                                if let image = phash.image {
-                                    ZStack {
-                                        image
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fill)
-                                            .clipShape(Circle())
-                                            .frame(width: 56, height: 56)
-                                            .shadow(color: .gray, radius: 3)
-                                        
-                                        Circle()
-                                            .strokeBorder(.white, lineWidth: 1)
-                                            .frame(width: 56, height: 56)
-                                    }
-                                }
-                                else if phash.error != nil {
-                                    ZStack {
-                                        ZStack {
-                                            Circle()
-                                                .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-                                                .frame(width: 56, height: 56)
-                                                .shadow(color: .black, radius: 1)
-                                            
-                                            Image(systemName: "person.fill")
-                                                .resizable()
-                                                .frame(width: 40, height: 40)
-                                                .foregroundColor(Color("gray"))
-                                        }
-                                        
-                                        Circle()
-                                            .strokeBorder(.white, lineWidth: 1)
-                                            .frame(width: 56, height: 56)
-                                    }
-                                }
-                                else {
-                                    ZStack {
-                                        ZStack {
-                                            Circle()
-                                                .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-                                                .frame(width: 56, height: 56)
-                                                .shadow(color: .black, radius: 1)
-                                            
-                                            Image(systemName: "person.fill")
-                                                .resizable()
-                                                .frame(width: 40, height: 40)
-                                                .foregroundColor(Color("gray"))
-                                        }
-                                        
-                                        Circle()
-                                            .strokeBorder(.white, lineWidth: 1)
-                                            .frame(width: 56, height: 56)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    
-                    Spacer()
-                        .frame(width: 15)
-                    
-                    VStack(alignment: .leading, spacing: 5) {
-                        Text("\(regionNameFormatter(region: viewModel.opinion.author.activityRegion!))")
-                            .font(.system(size: 12))
-                        
-                        Text("\(viewModel.opinion.author.nickname)")
-                            .font(.system(size: 16))
-                    }
-                    
-                    Spacer()
+                HStack(alignment: .center) {
+                    Text("주변이 시끄럽나요?")
+                        .font(.system(size: 14))
                     
                     VStack(alignment: .leading) {
-                        HStack(alignment: .center, spacing: 3) {
-                            Image("comment_icon")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 16)
+                        HStack(alignment: .center) {
+                            ForEach(viewModel.noise, id:\.self) { noise in
+                                if noise {
+                                    Image("star_yellow")
+                                        .resizable()
+                                        .frame(width: 22, height: 22)
+                                }
+                                else {
+                                    Image("star-outline")
+                                        .resizable()
+                                        .frame(width: 22, height: 22)
+                                }
+                            }
                             
-                            Text("답변수")
-                            Text("\(viewModel.opinion.author.totalOpinionCount!)")
+                            Spacer()
+                                .frame(width: 3)
+                            
+                            Text("(\(viewModel.noiseInt)/5)")
+                                .foregroundColor(Color("gray"))
                         }
                         
-                        HStack(alignment: .center, spacing: 3) {
-                            Image("heart_icon")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 16)
-                            
-                            Text("채택수")
-                            Text("\(viewModel.opinion.author.acceptedOpinionCount!)")
-                        }
+                        Text("\(noiseToString(noise: viewModel.opinion.streetNoise!))")
+                            .foregroundColor(Color("orange"))
                     }
                     .font(.system(size: 12))
                 }
-                
-                Spacer()
-                    .frame(height: 15)
-                
-                Text("\(viewModel.opinion.author.introduce!)")
+            }
+            
+            // 방음
+            VStack(alignment: .leading) {
+                HStack(alignment: .center) {
+                    Text("방음이 잘되나요?")
+                        .font(.system(size: 14))
+                    
+                    VStack(alignment: .leading) {
+                        HStack(alignment: .center) {
+                            ForEach(viewModel.deafening, id:\.self) { deafening in
+                                if deafening {
+                                    Image("star_yellow")
+                                        .resizable()
+                                        .frame(width: 22, height: 22)
+                                }
+                                else {
+                                    Image("star-outline")
+                                        .resizable()
+                                        .frame(width: 22, height: 22)
+                                }
+                            }
+                            
+                            Spacer()
+                                .frame(width: 3)
+                            
+                            Text("(\(viewModel.deafeningInt)/5)")
+                                .foregroundColor(Color("gray"))
+                        }
+                        
+                        Text("\(deafeningToString(deafening: viewModel.opinion.deafening!))")
+                            .foregroundColor(Color("orange"))
+                    }
                     .font(.system(size: 12))
-                
-            } // vstack
-            .padding(EdgeInsets(top: 20, leading: 20, bottom: 10, trailing: 20))
-            .foregroundColor(Color.white)
-        } // zstack
-    } // user
-    
+                }
+            }
+            
+            // 조식
+            VStack(alignment: .leading) {
+                HStack(alignment: .center) {
+                    Text("조식이 나오나요?")
+                        .font(.system(size: 14))
+                    
+                    Text(viewModel.opinion.hasBreakFast! ? "조식이 나와요" : "조식은 없어요")
+                        .font(.system(size: 12))
+                }
+            }
+        }
+    }
     
     // MARK: - 5점척도 to String
     func facilityToString(facility: String) -> String {
         var result: String = ""
         switch facility {
         case "VERY_BAD":
-            result = "시설이 더러워요"
+            result = "매우 청결하지 않아요"
 
         case "BAD":
-            result = "시설이 청결하지 않아요"
+            result = "청결하지 않아요"
 
         case "NOT_BAD":
-            result = "시설 청결도가 그저 그래요"
+            result = "그저 그래요"
 
         case "GOOD":
-            result = "시설이 청결해요"
+            result = "청결한 편이에요"
 
         case "VERY_GOOD":
-            result = "시설이 매우 청결해요"
+            result = "매우 청결해요"
 
         default:
             result = ""
@@ -541,19 +685,19 @@ struct OpinionDetailScreen: View {
         var result: String = ""
         switch cost {
         case "VERY_BAD":
-            result = "가격이 매우 비싸요"
+            result = "매우 비싸요"
 
         case "BAD":
-            result = "가격이 비싸요"
+            result = "조금 비싸요"
 
         case "NOT_BAD":
-            result = "가격이 그저 그래요"
+            result = "그저 그래요"
 
         case "GOOD":
-            result = "가격이 합리적이에요"
+            result = "합리적인 편이에요"
 
         case "VERY_GOOD":
-            result = "가격이 매우 합리적이에요"
+            result = "매우 합리적이에요"
 
         default:
             result = ""
@@ -565,15 +709,15 @@ struct OpinionDetailScreen: View {
         var result: String = ""
         switch mood {
         case "COMFORTABLE":
-            result = "편안한"
+            result = "편안해요"
         case "FORMAL":
-            result = "격식 있는"
+            result = "격식있어요"
         case "HIP":
-            result = "힙한"
+            result = "힙해요"
         case "LIVELY":
-            result = "활기찬"
+            result = "활기차요"
         case "ROMANTIC":
-            result = "로맨틱"
+            result = "로맨틱해요"
         default:
             result = ""
         }
@@ -585,11 +729,11 @@ struct OpinionDetailScreen: View {
         
         switch coffee{
         case "BITTER":
-            result = "커피가 써요"
+            result = "쓴 편이에요."
         case "SOUR":
-            result = "커피 산미가 강해요"
+            result = "산미가 있어요."
         case "GENERAL":
-            result = "커피가 보통이에요"
+            result = "보통이에요."
         default:
             result = ""
         }
@@ -601,13 +745,13 @@ struct OpinionDetailScreen: View {
         var result: String = ""
         switch mood {
         case "CUTE":
-            result = "아기자기한"
+            result = "아기자기해요."
         case "HIP":
-            result = "힙한"
+            result = "힙해요."
         case "LARGE":
-            result = "크고 넓은"
+            result = "크고 넓어요."
         case "MODERN":
-            result = "모던한"
+            result = "모던해요."
         default:
             result = ""
         }
@@ -618,15 +762,15 @@ struct OpinionDetailScreen: View {
         var result: String = ""
         switch noise {
         case "VERY_BAD":
-            result = "주변이 매우 시끄러워요"
+            result = "매우 시끄러워요"
         case "BAD":
-            result = "주변이 꽤 시끄러워요"
+            result = "조금 시끄러워요"
         case "NOT_BAD":
-            result = "주변 소음이 그저 그래요"
+            result = "그저 그래요"
         case "GOOD":
-            result = "주변이 꽤 조용해요"
+            result = "조용한 편이에요"
         case "VERY_GOOD":
-            result = "주변이 매우 조용해요"
+            result = "매우 조용해요"
         default:
             result = ""
         }
@@ -641,11 +785,11 @@ struct OpinionDetailScreen: View {
         case "BAD":
             result = "방음이 잘 안돼요"
         case "NOT_BAD":
-            result = "방음이 그저 그래요"
+            result = "그저 그래요"
         case "GOOD":
-            result = "방음이 잘 돼요"
+            result = "방음이 잘돼요"
         case "VERY_GOOD":
-            result = "방음이 매우 잘 돼요"
+            result = "방음이 매우 잘돼요"
         default:
             result = ""
         }
@@ -656,15 +800,15 @@ struct OpinionDetailScreen: View {
         var result: String = ""
         switch parking {
         case "VERY_BAD":
-            result = "주차 자리가 매우 없어요"
+            result = "매우 협소해요"
         case "BAD":
-            result = "주차 자리가 없어요"
+            result = "조금 협소해요"
         case "NOT_BAD":
-            result = "그냥 그래요"
+            result = "그저 그래요"
         case "GOOD":
-            result = "주차할 공간이 있어요"
+            result = "넉넉한 편이에요"
         case "VERY_GOOD":
-            result = "주차 공간이 넓어요"
+            result = "매우 넉넉해요"
         default:
             result = ""
         }
@@ -679,9 +823,9 @@ struct OpinionDetailScreen: View {
         case "BAD":
             result = "웨이팅이 길어요"
         case "NOT_BAD":
-            result = "그냥 그래요"
+            result = "그저 그래요"
         case "GOOD":
-            result = "웨이팅이 없는 편이에요"
+            result = "웨이팅이 거의 없어요"
         case "VERY_GOOD":
             result = "바로 들어갈 수 있어요"
         default:

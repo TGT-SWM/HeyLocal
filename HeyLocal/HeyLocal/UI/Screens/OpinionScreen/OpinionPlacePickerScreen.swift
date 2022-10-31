@@ -1,6 +1,7 @@
 //
 //  OpinionPlacePickerScreen.swift
 //  HeyLocal
+//  답변 작성 시, 장소 선택 화면
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //
