@@ -100,6 +100,9 @@
 		EFBCFDD8290F16BB00834DEE /* PlanSelectScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBCFDD7290F16BB00834DEE /* PlanSelectScreen.swift */; };
 		EFBCFDDA290F171300834DEE /* PlanSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBCFDD9290F171300834DEE /* PlanSelectViewModel.swift */; };
 		EFBCFDDD290F220D00834DEE /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBCFDDC290F220D00834DEE /* BottomSheet.swift */; };
+		EFBCFDE2290F726700834DEE /* PlaceDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBCFDE1290F726700834DEE /* PlaceDetailScreen.swift */; };
+		EFBCFDE4290F72EF00834DEE /* PlaceDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBCFDE3290F72EF00834DEE /* PlaceDetailViewModel.swift */; };
+		EFBCFDE6290F7EBA00834DEE /* ObservableObject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBCFDE5290F7EBA00834DEE /* ObservableObject+Extensions.swift */; };
 		EFDC441B28C0735400E8747C /* PlanRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFDC441A28C0735400E8747C /* PlanRepository.swift */; };
 		EFDC441D28C073E000E8747C /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFDC441C28C073E000E8747C /* Plan.swift */; };
 		EFF086BE29073ED20090EC93 /* ConfirmModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF086BD29073ED20090EC93 /* ConfirmModal.swift */; };
@@ -241,6 +244,9 @@
 		EFBCFDD7290F16BB00834DEE /* PlanSelectScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanSelectScreen.swift; sourceTree = "<group>"; };
 		EFBCFDD9290F171300834DEE /* PlanSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanSelectViewModel.swift; sourceTree = "<group>"; };
 		EFBCFDDC290F220D00834DEE /* BottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
+		EFBCFDE1290F726700834DEE /* PlaceDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailScreen.swift; sourceTree = "<group>"; };
+		EFBCFDE3290F72EF00834DEE /* PlaceDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailViewModel.swift; sourceTree = "<group>"; };
+		EFBCFDE5290F7EBA00834DEE /* ObservableObject+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObservableObject+Extensions.swift"; sourceTree = "<group>"; };
 		EFDC441A28C0735400E8747C /* PlanRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanRepository.swift; sourceTree = "<group>"; };
 		EFDC441C28C073E000E8747C /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
 		EFF086BD29073ED20090EC93 /* ConfirmModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmModal.swift; sourceTree = "<group>"; };
@@ -328,6 +334,7 @@
 				EF26CD8728C0E9DA006D0D27 /* Config.swift */,
 				EF26CD9428C0FF12006D0D27 /* DateFormat.swift */,
 				EF6A3FC928EB3D9B003F474B /* View+Extensions.swift */,
+				EFBCFDE5290F7EBA00834DEE /* ObservableObject+Extensions.swift */,
 				EF9D28EC28FE2DF000D2971F /* SerialQueue.swift */,
 			);
 			path = Utils;
@@ -605,6 +612,7 @@
 				EF26CD8B28C0F0EA006D0D27 /* MyPlanScreen */,
 				EF572AED28ECC23600A09F6D /* PlanCreateScreen */,
 				EF572AEE28ECC23F00A09F6D /* PlanDetailScreen */,
+				EFBCFDE0290F724200834DEE /* PlaceDetailScreen */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -653,6 +661,15 @@
 				EFBCFDD9290F171300834DEE /* PlanSelectViewModel.swift */,
 			);
 			path = PlanSelectScreen;
+			sourceTree = "<group>";
+		};
+		EFBCFDE0290F724200834DEE /* PlaceDetailScreen */ = {
+			isa = PBXGroup;
+			children = (
+				EFBCFDE1290F726700834DEE /* PlaceDetailScreen.swift */,
+				EFBCFDE3290F72EF00834DEE /* PlaceDetailViewModel.swift */,
+			);
+			path = PlaceDetailScreen;
 			sourceTree = "<group>";
 		};
 		EFF9F36E28C5523200E9FCB3 /* DaumMap.embeddedframework */ = {
@@ -840,10 +857,12 @@
 				EF3FCF1528C12A3900D48F9E /* PlanDetailScreen.swift in Sources */,
 				A8B2C29328F57979008EA020 /* OpinionWriteScreen.swift in Sources */,
 				EF4EDBB1290B165300068196 /* ContentView.swift in Sources */,
+				EFBCFDE2290F726700834DEE /* PlaceDetailScreen.swift in Sources */,
 				EF6A3FC628E93A44003F474B /* PlanCreateScreen.swift in Sources */,
 				A80213D328BF2C2100B6359E /* TravelOnViewModel.swift in Sources */,
 				A80213DD28BF326D00B6359E /* WebImage.swift in Sources */,
 				A8647C3A28BDA48B00D284B6 /* WriteButtonStyle.swift in Sources */,
+				EFBCFDE4290F72EF00834DEE /* PlaceDetailViewModel.swift in Sources */,
 				A813CA2E28B4EE2B000F0ADF /* ScreenSize.swift in Sources */,
 				EF6A3FC828E93A68003F474B /* PlanCreateViewModel.swift in Sources */,
 				A87F6C9F28C0A1050076046E /* TopTabs.swift in Sources */,
@@ -895,6 +914,7 @@
 				A80213D728BF2C9800B6359E /* TravelOn.swift in Sources */,
 				EF74BBF328B4D5C200E09450 /* HomeScreen.swift in Sources */,
 				A87F6CA628C0A3AB0076046E /* ProfileSettingScreen.swift in Sources */,
+				EFBCFDE6290F7EBA00834DEE /* ObservableObject+Extensions.swift in Sources */,
 				A87F6CA228C0A22B0076046E /* ProfileComponent.swift in Sources */,
 				EF3C061228E0EDC4003F3188 /* KakaoAPIService.swift in Sources */,
 				A84E841228B8C28600128D9B /* SignInScreen.swift in Sources */,
