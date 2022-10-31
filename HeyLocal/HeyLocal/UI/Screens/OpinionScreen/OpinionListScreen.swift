@@ -1,6 +1,7 @@
 //
 //  OpinionListScreen.swift
 //  HeyLocal
+//  답변 리스트 화면
 //
 //  Copyright (c) 2022 TGT All rights reserved.
 //

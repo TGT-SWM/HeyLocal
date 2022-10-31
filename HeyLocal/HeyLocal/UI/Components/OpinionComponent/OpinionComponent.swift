@@ -14,11 +14,31 @@ struct OpinionComponent: View {
     var body: some View {
         HStack(alignment: .top) {
             // TODO: 답변 사진으로 대체
-            Rectangle()
-                .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-                .cornerRadius(10.0)
-                .frame(width: 100, height: 100)
             
+            if opinion.generalImgDownloadImgUrl.isEmpty {
+                Rectangle()
+                    .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                    .cornerRadius(10.0)
+                    .frame(width: 100, height: 100)
+            }
+            else {
+                AsyncImage(url: URL(string: opinion.generalImgDownloadImgUrl[0])) { phash in
+                    if let image = phash.image {
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .cornerRadius(10.0)
+                            .frame(width: 100, height: 100)
+                    }
+                    else {
+                        Rectangle()
+                            .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                            .cornerRadius(10.0)
+                            .frame(width: 100, height: 100)
+                        
+                    }
+                }
+            }
             Spacer()
                 .frame(width: 15)
             

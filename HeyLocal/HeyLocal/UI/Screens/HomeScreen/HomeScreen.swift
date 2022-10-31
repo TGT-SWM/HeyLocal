@@ -19,11 +19,59 @@ struct HomeScreen: View {
                 .foregroundColor(Color.black)
         }
     }
+    let imageLink: [String] = ["https://postfiles.pstatic.net/MjAyMjA5MTJfMjk5/MDAxNjYyOTU2Mjg2NDY5.FfTMyD4FSV-ooPxEGMON2gow3ILfTT4ijs_3aVERYZYg.ukQaBMf37JyfJxjx_dCSE8Cqe2MvRczKsziVZnrC998g.JPEG.leeja5139/1662944966705.jpg?type=w966", "https://postfiles.pstatic.net/MjAyMjA3MDZfMjIx/MDAxNjU3MDY3MjU0NzU4.3GmYfVz_sYzXPDDumlexvRTnNkpsBy-vEw5zv7OQuWUg.1tK3R3mWfxE70fdFKbNJpICtftdGBPEVlelvQb7r0Z0g.JPEG.leeja5139/20220608%EF%BC%BF132217%EF%BC%BF03%EF%BC%BFsaved.jpg?type=w966", "https://postfiles.pstatic.net/MjAyMjA3MTRfNTYg/MDAxNjU3NzYyMTY3NTgw.NXycV5T9PyOaM5lqpufNLsV--dJxAy3dRCnG_b1qQbcg.oBmo2RD9Ow2748GD44ag4oUjrn6fAeCjOoAn6cc2FXsg.JPEG.leeja5139/20220713%EF%BC%BF152002.jpg?type=w966"]
+    let textArray: [String] = ["떠나요 나주\n사진찍기 좋은 곳으로", "경남 사천에서 즐기는\n가을여행 Best 8", "둘이 걸어요\n순창 편백숲길"]
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack(alignment: .leading) {
-					/// Article
+                    GeometryReader { geo in
+                        let width = geo.size.width
+                        let height = 182
+                        
+                        TabView {
+                            ForEach(0..<3) { idx in
+                                ZStack(alignment: .leading) {
+                                    // 이미지
+                                    AsyncImage(url: URL(string: imageLink[idx])) { phash in
+                                        if let image = phash.image {
+                                            ZStack {
+                                                image
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fill)
+                                                    .frame(width: width, height: CGFloat(height))
+                                            }
+                                            
+                                        }
+                                        else if phash.error != nil {
+                                            Text("")
+                                        }
+                                        else {
+                                            Text("")
+                                        }
+                                    }
+                                    
+                                    
+                                    Rectangle()
+                                        .fill(.black)
+                                        .frame(width: width, height: CGFloat(height))
+                                        .opacity(0.3)
+                                    
+                                    // 글
+                                    Text("\(textArray[idx])")
+                                        .lineLimit(2)
+                                        .font(.system(size: 22))
+                                        .foregroundColor(Color.white)
+                                        .padding()
+                                }
+                            }
+                        }
+                        .tabViewStyle(.page)
+                        .frame(width: width, height: CGFloat(height))
+                    }
+                    
+                    Spacer()
+                        .frame(height: 170)
                     
                     HotPlace()
                     
@@ -52,50 +100,7 @@ extension HomeScreen {
         
         var body: some View {
             VStack {
-                GeometryReader { geo in
-                    let width = geo.size.width
-                    let height = 182
-                    
-                    TabView {
-                        ForEach(0..<3) { idx in
-                            ZStack(alignment: .leading) {
-                                // 이미지
-                                AsyncImage(url: URL(string: imageLink[idx])) { phash in
-                                    if let image = phash.image {
-                                        ZStack {
-                                            image
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fill)
-                                                .frame(width: width, height: CGFloat(height))
-                                        }
-                                        
-                                    }
-                                    else if phash.error != nil {
-                                        Text("")
-                                    }
-                                    else {
-                                        Text("")
-                                    }
-                                }
-                                
-                                
-                                Rectangle()
-                                    .fill(.black)
-                                    .frame(width: width, height: CGFloat(height))
-                                    .opacity(0.3)
-                                
-                                // 글
-                                Text("\(textArray[idx])")
-                                    .lineLimit(2)
-                                    .font(.system(size: 22))
-                                    .foregroundColor(Color.white)
-                                    .padding()
-                            }
-                        }
-                    }
-                    .tabViewStyle(.page)
-                    .frame(width: width, height: CGFloat(height))
-                }
+                
             }
             .background(.white)
         }
