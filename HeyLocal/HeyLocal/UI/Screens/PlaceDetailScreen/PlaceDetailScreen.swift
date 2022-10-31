@@ -83,6 +83,18 @@ extension PlaceDetailScreen {
 	var menuList: some View {
 		VStack {
 			Text("메뉴")
+		}
+	}
+}
+
+
+// MARK: - opinionList (답변 리스트 뷰)
+
+extension PlaceDetailScreen {
+	var opinionList: some View {
+		VStack {
+			Text("이 장소 관련 답변")
+			
 			LazyVStack {
 				ForEach(vm.opinions) {
 					OpinionComponent(opinion: $0)
@@ -96,17 +108,6 @@ extension PlaceDetailScreen {
 						}
 				}
 			}
-		}
-	}
-}
-
-
-// MARK: - opinionList (답변 리스트 뷰)
-
-extension PlaceDetailScreen {
-	var opinionList: some View {
-		VStack {
-			Text("이 장소 관련 답변")
 		}
 	}
 }
