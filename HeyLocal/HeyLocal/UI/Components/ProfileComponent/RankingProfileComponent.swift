@@ -95,51 +95,50 @@ struct RankingProfileComponent: View {
             Spacer()
                 .frame(height: 10)
             
-            // 답변 수
-            HStack {
-                Image("message-text")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 16, height: 16)
+            VStack(alignment: .leading){
+                HStack {
+                    Image("message-text")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 16, height: 16)
+                    
+                    Spacer()
+                        .frame(width: 3)
+                    
+                    Text("답변수")
+                    
+                    Spacer()
+                        .frame(width: 3)
+                    
+                    Text("\(author.totalOpinionCount!)")
+                }
+                .font(.system(size: 12))
+                .foregroundColor(Color("gray"))
                 
                 Spacer()
-                    .frame(width: 3)
+                    .frame(height: 3)
                 
-                Text("답변수")
-                
-                Spacer()
-                    .frame(width: 3)
-                
-                Text("\(author.totalOpinionCount!)")
+                HStack {
+                    Spacer()
+                        .frame(width: 1)
+                    
+                    Image("heart")
+                        .resizable()
+                        .frame(width: 12, height: 12)
+                    
+                    Spacer()
+                        .frame(width: 6)
+                    
+                    Text("채택수")
+                    
+                    Spacer()
+                        .frame(width: 3)
+                    
+                    Text("\(author.acceptedOpinionCount!)")
+                }
+                .font(.system(size: 12))
+                .foregroundColor(Color("gray"))
             }
-            .font(.system(size: 12))
-            .foregroundColor(Color("gray"))
-            
-            Spacer()
-                .frame(height: 3)
-            
-            // 채택 수
-            HStack {
-                Image("heart")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 16, height: 16)
-                
-                Spacer()
-                    .frame(width: 3)
-                
-                Text("채택수")
-                
-                Spacer()
-                    .frame(width: 3)
-                
-                Text("\(author.acceptedOpinionCount!)")
-            }
-            .font(.system(size: 12))
-            .foregroundColor(Color("gray"))
-        }
-        .onAppear {
-            
         }
     }
 }

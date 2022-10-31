@@ -225,7 +225,7 @@ struct OpinionWriteScreen: View {
                             Text("")
                         }
                     }
-                }.padding()
+                }
             }
             
             if moveBack {

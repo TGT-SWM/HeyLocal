@@ -15,8 +15,7 @@ struct HomeScreen: View {
         NavigationLink(destination: EmptyView()) {
             Image(systemName: "bell")
                 .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 24, height: 24)
+                .frame(width: 22, height: 22)
                 .foregroundColor(Color.black)
         }
     }
@@ -24,81 +23,25 @@ struct HomeScreen: View {
         NavigationView {
             ScrollView {
                 VStack(alignment: .leading) {
-					
-                    // TODO: 아티클
-                    Group {
-                        Article()
-                    }
+					/// Article
                     
-                    // HOT한 장소
-                    Group {
-                        Spacer()
-                            .frame(height: 210)
-                        
-                        Text("요즘 HOT한 장소🔥")
-                            .font(.system(size: 16))
-                            .fontWeight(.medium)
-                            .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
-                        
-                        HotPlace()
-                            .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 10))
-                        
-                        Spacer()
-                            .frame(height: 20)
-                        
-                    }
+                    HotPlace()
                     
-                    // 여행On
-                    Group {
-                        Divider()
-                        
-                        Spacer()
-                            .frame(height: 20)
-                
-                        Text("현지인의 추천이 궁금해요😮")
-                            .font(.system(size: 16))
-                            .fontWeight(.medium)
-                            .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
-                        
-                        RecentTravelOn()
-                        
-                        Spacer()
-                            .frame(height: 20)
-                    }
-                    // 사용자 랭킹
-                    Group {
-                        Divider()
-                        
-                        Spacer()
-                            .frame(height: 10)
-                        
-                        HStack {
-                            Text("노하우 랭킹👑")
-                                .font(.system(size: 16))
-                                .fontWeight(.medium)
-                            
-                            Spacer()
-                            
-                            NavigationLink(destination: UserRankingScreen()) {
-                                Text("더보기")
-                                    .underline()
-                                    .font(.system(size: 12))
-                                    .foregroundColor(Color("gray"))
-                            }
-                        }
-                        .padding()
-                        
-                        Ranking()
-                            .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
-                    }
+                    RecentTravelOn()
+                    
+                    Ranking()
                 }
             }
+            .background(Color("lightGray"))
             .navigationBarTitle("", displayMode: .automatic)
-            .navigationBarItems(trailing: alarmButton)
+            .navigationBarItems(leading:
+                                    Image("logo").resizable().frame(width: 93, height: 36), trailing: alarmButton)
             .navigationViewStyle(StackNavigationViewStyle())
             
         }
     }
+    
+    
 }
 
 // MARK: - Article
@@ -154,6 +97,7 @@ extension HomeScreen {
                     .frame(width: width, height: CGFloat(height))
                 }
             }
+            .background(.white)
         }
     }
 }
@@ -164,14 +108,22 @@ extension HomeScreen {
     struct HotPlace: View {
         @StateObject var viewModel = ViewModel()
         var body: some View {
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    ForEach(viewModel.hotplaces) { place in
-                        HotPlaceComponent(place: place)
-                            .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
+            VStack(alignment: .leading) {
+                Text("요즘 HOT한 장소🔥")
+                    .font(.system(size: 16))
+                    .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 0))
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(viewModel.hotplaces) { place in
+                            HotPlaceComponent(place: place)
+                                .padding(EdgeInsets(top: 0, leading: 20, bottom: 20, trailing: 0))
+                        }
                     }
                 }
+                .ignoresSafeArea(.all)
             }
+            .background(.white)
             .onAppear {
                 viewModel.getHotPlaces()
             }
@@ -185,7 +137,11 @@ extension HomeScreen {
     struct RecentTravelOn: View {
         @StateObject var viewModel = ViewModel()
         var body: some View {
-            VStack {
+            VStack(alignment: .leading) {
+                Text("현지인의 추천이 궁금해요😮")
+                    .font(.system(size: 16))
+                    .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 20))
+                
                 ForEach(viewModel.travelOns) { travelOn in
                     NavigationLink(destination: TravelOnDetailScreen(travelOnId: travelOn.id)){
                         TravelOnComponent(travelOn: travelOn)
@@ -193,6 +149,7 @@ extension HomeScreen {
                     }
                 }
             }
+            .background(.white)
             .onAppear {
                 viewModel.getRecentTravelOns()
             }
@@ -207,14 +164,56 @@ extension HomeScreen {
         var body: some View {
             VStack(alignment: .leading) {
                 HStack {
-                    ForEach(viewModel.rankings) { user in
-                        ZStack {
-                            RankingProfileComponent(author: user)
-                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 5))
+                    Text("노하우 랭킹👑")
+                        .font(.system(size: 16))
+                    
+                    Spacer()
+                    
+                    NavigationLink(destination: UserRankingScreen()) {
+                        Text("더보기")
+                            .underline()
+                            .font(.system(size: 12))
+                            .foregroundColor(Color("gray"))
+                    }
+                }
+                
+                
+                HStack {
+                    ForEach(viewModel.rankings) { ranking in
+                        ZStack(alignment: .topLeading) {
+                            RankingProfileComponent(author: ranking)
+                            
+                            if ranking.id == viewModel.rankings[0].id {
+                                Image("Rank1")
+                                    .resizable()
+                                    .frame(width: 19, height: 26)
+                                    .padding(EdgeInsets(top: 0, leading: 9, bottom: 0, trailing: 0))
+                            }
+                            
+                            else if ranking.id == viewModel.rankings[1].id {
+                                Image("Rank2")
+                                    .resizable()
+                                    .frame(width: 19, height: 26)
+                                    .padding(EdgeInsets(top: 0, leading: 9, bottom: 0, trailing: 0))
+                            }
+                            
+                            else if ranking.id == viewModel.rankings[2].id {
+                                Image("Rank3")
+                                    .resizable()
+                                    .frame(width: 19, height: 26)
+                                    .padding(EdgeInsets(top: 0, leading: 9, bottom: 0, trailing: 0))
+                            }
+                        }
+                        
+                        if ranking.id != viewModel.rankings[viewModel.rankings.count - 1].id {
+                            Spacer()
                         }
                     }
                 }
+                
             }
+            .padding()
+            .background(.white)
             .onAppear {
                 viewModel.getUserRanking()
             }
