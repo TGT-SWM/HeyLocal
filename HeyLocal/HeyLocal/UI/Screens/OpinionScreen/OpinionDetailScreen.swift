@@ -367,81 +367,6 @@ struct OpinionDetailScreen: View {
         .background(.white)
     }
     
-    
-    var content: some View {
-        VStack(alignment: .leading) {
-            // 장소명, 시간, region, 사진, description
-            Group {
-                HStack {
-                    Text("\(viewModel.opinion.place.name)")
-                        .foregroundColor(Color.black)
-                    
-                    Spacer()
-                    
-                    Group {
-                        Button("수정") {
-                            navigationLinkActive = true
-                        }
-                        Button("삭제") {
-                            showingAlert.toggle()
-                        }
-                    }
-                    .foregroundColor(Color(red: 117/255, green: 118/255, blue: 121/255))
-                }
-                .font(.system(size: 16))
-                
-                
-                HStack {
-                    let printDate = viewModel.opinion.createdDate.components(separatedBy: "T")
-                    let yyyyMMdd = printDate[0].components(separatedBy: "-")
-                    Text("\(yyyyMMdd[0]).\(yyyyMMdd[1]).\(yyyyMMdd[2])")
-                        .font(.system(size: 12))
-                        .foregroundColor(Color(red: 117/255, green: 118/255, blue: 121/255))
-                    
-                    HStack {
-                        Image("pin_black_icon")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 16)
-                        
-                        Spacer()
-                            .frame(width: 3)
-                        
-                        Text("\(viewModel.opinion.place.roadAddress)")
-                            .font(.system(size: 12))
-                            .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
-                    }
-                }
-                
-                
-                // TODO: 이미지
-                if !viewModel.opinion.generalImgDownloadImgUrl.isEmpty {
-                    HStack {
-                        ForEach(viewModel.opinion.generalImgDownloadImgUrl, id:\.self) { url in
-                            AsyncImage(url: URL(string: url)) { phash in
-                                if let image = phash.image {
-                                    image
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(width: 100, height: 100)
-                                        .cornerRadius(10)
-                                }
-                                else if phash.error != nil {
-                                    Text("")
-                                }
-                                else {
-                                    Text("")
-                                }
-                             
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    
     // MARK: - '음식점' 답변
     var food: some View {
         VStack(alignment: .leading) {
@@ -837,15 +762,15 @@ struct OpinionDetailScreen: View {
         var result: String = ""
         switch noise {
         case "VERY_BAD":
-            result = "주변이 매우 시끄러워요"
+            result = "매우 시끄러워요"
         case "BAD":
-            result = "주변이 꽤 시끄러워요"
+            result = "조금 시끄러워요"
         case "NOT_BAD":
-            result = "주변 소음이 그저 그래요"
+            result = "그저 그래요"
         case "GOOD":
-            result = "주변이 꽤 조용해요"
+            result = "조용한 편이에요"
         case "VERY_GOOD":
-            result = "주변이 매우 조용해요"
+            result = "매우 조용해요"
         default:
             result = ""
         }
@@ -860,11 +785,11 @@ struct OpinionDetailScreen: View {
         case "BAD":
             result = "방음이 잘 안돼요"
         case "NOT_BAD":
-            result = "방음이 그저 그래요"
+            result = "그저 그래요"
         case "GOOD":
-            result = "방음이 잘 돼요"
+            result = "방음이 잘돼요"
         case "VERY_GOOD":
-            result = "방음이 매우 잘 돼요"
+            result = "방음이 매우 잘돼요"
         default:
             result = ""
         }
@@ -879,7 +804,7 @@ struct OpinionDetailScreen: View {
         case "BAD":
             result = "조금 협소해요"
         case "NOT_BAD":
-            result = "그냥 그래요"
+            result = "그저 그래요"
         case "GOOD":
             result = "넉넉한 편이에요"
         case "VERY_GOOD":
@@ -898,7 +823,7 @@ struct OpinionDetailScreen: View {
         case "BAD":
             result = "웨이팅이 길어요"
         case "NOT_BAD":
-            result = "그냥 그래요"
+            result = "그저 그래요"
         case "GOOD":
             result = "웨이팅이 거의 없어요"
         case "VERY_GOOD":

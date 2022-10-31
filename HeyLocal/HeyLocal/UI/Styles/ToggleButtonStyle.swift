@@ -19,5 +19,6 @@ struct ToggleButtonStyle: ButtonStyle {
             .foregroundColor(value ? Color("orange") : Color("gray"))
             .background(value ?  Color(red: 255/255, green: 248/255, blue: 235/255) : .clear)
             .overlay(RoundedRectangle(cornerRadius: 100.0).strokeBorder(value ? Color("orange") : Color("gray"), style: StrokeStyle(lineWidth: 1.0)))
+            .cornerRadius(100)
     }
 }
