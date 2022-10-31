@@ -11,7 +11,7 @@ import SwiftUI
 
 struct PlaceDetailScreen: View {
 	var place: Place
-	var vm: ViewModel
+	@ObservedObject var vm: ViewModel
 	
 	init(place: Place) {
 		self.place = place
@@ -19,7 +19,7 @@ struct PlaceDetailScreen: View {
 	}
 	
     var body: some View {
-		VStack {
+		ScrollView {
 			header
 			menuList
 			opinionList
@@ -118,9 +118,7 @@ extension PlaceDetailScreen {
 				// 더 이상 로드할 컨텐츠가 없는 경우 표시하지 않습니다.
 				if !vm.isEnd {
 					ProgressView()
-						.onAppear {
-							vm.fetchOpinions()
-						}
+						.onAppear(perform: vm.fetchOpinions)
 				}
 			}
 		}
