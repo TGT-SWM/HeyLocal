@@ -9,7 +9,14 @@ import SwiftUI
 
 struct HotPlaceComponent: View {
     var place: Place
-    var body: some View {
+	
+	var body: some View {
+		NavigationLink(destination: PlaceDetailScreen(place: place)) {
+			label
+		}
+	}
+	
+    var label: some View {
         VStack {
             ZStack(alignment: .bottomLeading) {
                 // TODO: 장소 이미지
