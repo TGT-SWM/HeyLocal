@@ -37,7 +37,7 @@
 		A8794B3128B4EB5900959D56 /* BasicButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8794B3028B4EB5900959D56 /* BasicButtonStyle.swift */; };
 		A87F6C9D28C099EE0076046E /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6C9C28C099EE0076046E /* ProfileScreen.swift */; };
 		A87F6C9F28C0A1050076046E /* TopTabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6C9E28C0A1050076046E /* TopTabs.swift */; };
-		A87F6CA228C0A22B0076046E /* ProfileComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA128C0A22B0076046E /* ProfileComponent.swift */; };
+		A87F6CA228C0A22B0076046E /* RankingProfileComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA128C0A22B0076046E /* RankingProfileComponent.swift */; };
 		A87F6CA428C0A37A0076046E /* ProfileReviseScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA328C0A37A0076046E /* ProfileReviseScreen.swift */; };
 		A87F6CA628C0A3AB0076046E /* ProfileSettingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA528C0A3AB0076046E /* ProfileSettingScreen.swift */; };
 		A885F111290B5964006EF018 /* CustomImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A885F110290B5964006EF018 /* CustomImagePicker.swift */; };
@@ -55,6 +55,7 @@
 		A8B2C29328F57979008EA020 /* OpinionWriteScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B2C29228F57979008EA020 /* OpinionWriteScreen.swift */; };
 		A8B91E5029000F0900B62E70 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B91E4F29000F0900B62E70 /* ImagePicker.swift */; };
 		A8CD70A228F40A62007E8395 /* OpinionDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CD70A128F40A62007E8395 /* OpinionDetailScreen.swift */; };
+		A8E2BEB2290E28DC0007D256 /* ProfileComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E2BEB1290E28DC0007D256 /* ProfileComponent.swift */; };
 		A8F1EA09290387CD0049C72B /* MoreButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F1EA08290387CD0049C72B /* MoreButton.swift */; };
 		EF113197290931EB006A00DA /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF113196290931EB006A00DA /* SignInViewModel.swift */; };
 		EF113199290933F2006A00DA /* AuthTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF113198290933F2006A00DA /* AuthTextField.swift */; };
@@ -178,7 +179,7 @@
 		A8794B3028B4EB5900959D56 /* BasicButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicButtonStyle.swift; sourceTree = "<group>"; };
 		A87F6C9C28C099EE0076046E /* ProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
 		A87F6C9E28C0A1050076046E /* TopTabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabs.swift; sourceTree = "<group>"; };
-		A87F6CA128C0A22B0076046E /* ProfileComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileComponent.swift; sourceTree = "<group>"; };
+		A87F6CA128C0A22B0076046E /* RankingProfileComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingProfileComponent.swift; sourceTree = "<group>"; };
 		A87F6CA328C0A37A0076046E /* ProfileReviseScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileReviseScreen.swift; sourceTree = "<group>"; };
 		A87F6CA528C0A3AB0076046E /* ProfileSettingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingScreen.swift; sourceTree = "<group>"; };
 		A885F110290B5964006EF018 /* CustomImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImagePicker.swift; sourceTree = "<group>"; };
@@ -196,6 +197,7 @@
 		A8B2C29228F57979008EA020 /* OpinionWriteScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionWriteScreen.swift; sourceTree = "<group>"; };
 		A8B91E4F29000F0900B62E70 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		A8CD70A128F40A62007E8395 /* OpinionDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionDetailScreen.swift; sourceTree = "<group>"; };
+		A8E2BEB1290E28DC0007D256 /* ProfileComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileComponent.swift; sourceTree = "<group>"; };
 		A8F1EA08290387CD0049C72B /* MoreButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreButton.swift; sourceTree = "<group>"; };
 		EF113196290931EB006A00DA /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		EF113198290933F2006A00DA /* AuthTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTextField.swift; sourceTree = "<group>"; };
@@ -385,7 +387,8 @@
 		A87F6CA028C0A1EE0076046E /* ProfileComponent */ = {
 			isa = PBXGroup;
 			children = (
-				A87F6CA128C0A22B0076046E /* ProfileComponent.swift */,
+				A8E2BEB1290E28DC0007D256 /* ProfileComponent.swift */,
+				A87F6CA128C0A22B0076046E /* RankingProfileComponent.swift */,
 			);
 			path = ProfileComponent;
 			sourceTree = "<group>";
@@ -901,6 +904,7 @@
 				EF6A3FCA28EB3D9B003F474B /* View+Extensions.swift in Sources */,
 				A89943A728EED89E0059AAC6 /* RegionViewModel.swift in Sources */,
 				A80213D928BF2D6C00B6359E /* Author.swift in Sources */,
+				A8E2BEB2290E28DC0007D256 /* ProfileComponent.swift in Sources */,
 				A83972EA28E430AB000E323E /* CustomToggleStyle.swift in Sources */,
 				EF113199290933F2006A00DA /* AuthTextField.swift in Sources */,
 				A89943A528EEC6140059AAC6 /* RegionPickerScreen.swift in Sources */,
@@ -916,6 +920,7 @@
 				A87F6CA628C0A3AB0076046E /* ProfileSettingScreen.swift in Sources */,
 				EFBCFDE6290F7EBA00834DEE /* ObservableObject+Extensions.swift in Sources */,
 				A87F6CA228C0A22B0076046E /* ProfileComponent.swift in Sources */,
+				A87F6CA228C0A22B0076046E /* RankingProfileComponent.swift in Sources */,
 				EF3C061228E0EDC4003F3188 /* KakaoAPIService.swift in Sources */,
 				A84E841228B8C28600128D9B /* SignInScreen.swift in Sources */,
 				EF26CD8A28C0EECA006D0D27 /* PlanService.swift in Sources */,

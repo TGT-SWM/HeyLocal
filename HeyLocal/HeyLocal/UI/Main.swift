@@ -49,7 +49,7 @@ extension TabBar {
 		case home = "홈"
 		case travelOn = "여행 On"
 		case myPlan = "마이플랜"
-		case message = "메시지"
+//		case message = "메시지"
 		case myInfo = "내 정보"
 		
 		/// 해당 탭의 이름을 문자열로 반환합니다.
@@ -58,18 +58,18 @@ extension TabBar {
 		}
 		
 		/// 해당 탭의 아이콘을 이미지로 반환합니다.
-		var icon: Image {
+		var icon: [Image] {
 			switch (self) {
 			case .home:
-				return Image(systemName: "house.fill")
+                return [Image("home"), Image("home_pressed")]
 			case .travelOn:
-				return Image(systemName: "note.text")
+				return [Image("travelon"), Image("travelon_pressed")]
 			case .myPlan:
-				return Image(systemName: "suitcase.cart.fill")
-			case .message:
-				return Image(systemName: "message.fill")
+				return [Image("myplan"), Image("myplan_pressed")]
+//			case .message:
+//				return Image(systemName: "message.fill")
 			case .myInfo:
-				return Image(systemName: "person")
+				return [Image("my"), Image("my_pressed")]
 			}
 		}
 	}
@@ -87,8 +87,8 @@ extension TabBar {
 				.tag(Tab.travelOn)
 			MyPlanScreen()
 				.tag(Tab.myPlan)
-            HomeScreen()
-				.tag(Tab.message)
+//            HomeScreen()
+//				.tag(Tab.message)
             ProfileScreen()
 				.tag(Tab.myInfo)
 		}
@@ -113,7 +113,7 @@ extension TabBar {
 				tabItem(.home)
 				tabItem(.travelOn)
 				tabItem(.myPlan)
-				tabItem(.message)
+//				tabItem(.message)
 				tabItem(.myInfo)
 			}
 			.frame(height: tabBarHeight)
@@ -132,9 +132,21 @@ extension TabBar {
 
 				Spacer(minLength: 0)
 					
-				tab.icon
-					.font(.system(size: 20))
-					.padding(0)
+                if selection == tab {
+                    tab.icon[1]
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 22, height: 22)
+                        .padding(0)
+                }
+                else {
+                    tab.icon[0]
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 22, height: 22)
+                        .padding(0)
+                }
+				
 				Text(tab.name)
 					.font(.system(size: 12))
 					.padding(.top, 4)

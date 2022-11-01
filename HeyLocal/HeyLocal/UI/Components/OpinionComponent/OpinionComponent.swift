@@ -13,137 +13,77 @@ struct OpinionComponent: View {
     
     var body: some View {
         HStack(alignment: .top) {
-            ZStack(alignment: .bottomLeading) {
+            // TODO: 답변 사진으로 대체
+            
+            if opinion.generalImgDownloadImgUrl.isEmpty {
                 Rectangle()
                     .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
                     .cornerRadius(10.0)
                     .frame(width: 100, height: 100)
-                
-                ZStack {
-                    Rectangle()
-                        .fill(Color(red: 17 / 255, green: 17 / 255, blue: 17 / 255))
-                        .cornerRadius(radius: 20.0, corners: [.bottomLeft, .bottomRight])
-                        .opacity(0.5)
-                        .frame(width: 100, height: 24)
-                    
-                    HStack {
-                        Image("pin_icon")
+            }
+            else {
+                AsyncImage(url: URL(string: opinion.generalImgDownloadImgUrl[0])) { phash in
+                    if let image = phash.image {
+                        image
                             .resizable()
-                            .scaledToFit()
-                            .frame(width: 12)
+                            .aspectRatio(contentMode: .fill)
+                            .cornerRadius(10.0)
+                            .frame(width: 100, height: 100)
+                    }
+                    else {
+                        Rectangle()
+                            .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                            .cornerRadius(10.0)
+                            .frame(width: 100, height: 100)
                         
-                        Text("\(regionNameFormatter(region: opinion.place.region!))")
-                            .font(.system(size: 12))
-                            .foregroundColor(Color.white)
                     }
                 }
-            } // ZStack
-            
+            }
             Spacer()
-                .frame(width: 20)
+                .frame(width: 15)
             
             VStack(alignment: .leading) {
+                /// 장소 이름
                 Text("\(opinion.place.name)")
-                    .font(.system(size: 14))
+                    .font(.system(size: 16))
                 
-                // 사용자 정보
-                HStack(alignment: .center) {
-                    /// 프로필 사진
-                    Group {
-                        if opinion.author.profileImgDownloadUrl == nil {
-                            ZStack {
-                                ZStack {
-                                    Circle()
-                                        .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-                                        .frame(width: 20, height: 20)
-                                        .shadow(color: .black, radius: 1)
-                                    
-                                    Image(systemName: "person.fill")
-                                        .resizable()
-                                        .frame(width: 13, height: 13)
-                                        .foregroundColor(Color("gray"))
-                                }
-                                
-                                Circle()
-                                    .strokeBorder(.white, lineWidth: 1)
-                                    .frame(width: 20, height: 20)
-                            }
-                        }
-                        else {
-                            AsyncImage(url: URL(string: opinion.author.profileImgDownloadUrl!)) { phash in
-                                if let image = phash.image {
-                                    ZStack {
-                                        image
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fill)
-                                            .clipShape(Circle())
-                                            .frame(width: 20, height: 20)
-                                            .shadow(color: .gray, radius: 3)
-                                        
-                                        Circle()
-                                            .strokeBorder(.white, lineWidth: 1)
-                                            .frame(width: 20, height: 20)
-                                    }
-                                }
-                                else if phash.error != nil {
-                                    ZStack {
-                                        ZStack {
-                                            Circle()
-                                                .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-                                                .frame(width: 20, height: 20)
-                                                .shadow(color: .black, radius: 1)
-                                            
-                                            Image(systemName: "person.fill")
-                                                .resizable()
-                                                .frame(width: 13, height: 13)
-                                                .foregroundColor(Color("gray"))
-                                        }
-                                        
-                                        Circle()
-                                            .strokeBorder(.white, lineWidth: 1)
-                                            .frame(width: 20, height: 20)
-                                    }
-                                }
-                                else {
-                                    ZStack {
-                                        ZStack {
-                                            Circle()
-                                                .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-                                                .frame(width: 20, height: 20)
-                                                .shadow(color: .black, radius: 1)
-                                            
-                                            Image(systemName: "person.fill")
-                                                .resizable()
-                                                .frame(width: 13, height: 13)
-                                                .foregroundColor(Color("gray"))
-                                        }
-                                        
-                                        Circle()
-                                            .strokeBorder(.white, lineWidth: 1)
-                                            .frame(width: 20, height: 20)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    
-                    Spacer()
-                        .frame(width: 5)
-                    
-                    Text("\(opinion.author.nickname)")
-                        .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                Spacer()
+                    .frame(height: 7)
+                
+                /// 장소 지역
+                HStack {
+                    Image("location")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 12)
                     
                     Spacer()
                         .frame(width: 3)
                     
-                    Text("(채택 \(opinion.countAccept)건)")
+                    Text("\(opinion.place.roadAddress)")
+                        .font(.system(size: 12))
+                        .foregroundColor(Color("gray"))
+                }
+                
+                Spacer()
+                
+                /// 작성자
+                HStack {
+                    Text("\(opinion.author.nickname)")
+                    
+                    Spacer()
+                        .frame(width: 3)
+                    
+                    Text("(채택 \(opinion.author.acceptedOpinionCount!)건)")
                 }
                 .font(.system(size: 12))
+                .foregroundColor(Color("gray"))
             }
-            .padding(EdgeInsets(top: 7, leading: 0, bottom: 0, trailing: 0))
-            
+            .padding(EdgeInsets(top: 3, leading: 0, bottom: 3, trailing: 0))
+
             Spacer()
         }
         .foregroundColor(Color.black)
+        .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
     }
 }

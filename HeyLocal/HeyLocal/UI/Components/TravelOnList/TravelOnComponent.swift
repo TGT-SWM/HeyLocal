@@ -15,7 +15,7 @@ struct TravelOnComponent: View {
         HStack{
             /// 이미지 + 지역
             ZStack(alignment: .bottomLeading) {
-                // TODO: 이미지로 변경
+                // TODO: 지역 이미지로 변경
                 Rectangle()
                     .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
                     .cornerRadius(10.0)
@@ -30,7 +30,7 @@ struct TravelOnComponent: View {
                         .frame(width: 100, height: 24)
      
                     HStack {
-                        Image("pin_icon")
+                        Image("location_white")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 12)
@@ -54,13 +54,13 @@ struct TravelOnComponent: View {
                 
                 HStack(alignment: .bottom, spacing: 3) {
                     Group {
-                        Image("view_icon")
+                        Image("eye-alt")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 16)
                         
                         Text("조회수")
-                            .foregroundColor(Color(red: 121 / 255, green: 119 / 255, blue: 117 / 255))
+                            
                         Text("\(travelOn.views)")
                     }
                     
@@ -68,17 +68,18 @@ struct TravelOnComponent: View {
                         .frame(width: 5)
                     
                     Group {
-                        Image("comment_black_icon")
+                        Image("message-text")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 16)
                         
                         Text("답변수")
-                            .foregroundColor(Color(red: 121 / 255, green: 119 / 255, blue: 117 / 255))
+                            
                         Text("\(travelOn.opinionQuantity!)")
                     }
                 }
                 .font(.system(size: 12))
+                .foregroundColor(Color("gray"))
                 
                 Spacer()
                 
@@ -118,7 +119,7 @@ struct TravelOnComponent: View {
                                             .aspectRatio(contentMode: .fill)
                                             .clipShape(Circle())
                                             .frame(width: 20, height: 20)
-                                            .shadow(color: .gray, radius: 3)
+                                            .shadow(color: .gray, radius: 1)
                                         
                                         Circle()
                                             .strokeBorder(.white, lineWidth: 1)
@@ -173,7 +174,6 @@ struct TravelOnComponent: View {
                 .font(.system(size: 12))
                 .foregroundColor(Color(red: 117 / 255, green: 118 / 255, blue: 121 / 255))
             }
-            .frame(width: 200, height: 90, alignment: .topLeading)
             .padding()
         }
         .foregroundColor(Color.black)

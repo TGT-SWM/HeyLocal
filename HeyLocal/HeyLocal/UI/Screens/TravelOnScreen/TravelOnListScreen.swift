@@ -34,8 +34,10 @@ struct TravelOnListScreen: View {
         NavigationView {
             VStack(alignment: .leading) {
                 SearchBar(placeholder: "", searchText: $searchText)
+                    .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 0))
                     
                 sortType
+                    .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 0))
 
                 ZStack(alignment: .bottomTrailing) {
                     if viewModel.travelOns.count > 0 {
@@ -43,7 +45,6 @@ struct TravelOnListScreen: View {
                     }
                     else {
                         emptyView
-                            .frame(width: 350)
                     }
                     // 글쓰기 버튼
                     NavigationLink(destination: TravelOnWriteScreen()) {
@@ -51,10 +52,6 @@ struct TravelOnListScreen: View {
                     }
                     .buttonStyle(WriteButtonStyle())
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 10))
-                }
-                
-                NavigationLink(destination: EmptyView()) {
-                    EmptyView()
                 }
             }
             .navigationBarTitle("", displayMode: .automatic)
@@ -179,21 +176,12 @@ struct TravelOnListScreen: View {
     }
     
     var content: some View {
-        VStack(alignment: .leading, spacing: 5) {
-            Text("여행On📝")
-                .font(.system(size: 16))
-                .fontWeight(.medium)
-                .padding(EdgeInsets(top: 20, leading: 0, bottom: 0, trailing: 0))
-            
-            
-            // 여행On Component
-            ScrollView {
-                VStack {
-                    ForEach(viewModel.travelOns) { travelOn in
-                        NavigationLink(destination: TravelOnDetailScreen(travelOnId: travelOn.id)){
-                            TravelOnComponent(travelOn: travelOn)
-                                .padding(EdgeInsets(top: 2, leading: 0, bottom: 2, trailing: 0))
-                        }
+        ScrollView {
+            VStack {
+                ForEach(viewModel.travelOns) { travelOn in
+                    NavigationLink(destination: TravelOnDetailScreen(travelOnId: travelOn.id)){
+                        TravelOnComponent(travelOn: travelOn)
+                            .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
                     }
                 }
             }

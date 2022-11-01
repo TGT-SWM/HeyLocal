@@ -11,7 +11,10 @@ import SwiftUI
 struct ProfileScreen: View {
     @Environment(\.displayTabBar) var displayTabBar
     @State private var selectedTab: Int = 0
-    let tabs: [String] = ["내가 쓴 여행 On", "내 답변"]
+    var showingTabBar: Bool = true
+    
+    let tabs: [String] = ["내가 쓴 여행On", "내 답변"]
+    let otherTabs: [String] = ["작성한 여행On", "답변 목록"]
     
     @StateObject var viewModel = ViewModel()
     var body: some View {
@@ -22,7 +25,14 @@ struct ProfileScreen: View {
                 
                 GeometryReader { geo in
                     VStack {
-                        TopTabs(tabs: tabs, geoWidth: geo.size.width, selectedTab: $selectedTab)
+                        /// 내 프로필
+                        if showingTabBar {
+                            TopTabs(tabs: tabs, geoWidth: geo.size.width, selectedTab: $selectedTab)
+                        }
+                        /// 상대방 프로필
+                        else {
+                            TopTabs(tabs: otherTabs, geoWidth: geo.size.width, selectedTab: $selectedTab)
+                        }
                         
                         TabView(selection: $selectedTab, content: {
                             UserTravelOn()
@@ -37,7 +47,7 @@ struct ProfileScreen: View {
                 .ignoresSafeArea()
             }
             .onAppear {
-                displayTabBar(true)
+                displayTabBar(showingTabBar)
             }
             .navigationBarTitle("", displayMode: .automatic)
             .navigationBarHidden(true)
@@ -53,7 +63,7 @@ struct UserTravelOn: View {
                 ForEach(viewModel.travelOns) { travelOn in
                     NavigationLink(destination: TravelOnDetailScreen(travelOnId: travelOn.id)) {
                         TravelOnComponent(travelOn: travelOn)
-                            .padding(EdgeInsets(top: 2, leading: 0, bottom: 3, trailing: 10))
+                            .padding(EdgeInsets(top: 2, leading: 10, bottom: 2, trailing: 10))
                     }
                 }
             }
@@ -240,7 +250,7 @@ struct UserOpinion: View {
                 ForEach(viewModel.opinions) { opinion in
                     NavigationLink(destination: OpinionDetailScreen(travelOnId: opinion.travelOnId!, opinionId: opinion.id)) {
                         OpinionComponent(opinion: opinion)
-                            .padding()
+                            .padding(EdgeInsets(top: 0, leading: 10, bottom: 5, trailing: 10))
                     }
                 }
             }
