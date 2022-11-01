@@ -1091,7 +1091,7 @@
 				INFOPLIST_FILE = HeyLocal/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "현지야";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "지도를 통해 현재 위치를 제공하기 위해 위치 권한이 필요합니다.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진 업로드를 위해 라이브러리 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1106,7 +1106,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 1.3.2;
+				MARKETING_VERSION = 1.3.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tgt.HeyLocal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1137,7 +1137,7 @@
 				INFOPLIST_FILE = HeyLocal/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "현지야";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "지도를 통해 현재 위치를 제공하기 위해 위치 권한이 필요합니다.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진 업로드를 위해 라이브러리 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1152,7 +1152,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 1.3.2;
+				MARKETING_VERSION = 1.3.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tgt.HeyLocal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
