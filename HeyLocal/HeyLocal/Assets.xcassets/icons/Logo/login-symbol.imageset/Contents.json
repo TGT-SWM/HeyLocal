@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "로그인_심볼@1x.png",
+      "filename" : "login-symbol@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "로그인_심볼@2x.png",
+      "filename" : "login-symbol@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "로그인_심볼@3x.png",
+      "filename" : "login-symbol@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
