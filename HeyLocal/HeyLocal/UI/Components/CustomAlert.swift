@@ -60,7 +60,7 @@ struct CustomAlert: View {
                         Text("\(confirmMessage)")
                     }.simultaneousGesture(TapGesture().onEnded{
                         rightButtonAction?()
-//                        dismiss()
+                        dismiss()
                     })
                     .buttonStyle(AlertCustomButton(value: true, width: confirmWidth))
                     

@@ -40,7 +40,8 @@ struct TravelOnDetailScreen: View {
                 
                 opinions
             }
-            // 삭제 Alert
+
+//            // 삭제 Alert
             if showingAlert {
                 CustomAlert(showingAlert: $showingAlert,
                             title: "삭제하시겠습니까?",
