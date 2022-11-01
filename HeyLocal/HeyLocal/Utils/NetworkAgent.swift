@@ -69,11 +69,21 @@ class NetworkAgent {
 			.map(\.data)
 			.decode(type: Token.self, decoder: JSONDecoder())
 			.receive(on: DispatchQueue.main)
-			.sink(receiveCompletion: { _ in }, receiveValue: { token in
-				guard var auth = AuthManager.shared.authorized else { return }
-				auth.accessToken = token.accessToken
-				auth.refreshToken = token.refreshToken
-				AuthManager.shared.save(auth)
+			.sink(
+				receiveCompletion: { completion in
+					if case let .failure(error) = completion {
+						if let apiError = error as? APIError {
+							if apiError.code == "EXPIRED_REFRESH_TOKEN" {
+								AuthManager.shared.removeAll()
+							}
+						}
+					}
+				},
+				receiveValue: { token in
+					guard var auth = AuthManager.shared.authorized else { return }
+					auth.accessToken = token.accessToken
+					auth.refreshToken = token.refreshToken
+					AuthManager.shared.save(auth)
 			})
 		
 		return error
