@@ -140,9 +140,9 @@ struct UserComponent: View {
                         VStack(alignment: .trailing) {
                             // 프로필 설정화면으로 이동
                             NavigationLink(destination: ProfileSettingScreen()) {
-                                Image("setting_icon")
+                                Image("ios-settings")
                                     .resizable()
-                                    .frame(width: 24, height: 24)
+                                    .frame(width: 21, height: 21)
                             }
                             .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
                             
@@ -151,7 +151,7 @@ struct UserComponent: View {
                             // 프로필 수정화면으로 이동
                             NavigationLink(destination: ProfileReviseScreen()) {
                                 HStack {
-                                    Image("pencil_orange_icon")
+                                    Image("edit-pencil_yellow")
                                         .resizable()
                                         .frame(width: 16, height: 16)
                                     

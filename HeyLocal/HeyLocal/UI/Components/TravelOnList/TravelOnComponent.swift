@@ -22,7 +22,7 @@ struct TravelOnComponent: View {
                     .frame(width: 100, height: 100)
                 
                 // 지역 출력
-                ZStack {
+                ZStack(alignment: .center) {
                     Rectangle()
                         .fill(Color(red: 17 / 255, green: 17 / 255, blue: 17 / 255))
                         .cornerRadius(radius: 20.0, corners: [.bottomLeft, .bottomRight])

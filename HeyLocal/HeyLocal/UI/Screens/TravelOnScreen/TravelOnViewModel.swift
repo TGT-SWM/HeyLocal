@@ -17,6 +17,8 @@ extension TravelOnListScreen {
         @Published var travelOnArray: TravelOnArray
         @Published var region: Region
         
+        let pageSize = 15
+        
         var cancellable: AnyCancellable?
         init() {
             self.travelOn = TravelOn()
@@ -26,14 +28,19 @@ extension TravelOnListScreen {
         }
         
         // Travel On 전체 목록
-        func fetchTravelOnList(lastItemId: Int?, pageSize: Int, regionId: Int?, sortBy: String, withOpinions: Bool) {
+        func fetchTravelOnList(lastItemId: Int?, pageSize: Int, keyword: String, regionId: Int?, sortBy: String, withOpinions: Bool) {
             // withOpinions -> nil 확인
             var withOpinion: Bool? = nil
             if withOpinions == true {
                 withOpinion = true
             }
             
-            cancellable = travelOnService.getTravelOnLists(lastItemId: lastItemId, pageSize: pageSize, regionId: regionId, sortBy: sortBy, withOpinions: withOpinion)
+            var query: String? = nil
+            if keyword != "" {
+                query = keyword
+            }
+            
+            cancellable = travelOnService.getTravelOnLists(lastItemId: lastItemId, pageSize: pageSize, keyword: query, regionId: regionId, sortBy: sortBy, withOpinions: withOpinion)
                 .sink(receiveCompletion: { _ in
                 }, receiveValue: { travelOns in
                     self.travelOns = travelOns

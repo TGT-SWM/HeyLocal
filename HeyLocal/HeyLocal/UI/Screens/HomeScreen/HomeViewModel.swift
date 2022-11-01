@@ -52,7 +52,7 @@ extension HomeScreen {
         
         // 여행On 
         func getRecentTravelOns() {
-            cancellable = travelOnService.getTravelOnLists(lastItemId: nil, pageSize: 5, regionId: nil, sortBy: "DATE", withOpinions: nil)
+            cancellable = travelOnService.getTravelOnLists(lastItemId: nil, pageSize: 5, keyword: nil, regionId: nil, sortBy: "DATE", withOpinions: nil)
                 .sink(receiveCompletion: { _ in
                 }, receiveValue: { travelOns in
                     self.travelOns = travelOns

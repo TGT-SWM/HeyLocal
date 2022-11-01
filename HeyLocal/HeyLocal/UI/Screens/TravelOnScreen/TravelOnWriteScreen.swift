@@ -48,7 +48,7 @@ struct TravelOnWriteScreen: View {
                     }.simultaneousGesture(TapGesture().onEnded{
                         makeTravelOnJsonData()
                         if viewModel.postTravelOn(travelOnData: travelOnData) == 201 {
-                            viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 15, regionId: nil, sortBy: "DATE", withOpinions: false)
+                            viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 15, keyword: "", regionId: nil, sortBy: "DATE", withOpinions: false)
                         }
                     })
                 }
@@ -1081,22 +1081,16 @@ struct TravelOnWriteScreen: View {
                 .frame(height: 10)
             
             ZStack(alignment: .topLeading) {
-                TextField("", text: $viewModel.travelOnArray.description)
-                    .multilineTextAlignment(TextAlignment.leading)
-                    .font(.system(size: 12))
-                    .foregroundColor(Color("gray"))
-                    .frame(width: 350, height: 100)
+                Rectangle()
+                    .fill(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
+                    .frame(width: 360, height: 100)
                     .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color("mediumGray"), style: StrokeStyle(lineWidth: 1.0)))
-                    .background(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
                     .cornerRadius(10)
                 
-                if viewModel.travelOnArray.description == "" {
-                    Text("현지님이 원하시는 여행스타일, 취향을 말해주세요!")
-                        .padding()
-                        .font(.system(size: 12))
-                        .foregroundColor(Color("gray"))
-                }
-                
+                TextField("현지님이 원하시는 여행스타일, 취향을 말해주세요!", text: $viewModel.travelOnArray.description)
+                    .padding()
+                    .font(.system(size: 12))
+                    .foregroundColor(Color("gray"))
             }
             
         }

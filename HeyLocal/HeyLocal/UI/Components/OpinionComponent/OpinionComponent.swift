@@ -14,7 +14,6 @@ struct OpinionComponent: View {
     var body: some View {
         HStack(alignment: .top) {
             // TODO: 답변 사진으로 대체
-            
             if opinion.generalImgDownloadImgUrl.isEmpty {
                 Rectangle()
                     .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
