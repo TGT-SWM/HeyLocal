@@ -10,6 +10,7 @@ import SwiftUI
 // MARK: - PlaceDetailScreen (장소 상세 화면)
 
 struct PlaceDetailScreen: View {
+	@Environment(\.displayTabBar) var displayTabBar
 	var place: Place
 	@ObservedObject var vm: ViewModel
 	
@@ -33,10 +34,14 @@ struct PlaceDetailScreen: View {
 		.navigationBarBackButtonHidden(true)
 		.toolbar {
 			ToolbarItem(placement: .navigationBarLeading) {
-				BackButton()
+				BackButton { displayTabBar(true) }
 			}
 		}
 		.onAppear(perform: vm.fetchDetailInfo)
+		.onAppear {
+			vm.fetchDetailInfo()
+			displayTabBar(false)
+		}
     }
 }
 
