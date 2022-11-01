@@ -33,3 +33,9 @@ struct Auth: Decodable {
 		)
 	}
 }
+
+/// 토큰 데이터
+struct Token: Decodable {
+	var accessToken: String
+	var refreshToken: String
+}
