@@ -48,7 +48,7 @@ struct TravelOnWriteScreen: View {
                     }.simultaneousGesture(TapGesture().onEnded{
                         makeTravelOnJsonData()
                         if viewModel.postTravelOn(travelOnData: travelOnData) == 201 {
-                            viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 15, regionId: nil, sortBy: "DATE", withOpinions: false)
+                            viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 15, keyword: "", regionId: nil, sortBy: "DATE", withOpinions: false)
                         }
                     })
                 }

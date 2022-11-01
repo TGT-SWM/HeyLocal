@@ -13,8 +13,8 @@ struct TravelOnService {
     private var travelOnRepository = TravelOnRepository()
     
     // 전체 여행On 조회
-    func getTravelOnLists(lastItemId: Int?, pageSize: Int, regionId: Int?, sortBy: String, withOpinions: Bool?) -> AnyPublisher<[TravelOn], Error> {
-        return travelOnRepository.getTravelOnLists(lastItemId: lastItemId, pageSize: pageSize, regionId: regionId, sortBy: sortBy, withOpinions: withOpinions)
+    func getTravelOnLists(lastItemId: Int?, pageSize: Int, keyword: String?, regionId: Int?, sortBy: String, withOpinions: Bool?) -> AnyPublisher<[TravelOn], Error> {
+        return travelOnRepository.getTravelOnLists(lastItemId: lastItemId, pageSize: pageSize, keyword: keyword, regionId: regionId, sortBy: sortBy, withOpinions: withOpinions)
     }
     
     // 여행On 상세 조회

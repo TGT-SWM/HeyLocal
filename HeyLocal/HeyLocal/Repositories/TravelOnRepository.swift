@@ -16,7 +16,7 @@ struct TravelOnRepository {
     private let travelonUrl =  "\(Config.apiURL)/travel-ons"
     
     // 전체 여행On 조회 API
-    func getTravelOnLists(lastItemId: Int?, pageSize: Int, regionId: Int?, sortBy: String, withOpinions: Bool?) -> AnyPublisher<[TravelOn], Error> {
+    func getTravelOnLists(lastItemId: Int?, pageSize: Int, keyword: String?, regionId: Int?, sortBy: String, withOpinions: Bool?) -> AnyPublisher<[TravelOn], Error> {
         var components = URLComponents(string: travelonUrl)
         var queryItem: [URLQueryItem] = []
         
@@ -39,6 +39,12 @@ struct TravelOnRepository {
             queryItem.append(regionId)
         } else {
             
+        }
+        
+        if let keyword = keyword {
+            print(keyword)
+            let keyword = URLQueryItem(name: "keyword", value: "\(keyword)")
+            queryItem.append(keyword)
         }
         
         let sortBy = URLQueryItem(name: "sortBy", value: sortBy)
@@ -115,7 +121,7 @@ struct TravelOnRepository {
             httpResponseStatusCode = httpResponse.statusCode
         
             if httpResponse.statusCode == 201 {
-                self.getTravelOnLists(lastItemId: nil, pageSize: 15, regionId: nil, sortBy: "DATE", withOpinions: false)
+                self.getTravelOnLists(lastItemId: nil, pageSize: 15, keyword: "", regionId: nil, sortBy: "DATE", withOpinions: false)
             } else {
                 print(error)
                 return
@@ -186,7 +192,7 @@ struct TravelOnRepository {
             }
 //        
             if httpResponse.statusCode == 201 {
-                self.getTravelOnLists(lastItemId: nil, pageSize: 15, regionId: nil, sortBy: "DATE", withOpinions: false)
+                self.getTravelOnLists(lastItemId: nil, pageSize: 15, keyword: nil, regionId: nil, sortBy: "DATE", withOpinions: false)
             } else {
                 print(error)
                 return
