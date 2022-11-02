@@ -36,6 +36,8 @@ struct TravelOnWriteScreen: View {
                     }.simultaneousGesture(TapGesture().onEnded{
                         makeTravelOnJsonData()
                         viewModel.updateTravelOn(travelOnId: travelOnID!, travelOnData: travelOnData)
+                        viewModel.fetchTravelOn(travelOnId: travelOnID!)
+                        dismiss()
                     })
                 }
                 else {
@@ -48,8 +50,9 @@ struct TravelOnWriteScreen: View {
                     }.simultaneousGesture(TapGesture().onEnded{
                         makeTravelOnJsonData()
                         if viewModel.postTravelOn(travelOnData: travelOnData) == 201 {
-                            viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 15, keyword: "", regionId: nil, sortBy: "DATE", withOpinions: false)
+                            viewModel.fetchTravelOnList(keyword: "", regionId: nil, sortBy: "DATE", withOpinions: false)
                         }
+                        dismiss()
                     })
                 }
             }

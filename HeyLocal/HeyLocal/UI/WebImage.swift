@@ -44,7 +44,7 @@ class ImageLoader: ObservableObject {
     }
 }
 
-struct ImageView_Previews: PreviewProvider {
+struct WebImageView_Previews: PreviewProvider {
     static var previews: some View {
         WebImage(url: "https://www.apple.com/ac/structured-data/images/knowledge_graph_logo.png")
     }

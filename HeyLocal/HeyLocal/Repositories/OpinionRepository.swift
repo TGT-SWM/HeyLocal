@@ -210,6 +210,7 @@ struct OpinionRepository {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
         
+        /// AuthManager.shared.
         request.httpBody = jsonData
         var httpResponseStatusCode: Int = 0
         let task = URLSession.shared.dataTask(with: request) { data, response, error in

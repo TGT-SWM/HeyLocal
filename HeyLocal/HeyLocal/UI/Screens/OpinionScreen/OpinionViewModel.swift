@@ -22,6 +22,11 @@ extension OpinionComponent {
         @Published var opinions: [Opinion]
         @Published var opinion: Opinion
         
+        // 페이징
+        @Published var lastItemId: Int?
+        @Published var isEnd: Bool = false
+        let pageSize = 15
+        
         // 공통 질문
         @Published var cleanArray: [Bool] = [false, false, false, false, false]
         @Published var costArray: [Bool] = [false, false, false, false, false]
