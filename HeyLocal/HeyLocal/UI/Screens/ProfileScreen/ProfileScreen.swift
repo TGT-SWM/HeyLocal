@@ -11,34 +11,34 @@ import SwiftUI
 struct ProfileScreen: View {
     @Environment(\.displayTabBar) var displayTabBar
     @State private var selectedTab: Int = 0
-    var showingTabBar: Bool = true
     
     let tabs: [String] = ["내가 쓴 여행On", "내 답변"]
     let otherTabs: [String] = ["작성한 여행On", "답변 목록"]
+    let userId: Int
     
     @StateObject var viewModel = ViewModel()
     var body: some View {
         NavigationView {
             VStack {
-                UserComponent()
+                UserComponent(userId: self.userId)
                     .padding(EdgeInsets(top: 20, leading: 0, bottom: 0, trailing: 0))
                 
                 GeometryReader { geo in
                     VStack {
                         /// 내 프로필
-                        if showingTabBar {
+                        
+                        if userId == AuthManager.shared.authorized!.id {
                             TopTabs(tabs: tabs, geoWidth: geo.size.width, selectedTab: $selectedTab)
                         }
-                        /// 상대방 프로필
                         else {
                             TopTabs(tabs: otherTabs, geoWidth: geo.size.width, selectedTab: $selectedTab)
                         }
                         
                         TabView(selection: $selectedTab, content: {
-                            UserTravelOn()
+                            UserTravelOn(userId: self.userId)
                                 .tag(0)
                             
-                            UserOpinion()
+                            UserOpinion(userId: self.userId)
                                 .tag(1)
                         })
                         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
@@ -47,7 +47,12 @@ struct ProfileScreen: View {
                 .ignoresSafeArea()
             }
             .onAppear {
-                displayTabBar(showingTabBar)
+                if userId == AuthManager.shared.authorized!.id {
+                    displayTabBar(true)
+                }
+                else {
+                    displayTabBar(false)
+                }
             }
             .navigationBarTitle("", displayMode: .automatic)
             .navigationBarHidden(true)
@@ -57,6 +62,7 @@ struct ProfileScreen: View {
 
 struct UserTravelOn: View {
     @StateObject var viewModel = ProfileScreen.ViewModel()
+    let userId: Int
     var body: some View {
         ScrollView {
             LazyVStack {
@@ -70,18 +76,19 @@ struct UserTravelOn: View {
                 if !viewModel.travelOnisEnd {
                     ProgressView()
                         .onAppear {
-                            viewModel.fetchTravelOns()
+                            viewModel.fetchTravelOns(userId: userId)
                         }
                 }
             }
         }
         .onAppear {
-            viewModel.fetchTravelOns()
+            viewModel.fetchTravelOns(userId: userId)
         }
     }
 }
 
 struct UserComponent: View {
+    let userId: Int
     @StateObject var viewModel = ProfileScreen.ViewModel()
     
     var body: some View {
@@ -140,50 +147,57 @@ struct UserComponent: View {
                         }
                     }
                     
-                    
-                    HStack{
-                        Spacer()
-                        
-                        VStack(alignment: .trailing) {
-                            // 프로필 설정화면으로 이동
-                            NavigationLink(destination: ProfileSettingScreen()) {
-                                Image("ios-settings")
-                                    .resizable()
-                                    .frame(width: 21, height: 21)
-                            }
-                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
-                            
+                    if userId == AuthManager.shared.authorized!.id {
+                        HStack{
                             Spacer()
                             
-                            // 프로필 수정화면으로 이동
-                            NavigationLink(destination: ProfileReviseScreen()) {
-                                HStack {
-                                    Image("edit-pencil_yellow")
+                            VStack(alignment: .trailing) {
+                                // 프로필 설정화면으로 이동
+                                NavigationLink(destination: ProfileSettingScreen()) {
+                                    Image("ios-settings")
                                         .resizable()
-                                        .frame(width: 16, height: 16)
-                                    
-                                    Spacer()
-                                        .frame(width: 2)
-                                    
-                                    Text("편집하기")
-                                        .underline()
-                                        .font(.system(size: 12))
-                                        .foregroundColor(Color("orange"))
+                                        .frame(width: 21, height: 21)
                                 }
+                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
+                                
+                                Spacer()
+                                
+                                // 프로필 수정화면으로 이동
+                                NavigationLink(destination: ProfileReviseScreen()) {
+                                    HStack {
+                                        Image("edit-pencil_yellow")
+                                            .resizable()
+                                            .frame(width: 16, height: 16)
+                                        
+                                        Spacer()
+                                            .frame(width: 2)
+                                        
+                                        Text("편집하기")
+                                            .underline()
+                                            .font(.system(size: 12))
+                                            .foregroundColor(Color("orange"))
+                                    }
+                                }
+                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
                             }
-                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
+                            
                         }
-                        
+                        .padding()
                     }
-                    .padding()
                 }
                 .frame(height: 96)
                 
                 Spacer()
                     .frame(height: 15)
                 
-                Text("\(regionNameFormatter(region: viewModel.author.activityRegion!))")
-                    .font(.system(size: 12))
+                if viewModel.author.activityRegion != nil {
+                    Text("\(regionNameFormatter(region: viewModel.author.activityRegion!))")
+                        .font(.system(size: 12))
+                }
+//                else {
+//                    Text("주 활동지역 없음")
+//                        .font(.system(size: 12))
+//                }
                 
                 Spacer()
                     .frame(height: 3)
@@ -192,10 +206,17 @@ struct UserComponent: View {
                     .font(.system(size: 16))
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 0))
                 
-                Text("\(viewModel.author.introduce!)")
-                    .font(.system(size: 12))
-                    .foregroundColor(Color("gray"))
-                
+                if viewModel.author.introduce != nil {
+                    Text("\(viewModel.author.introduce!)")
+                        .font(.system(size: 12))
+                        .foregroundColor(Color("gray"))
+                }
+//                else {
+//                    Text("자기소개 없음")
+//                        .font(.system(size: 12))
+//                        .foregroundColor(Color("gray"))
+//                }
+//                
                 Spacer()
                     .frame(height: 30)
             }
@@ -209,9 +230,17 @@ struct UserComponent: View {
                             .font(.system(size: 16))
                             .padding(EdgeInsets(top: 0, leading: 0, bottom: 2, trailing: 0))
                         
-                        Text("내 노하우")
-                            .font(.system(size: 12))
-                            .foregroundColor(Color("gray"))
+                        
+                        if userId == AuthManager.shared.authorized!.id {
+                            Text("내 노하우")
+                                .font(.system(size: 12))
+                                .foregroundColor(Color("gray"))
+                        }
+                        else {
+                            Text("노하우")
+                                .font(.system(size: 12))
+                                .foregroundColor(Color("gray"))
+                        }
                     }
                     
                     Spacer()
@@ -222,9 +251,16 @@ struct UserComponent: View {
                             .font(.system(size: 16))
                             .padding(EdgeInsets(top: 0, leading: 0, bottom: 2, trailing: 0))
                         
-                        Text("내 랭킹")
-                            .font(.system(size: 12))
-                            .foregroundColor(Color("gray"))
+                        if userId == AuthManager.shared.authorized!.id {
+                            Text("내 랭킹")
+                                .font(.system(size: 12))
+                                .foregroundColor(Color("gray"))
+                        }
+                        else {
+                            Text("랭킹")
+                                .font(.system(size: 12))
+                                .foregroundColor(Color("gray"))
+                        }
                     }
                     
                     Spacer()
@@ -244,27 +280,47 @@ struct UserComponent: View {
             }
         }
         .onAppear {
-            viewModel.getUserProfile(userId: 2)
+            viewModel.getUserProfile(userId: userId)
         }
     }
 }
 
 struct UserOpinion: View {
+    let userId: Int
     @StateObject var viewModel = ProfileScreen.ViewModel()
+    
     var body: some View {
         ScrollView {
             LazyVStack {
                 ForEach(viewModel.opinions) { opinion in
                     NavigationLink(destination: OpinionDetailScreen(travelOnId: opinion.travelOnId!, opinionId: opinion.id)) {
-                        OpinionComponent(opinion: opinion)
-                            .padding(EdgeInsets(top: 0, leading: 10, bottom: 5, trailing: 10))
+                        ZStack(alignment: .bottomTrailing) {
+                            OpinionComponent(opinion: opinion)
+                                .padding(EdgeInsets(top: 0, leading: 10, bottom: 5, trailing: 10))
+                            
+                            // 다른 사람 프로필이라면, 채택 버튼 추가
+                            if userId != AuthManager.shared.authorized!.id {
+                                NavigationLink(destination: EmptyView()) {
+                                    ZStack {
+                                        RoundedRectangle(cornerRadius: 100)
+                                            .fill(Color("orange"))
+                                            .frame(width: 80, height: 32)
+                                        
+                                        Text("플랜에 추가")
+                                            .font(.system(size: 12))
+                                            .foregroundColor(.white)
+                                    }
+                                    .padding()
+                                }
+                            }
+                        }
                     }
                 }
                 
                 if !viewModel.opinionIsEnd {
                     ProgressView()
                         .onAppear {
-                            viewModel.fetchOpinions()
+                            viewModel.fetchOpinions(userId: userId)
                         }
                 }
             }
@@ -273,13 +329,7 @@ struct UserOpinion: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .onAppear {
-            viewModel.fetchOpinions()
+            viewModel.fetchOpinions(userId: userId)
         }
-    }
-}
-
-struct ProfileScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileScreen()
     }
 }

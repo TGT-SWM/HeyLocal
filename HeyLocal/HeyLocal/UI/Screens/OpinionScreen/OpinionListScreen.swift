@@ -19,17 +19,20 @@ struct OpinionListScreen: View {
                         OpinionComponent(opinion: opinion)
                     }
                     
-					NavigationLink(destination: PlanSelectScreen(opinionId: opinion.id)) {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 100)
-                                .fill(Color("orange"))
-                                .frame(width: 80, height: 32)
-                            
-                            Text("플랜에 추가")
-                                .font(.system(size: 12))
-                                .foregroundColor(Color.white)
+                    // 다른 사람이 작성한 플랜에서만, ~
+                    if opinion.author.id != AuthManager.shared.authorized!.id {
+                        NavigationLink(destination: PlanSelectScreen(opinionId: opinion.id)) {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 100)
+                                    .fill(Color("orange"))
+                                    .frame(width: 80, height: 32)
+                                
+                                Text("플랜에 추가")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(Color.white)
+                            }
+                            .padding()
                         }
-                        .padding()
                     }
                 }
             }

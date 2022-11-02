@@ -50,7 +50,7 @@ struct ProfileReviseScreen: View {
                     isDeleted = false
                 }
                 
-                viewModel.updateUserProfile(userId: 2, userData: updateData, profileImage: userImage, isDeleted: isDeleted)
+                viewModel.updateUserProfile(userId: AuthManager.shared.authorized!.id, userData: updateData, profileImage: userImage, isDeleted: isDeleted)
                 dismiss()
             }) {
                 ZStack {
@@ -67,7 +67,7 @@ struct ProfileReviseScreen: View {
             }
         }
         .onAppear {
-            viewModel.getUserProfile(userId: 2)
+            viewModel.getUserProfile(userId: AuthManager.shared.authorized!.id)
             displayTabBar(false)
         }
         .navigationTitle("프로필 편집")
