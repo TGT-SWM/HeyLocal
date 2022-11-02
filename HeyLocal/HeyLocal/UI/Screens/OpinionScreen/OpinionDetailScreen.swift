@@ -101,6 +101,13 @@ struct OpinionDetailScreen: View {
                             .frame(width: 3)
                         
                         Text("\(viewModel.opinion.place.roadAddress)")
+                        
+                        Spacer()
+                        
+                        // 작성일
+                        let printDate = viewModel.opinion.createdDate.components(separatedBy: "T")
+                        let yyyyMMdd = printDate[0].components(separatedBy: "-")
+                        Text("\(yyyyMMdd[0]).\(yyyyMMdd[1]).\(yyyyMMdd[2])")
                     }
                     .foregroundColor(Color("gray"))
                     .font(.system(size: 12))
@@ -162,6 +169,13 @@ struct OpinionDetailScreen: View {
                                 .frame(width: 3)
                             
                             Text("\(viewModel.opinion.place.roadAddress)")
+                            
+                            Spacer()
+                            
+                            // 작성일
+                            let printDate = viewModel.opinion.createdDate.components(separatedBy: "T")
+                            let yyyyMMdd = printDate[0].components(separatedBy: "-")
+                            Text("\(yyyyMMdd[0]).\(yyyyMMdd[1]).\(yyyyMMdd[2])")
                         }
                         .font(.system(size: 12))
                         .padding(EdgeInsets(top: 0, leading: 20, bottom: 20, trailing: 20))

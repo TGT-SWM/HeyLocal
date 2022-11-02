@@ -82,22 +82,22 @@ struct TravelOnDetailScreen: View {
                 HStack {
                     let printDate = viewModel.travelOn.createdDateTime.components(separatedBy: "T")
                     let yyyyMMdd = printDate[0].components(separatedBy: "-")
-                    Text("\(yyyyMMdd[0]).\(yyyyMMdd[1]).\(yyyyMMdd[2])")
-                    
-                    Spacer()
-                        .frame(width: 10)
                     
                     HStack {
                         Image("location")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 16)
+                            .frame(width: 13)
                         
                         Spacer()
                             .frame(width: 3)
                         
                         Text("\(regionNameFormatter(region: viewModel.travelOn.region))")
                     }
+                    
+                    Spacer()
+                    
+                    Text("\(yyyyMMdd[0]).\(yyyyMMdd[1]).\(yyyyMMdd[2])")
                 }
                 .foregroundColor(Color("gray"))
                 .font(.system(size: 12))
