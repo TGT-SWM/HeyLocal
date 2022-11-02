@@ -143,42 +143,43 @@ struct UserComponent: View {
                         }
                     }
                     
-                    
-                    HStack{
-                        Spacer()
-                        
-                        VStack(alignment: .trailing) {
-                            // 프로필 설정화면으로 이동
-                            NavigationLink(destination: ProfileSettingScreen()) {
-                                Image("ios-settings")
-                                    .resizable()
-                                    .frame(width: 21, height: 21)
-                            }
-                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
-                            
+                    if userId == AuthManager.shared.authorized!.id {
+                        HStack{
                             Spacer()
                             
-                            // 프로필 수정화면으로 이동
-                            NavigationLink(destination: ProfileReviseScreen()) {
-                                HStack {
-                                    Image("edit-pencil_yellow")
+                            VStack(alignment: .trailing) {
+                                // 프로필 설정화면으로 이동
+                                NavigationLink(destination: ProfileSettingScreen()) {
+                                    Image("ios-settings")
                                         .resizable()
-                                        .frame(width: 16, height: 16)
-                                    
-                                    Spacer()
-                                        .frame(width: 2)
-                                    
-                                    Text("편집하기")
-                                        .underline()
-                                        .font(.system(size: 12))
-                                        .foregroundColor(Color("orange"))
+                                        .frame(width: 21, height: 21)
                                 }
+                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
+                                
+                                Spacer()
+                                
+                                // 프로필 수정화면으로 이동
+                                NavigationLink(destination: ProfileReviseScreen()) {
+                                    HStack {
+                                        Image("edit-pencil_yellow")
+                                            .resizable()
+                                            .frame(width: 16, height: 16)
+                                        
+                                        Spacer()
+                                            .frame(width: 2)
+                                        
+                                        Text("편집하기")
+                                            .underline()
+                                            .font(.system(size: 12))
+                                            .foregroundColor(Color("orange"))
+                                    }
+                                }
+                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
                             }
-                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
+                            
                         }
-                        
+                        .padding()
                     }
-                    .padding()
                 }
                 .frame(height: 96)
                 
