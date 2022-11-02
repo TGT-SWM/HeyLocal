@@ -17,6 +17,7 @@ struct OpinionDetailScreen: View {
     // Navigation Bar Item : 수정·삭제 ActionSheet 보기
     @State var showingSheet = false
     @State var showingAlert = false
+    @State var showingReportAlert = false
     @State var navigationLinkActive = false
 
     
@@ -68,8 +69,7 @@ struct OpinionDetailScreen: View {
         .navigationTitle("답변 상세")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: BackButton { displayTabBar(true) },
-                            trailing: MoreButton(showingSheet: $showingSheet, showingAlert: $showingAlert, navigationLinkActive: $navigationLinkActive))
+        .navigationBarItems(leading: BackButton())
     }
     
     var opinionInfo: some View {
@@ -85,7 +85,40 @@ struct OpinionDetailScreen: View {
                         
                         Spacer()
                         
-                        // TODO: 수정 · 삭제 버튼
+                        /// 자신이 작성한 답변일 시,
+                        if viewModel.opinion.author.id == AuthManager.shared.authorized!.id {
+                            HStack {
+                                Button(action: {
+                                    navigationLinkActive = true
+                                }) {
+                                    Text("수정")
+                                }
+                                
+                                Button(action: {
+                                    showingAlert.toggle()
+                                }) {
+                                    Text("삭제")
+                                }
+                            }
+                            .foregroundColor(Color("gray"))
+                            .font(.system(size: 14))
+                        }
+                        /// 다른 사람이 작성한 답변일 시,
+                        else {
+                            Button(action: {
+                                showingReportAlert.toggle()
+                            }) {
+                                Text("신고")
+                                    .foregroundColor(Color("gray"))
+                                    .font(.system(size: 14))
+                            }
+                            .alert(isPresented: $showingReportAlert) {
+                                Alert(title: Text("답변 신고"),
+                                      message: Text("해당 답변을 신고할까요?"),
+                                      primaryButton: .destructive(Text("신고"), action: {}),
+                                      secondaryButton: .cancel(Text("취소")))
+                            }
+                        }
                     }
                     
                     Spacer()
@@ -135,16 +168,60 @@ struct OpinionDetailScreen: View {
                                         }
                                     }
                                     
+                                    /// 검은막
                                     Rectangle()
                                         .fill(.black)
                                         .aspectRatio(contentMode: .fill)
                                         .frame(width: ScreenSize.width)
                                         .opacity(0.3)
                                     
-                                    Text("\(idx + 1)/\(viewModel.opinion.generalImgDownloadImgUrl.count)")
-                                        .foregroundColor(.white)
-                                        .font(.system(size: 12))
-                                        .padding()
+
+                                    /// 사진 갯수
+                                    HStack {
+                                        Text("\(idx + 1)/\(viewModel.opinion.generalImgDownloadImgUrl.count)")
+                                            .foregroundColor(.white)
+                                            .font(.system(size: 12))
+                                            .padding()
+                                    }
+                                    
+                                    HStack {
+                                        Spacer()
+                                        
+                                        if viewModel.opinion.author.id == AuthManager.shared.authorized!.id {
+                                            HStack {
+                                                Button(action: {
+                                                    navigationLinkActive = true
+                                                }) {
+                                                    Text("수정")
+                                                }
+                                                
+                                                Button(action: {
+                                                    showingAlert.toggle()
+                                                }) {
+                                                    Text("삭제")
+                                                }
+                                            }
+                                            .padding()
+                                            .foregroundColor(.white)
+                                            .font(.system(size: 14))
+                                        }
+                                        else {
+                                            Button(action: {
+                                                showingReportAlert.toggle()
+                                            }) {
+                                                Text("신고")
+                                                    .padding()
+                                                    .foregroundColor(.white)
+                                                    .font(.system(size: 14))
+                                            }
+                                            .alert(isPresented: $showingReportAlert) {
+                                                Alert(title: Text("답변 신고"),
+                                                      message: Text("해당 답변을 신고할까요?"),
+                                                      primaryButton: .destructive(Text("신고"), action: {}),
+                                                      secondaryButton: .cancel(Text("취소")))
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
