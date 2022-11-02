@@ -664,12 +664,26 @@ struct OpinionDetailScreen: View {
     // MARK: - '숙박' 답변
     var accommodation: some View {
         VStack(alignment: .leading) {
-            // 주변
-            VStack(alignment: .leading) {
-                HStack(alignment: .center) {
+            HStack(alignment: .firstTextBaseline) {
+                
+                /// 질문
+                VStack(alignment: .leading) {
                     Text("주변이 시끄럽나요?")
-                        .font(.system(size: 14))
+                    Spacer()
+                        .frame(height: 35)
                     
+                    Text("방음이 잘되나요?")
+                    Spacer()
+                        .frame(height: 35)
+                    
+                    Text("조식이 나오나요?")
+                }
+                .font(.system(size: 14))
+                
+                Spacer()
+                
+                /// 별점
+                VStack(alignment: .leading) {
                     VStack(alignment: .leading) {
                         HStack(alignment: .center) {
                             ForEach(viewModel.noise, id:\.self) { noise in
@@ -696,14 +710,7 @@ struct OpinionDetailScreen: View {
                             .foregroundColor(Color("orange"))
                     }
                     .font(.system(size: 12))
-                }
-            }
-            
-            // 방음
-            VStack(alignment: .leading) {
-                HStack(alignment: .center) {
-                    Text("방음이 잘되나요?")
-                        .font(.system(size: 14))
+                    
                     
                     VStack(alignment: .leading) {
                         HStack(alignment: .center) {
@@ -731,20 +738,105 @@ struct OpinionDetailScreen: View {
                             .foregroundColor(Color("orange"))
                     }
                     .font(.system(size: 12))
+                    
+                    Spacer()
+                    
+                    Text(viewModel.opinion.hasBreakFast! ? "조식이 나와요." : "조식은 없어요.")
+                        .font(.system(size: 14))
+                    
                 }
             }
             
-            // 조식
-            VStack(alignment: .leading) {
-                HStack(alignment: .center) {
-                    Text("조식이 나오나요?")
-                        .font(.system(size: 14))
-                    
-                    Text(viewModel.opinion.hasBreakFast! ? "조식이 나와요" : "조식은 없어요")
-                        .font(.system(size: 12))
-                }
-            }
+//            // 주변
+//            VStack(alignment: .leading) {
+//                HStack(alignment: .center) {
+//                    Text("주변이 시끄럽나요?")
+//                        .font(.system(size: 14))
+//
+//                    Spacer()
+//
+//                    VStack(alignment: .leading) {
+//                        HStack(alignment: .center) {
+//                            ForEach(viewModel.noise, id:\.self) { noise in
+//                                if noise {
+//                                    Image("star_yellow")
+//                                        .resizable()
+//                                        .frame(width: 22, height: 22)
+//                                }
+//                                else {
+//                                    Image("star-outline")
+//                                        .resizable()
+//                                        .frame(width: 22, height: 22)
+//                                }
+//                            }
+//
+//                            Spacer()
+//                                .frame(width: 3)
+//
+//                            Text("(\(viewModel.noiseInt)/5)")
+//                                .foregroundColor(Color("gray"))
+//                        }
+//
+//                        Text("\(noiseToString(noise: viewModel.opinion.streetNoise!))")
+//                            .foregroundColor(Color("orange"))
+//                    }
+//                    .font(.system(size: 12))
+//                }
+//            }
+//
+//            // 방음
+//            VStack(alignment: .leading) {
+//                HStack(alignment: .center) {
+//                    Text("방음이 잘되나요?")
+//                        .font(.system(size: 14))
+//
+//                    Spacer()
+//
+//                    VStack(alignment: .leading) {
+//                        HStack(alignment: .center) {
+//                            ForEach(viewModel.deafening, id:\.self) { deafening in
+//                                if deafening {
+//                                    Image("star_yellow")
+//                                        .resizable()
+//                                        .frame(width: 22, height: 22)
+//                                }
+//                                else {
+//                                    Image("star-outline")
+//                                        .resizable()
+//                                        .frame(width: 22, height: 22)
+//                                }
+//                            }
+//
+//                            Spacer()
+//                                .frame(width: 3)
+//
+//                            Text("(\(viewModel.deafeningInt)/5)")
+//                                .foregroundColor(Color("gray"))
+//                        }
+//
+//                        Text("\(deafeningToString(deafening: viewModel.opinion.deafening!))")
+//                            .foregroundColor(Color("orange"))
+//                    }
+//                    .font(.system(size: 12))
+//                }
+//            }
+//
+//            // 조식
+//            VStack(alignment: .leading) {
+//                HStack(alignment: .center) {
+//                    Text("조식이 나오나요?")
+//                        .font(.system(size: 14))
+//
+//                    Spacer()
+//
+//                    HStack {
+//                        Text(viewModel.opinion.hasBreakFast! ? "조식이 나와요." : "조식은 없어요.")
+//                            .font(.system(size: 12))
+//                    }
+//                }
+//            }
         }
+        .padding()
     }
     
     // MARK: - 5점척도 to String
