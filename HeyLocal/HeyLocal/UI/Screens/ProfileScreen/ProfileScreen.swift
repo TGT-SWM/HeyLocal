@@ -290,8 +290,26 @@ struct UserOpinion: View {
             LazyVStack {
                 ForEach(viewModel.opinions) { opinion in
                     NavigationLink(destination: OpinionDetailScreen(travelOnId: opinion.travelOnId!, opinionId: opinion.id)) {
-                        OpinionComponent(opinion: opinion)
-                            .padding(EdgeInsets(top: 0, leading: 10, bottom: 5, trailing: 10))
+                        ZStack(alignment: .bottomTrailing) {
+                            OpinionComponent(opinion: opinion)
+                                .padding(EdgeInsets(top: 0, leading: 10, bottom: 5, trailing: 10))
+                            
+                            // 다른 사람 프로필이라면, 채택 버튼 추가
+                            if userId != AuthManager.shared.authorized!.id {
+                                NavigationLink(destination: EmptyView()) {
+                                    ZStack {
+                                        RoundedRectangle(cornerRadius: 100)
+                                            .fill(Color("orange"))
+                                            .frame(width: 80, height: 32)
+                                        
+                                        Text("플랜에 추가")
+                                            .font(.system(size: 12))
+                                            .foregroundColor(.white)
+                                    }
+                                    .padding()
+                                }
+                            }
+                        }
                     }
                 }
                 
