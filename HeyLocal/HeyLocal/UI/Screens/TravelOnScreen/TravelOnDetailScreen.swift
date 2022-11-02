@@ -16,6 +16,7 @@ struct TravelOnDetailScreen: View {
     
     @State var showingSheet = false
     @State var showingAlert = false
+    @State var showingReportAlert = false
     @State var navigationLinkActive = false
     
     var body: some View {
@@ -39,6 +40,12 @@ struct TravelOnDetailScreen: View {
                     .frame(height: 8)
                 
                 opinions
+                    .alert(isPresented: $showingReportAlert) {
+                        Alert(title: Text("여행On 신고"),
+                              message: Text("해당 여행On을 신고할까요?"),
+                              primaryButton: .destructive(Text("신고"), action: {}),
+                              secondaryButton: .cancel(Text("취소")))
+                    }
             }
 
 //            // 삭제 Alert
@@ -53,6 +60,7 @@ struct TravelOnDetailScreen: View {
                     viewModel.deleteTravelOn(travelOnId: viewModel.travelOn.id) },
                             destinationView: AnyView(TravelOnListScreen()))
             }
+            
         }
         .background(Color("lightGray"))
         .onAppear {
@@ -63,7 +71,11 @@ struct TravelOnDetailScreen: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: BackButton { displayTabBar(true) },
-                            trailing: MoreButton(showingSheet: $showingSheet, showingAlert: $showingAlert, navigationLinkActive: $navigationLinkActive))
+                            trailing: MoreButton(showingSheet: $showingSheet,
+                                                 showingAlert: $showingAlert,
+                                                 showingReportAlert: $showingReportAlert,
+                                                 navigationLinkActive: $navigationLinkActive,
+                                                 authId: viewModel.travelOn.author.id))
     }
     
     
