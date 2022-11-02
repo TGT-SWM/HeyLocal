@@ -19,7 +19,7 @@ struct SearchBar: View {
     var body: some View {
         ZStack(alignment: .trailing) {
             TextField(placeholder, text: $searchText)
-                .frame(width: 350, height: 36)
+                .frame(width: 340, height: 36)
                 .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), style: StrokeStyle(lineWidth: 1.0)))
                 .background(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
                 .cornerRadius(10)

@@ -72,6 +72,7 @@ struct TravelOnRepository {
         return agent.run(request)
     }
     
+    
     // 여행On 상세 조회 API
     func getTravelOn(travelOnId: Int) -> AnyPublisher<TravelOn, Error> {
         // URLRequest 객체 생성

@@ -17,18 +17,22 @@ extension TravelOnListScreen {
         @Published var travelOnArray: TravelOnArray
         @Published var region: Region
         
+        
+        // 페이징 관련 변수
+        @Published var lastItemId: Int?
+        @Published var isEnd = false
         let pageSize = 15
         
         var cancellable: AnyCancellable?
         init() {
             self.travelOn = TravelOn()
-            self.travelOns = [TravelOn()]
+            self.travelOns = [TravelOn]()
             self.travelOnArray = TravelOnArray()
             self.region = Region()
         }
         
         // Travel On 전체 목록
-        func fetchTravelOnList(lastItemId: Int?, pageSize: Int, keyword: String, regionId: Int?, sortBy: String, withOpinions: Bool) {
+        func fetchTravelOnList(keyword: String, regionId: Int?, sortBy: String, withOpinions: Bool) {
             // withOpinions -> nil 확인
             var withOpinion: Bool? = nil
             if withOpinions == true {
@@ -40,11 +44,42 @@ extension TravelOnListScreen {
                 query = keyword
             }
             
+            /// binding해서 isEnd, lastItemId
             cancellable = travelOnService.getTravelOnLists(lastItemId: lastItemId, pageSize: pageSize, keyword: query, regionId: regionId, sortBy: sortBy, withOpinions: withOpinion)
                 .sink(receiveCompletion: { _ in
                 }, receiveValue: { travelOns in
                     self.travelOns = travelOns
                 })
+        }
+        
+        // 여행On 전체목록 삭제
+        func removeTravelOns() {
+            self.isEnd = false
+            self.lastItemId = nil
+            self.travelOns.removeAll()
+        }
+        
+        // 여행On 전체 목록 with 페이징
+        func fetchTravelOns(keyword: String, regionId: Int?, sortBy: String, withOpinions: Bool) {
+            // withOpinions -> nil 확인
+            var withOpinion: Bool? = nil
+            if withOpinions == true {
+                withOpinion = true
+            }
+            
+            var query: String? = nil
+            if keyword != "" {
+                query = keyword
+            }
+            
+            travelOnService.getTravelOns(lastItemId: bind(\.lastItemId),
+                                         pageSize: pageSize,
+                                         keyword: query,
+                                         regionId: regionId,
+                                         sortBy: sortBy,
+                                         withOpinions: withOpinion,
+                                         isEnd: bind(\.isEnd),
+                                         travelOns: bind(\.travelOns))
         }
         
         // Travel On 상세조회

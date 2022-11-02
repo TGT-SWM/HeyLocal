@@ -18,8 +18,6 @@ struct TravelOnListScreen: View {
     @State var regionId: Int? = nil
     @State var withOpinions = false
     @State var keyword: String = ""
-    
-    
     @State var selectedRegion: String = "지역별"
     enum SortType: String, CaseIterable, Identifiable {
         case byDate = "DATE"
@@ -36,7 +34,8 @@ struct TravelOnListScreen: View {
                 SearchBar(placeholder: "", searchText: $keyword)
                     .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 0))
                     .onChange(of: keyword, perform: { value in
-                        viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 15, keyword: value, regionId: regionId, sortBy: sortBy.rawValue, withOpinions: withOpinions)
+                        viewModel.removeTravelOns()
+                        viewModel.fetchTravelOns(keyword: value, regionId: regionId, sortBy: sortBy.rawValue, withOpinions: withOpinions)
                     })
                     
                 sortType
@@ -61,7 +60,8 @@ struct TravelOnListScreen: View {
             .navigationBarHidden(true)
             .navigationViewStyle(StackNavigationViewStyle())
             .onAppear {
-                viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 15, keyword: keyword, regionId: regionId, sortBy: sortBy.rawValue, withOpinions: withOpinions)
+                viewModel.removeTravelOns()
+                viewModel.fetchTravelOns(keyword: keyword, regionId: regionId, sortBy: sortBy.rawValue, withOpinions: withOpinions)
                 displayTabBar(true)
             }
         }
@@ -124,7 +124,8 @@ struct TravelOnListScreen: View {
                     }.id(sortBy)
                 }
                 .onChange(of: sortBy, perform: { value in
-                    viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 15, keyword: keyword, regionId: regionId, sortBy: value.rawValue, withOpinions: withOpinions)
+                    viewModel.removeTravelOns()
+                    viewModel.fetchTravelOns(keyword: keyword, regionId: regionId, sortBy: value.rawValue, withOpinions: withOpinions)
                 })
                 
                 Spacer()
@@ -156,7 +157,9 @@ struct TravelOnListScreen: View {
                     }
                 }
                 .onChange(of: regionId, perform: { value in
-                    viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 15, keyword: keyword, regionId: value, sortBy: sortBy.rawValue, withOpinions: withOpinions)
+                    viewModel.removeTravelOns()
+                    viewModel.fetchTravelOns(keyword: keyword, regionId: value, sortBy: sortBy.rawValue, withOpinions: withOpinions)
+                    
                     if value != nil {
                         regionViewModel.getRegion(regionId: value!)
                     }
@@ -172,7 +175,8 @@ struct TravelOnListScreen: View {
                     .foregroundColor(Color(red: 117/255, green: 118/255, blue: 121/255))
                     .toggleStyle(CustomToggleStyle())
                     .onChange(of: withOpinions, perform: { value in
-                        viewModel.fetchTravelOnList(lastItemId: nil, pageSize: 15, keyword: keyword, regionId: regionId, sortBy: sortBy.rawValue, withOpinions: value)
+                        viewModel.removeTravelOns()
+                        viewModel.fetchTravelOns(keyword: keyword, regionId: regionId, sortBy: sortBy.rawValue, withOpinions: value)
                     })
             }
         }
@@ -181,10 +185,19 @@ struct TravelOnListScreen: View {
     var content: some View {
         ScrollView {
             VStack {
-                ForEach(viewModel.travelOns) { travelOn in
-                    NavigationLink(destination: TravelOnDetailScreen(travelOnId: travelOn.id)){
-                        TravelOnComponent(travelOn: travelOn)
-                            .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+                LazyVStack {
+                    ForEach(viewModel.travelOns) { travelOn in
+                        NavigationLink(destination: TravelOnDetailScreen(travelOnId: travelOn.id)){
+                            TravelOnComponent(travelOn: travelOn)
+                                .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+                        }
+                    }
+                    
+                    if !viewModel.isEnd {
+                        ProgressView()
+                            .onAppear{
+                                viewModel.fetchTravelOns(keyword: keyword, regionId: regionId, sortBy: sortBy.rawValue, withOpinions: withOpinions)
+                            }
                     }
                 }
             }

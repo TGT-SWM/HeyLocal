@@ -17,7 +17,6 @@
 		A80B903A28CA0FFB0026866A /* ToggleButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B903928CA0FFB0026866A /* ToggleButtonStyle.swift */; };
 		A80B903C28CA105F0026866A /* TravelOnComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B903B28CA105F0026866A /* TravelOnComponent.swift */; };
 		A813CA2E28B4EE2B000F0ADF /* ScreenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A813CA2D28B4EE2B000F0ADF /* ScreenSize.swift */; };
-		A813CA3028B4F033000F0ADF /* SNSButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A813CA2F28B4F033000F0ADF /* SNSButtonStyle.swift */; };
 		A814DF7B28ED5D5500DBF383 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A814DF7A28ED5D5500DBF383 /* CustomAlert.swift */; };
 		A814DF7D28ED60B300DBF383 /* AlertCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A814DF7C28ED60B300DBF383 /* AlertCustomButton.swift */; };
 		A8212BB728F1E2FD00FD4063 /* OpinionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8212BB628F1E2FD00FD4063 /* OpinionComponent.swift */; };
@@ -34,7 +33,6 @@
 		A877D99C28F265F000527E21 /* OpinionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A877D99B28F265F000527E21 /* OpinionService.swift */; };
 		A877D99E28F2662100527E21 /* OpinionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A877D99D28F2662100527E21 /* OpinionRepository.swift */; };
 		A8794B2F28B4E93A00959D56 /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8794B2E28B4E93A00959D56 /* SignUpScreen.swift */; };
-		A8794B3128B4EB5900959D56 /* BasicButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8794B3028B4EB5900959D56 /* BasicButtonStyle.swift */; };
 		A87F6C9D28C099EE0076046E /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6C9C28C099EE0076046E /* ProfileScreen.swift */; };
 		A87F6C9F28C0A1050076046E /* TopTabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6C9E28C0A1050076046E /* TopTabs.swift */; };
 		A87F6CA228C0A22B0076046E /* RankingProfileComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87F6CA128C0A22B0076046E /* RankingProfileComponent.swift */; };
@@ -157,7 +155,6 @@
 		A80B903928CA0FFB0026866A /* ToggleButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleButtonStyle.swift; sourceTree = "<group>"; };
 		A80B903B28CA105F0026866A /* TravelOnComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOnComponent.swift; sourceTree = "<group>"; };
 		A813CA2D28B4EE2B000F0ADF /* ScreenSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSize.swift; sourceTree = "<group>"; };
-		A813CA2F28B4F033000F0ADF /* SNSButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNSButtonStyle.swift; sourceTree = "<group>"; };
 		A814DF7A28ED5D5500DBF383 /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
 		A814DF7C28ED60B300DBF383 /* AlertCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertCustomButton.swift; sourceTree = "<group>"; };
 		A8212BB628F1E2FD00FD4063 /* OpinionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionComponent.swift; sourceTree = "<group>"; };
@@ -175,7 +172,6 @@
 		A877D99B28F265F000527E21 /* OpinionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionService.swift; sourceTree = "<group>"; };
 		A877D99D28F2662100527E21 /* OpinionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionRepository.swift; sourceTree = "<group>"; };
 		A8794B2E28B4E93A00959D56 /* SignUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpScreen.swift; sourceTree = "<group>"; };
-		A8794B3028B4EB5900959D56 /* BasicButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicButtonStyle.swift; sourceTree = "<group>"; };
 		A87F6C9C28C099EE0076046E /* ProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
 		A87F6C9E28C0A1050076046E /* TopTabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTabs.swift; sourceTree = "<group>"; };
 		A87F6CA128C0A22B0076046E /* RankingProfileComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingProfileComponent.swift; sourceTree = "<group>"; };
@@ -643,9 +639,7 @@
 		EF8FF27028B4D1ED00C053B7 /* Styles */ = {
 			isa = PBXGroup;
 			children = (
-				A8794B3028B4EB5900959D56 /* BasicButtonStyle.swift */,
 				EFF223AF28F4A03E00E6781D /* FlatLinkStyle.swift */,
-				A813CA2F28B4F033000F0ADF /* SNSButtonStyle.swift */,
 				A8647C3928BDA48B00D284B6 /* WriteButtonStyle.swift */,
 				A80B903928CA0FFB0026866A /* ToggleButtonStyle.swift */,
 				A83972E928E430AB000E323E /* CustomToggleStyle.swift */,
@@ -866,7 +860,6 @@
 				A813CA2E28B4EE2B000F0ADF /* ScreenSize.swift in Sources */,
 				EF6A3FC828E93A68003F474B /* PlanCreateViewModel.swift in Sources */,
 				A87F6C9F28C0A1050076046E /* TopTabs.swift in Sources */,
-				A813CA3028B4F033000F0ADF /* SNSButtonStyle.swift in Sources */,
 				EF113197290931EB006A00DA /* SignInViewModel.swift in Sources */,
 				EF26CD9128C0F153006D0D27 /* MyPlanList.swift in Sources */,
 				EF3C060C28E0E53F003F3188 /* PlaceSearchScreen.swift in Sources */,
@@ -926,7 +919,6 @@
 				A8B0E7402907E545005B585F /* HomeViewModel.swift in Sources */,
 				EF26CD8D28C0F102006D0D27 /* MyPlanScreen.swift in Sources */,
 				EF4EDBB3290B18E500068196 /* AuthManager.swift in Sources */,
-				A8794B3128B4EB5900959D56 /* BasicButtonStyle.swift in Sources */,
 				A83DAEED28D0475B001F1F5C /* TravelOnWriteScreen.swift in Sources */,
 				A88E19282901081A004E327D /* OpinionListScreen.swift in Sources */,
 				A80B903A28CA0FFB0026866A /* ToggleButtonStyle.swift in Sources */,
@@ -1078,7 +1070,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 20221101;
 				DEVELOPMENT_ASSET_PATHS = "\"HeyLocal/Preview Content\"";
-				DEVELOPMENT_TEAM = 3X3P9744G9;
+				DEVELOPMENT_TEAM = 5B94TFMJJ4;
 				ENABLE_PREVIEWS = YES;
 				EXCLUDED_ARCHS = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
@@ -1125,7 +1117,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 20221101;
 				DEVELOPMENT_ASSET_PATHS = "\"HeyLocal/Preview Content\"";
-				DEVELOPMENT_TEAM = 3X3P9744G9;
+				DEVELOPMENT_TEAM = 5B94TFMJJ4;
 				ENABLE_PREVIEWS = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (

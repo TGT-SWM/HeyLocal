@@ -59,12 +59,19 @@ struct UserTravelOn: View {
     @StateObject var viewModel = ProfileScreen.ViewModel()
     var body: some View {
         ScrollView {
-            VStack {
+            LazyVStack {
                 ForEach(viewModel.travelOns) { travelOn in
                     NavigationLink(destination: TravelOnDetailScreen(travelOnId: travelOn.id)) {
                         TravelOnComponent(travelOn: travelOn)
                             .padding(EdgeInsets(top: 2, leading: 10, bottom: 2, trailing: 10))
                     }
+                }
+                
+                if !viewModel.travelOnisEnd {
+                    ProgressView()
+                        .onAppear {
+                            viewModel.fetchTravelOns()
+                        }
                 }
             }
         }
@@ -246,12 +253,19 @@ struct UserOpinion: View {
     @StateObject var viewModel = ProfileScreen.ViewModel()
     var body: some View {
         ScrollView {
-            VStack {
+            LazyVStack {
                 ForEach(viewModel.opinions) { opinion in
                     NavigationLink(destination: OpinionDetailScreen(travelOnId: opinion.travelOnId!, opinionId: opinion.id)) {
                         OpinionComponent(opinion: opinion)
                             .padding(EdgeInsets(top: 0, leading: 10, bottom: 5, trailing: 10))
                     }
+                }
+                
+                if !viewModel.opinionIsEnd {
+                    ProgressView()
+                        .onAppear {
+                            viewModel.fetchOpinions()
+                        }
                 }
             }
         }
