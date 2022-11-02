@@ -15,30 +15,31 @@ struct ProfileScreen: View {
     
     let tabs: [String] = ["내가 쓴 여행On", "내 답변"]
     let otherTabs: [String] = ["작성한 여행On", "답변 목록"]
+    let userId: Int
     
     @StateObject var viewModel = ViewModel()
     var body: some View {
         NavigationView {
             VStack {
-                UserComponent()
+                UserComponent(userId: self.userId)
                     .padding(EdgeInsets(top: 20, leading: 0, bottom: 0, trailing: 0))
                 
                 GeometryReader { geo in
                     VStack {
                         /// 내 프로필
-                        if showingTabBar {
+                        
+                        if userId == AuthManager.shared.authorized!.id {
                             TopTabs(tabs: tabs, geoWidth: geo.size.width, selectedTab: $selectedTab)
                         }
-                        /// 상대방 프로필
                         else {
                             TopTabs(tabs: otherTabs, geoWidth: geo.size.width, selectedTab: $selectedTab)
                         }
                         
                         TabView(selection: $selectedTab, content: {
-                            UserTravelOn()
+                            UserTravelOn(userId: self.userId)
                                 .tag(0)
                             
-                            UserOpinion()
+                            UserOpinion(userId: self.userId)
                                 .tag(1)
                         })
                         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
@@ -57,6 +58,7 @@ struct ProfileScreen: View {
 
 struct UserTravelOn: View {
     @StateObject var viewModel = ProfileScreen.ViewModel()
+    let userId: Int
     var body: some View {
         ScrollView {
             LazyVStack {
@@ -70,18 +72,19 @@ struct UserTravelOn: View {
                 if !viewModel.travelOnisEnd {
                     ProgressView()
                         .onAppear {
-                            viewModel.fetchTravelOns()
+                            viewModel.fetchTravelOns(userId: userId)
                         }
                 }
             }
         }
         .onAppear {
-            viewModel.fetchTravelOns()
+            viewModel.fetchTravelOns(userId: userId)
         }
     }
 }
 
 struct UserComponent: View {
+    let userId: Int
     @StateObject var viewModel = ProfileScreen.ViewModel()
     
     var body: some View {
@@ -182,8 +185,14 @@ struct UserComponent: View {
                 Spacer()
                     .frame(height: 15)
                 
-                Text("\(regionNameFormatter(region: viewModel.author.activityRegion!))")
-                    .font(.system(size: 12))
+                if viewModel.author.activityRegion != nil {
+                    Text("\(regionNameFormatter(region: viewModel.author.activityRegion!))")
+                        .font(.system(size: 12))
+                }
+//                else {
+//                    Text("주 활동지역 없음")
+//                        .font(.system(size: 12))
+//                }
                 
                 Spacer()
                     .frame(height: 3)
@@ -192,10 +201,17 @@ struct UserComponent: View {
                     .font(.system(size: 16))
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 0))
                 
-                Text("\(viewModel.author.introduce!)")
-                    .font(.system(size: 12))
-                    .foregroundColor(Color("gray"))
-                
+                if viewModel.author.introduce != nil {
+                    Text("\(viewModel.author.introduce!)")
+                        .font(.system(size: 12))
+                        .foregroundColor(Color("gray"))
+                }
+//                else {
+//                    Text("자기소개 없음")
+//                        .font(.system(size: 12))
+//                        .foregroundColor(Color("gray"))
+//                }
+//                
                 Spacer()
                     .frame(height: 30)
             }
@@ -209,9 +225,17 @@ struct UserComponent: View {
                             .font(.system(size: 16))
                             .padding(EdgeInsets(top: 0, leading: 0, bottom: 2, trailing: 0))
                         
-                        Text("내 노하우")
-                            .font(.system(size: 12))
-                            .foregroundColor(Color("gray"))
+                        
+                        if userId == AuthManager.shared.authorized!.id {
+                            Text("내 노하우")
+                                .font(.system(size: 12))
+                                .foregroundColor(Color("gray"))
+                        }
+                        else {
+                            Text("노하우")
+                                .font(.system(size: 12))
+                                .foregroundColor(Color("gray"))
+                        }
                     }
                     
                     Spacer()
@@ -222,9 +246,16 @@ struct UserComponent: View {
                             .font(.system(size: 16))
                             .padding(EdgeInsets(top: 0, leading: 0, bottom: 2, trailing: 0))
                         
-                        Text("내 랭킹")
-                            .font(.system(size: 12))
-                            .foregroundColor(Color("gray"))
+                        if userId == AuthManager.shared.authorized!.id {
+                            Text("내 랭킹")
+                                .font(.system(size: 12))
+                                .foregroundColor(Color("gray"))
+                        }
+                        else {
+                            Text("랭킹")
+                                .font(.system(size: 12))
+                                .foregroundColor(Color("gray"))
+                        }
                     }
                     
                     Spacer()
@@ -244,13 +275,15 @@ struct UserComponent: View {
             }
         }
         .onAppear {
-            viewModel.getUserProfile(userId: 2)
+            viewModel.getUserProfile(userId: userId)
         }
     }
 }
 
 struct UserOpinion: View {
+    let userId: Int
     @StateObject var viewModel = ProfileScreen.ViewModel()
+    
     var body: some View {
         ScrollView {
             LazyVStack {
@@ -264,7 +297,7 @@ struct UserOpinion: View {
                 if !viewModel.opinionIsEnd {
                     ProgressView()
                         .onAppear {
-                            viewModel.fetchOpinions()
+                            viewModel.fetchOpinions(userId: userId)
                         }
                 }
             }
@@ -273,13 +306,7 @@ struct UserOpinion: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .onAppear {
-            viewModel.fetchOpinions()
+            viewModel.fetchOpinions(userId: userId)
         }
-    }
-}
-
-struct ProfileScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileScreen()
     }
 }

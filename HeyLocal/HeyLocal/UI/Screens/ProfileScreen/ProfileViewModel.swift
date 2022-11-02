@@ -39,15 +39,19 @@ extension ProfileScreen {
                     self.author = author
                     
                     self.authorUpdate.nickname = self.author.nickname
-                    self.authorUpdate.activityRegionId = self.author.activityRegion!.id
-                    self.authorUpdate.introduce = self.author.introduce!
+                    if self.author.activityRegion != nil {
+                        self.authorUpdate.activityRegionId = self.author.activityRegion!.id
+                    }
+                    if self.author.introduce != nil {
+                        self.authorUpdate.introduce = self.author.introduce!
+                    }
                 })
         }
         
         /// 작성한 Travel On 목록
-        func fetchTravelOns() {
+        func fetchTravelOns(userId: Int) {
             userService.loadTravelOnsByUser(
-                userId: 2,
+                userId: userId,
                 lastItemId: Binding(
                     get: { self.travelOnlastItemId },
                     set: { self.travelOnlastItemId = $0 }
@@ -66,9 +70,9 @@ extension ProfileScreen {
         
         
         /// 작성한 답변 목록
-        func fetchOpinions() {
+        func fetchOpinions(userId: Int) {
             userService.loadOpinionsByUser(
-                userId: 2,
+                userId: userId,
                 lastItemId: Binding(get: { self.opinionLastItemId },
                                     set: { self.opinionLastItemId = $0}),
                 size: size,
