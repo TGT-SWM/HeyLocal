@@ -11,7 +11,6 @@ import SwiftUI
 struct ProfileScreen: View {
     @Environment(\.displayTabBar) var displayTabBar
     @State private var selectedTab: Int = 0
-    var showingTabBar: Bool = true
     
     let tabs: [String] = ["내가 쓴 여행On", "내 답변"]
     let otherTabs: [String] = ["작성한 여행On", "답변 목록"]
@@ -48,7 +47,12 @@ struct ProfileScreen: View {
                 .ignoresSafeArea()
             }
             .onAppear {
-                displayTabBar(showingTabBar)
+                if userId == AuthManager.shared.authorized!.id {
+                    displayTabBar(true)
+                }
+                else {
+                    displayTabBar(false)
+                }
             }
             .navigationBarTitle("", displayMode: .automatic)
             .navigationBarHidden(true)
