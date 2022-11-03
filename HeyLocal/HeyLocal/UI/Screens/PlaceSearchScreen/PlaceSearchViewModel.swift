@@ -22,6 +22,8 @@ extension PlaceSearchScreen {
 		let pageSize = 15 // 한 페이지당 아이템 개수
 		
 		@Published var selectedItems = [Place]() // 선택된 장소들
+		
+		@Published var recommendedItems = [Place]()
 	}
 }
 
@@ -94,5 +96,28 @@ extension PlaceSearchScreen.ViewModel {
 		if let index = self.selectedItems.firstIndex(of: item) {
 			self.selectedItems.remove(at: index)
 		}
+	}
+}
+
+
+// MARK: - 장소 추천 기능
+
+extension PlaceSearchScreen.ViewModel {
+	func fetchRecommendedItems(regionName: String) {
+		let query = "\(regionName) 맛집"
+		let pageSize = 3
+		
+		recommendedItems = []
+		
+		kakaoAPIService.loadPlaces(
+			query: query,
+			page: 1,
+			pageSize: pageSize,
+			places: Binding(
+				get: { self.recommendedItems },
+				set: { self.recommendedItems = $0 }
+			),
+			isLastPage: .constant(false)
+		)
 	}
 }

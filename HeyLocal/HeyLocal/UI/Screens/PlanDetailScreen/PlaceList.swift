@@ -229,7 +229,10 @@ extension PlanDetailScreen {
 				.font(.system(size: 14))
 				.fontWeight(.medium)
 			
-			NavigationLink(destination: PlaceSearchScreen(onComplete: viewModel.handleAddPlaces)) {
+			NavigationLink(destination: PlaceSearchScreen(
+				regionName: plan.regionName,
+				onComplete: viewModel.handleAddPlaces
+			)) {
 				EmptyView()
 			}
 			.frame(width: 0)
