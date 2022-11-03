@@ -36,7 +36,7 @@ class TSPScheduleEngine: ScheduleEngine {
 		DateFormat.strToDate("11:00", "HH:mm"),
 		DateFormat.strToDate("17:00", "HH:mm")
 	]
-	let stayingTime = 60 // minutes
+	let stayingTime = 90 // minutes
 	
 	init(places: [Place], weights: [[Double]], startTime: Date, isLastDay: Bool, meals: [Place?]) {
 		self.places = places
@@ -259,9 +259,6 @@ class TSPScheduleEngine: ScheduleEngine {
 		
 		// 방문한 경로를 가져옵니다.
 		var travelPath = getTravelPath(travelTime: travelTime)
-		
-		// 식당을 추가합니다.
-		// TODO: 어떻게 해야 식당을 적절하게 끼워넣을 수 있을까?
 		
 		// 도착 시간을 설정합니다.
 		travelPath = setArrivalTimeOn(path: travelPath)
