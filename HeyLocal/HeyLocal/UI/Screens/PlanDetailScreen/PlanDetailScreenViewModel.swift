@@ -379,7 +379,7 @@ extension PlanDetailScreen.ViewModel {
 		let weights = distances[day - 1].map { row in
 			row.map { $0.time }
 		}
-		let startTime = DateFormat.strToDate("09:00:00", "HH:mm:ss")
+		let startTime = DateFormat.strToDate("08:00:00", "HH:mm:ss")
 		let isLastDay = day >= schedules.count
 		
 		// 초기화
