@@ -11,7 +11,7 @@ import SwiftUI
 // MARK: - PlaceSearchScreen (장소 검색 화면)
 
 struct PlaceSearchScreen: View {
-	@ObservedObject var viewModel = ViewModel()
+	@StateObject var viewModel = ViewModel()
 	@Environment(\.dismiss) var dismiss
 	
 	// 지역 이름
