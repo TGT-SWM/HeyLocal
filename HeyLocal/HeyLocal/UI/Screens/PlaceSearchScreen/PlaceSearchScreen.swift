@@ -14,6 +14,9 @@ struct PlaceSearchScreen: View {
 	@ObservedObject var viewModel = ViewModel()
 	@Environment(\.dismiss) var dismiss
 	
+	// 지역 이름
+	var regionName: String
+	
 	/// 장소 선택 완료 시 실행되는 콜백 함수
 	var onComplete: ([Place]) -> Void
 	
@@ -22,7 +25,6 @@ struct PlaceSearchScreen: View {
 			searchForm
 			selectedItemList
 			searchedItemList
-			// recommendation
 			completeButton
 		}
 		.navigationTitle("장소 검색")
@@ -87,22 +89,29 @@ extension PlaceSearchScreen {
 extension PlaceSearchScreen {
 	var searchedItemList: some View {
 		ScrollView {
-			LazyVStack(alignment: .center, spacing: 0) {
-				// 검색 결과
-				ForEach(viewModel.searchedItems, id: \.id) { searchedItem($0) }
-				
-				// 스피너가 노출되면 다음 페이지 로드
-				if (!viewModel.isLastPage) {
-					ProgressView()
-						.onAppear {
-							viewModel.searchNextPage()
-						}
+			if viewModel.searchedItems.isEmpty {
+				recommendation
+					.onAppear {
+						viewModel.fetchRecommendedItems(regionName: regionName)
+					}
+			} else {
+				LazyVStack(alignment: .center, spacing: 0) {
+					// 검색 결과
+					ForEach(viewModel.searchedItems, id: \.id) { listItem($0) }
+					
+					// 스피너가 노출되면 다음 페이지 로드
+					if (!viewModel.isLastPage) {
+						ProgressView()
+							.onAppear {
+								viewModel.searchNextPage()
+							}
+					}
 				}
 			}
 		}
 	}
 	
-	func searchedItem(_ item: Place) -> some View {
+	func listItem(_ item: Place) -> some View {
 		HStack(alignment: .center, spacing: 0) {
 			// 썸네일
 			WebImage(url: "https://www.busan.go.kr/resource/img/geopark/sub/busantour/busantour1.jpg")
@@ -148,9 +157,25 @@ extension PlaceSearchScreen {
 // MARK: - recommendation (추천 장소 제안)
 
 extension PlaceSearchScreen {
+	// 추천 장소 뷰입니다.
 	var recommendation: some View {
-		VStack {
-			Text("이런 곳은 어떤가요?")
+		VStack(spacing: 0) {
+			HStack {
+				Text("추천 장소")
+					.font(.system(size: 14))
+					.fontWeight(.medium)
+					.foregroundColor(Color("gray"))
+					.padding(.leading, 20)
+				
+				Spacer()
+			}
+			.frame(height: 40)
+			
+			Divider()
+				.frame(maxWidth: .infinity)
+				.overlay(Color("lightGray"))
+			
+			ForEach(viewModel.recommendedItems, id: \.id) { listItem($0) }
 		}
 	}
 }
@@ -191,6 +216,6 @@ extension PlaceSearchScreen {
 
 struct PlaceSearchScreen_Previews: PreviewProvider {
     static var previews: some View {
-		PlaceSearchScreen(onComplete: { places in })
+		PlaceSearchScreen(regionName: "서울특별시", onComplete: { places in })
     }
 }
