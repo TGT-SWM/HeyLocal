@@ -448,7 +448,6 @@
 			children = (
 				EF4EDB8B290B09CF00068196 /* CoreDataModel.xcdatamodeld */,
 				EF4EDBAE290B10A500068196 /* PersistenceController.swift */,
-				EF4EDBB2290B18E500068196 /* AuthManager.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -568,6 +567,7 @@
 			isa = PBXGroup;
 			children = (
 				EFAA2AC428BBC48400B56A3C /* AuthService.swift */,
+				EF4EDBB2290B18E500068196 /* AuthManager.swift */,
 				EF26CD8928C0EECA006D0D27 /* PlanService.swift */,
 				A80213DA28BF2EA100B6359E /* TravelOnService.swift */,
 				EF6A3FC328E71EE5003F474B /* UserService.swift */,

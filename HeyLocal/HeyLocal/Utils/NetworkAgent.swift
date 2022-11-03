@@ -11,14 +11,18 @@ import Combine
 
 // MARK: - NetworkAgent (네트워킹 모듈)
 
-struct NetworkAgent {
+class NetworkAgent {
 	let session = URLSession.shared
+	
+	var cancelBag: Set<AnyCancellable> = []
 	
 	/// 네트워크 요청을 수행합니다.
 	func run<T: Decodable>(_ request: URLRequest) -> AnyPublisher<T, Error> {
 		return session
 			.dataTaskPublisher(for: request)
 			.tryMap(handleAPIError)
+			.mapError(handleTokenExpiration)
+			.retry(3)
 			.map(handleEmptyResponse)
 			.handleEvents(receiveOutput: logger)
 			.decode(type: T.self, decoder: JSONDecoder())
@@ -37,6 +41,18 @@ struct NetworkAgent {
 		}
 		
 		return data
+	}
+	
+	/// 액세스 토큰이 만료된 경우 토큰 갱신 요청을 보냅니다.
+	private func handleTokenExpiration(error: Error) -> Error {
+		if let apiError = error as? APIError {
+			if apiError.code != "EXPIRED_TOKEN" {
+				return error
+			}
+		}
+		
+		AuthManager.shared.renewAccessToken()
+		return error
 	}
 	
 	/// 빈 응답 데이터가 오는 경우 Invalid한 JSON이라 JSONDecoder에서 처리가 불가능하므로,
