@@ -46,6 +46,23 @@ class KakaoAPIService {
 				isLastPage.wrappedValue = resp.meta.isEnd
 			})
 	}
+    
+    
+    /// 이미지 검색
+    func getPlaceImage(query: String) {
+        // URL 구성
+        var components = URLComponents(string: "\(Config.kakaoRestURL)/v2/search/image")!
+        components.queryItems = [
+            URLQueryItem(name: "query", value: query),
+            URLQueryItem(name: "sort", value: "accuracy")
+        ]
+        
+        // Request 생성
+        guard let url = components.url else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue("KakaoAK \(Config.kakaoRestKey)", forHTTPHeaderField: "Authorization")
+    }
 }
 
 // MARK: - KakaoPlacesResponse (카카오 API 응답 객체)
