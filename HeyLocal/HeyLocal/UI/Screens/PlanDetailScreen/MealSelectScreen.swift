@@ -21,13 +21,15 @@ struct MealSelectScreen: View {
 		}
 	}
 
-	@State var selected: [Place?] = [nil, nil, nil]
+	@State var breakfast: Place?
+	@State var lunch: Place?
+	@State var dinner: Place?
 
 	var body: some View {
 		VStack {
-			mealPicker(title: "아침", selection: $selected[0])
-			mealPicker(title: "점심", selection: $selected[1])
-			mealPicker(title: "저녁", selection: $selected[2])
+			mealPicker(title: "아침", selection: $breakfast)
+			mealPicker(title: "점심", selection: $lunch)
+			mealPicker(title: "저녁", selection: $dinner)
 		}
 		.navigationTitle("최적루트 재정렬")
 		.navigationBarBackButtonHidden(true)
@@ -39,8 +41,8 @@ struct MealSelectScreen: View {
 			Text(title)
 			Picker(title, selection: selection) {
 				Text("없음").tag(Optional<Place>(nil))
-				ForEach(restaurants) {
-					Text($0.name)
+				ForEach(restaurants, id: \.id) {
+					Text($0.name).tag($0 as Place?)
 				}
 			}
 		}
@@ -53,7 +55,7 @@ struct MealSelectScreen: View {
 			}
 			ToolbarItem(placement: .navigationBarTrailing) {
 				Button("완료") {
-					onComplete(selected)
+					onComplete([breakfast, lunch, dinner])
 					dismiss()
 				}
 			}

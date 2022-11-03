@@ -10,7 +10,7 @@ import Foundation
 
 // MARK: - Place (장소)
 
-struct Place: Codable, Equatable, Identifiable, Hashable {
+struct Place: Codable, Identifiable, Hashable {
 	var id: Int
 	var name: String
 	var category: String
@@ -27,12 +27,6 @@ struct Place: Codable, Equatable, Identifiable, Hashable {
 	/// 카테고리의 이름 (ex. 음식점)
 	var categoryName: String {
 		PlaceCategory.withLabel(category).rawValue
-	}
-    
-	/// Equatable 프로토콜 구현
-	/// 장소의 동일 여부는 오직 장소의 ID를 통해 판별합니다.
-	static func == (lhs: Place, rhs: Place) -> Bool {
-		lhs.id == rhs.id
 	}
 }
 
