@@ -35,9 +35,9 @@ extension HomeScreen {
                     self.users = users
                     
                     self.rankings.removeAll()
-                    self.rankings.append(self.users[0])
-                    self.rankings.append(self.users[1])
-                    self.rankings.append(self.users[2])
+//                    self.rankings.append(self.users[0])
+//                    self.rankings.append(self.users[1])
+//                    self.rankings.append(self.users[2])
                 })
         }
         

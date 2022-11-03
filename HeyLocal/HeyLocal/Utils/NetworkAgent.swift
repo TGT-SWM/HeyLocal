@@ -14,10 +14,12 @@ import Combine
 class NetworkAgent {
 	let session = URLSession.shared
 	
-	var cancellable: AnyCancellable?
+	var cancelBag: Set<AnyCancellable> = []
 	
 	/// 네트워크 요청을 수행합니다.
 	func run<T: Decodable>(_ request: URLRequest) -> AnyPublisher<T, Error> {
+		print("[Request]")
+		print(request)
 		return session
 			.dataTaskPublisher(for: request)
 			.tryMap(handleAPIError)
@@ -45,47 +47,14 @@ class NetworkAgent {
 	
 	/// 액세스 토큰이 만료된 경우 토큰 갱신 요청을 보냅니다.
 	private func handleTokenExpiration(error: Error) -> Error {
+		print(error)
 		if let apiError = error as? APIError {
 			if apiError.code != "EXPIRED_TOKEN" {
 				return error
 			}
 		}
 		
-		let url = URL(string: "\(Config.apiURL)/auth/access-token")!
-		var request = URLRequest(url: url)
-		
-		request.httpMethod = "POST"
-		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-		request.addValue("application/json", forHTTPHeaderField: "Accept")
-		
-		let body = [
-			"accessToken": AuthManager.shared.accessToken,
-			"refreshToken": AuthManager.shared.authorized?.refreshToken
-		]
-		request.httpBody = try? JSONSerialization.data(withJSONObject: body)
-		
-		cancellable = session
-			.dataTaskPublisher(for: request)
-			.map(\.data)
-			.decode(type: Token.self, decoder: JSONDecoder())
-			.receive(on: DispatchQueue.main)
-			.sink(
-				receiveCompletion: { completion in
-					if case let .failure(error) = completion {
-						if let apiError = error as? APIError {
-							if apiError.code == "EXPIRED_REFRESH_TOKEN" {
-								AuthManager.shared.removeAll()
-							}
-						}
-					}
-				},
-				receiveValue: { token in
-					guard var auth = AuthManager.shared.authorized else { return }
-					auth.accessToken = token.accessToken
-					auth.refreshToken = token.refreshToken
-					AuthManager.shared.save(auth)
-			})
-		
+		AuthManager.shared.renewAccessToken()
 		return error
 	}
 	
