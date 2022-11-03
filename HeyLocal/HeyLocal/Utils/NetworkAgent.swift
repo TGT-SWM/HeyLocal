@@ -18,8 +18,6 @@ class NetworkAgent {
 	
 	/// 네트워크 요청을 수행합니다.
 	func run<T: Decodable>(_ request: URLRequest) -> AnyPublisher<T, Error> {
-		print("[Request]")
-		print(request)
 		return session
 			.dataTaskPublisher(for: request)
 			.tryMap(handleAPIError)
@@ -47,7 +45,6 @@ class NetworkAgent {
 	
 	/// 액세스 토큰이 만료된 경우 토큰 갱신 요청을 보냅니다.
 	private func handleTokenExpiration(error: Error) -> Error {
-		print(error)
 		if let apiError = error as? APIError {
 			if apiError.code != "EXPIRED_TOKEN" {
 				return error

@@ -40,11 +40,8 @@ class AuthManager: ObservableObject {
 			print(error.localizedDescription)
 		}
 		
-		print("[Fetched]")
-		print(data.count)
-		
-		if !data.isEmpty {
-			authorized = Auth.from(data.last!)
+		if let authorization = data.last {
+			authorized = Auth.from(authorization)
 		}
 	}
 	
@@ -62,6 +59,9 @@ class AuthManager: ObservableObject {
 			authorization.setValue(auth.accessToken, forKey: "accessToken")
 			authorization.setValue(auth.refreshToken, forKey: "refreshToken")
 			
+			// 삭제
+			PersistenceController.shared.deleteAll(request: Authorization.fetchRequest())
+			
 			// 저장
 			do {
 				try self.context.save()
@@ -77,19 +77,6 @@ class AuthManager: ObservableObject {
 		if PersistenceController.shared.deleteAll(request: request) {
 			authorized = nil
 		}
-	}
-	
-	private func handleAPIError(data: Data, response: URLResponse) throws -> Data {
-		print(data)
-		guard let httpResp = response as? HTTPURLResponse,
-		   100..<400 ~= httpResp.statusCode
-		else {
-			let decoder = JSONDecoder()
-			let apiError = try decoder.decode(APIError.self, from: data)
-			throw apiError
-		}
-		
-		return data
 	}
 	
 	func renewAccessToken() {
@@ -114,29 +101,22 @@ class AuthManager: ObservableObject {
 		NetworkAgent().run(request)
 			.sink(
 				receiveCompletion: { completion in
-					print(completion)
-					switch completion {
-					case .failure(let err):
-						if let apiErr = err as? APIError {
+					if case let .failure(error) = completion {
+						if let apiError = error as? APIError {
 							let cases = ["NOT_EXIST_REFRESH_TOKEN", "EXPIRED_REFRESH_TOKEN", "NOT_MATCH_PAIR"]
-							if cases.contains(apiErr.code) {
+							if cases.contains(apiError.code) {
 								AuthManager.shared.removeAll()
 							}
 						}
-					case .finished:
-						print("LOG: Token successfully refreshed with value:")
-						print("LOG: \(AuthManager.shared.accessToken)")
 					}
 					
 					self.semaphore.signal()
 				},
 				receiveValue: { (token: Token) in
-					print("LOG: Receviced")
 					if var auth = self.authorized {
 						auth.accessToken = token.accessToken
 						auth.refreshToken = token.refreshToken
 						self.save(auth)
-						print(auth)
 					}
 				}
 			)
