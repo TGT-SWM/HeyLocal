@@ -198,4 +198,20 @@ struct UserRepository {
         // Publisher 반환
         return agent.run(request)
     }
+	
+	/// 회원 탈퇴를 요청합니다.
+	func deleteAccount(id: Int) -> AnyPublisher<EmptyResponse, Error> {
+		// URLRequest 객체 생성
+		let url = URL(string: "\(userUrl)/\(id)")!
+		var request = URLRequest(url: url)
+		
+		// HTTP 헤더 구성
+		request.httpMethod = "DELETE"
+		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+		request.addValue("application/json", forHTTPHeaderField: "Accept")
+		request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
+		
+		// Publisher 반환
+		return agent.run(request);
+	}
 }

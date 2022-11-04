@@ -20,6 +20,9 @@ extension ProfileScreen {
         @Published var travelOns: [TravelOn] = [TravelOn]()
         @Published var opinions: [Opinion] = [Opinion]()
         
+		@Published var showAlert = false
+		@Published var alertTitle = "" // Alert 제목
+		@Published var handleAlertConfirm: (() -> ()) = {} // 확인 버튼 핸들러
         
         // 페이징
         let size = 15
@@ -87,5 +90,26 @@ extension ProfileScreen {
         func updateUserProfile(userId: Int, userData: AuthorUpdate, profileImage: [UIImage], isDeleted: Bool) {
             userService.updateUserInfo(userId: userId, userData: userData, profileImage: profileImage, isDeleted: isDeleted)
         }
+		
+		/// 로그아웃
+		func logout() {
+			alert(title: "로그아웃 하시겠어요?") {
+				AuthManager.shared.removeAll()
+			}
+		}
+		
+		/// 회원 탈퇴
+		func deleteAccount() {
+			alert(title: "정말 탈퇴하시겠어요?") {
+				self.userService.deleteAccount()
+			}
+		}
+		
+		/// Alert 모달을 출력합니다.
+		func alert(title: String, onConfirm: @escaping () -> Void) {
+			alertTitle = title
+			handleAlertConfirm = onConfirm
+			showAlert = true
+		}
     }
 }
