@@ -64,4 +64,19 @@ class UserService {
     func getUserRanking() -> AnyPublisher<[Author], Error> {
         return userRepository.getUserRanking()
     }
+	
+	/// 회원 탈퇴를 요청합니다.
+	func deleteAccount() {
+		guard let id = AuthManager.shared.authorized?.id else { return }
+		cancellable = userRepository.deleteAccount(id: id)
+			.sink(receiveCompletion: { completion in
+				switch completion {
+				case .finished:
+					AuthManager.shared.removeAll()
+				case .failure(let error):
+					print(error)
+				}
+				
+			}, receiveValue: { _ in })
+	}
 }
