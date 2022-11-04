@@ -70,6 +70,11 @@ extension HomeScreen {
                 .sink(receiveCompletion: { _ in
                 }, receiveValue: { travelOns in
                     self.travelOns = travelOns
+                    
+                    for i in 0..<self.travelOns.count {
+                        self.kakaoService.getRegionImage(region: Binding(get: { self.travelOns[i].region },
+                                                                         set: { self.travelOns[i].region = $0 }))
+                    }
                 })
         }
     }

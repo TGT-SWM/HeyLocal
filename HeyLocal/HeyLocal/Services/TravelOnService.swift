@@ -12,6 +12,8 @@ import Combine
 
 class TravelOnService {
     private var travelOnRepository = TravelOnRepository()
+    private var kakaoService = KakaoAPIService()
+    
     var cancelBag: Set<AnyCancellable> = []
     // 전체 여행On 조회
     func getTravelOnLists(lastItemId: Int?, pageSize: Int, keyword: String?, regionId: Int?, sortBy: String, withOpinions: Bool?) -> AnyPublisher<[TravelOn], Error> {
@@ -40,6 +42,12 @@ class TravelOnService {
 
                 if $0.count < pageSize {
                     isEnd.wrappedValue = true
+                }
+                
+                /// 지역 이미지 로딩
+                for i in 0..<travelOns.wrappedValue.count {
+                    self.kakaoService.getRegionImage(region: Binding(get: { travelOns.wrappedValue[i].region },
+                                                                     set: { travelOns.wrappedValue[i].region = $0 }))
                 }
             }
         )
