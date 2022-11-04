@@ -25,6 +25,12 @@ struct TravelOnComponent: View {
                                 .frame(width: 100, height: 100)
                                 .cornerRadius(10.0)
                         }
+                        else {
+                            Rectangle()
+                                .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                                .cornerRadius(10.0)
+                                .frame(width: 100, height: 100)
+                        }
                     }
                 }
                 else {

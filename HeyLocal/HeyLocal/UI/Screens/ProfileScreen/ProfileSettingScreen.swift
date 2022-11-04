@@ -42,6 +42,9 @@ struct ProfileSettingScreen: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: BackButton { displayTabBar(true) })
+        .onAppear {
+            displayTabBar(false)
+        }
     }
     
     // MARK: - 알림 설정
@@ -126,7 +129,7 @@ struct ProfileSettingScreen: View {
                 .frame(height: 10)
             
             /// 이용약관
-            NavigationLink(destination: EmptyView()) {
+            NavigationLink(destination: TOSScreen()) {
                 HStack {
                     Text("이용약관")
                         .font(.system(size: 16))

@@ -19,6 +19,7 @@ extension OpinionComponent {
         let coffeeStr: [String] = ["BITTER", "SOUR", "GENERAL"]
         
         private var opinionService = OpinionService()
+        private var kakaoService = KakaoAPIService()
         @Published var opinions: [Opinion]
         @Published var opinion: Opinion
         
@@ -75,6 +76,14 @@ extension OpinionComponent {
                     // 답변 채택 수로 Sorting
                     self.opinions.sort { (left: Opinion, right: Opinion ) -> Bool in
                         return left.countAccept > right.countAccept
+                    }
+                    
+                    for i in 0..<self.opinions.count {
+                        // 사진이 비어있다면, place 사진 연동
+                        if self.opinions[i].generalImgDownloadImgUrl.isEmpty {
+                            self.kakaoService.getPlaceImage(place: Binding(get: { self.opinions[i].place },
+                                                                           set: { self.opinions[i].place = $0 }))
+                        }
                     }
                     
                     // 답변 상세조회
