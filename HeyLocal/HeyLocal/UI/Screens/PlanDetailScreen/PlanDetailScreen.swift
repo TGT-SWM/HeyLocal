@@ -47,6 +47,7 @@ struct PlanDetailScreen: View {
 			if viewModel.schedules.isEmpty {
 				viewModel.fetchPlaces()
 			}
+			viewModel.fetchCurrentLocation()
 		}
     }
 	

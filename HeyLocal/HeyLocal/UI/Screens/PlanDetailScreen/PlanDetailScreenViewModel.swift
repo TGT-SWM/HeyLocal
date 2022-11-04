@@ -18,7 +18,7 @@ extension PlanDetailScreen {
 		let planService = PlanService()
 		let odsayAPIService = ODsayAPIService()
 		let ncpAPIService = NcpAPIService()
-		var plan: Plan
+		let locationService = LocationService()
 		
 		// 상태 값
 		@Published var showMapView = false // 지도 뷰를 보여줄 것인지
@@ -37,8 +37,14 @@ extension PlanDetailScreen {
 		@Published var arrivalTimeEdited = Date()
 		var schedulesBackUp: [DaySchedule] = [] // 스케줄 수정 취소를 위한 임시 저장
 		
+		@Published var lat: Double = 0 // 현재 사용자 위도
+		@Published var lng: Double = 0 // 현재 사용자 경도
+		
 		// Combine
 		var cancellable: AnyCancellable?
+		
+		// 파라미터
+		var plan: Plan
 		
 		init(plan: Plan) {
 			self.plan = plan
@@ -396,5 +402,18 @@ extension PlanDetailScreen.ViewModel {
 		schedules[day - 1].places = result
 		// TODO: 서버에 반영
 		// updateSchedules()
+	}
+}
+
+
+// MARK: - 현재 위치 관련 기능
+
+extension PlanDetailScreen.ViewModel {
+	/// 사용자의 현재 위치를 요청합니다.
+	func fetchCurrentLocation() {
+		locationService.requestLocation { coord in
+			self.lat = coord.latitude
+			self.lng = coord.longitude
+		}
 	}
 }
