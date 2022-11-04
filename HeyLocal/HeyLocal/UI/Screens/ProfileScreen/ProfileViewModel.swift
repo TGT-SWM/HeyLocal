@@ -87,5 +87,10 @@ extension ProfileScreen {
         func updateUserProfile(userId: Int, userData: AuthorUpdate, profileImage: [UIImage], isDeleted: Bool) {
             userService.updateUserInfo(userId: userId, userData: userData, profileImage: profileImage, isDeleted: isDeleted)
         }
+		
+		/// 회원 탈퇴
+		func deleteAccount() {
+			userService.deleteAccount()
+		}
     }
 }

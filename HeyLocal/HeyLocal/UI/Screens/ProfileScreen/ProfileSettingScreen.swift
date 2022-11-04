@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ProfileSettingScreen: View {
     @Environment(\.displayTabBar) var displayTabBar
-	let userService = UserService()
+	@StateObject var viewModel = ProfileScreen.ViewModel()
 	
     var body: some View {
         VStack(alignment: .leading) {
@@ -93,7 +93,7 @@ struct ProfileSettingScreen: View {
             
             /// 회원탈퇴
             Button(action: {
-				userService.deleteAccount()
+				viewModel.deleteAccount()
             }) {
                 Text("회원탈퇴")
                     .font(.system(size: 16))
