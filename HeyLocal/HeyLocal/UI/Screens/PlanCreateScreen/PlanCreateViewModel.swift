@@ -35,8 +35,9 @@ extension PlanCreateScreen {
 
 extension PlanCreateScreen.ViewModel {
 	func fetchTravelOns() {
+		guard let userId = AuthManager.shared.authorized?.id else { return }
 		userService.loadTravelOnsByUser(
-			userId: 2,
+			userId: userId,
 			lastItemId: Binding(
 				get: { self.lastItemId },
 				set: { self.lastItemId = $0 }
