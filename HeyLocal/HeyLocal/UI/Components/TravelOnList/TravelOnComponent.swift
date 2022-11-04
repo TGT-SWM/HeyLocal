@@ -16,10 +16,23 @@ struct TravelOnComponent: View {
             /// 이미지 + 지역
             ZStack(alignment: .bottomLeading) {
                 // TODO: 지역 이미지로 변경
-                Rectangle()
-                    .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-                    .cornerRadius(10.0)
-                    .frame(width: 100, height: 100)
+                if travelOn.region.thumbnailUrl != nil {
+                    AsyncImage(url: URL(string: travelOn.region.thumbnailUrl!)) { phash in
+                        if let image = phash.image {
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 100, height: 100)
+                                .cornerRadius(10.0)
+                        }
+                    }
+                }
+                else {
+                    Rectangle()
+                        .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+                        .cornerRadius(10.0)
+                        .frame(width: 100, height: 100)
+                }
                 
                 // 지역 출력
                 ZStack(alignment: .center) {

@@ -19,11 +19,31 @@ struct HotPlaceComponent: View {
     var label: some View {
         VStack {
             ZStack(alignment: .bottomLeading) {
-                // TODO: 장소 이미지
-                Rectangle()
-                    .fill(Color("lightGray"))
-                    .frame(width: 208, height: 208)
-                    .cornerRadius(10)
+                if place.thumbnailUrl != nil {
+                    AsyncImage(url: URL(string: place.thumbnailUrl!)) { phash in
+                        if let image = phash.image {
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 208, height: 208)
+                                .cornerRadius(10)
+                        }
+                        else {
+                            Rectangle()
+                                .fill(Color("lightGray"))
+                                .frame(width: 208, height: 208)
+                                .cornerRadius(10)
+                        }
+                    }
+                }
+                else {
+                    Rectangle()
+                        .fill(Color("lightGray"))
+                        .frame(width: 208, height: 208)
+                        .cornerRadius(10)
+                }
+                
+                
                 
                 Rectangle()
                     .fill(Color.black)

@@ -125,7 +125,8 @@ struct RankingProfileComponent: View {
                         
                         Image("heart")
                             .resizable()
-                            .frame(width: 12, height: 12)
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 15, height: 15)
                         
                         Spacer()
                             .frame(width: 6)
