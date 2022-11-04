@@ -47,7 +47,7 @@ struct ProfileScreen: View {
                 .ignoresSafeArea()
             }
             .onAppear {
-                if userId == AuthManager.shared.authorized!.id {
+                if userId == AuthManager.shared.authorized?.id {
                     displayTabBar(true)
                 }
                 else {
