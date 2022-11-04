@@ -21,8 +21,7 @@ struct Opinion: Codable, Identifiable {
                              lat: 0,
                              lng: 0,
                              link: "",
-                             region: Region(id: 0, state: ""),
-                             thumbnailUrl: "")
+                             region: Region(id: 0, state: ""))
     var modifiedDate: String = "2022-10-07T04:37:44.377Z"
     var createdDate: String = "2022-10-07T04:37:44.377Z"
     

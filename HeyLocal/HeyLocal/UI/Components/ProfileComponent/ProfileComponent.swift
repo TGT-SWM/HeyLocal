@@ -64,7 +64,7 @@ struct ProfileComponent: View {
                         Spacer()
                             .frame(height: 7)
                         
-                        // TODO: 프로필화면으로 이동
+                        // 프로필화면으로 이동
                         NavigationLink(destination: ProfileScreen(userId: author.id)) {
                             HStack {
                                 Text("\(author.nickname)")
@@ -106,7 +106,7 @@ struct ProfileComponent: View {
                         Image("heart")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 12, height: 12)
+                            .frame(width: 15, height: 15)
                         
                         Spacer()
                             .frame(width: 5)

@@ -7,12 +7,14 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 extension HomeScreen {
     class ViewModel: ObservableObject {
         private var userService = UserService()
         private var placeService = PlaceService()
         private var travelOnService = TravelOnService()
+        private var kakaoService = KakaoAPIService()
         
         @Published var users: [Author]
         @Published var rankings: [Author]
@@ -47,8 +49,19 @@ extension HomeScreen {
                 .sink(receiveCompletion: { _ in
                 }, receiveValue: { places in
                     self.hotplaces = places
+                    
+                    for i in 0..<self.hotplaces.count {
+                        self.kakaoService.getPlaceImage(place: Binding(get: { self.hotplaces[i] },
+                                                                       set: { self.hotplaces[i] = $0 }))
+                        
+                        if self.hotplaces[i].thumbnailUrl != nil {
+                            print("Hot Place Thumbnail Image !!", self.hotplaces[i].thumbnailUrl! )
+                        }
+                    }
                 })
         }
+        
+        
         
         // 여행On 
         func getRecentTravelOns() {

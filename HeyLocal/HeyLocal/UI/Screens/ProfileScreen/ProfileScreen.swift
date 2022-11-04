@@ -47,11 +47,13 @@ struct ProfileScreen: View {
                 .ignoresSafeArea()
             }
             .onAppear {
-                if userId == AuthManager.shared.authorized!.id {
-                    displayTabBar(true)
-                }
-                else {
-                    displayTabBar(false)
+                if AuthManager.shared.authorized != nil  {
+                    if userId == AuthManager.shared.authorized!.id {
+                        displayTabBar(true)
+                    }
+                    else {
+                        displayTabBar(false)
+                    }
                 }
             }
             .navigationBarTitle("", displayMode: .automatic)
