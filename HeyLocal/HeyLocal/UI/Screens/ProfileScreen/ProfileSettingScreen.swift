@@ -13,17 +13,31 @@ struct ProfileSettingScreen: View {
 	@StateObject var viewModel = ProfileScreen.ViewModel()
 	
     var body: some View {
-        VStack(alignment: .leading) {
-            alarmSetting
-                .padding()
-            accountSetting
-                .padding()
-            etcSetting
-                .padding()
-            
-            Spacer()
-            
-        }
+		ZStack {
+			VStack(alignment: .leading) {
+				alarmSetting
+					.padding()
+				accountSetting
+					.padding()
+				etcSetting
+					.padding()
+				
+				Spacer()
+				
+			}
+			
+			if viewModel.showAlert {
+				CustomAlert(
+					showingAlert: $viewModel.showAlert,
+					title: viewModel.alertTitle,
+					cancelMessage: "취소",
+					confirmMessage: "확인",
+					cancelWidth: 134,
+					confirmWidth: 109,
+					rightButtonAction: viewModel.handleAlertConfirm
+				)
+			}
+		}
         .navigationTitle("프로필 설정")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
@@ -81,7 +95,7 @@ struct ProfileSettingScreen: View {
             /// 로그아웃
             // TODO: Alert 후
             Button(action: {
-                AuthManager.shared.removeAll()
+				viewModel.logout()
             }) {
                 Text("로그아웃")
                     .font(.system(size: 16))
