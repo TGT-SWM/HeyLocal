@@ -14,7 +14,7 @@ struct UserRankingScreen: View {
     private var limit: Int = 3
     var gridItems = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
     var body: some View {
-        VStack {
+        ScrollView {
             LazyVGrid(columns: gridItems) {
                 ForEach(Array(zip(0..<viewModel.users.count, viewModel.users)), id: \.0) { idx, user in
                     ZStack(alignment: .topLeading) {
