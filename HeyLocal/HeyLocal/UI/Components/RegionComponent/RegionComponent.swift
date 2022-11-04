@@ -10,17 +10,66 @@ import SwiftUI
 
 struct RegionComponent: View {
     var region: Region?
+    @StateObject var viewModel = RegionPickerScreen.ViewModel()
+    
     var body: some View {
         Button(action: {}) {
             HStack {
-                // TODO: 지역 이미지로 변경
-                Circle()
-                    .fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-                    .frame(width: 56, height: 56)
+                /// 이미지
+                if (region == nil) {
+                    ZStack {
+                        Circle()
+                            .fill(.white)
+                            .frame(width: 56, height: 56)
+                        
+                        Image("login-symbol")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 30)
+                    }
+                }
+                else {
+                    if region?.thumbnailUrl != nil {
+                        AsyncImage(url: URL(string: (region?.thumbnailUrl!)!)) { phash in
+                            if let image = phash.image {
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .clipShape(Circle())
+                                    .frame(width: 56, height: 56)
+                            } else {
+                                ZStack {
+                                    Circle()
+                                        .fill(.white)
+                                        .frame(width: 56, height: 56)
+                                    
+                                    Image("login-symbol")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 30)
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        ZStack {
+                            Circle()
+                                .fill(.white)
+                                .frame(width: 56, height: 56)
+                            
+                            Image("login-symbol")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 30)
+                        }
+                    }
+                }
+                
                 
                 Spacer()
                     .frame(width: 20)
                 
+                /// 지역 이름
                 if (region != nil) {
                     Text("\(regionNameFormatter(region: region!))")
                         .font(.system(size: 16))
