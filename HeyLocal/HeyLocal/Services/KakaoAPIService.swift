@@ -87,7 +87,9 @@ class KakaoAPIService {
             if httpResponse.statusCode == 200 {
                 do {
                     let result = try JSONDecoder().decode(KakaoImageResponse.self, from: data)
-                    region.wrappedValue.thumbnailUrl = result.documents.map(\.image_url)[0]
+					DispatchQueue.main.async {
+						region.wrappedValue.thumbnailUrl = result.documents.map(\.image_url)[0]
+					}
                 } catch {
                     print("error")
                 }
@@ -119,8 +121,10 @@ class KakaoAPIService {
             if httpResponse.statusCode == 200 {
                 do {
                     let result = try JSONDecoder().decode(KakaoImageResponse.self, from: data)
-                    place.wrappedValue.thumbnailUrl = result.documents.map(\.image_url)[0]
-                    print("Thumbnail Image URL : \(place.wrappedValue.thumbnailUrl!)")
+					DispatchQueue.main.async {
+						place.wrappedValue.thumbnailUrl = result.documents.map(\.image_url)[0]
+						print("Thumbnail Image URL : \(place.wrappedValue.thumbnailUrl!)")
+					}
                 } catch {
                     print("error")
                 }
