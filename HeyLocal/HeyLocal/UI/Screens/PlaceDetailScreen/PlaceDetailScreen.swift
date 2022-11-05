@@ -37,7 +37,6 @@ struct PlaceDetailScreen: View {
 				BackButton { displayTabBar(true) }
 			}
 		}
-		.onAppear(perform: vm.fetchDetailInfo)
 		.onAppear {
 			vm.fetchDetailInfo()
 			displayTabBar(false)
@@ -97,9 +96,19 @@ extension PlaceDetailScreen {
 			Image("clock-outline")
 				.font(.system(size: 10))
 			
-			Text(vm.openingTime)
-				.font(.system(size: 12))
-				.foregroundColor(Color("gray"))
+			if vm.openingTimes.isEmpty {
+				Text("-")
+					.font(.system(size: 12))
+					.foregroundColor(Color("gray"))
+			} else {
+				VStack {
+					ForEach(vm.openingTimes, id: \.self) {
+						Text($0)
+							.font(.system(size: 12))
+							.foregroundColor(Color("gray"))
+					}
+				}
+			}
 			
 			Spacer()
 		}
@@ -128,7 +137,7 @@ extension PlaceDetailScreen {
 	}
 	
 	/// 메뉴 리스트의 각 항목에 대한 뷰입니다.
-	func menuListItem(menu: PlaceMenu) -> some View {
+	func menuListItem(menu: PlaceDetail.MenuInfo) -> some View {
 		HStack {
 			Text(menu.name)
 				.font(.system(size: 12))
