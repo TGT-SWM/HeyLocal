@@ -49,7 +49,9 @@ class PlaceService {
 	func getPlaceDetail(placeId: Int, placeDetail: Binding<PlaceDetail>) {
 		placeRepository.getPlaceDetail(placeId: placeId)
 			.sink(
-				receiveCompletion: { _ in },
+				receiveCompletion: { completion in
+					print(completion) // LOG
+				},
 				receiveValue: {
 					placeDetail.wrappedValue = $0
 				}

@@ -125,33 +125,36 @@ extension PlaceSearchScreen {
 	}
 	
 	func listItem(_ item: Place) -> some View {
-		HStack(alignment: .center, spacing: 0) {
-			// 썸네일
-			if let imageURL = item.thumbnailUrl {
-				AsyncImage(url: URL(string: imageURL))
-					.frame(width: 56, height: 56)
-					.cornerRadius(.infinity)
-			} else {
-				Circle()
-					.fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
-					.frame(width: 56, height: 56)
+		NavigationLink(destination: PlaceDetailScreen(place: item)) {
+			HStack(alignment: .center, spacing: 0) {
+				// 썸네일
+				if let imageURL = item.thumbnailUrl {
+					AsyncImage(url: URL(string: imageURL))
+						.frame(width: 56, height: 56)
+						.cornerRadius(.infinity)
+				} else {
+					Circle()
+						.fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+						.frame(width: 56, height: 56)
+				}
+				
+				// 텍스트
+				VStack(alignment: .leading) {
+					Text(item.name) // 이름
+						.font(.system(size: 16))
+						.fontWeight(.medium)
+					Text("\(item.categoryName) | \(item.address)") // 주소
+						.font(.system(size: 12))
+						.foregroundColor(Color("gray"))
+				}
+				.padding(.leading, 12)
+				
+				Spacer()
+				
+				selectButton(item)
 			}
-			
-			// 텍스트
-			VStack(alignment: .leading) {
-				Text(item.name) // 이름
-					.font(.system(size: 16))
-					.fontWeight(.medium)
-				Text("\(item.categoryName) | \(item.address)") // 주소
-					.font(.system(size: 12))
-					.foregroundColor(Color("gray"))
-			}
-			.padding(.leading, 12)
-			
-			Spacer()
-			
-			selectButton(item)
 		}
+		.buttonStyle(PlainButtonStyle())
 		.frame(height: 80)
 		.padding(.horizontal, 21)
 	}
