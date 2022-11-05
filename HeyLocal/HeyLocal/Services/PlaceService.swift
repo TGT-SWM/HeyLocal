@@ -11,6 +11,7 @@ import Combine
 
 class PlaceService {
     private var placeRepository = PlaceRepository()
+	let kakaoAPIService = KakaoAPIService()
 	
 	var cancelBag: Set<AnyCancellable> = []
     
@@ -27,7 +28,11 @@ class PlaceService {
 			size: size
 		)
 		.sink(
-			receiveCompletion: { _ in },
+			receiveCompletion: { _ in
+				for i in opinions.indices {
+					self.kakaoAPIService.getPlaceImage(place: opinions[i].place)
+				}
+			},
 			receiveValue: {
 				opinions.wrappedValue.append(contentsOf: $0)
 				lastItemId.wrappedValue = $0.last?.id
