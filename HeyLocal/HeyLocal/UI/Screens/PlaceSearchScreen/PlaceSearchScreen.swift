@@ -150,25 +150,38 @@ extension PlaceSearchScreen {
 			
 			Spacer()
 			
-			// 선택 버튼
-			Button {
-				viewModel.addSelectedItem(item)
-			} label: {
-				ZStack {
-					RoundedRectangle(cornerRadius: 100)
-						.fill(Color("orange"))
-						.frame(width: 38, height: 20)
-					Text("선택")
-						.font(.system(size: 12))
-						.foregroundColor(.white)
-				}
-			}
-			.if(viewModel.isSelected(item)) {
-				$0.disabled(true)
-			}
+			selectButton(item)
 		}
 		.frame(height: 80)
 		.padding(.horizontal, 21)
+	}
+	
+	func selectButton(_ item: Place) -> some View {
+		Group {
+			if viewModel.isSelected(item) {
+				Button("장소 선택") {
+					viewModel.removeSelectedItem(item)
+				}
+				.font(.system(size: 12))
+				.foregroundColor(.white)
+				.background(
+					RoundedRectangle(cornerRadius: 100)
+						.fill(Color("lightGray"))
+						.frame(width: 69, height: 32)
+				)
+			} else {
+				Button("장소 선택") {
+					viewModel.addSelectedItem(item)
+				}
+				.font(.system(size: 12))
+				.foregroundColor(.white)
+				.background(
+					RoundedRectangle(cornerRadius: 100)
+						.fill(Color("orange"))
+						.frame(width: 69, height: 32)
+				)
+			}
+		}
 	}
 }
 
