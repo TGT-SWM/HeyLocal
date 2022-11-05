@@ -7,13 +7,17 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 // MARK: - PlanSelectScreen.ViewModel (뷰 모델)
 
 extension PlanSelectScreen {
 	class ViewModel: ObservableObject {
-		let planService = PlanService() // 의존성
-		var cancellable: AnyCancellable? // Cancellable 임시 저장
+		// 의존성
+		let planService = PlanService()
+		let kakaoApiService = KakaoAPIService()
+		
+		var cancellable: AnyCancellable?
 		
 		@Published var myPlans = MyPlans() // 마이플랜
 		@Published var showSheet = false // 바텀시트 표시 여부
@@ -36,6 +40,7 @@ extension PlanSelectScreen.ViewModel {
 	func fetchMyPlans() {
 		cancellable = planService.getMyPlans()
 			.sink(receiveCompletion: { _ in
+				self.fetchRegionImages()
 			}, receiveValue: { myPlans in
 				self.myPlans = myPlans
 			})
@@ -47,6 +52,29 @@ extension PlanSelectScreen.ViewModel {
 	
 	var isMyPlanEmpty: Bool { // 마이플랜이 비어 있는지의 여부
 		ongoing.isEmpty && upcoming.isEmpty && past.isEmpty
+	}
+	
+	/// 플랜의 지역 이미지를 불러옵니다.
+	func fetchRegionImages() {
+		fetchRegionImagesFor(\.ongoing)
+		fetchRegionImagesFor(\.upcoming)
+		fetchRegionImagesFor(\.past)
+	}
+	
+	/// ongoing, upcoming, 또는 past에 대한 지역 이미지를 불러옵니다.
+	private func fetchRegionImagesFor(_ keypath: WritableKeyPath<MyPlans, [Plan]>) {
+		for i in myPlans[keyPath: keypath].indices {
+			kakaoApiService.getRegionImage(region: Binding(
+				get: {
+					Region(
+						id: self.myPlans[keyPath: keypath][i].regionId,
+						city: self.myPlans[keyPath: keypath][i].regionCity,
+						state: self.myPlans[keyPath: keypath][i].regionState
+					)
+				},
+				set: { self.myPlans[keyPath: keypath][i].regionImageURL = $0.thumbnailUrl }
+			))
+		}
 	}
 }
 

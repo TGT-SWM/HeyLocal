@@ -86,9 +86,15 @@ extension PlanSelectScreen {
 	func sublistItem(plan: Plan) -> some View {
 		HStack(alignment: .center) {
 			// 썸네일 이미지
-			WebImage(url: "https://www.busan.go.kr/resource/img/geopark/sub/busantour/busantour1.jpg")
-				.frame(width: 56, height: 56)
-				.cornerRadius(.infinity)
+			if let imageURL = plan.regionImageURL {
+				AsyncImage(url: URL(string: imageURL))
+					.frame(width: 56, height: 56)
+					.cornerRadius(.infinity)
+			} else {
+				Circle()
+					.fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+					.frame(width: 56, height: 56)
+			}
 			
 			VStack(alignment: .leading, spacing: 0) {
 				// 제목
