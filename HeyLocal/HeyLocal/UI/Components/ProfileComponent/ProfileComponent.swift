@@ -58,8 +58,10 @@ struct ProfileComponent: View {
                         .frame(width: 15)
                     
                     VStack(alignment: .leading) {
-                        Text("\(regionNameFormatter(region: author.activityRegion!))")
-                            .font(.system(size: 12))
+						if let activityRegion = author.activityRegion {
+							Text("\(regionNameFormatter(region: activityRegion))")
+								.font(.system(size: 12))
+						}
                         
                         Spacer()
                             .frame(height: 7)
@@ -130,11 +132,12 @@ struct ProfileComponent: View {
                     .fill(Color(red: 248/255, green: 248/255, blue: 248/255))
                     .frame(width: ScreenSize.width, height: 64)
                 
-                Text("\(author.introduce!)")
-                    .font(.system(size: 12))
-                    .foregroundColor(Color("gray"))
-                    .padding()
-                
+				if let introduce = author.introduce {
+					Text("\(introduce)")
+						.font(.system(size: 12))
+						.foregroundColor(Color("gray"))
+						.padding()
+				}
             }
         }
         .background(.white)
