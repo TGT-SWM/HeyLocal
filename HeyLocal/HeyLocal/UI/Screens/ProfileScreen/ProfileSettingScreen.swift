@@ -15,8 +15,8 @@ struct ProfileSettingScreen: View {
     var body: some View {
 		ZStack {
 			VStack(alignment: .leading) {
-				alarmSetting
-					.padding()
+//				alarmSetting // TODO: 알림 기능
+//					.padding()
 				accountSetting
 					.padding()
 				etcSetting
@@ -78,21 +78,24 @@ struct ProfileSettingScreen: View {
             Text("계정 설정")
                 .font(.system(size: 14))
                 .foregroundColor(Color("gray"))
+			
+			Spacer()
+				.frame(height: 10)
             
             
             /// 연결된 계정
-            HStack {
-                Text("연결된 계정")
-                    .font(.system(size: 16))
-                
-                Spacer()
-                
-                // TODO: 연결된 계정 뜨기 해야 함
-                Image("logo-kakao")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 54)
-            }
+//            HStack { // TODO: 소셜 로그인 기능
+//                Text("연결된 계정")
+//                    .font(.system(size: 16))
+//
+//                Spacer()
+//
+//                // TODO: 연결된 계정 뜨기 해야 함
+//                Image("logo-kakao")
+//                    .resizable()
+//                    .aspectRatio(contentMode: .fit)
+//                    .frame(width: 54)
+//            }
             
             
             /// 로그아웃

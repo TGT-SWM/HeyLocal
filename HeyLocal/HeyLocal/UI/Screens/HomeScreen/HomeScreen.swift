@@ -84,7 +84,7 @@ struct HomeScreen: View {
             .navigationBarTitle("", displayMode: .automatic)
             .navigationBarItems(
 				leading: Image("logo").resizable().frame(width: 93, height: 36)
-//				,trailing: alarmButton
+//				,trailing: alarmButton // TODO: 알림 기능
 			)
             .navigationViewStyle(StackNavigationViewStyle())
             
