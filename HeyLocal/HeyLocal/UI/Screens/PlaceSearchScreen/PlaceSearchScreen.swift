@@ -64,22 +64,35 @@ extension PlaceSearchScreen {
 	
 	func selectedItem(_ item: Place) -> some View {
 		ZStack(alignment: .topTrailing) {
-			VStack(alignment: .center) {
-				RoundedRectangle(cornerRadius: 5) // 썸네일 이미지
-					.fill(.gray)
-					.frame(width: 50, height: 50)
-				Text(item.name) // 이름
-					.font(.subheadline)
+			VStack(alignment: .leading) {
+				VStack(alignment: .center) {
+					Spacer()
+					
+					if let imageURL = item.thumbnailUrl {
+						AsyncImage(url: URL(string: imageURL))
+							.frame(width: 56, height: 56)
+							.cornerRadius(.infinity)
+					} else {
+						Circle()
+							.fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+							.frame(width: 56, height: 56)
+					}
+					
+					Text(item.name) // 이름
+						.font(.system(size: 12))
+				}
+				.frame(width: 56)
 			}
-			.frame(width: 50, height: 70)
 			
 			Button { // 선택 취소 버튼
 				viewModel.removeSelectedItem(item)
 			} label: {
-				Image(systemName: "x.circle.fill")
+				Image(systemName: "xmark")
+					.foregroundColor(.black)
+					.font(.system(size: 10))
 			}
 		}
-		.frame(width: 60, height: 80)
+		.frame(width: 60, height: 85)
 	}
 }
 
