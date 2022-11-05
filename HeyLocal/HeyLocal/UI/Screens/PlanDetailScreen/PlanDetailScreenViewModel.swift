@@ -394,7 +394,8 @@ extension PlanDetailScreen.ViewModel {
 		// 새로운 스케줄 가져와 반영
 		let result = engine.run()
 		schedules[day - 1].places = result
-		// TODO: 서버에 반영
-		// updateSchedules()
+		
+		// 서버에 반영
+		updateSchedules()
 	}
 }
