@@ -79,3 +79,21 @@ struct PlaceMenu: Hashable {
 	var name: String
 	var price: String
 }
+
+
+// MARK: - PlaceDetail (장소 상세 정보)
+
+struct PlaceDetail: Decodable {
+	var businessTimes: [BusinessTime]
+	var menus: [MenuInfo]
+	
+	struct BusinessTime: Decodable {
+		var openTime: String
+	}
+	
+	struct MenuInfo: Decodable {
+		var name: String
+		var price: String
+		var photo: String
+	}
+}
