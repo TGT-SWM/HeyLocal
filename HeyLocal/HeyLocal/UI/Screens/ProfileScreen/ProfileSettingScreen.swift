@@ -38,7 +38,7 @@ struct ProfileSettingScreen: View {
 				)
 			}
 		}
-        .navigationTitle("프로필 설정")
+        .navigationTitle("설정")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: BackButton { displayTabBar(true) })
