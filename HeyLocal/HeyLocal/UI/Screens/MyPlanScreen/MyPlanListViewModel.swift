@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 // MARK: - MyPlanList.ViewModel (뷰 모델)
 
@@ -17,6 +18,7 @@ extension MyPlanList {
 		var cancellable: AnyCancellable? // Cancellable 임시 저장
 		
 		@Published var myPlans = MyPlans() // 마이플랜
+		@Published var editMode: EditMode = .inactive // 수정 모드
 	}
 }
 
@@ -56,5 +58,25 @@ extension MyPlanList.ViewModel {
 		}
 		
 		return handler
+	}
+}
+
+
+// MARK: - 수정 버튼
+
+extension MyPlanList.ViewModel {
+	/// 현재 수정 모드인 경우 true를 반환합니다.
+	var isEditing: Bool {
+		editMode == .active
+	}
+	
+	/// 수정 모드에 진입합니다.
+	func startEditing() {
+		editMode = .active
+	}
+	
+	/// 수정 모드를 종료합니다.
+	func stopEditing() {
+		editMode = .inactive
 	}
 }
