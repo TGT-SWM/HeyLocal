@@ -38,9 +38,15 @@ class KakaoAPIService {
 		// 실행
 		self.cancellable = agent.run(request)
 			.sink(receiveCompletion: { completion in
-				if case let .failure(error) = completion {
+				switch completion {
+				case .failure(let error):
 					print(error)
+				case .finished:
+					for i in places.indices {
+						self.getPlaceImage(place: places[i])
+					}
 				}
+				
 			}, receiveValue: { (resp: KakaoPlacesResponse) in
 				let newPlaces = resp.documents.map(\.place)
 				places.wrappedValue.append(contentsOf: newPlaces)

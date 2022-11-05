@@ -12,6 +12,7 @@ import Combine
 
 class UserService {
 	let userRepository = UserRepository()
+	let kakaoAPIService = KakaoAPIService()
 	
 	var cancellable: AnyCancellable?
     /// 여행On
@@ -21,12 +22,16 @@ class UserService {
 			lastItemId: lastItemId.wrappedValue,
 			size: size
 		).sink(
-			receiveCompletion: { _ in },
+			receiveCompletion: { _ in
+				for i in travelOns.indices {
+					self.kakaoAPIService.getRegionImage(region: travelOns[i].region)
+				}
+			},
 			receiveValue: {
 				travelOns.wrappedValue.append(contentsOf: $0)
 				lastItemId.wrappedValue = $0.last?.id
 				
-				if $0.isEmpty {
+				if $0.count < size {
 					isEnd.wrappedValue = true
 				}
 			}

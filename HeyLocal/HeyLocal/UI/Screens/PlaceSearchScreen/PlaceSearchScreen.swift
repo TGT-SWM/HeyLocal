@@ -64,22 +64,35 @@ extension PlaceSearchScreen {
 	
 	func selectedItem(_ item: Place) -> some View {
 		ZStack(alignment: .topTrailing) {
-			VStack(alignment: .center) {
-				RoundedRectangle(cornerRadius: 5) // 썸네일 이미지
-					.fill(.gray)
-					.frame(width: 50, height: 50)
-				Text(item.name) // 이름
-					.font(.subheadline)
+			VStack(alignment: .leading) {
+				VStack(alignment: .center) {
+					Spacer()
+					
+					if let imageURL = item.thumbnailUrl {
+						AsyncImage(url: URL(string: imageURL))
+							.frame(width: 56, height: 56)
+							.cornerRadius(.infinity)
+					} else {
+						Circle()
+							.fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+							.frame(width: 56, height: 56)
+					}
+					
+					Text(item.name) // 이름
+						.font(.system(size: 12))
+				}
+				.frame(width: 56)
 			}
-			.frame(width: 50, height: 70)
 			
 			Button { // 선택 취소 버튼
 				viewModel.removeSelectedItem(item)
 			} label: {
-				Image(systemName: "x.circle.fill")
+				Image(systemName: "xmark")
+					.foregroundColor(.black)
+					.font(.system(size: 10))
 			}
 		}
-		.frame(width: 60, height: 80)
+		.frame(width: 60, height: 85)
 	}
 }
 
@@ -114,9 +127,15 @@ extension PlaceSearchScreen {
 	func listItem(_ item: Place) -> some View {
 		HStack(alignment: .center, spacing: 0) {
 			// 썸네일
-			WebImage(url: "https://www.busan.go.kr/resource/img/geopark/sub/busantour/busantour1.jpg")
-				.frame(width: 56, height: 56)
-				.cornerRadius(.infinity)
+			if let imageURL = item.thumbnailUrl {
+				AsyncImage(url: URL(string: imageURL))
+					.frame(width: 56, height: 56)
+					.cornerRadius(.infinity)
+			} else {
+				Circle()
+					.fill(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+					.frame(width: 56, height: 56)
+			}
 			
 			// 텍스트
 			VStack(alignment: .leading) {
@@ -131,25 +150,38 @@ extension PlaceSearchScreen {
 			
 			Spacer()
 			
-			// 선택 버튼
-			Button {
-				viewModel.addSelectedItem(item)
-			} label: {
-				ZStack {
-					RoundedRectangle(cornerRadius: 100)
-						.fill(Color("orange"))
-						.frame(width: 38, height: 20)
-					Text("선택")
-						.font(.system(size: 12))
-						.foregroundColor(.white)
-				}
-			}
-			.if(viewModel.isSelected(item)) {
-				$0.disabled(true)
-			}
+			selectButton(item)
 		}
 		.frame(height: 80)
 		.padding(.horizontal, 21)
+	}
+	
+	func selectButton(_ item: Place) -> some View {
+		Group {
+			if viewModel.isSelected(item) {
+				Button("장소 선택") {
+					viewModel.removeSelectedItem(item)
+				}
+				.font(.system(size: 12))
+				.foregroundColor(.white)
+				.background(
+					RoundedRectangle(cornerRadius: 100)
+						.fill(Color("lightGray"))
+						.frame(width: 69, height: 32)
+				)
+			} else {
+				Button("장소 선택") {
+					viewModel.addSelectedItem(item)
+				}
+				.font(.system(size: 12))
+				.foregroundColor(.white)
+				.background(
+					RoundedRectangle(cornerRadius: 100)
+						.fill(Color("orange"))
+						.frame(width: 69, height: 32)
+				)
+			}
+		}
 	}
 }
 
