@@ -14,7 +14,10 @@ struct MyPlanList: View {
 	@ObservedObject var viewModel = ViewModel()
 	
     var body: some View {
-		list.onAppear(perform: viewModel.fetchMyPlans)
+		list
+			.onAppear(perform: viewModel.fetchMyPlans)
+			.environment(\.editMode, $viewModel.editMode)
+			.animation(.easeInOut, value: viewModel.editMode)
     }
 }
 
@@ -41,7 +44,7 @@ extension MyPlanList {
 			)
 		}
 		.listStyle(PlainListStyle())
-		.toolbar { EditButton() }
+		.toolbar { toolbarItems }
 	}
 	
 	func section(title: String, plans: [Plan], onDelete: @escaping ((IndexSet) -> Void)) -> some View {
@@ -99,6 +102,16 @@ extension MyPlanList {
 		.padding(.horizontal, 21)
 		.listRowInsets(EdgeInsets())
 		.listRowSeparator(.hidden)
+	}
+	
+	var toolbarItems: some View {
+		Group {
+			if viewModel.isEditing {
+				Button("완료", action: viewModel.stopEditing)
+			} else {
+				Button("수정", action: viewModel.startEditing)
+			}
+		}
 	}
 }
 
