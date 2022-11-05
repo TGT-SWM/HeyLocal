@@ -22,6 +22,7 @@ struct Plan: Decodable {
 	var regionId: Int
 	var regionState: String
 	var regionCity: String?
+	var regionImageURL: String?
 	var startDate: String
 	var endDate: String
 	var transportationType: String
