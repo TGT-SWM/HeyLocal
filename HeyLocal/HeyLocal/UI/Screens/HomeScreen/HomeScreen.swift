@@ -82,8 +82,10 @@ struct HomeScreen: View {
             }
             .background(Color("lightGray"))
             .navigationBarTitle("", displayMode: .automatic)
-            .navigationBarItems(leading:
-                                    Image("logo").resizable().frame(width: 93, height: 36), trailing: alarmButton)
+            .navigationBarItems(
+				leading: Image("logo").resizable().frame(width: 93, height: 36)
+//				,trailing: alarmButton
+			)
             .navigationViewStyle(StackNavigationViewStyle())
             
         }
