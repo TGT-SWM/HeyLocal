@@ -44,4 +44,18 @@ class PlaceService {
 		)
 		.store(in: &cancelBag)
 	}
+	
+	/// 장소의 상세 정보들을 조회합니다.
+	func getPlaceDetail(placeId: Int, placeDetail: Binding<PlaceDetail>) {
+		placeRepository.getPlaceDetail(placeId: placeId)
+			.sink(
+				receiveCompletion: { completion in
+					print(completion) // LOG
+				},
+				receiveValue: {
+					placeDetail.wrappedValue = $0
+				}
+			)
+			.store(in: &cancelBag)
+	}
 }

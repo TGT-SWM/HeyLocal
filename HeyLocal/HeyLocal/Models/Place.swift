@@ -73,9 +73,19 @@ struct Distance {
 }
 
 
-// MARK: - PlaceMenu (식당 메뉴)
+// MARK: - PlaceDetail (장소 상세 정보)
 
-struct PlaceMenu: Hashable {
-	var name: String
-	var price: String
+struct PlaceDetail: Decodable {
+	var businessTimes: [BusinessTime] = []
+	var menus: [MenuInfo] = []
+	
+	struct BusinessTime: Decodable {
+		var openTime: String
+	}
+	
+	struct MenuInfo: Decodable, Hashable {
+		var name: String
+		var price: String
+		var photo: String?
+	}
 }

@@ -48,4 +48,20 @@ struct PlaceRepository {
 		// Publisher 반환
 		return agent.run(request)
 	}
+	
+	/// 장소의 상세 정보들을 조회합니다.
+	func getPlaceDetail(placeId: Int) -> AnyPublisher<PlaceDetail, Error> {
+		// URLRequest 생성
+		let url = URL(string: "\(placeUrl)/\(placeId)/info")!
+		var request = URLRequest(url: url)
+		
+		// HTTP 헤더 작성
+		request.httpMethod = "GET"
+		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+		request.addValue("application/json", forHTTPHeaderField: "Accept")
+		request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
+		
+		// Publisher 반환
+		return agent.run(request)
+	}
 }
