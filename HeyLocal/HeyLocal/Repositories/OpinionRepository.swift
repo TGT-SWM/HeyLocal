@@ -233,18 +233,11 @@ struct OpinionRepository {
                 do {
                     let responseURLs = try decoder.decode([imgURL].self, from: data)
                     
-                    print(responseURLs)
-                    
-                    
                     for i in 0..<responseURLs.count {
-                        // 공통
+                        // MARK: - 공통 사진
                         if responseURLs[i].imgType == "GENERAL" {
                             let generalPUTs = responseURLs[i].putUrls
                             let generalDELETEs = responseURLs[i].deleteUrls
-                            print("GENERAL PUTs", generalPUTs)
-                            print("GENERAL DELETEs", generalDELETEs)
-                            
-                            print("deletes", deleteImages)
                             
                             // 삭제 진행 후
                             if !deleteImages.isEmpty {
@@ -274,7 +267,7 @@ struct OpinionRepository {
                             }
                             
                             // reUpload
-                            let startNum = generalDELETEs.count - deleteImages.count // 
+                            let startNum = generalDELETEs.count - deleteImages.count //
                             for i in 0..<generalImages.count {
                                 let putURL = URL(string: generalPUTs[i + startNum])!
                                 var putRequest = URLRequest(url: putURL)
@@ -290,30 +283,161 @@ struct OpinionRepository {
                                 }
                                 putTask.resume()
                             }
-                            
                         }
-                        // 음식점
+                        
+                        // MARK: - 음식점
                         else if responseURLs[i].imgType == "RECOMMEND_FOOD" {
                             let foodPUTs = responseURLs[i].putUrls
                             let foodDELETEs = responseURLs[i].deleteUrls
-                            print("FOOD PUTs", foodPUTs)
-                            print("FOOD DELETEs", foodDELETEs)
+                            
+                            // 삭제 진행 후
+                            if !deleteFoodImages.isEmpty {
+                                var deleteArrays: [Int] = []
+
+                                for i in 0..<deleteFoodImages.count {
+                                    let tmp = deleteFoodImages[i].components(separatedBy: "/")
+                                    let deleteNum = tmp[tmp.count - 1].components(separatedBy: ".png")[0]
+
+                                    deleteArrays.append(Int(deleteNum)!)
+                                }
+                                deleteArrays = deleteArrays.sorted().reversed()
+
+                                for i in 0..<deleteArrays.count {
+                                    let deleteURL = URL(string: foodDELETEs[deleteArrays[i]])!
+                                    var deleteRequest = URLRequest(url: deleteURL)
+
+                                    deleteRequest.httpMethod = "DELETE"
+                                    let deleteTask = URLSession.shared.dataTask(with: deleteRequest) { data, response, error in
+                                        guard let data = data, let response = response as? HTTPURLResponse, error == nil else {
+                                            print(error?.localizedDescription ?? "NO Data")
+                                            return
+                                        }
+                                    }
+                                    deleteTask.resume()
+                                }
+                            }
+                            
+                            // reUpload
+                            let startNum = foodDELETEs.count - deleteFoodImages.count
+                            for i in 0..<foodImages.count {
+                                let putURL = URL(string: foodPUTs[i + startNum])!
+                                var putRequest = URLRequest(url: putURL)
+
+                                putRequest.httpMethod = "PUT"
+                                putRequest.addValue("image/png", forHTTPHeaderField: "Content-Type")
+
+                                putRequest.httpBody = foodImages[i].image.jpegData(compressionQuality: 1) // error
+                                let putTask = URLSession.shared.dataTask(with: putRequest) { data, response, error in
+                                    guard let data = data else {
+                                        return
+                                    }
+                                }
+                                putTask.resume()
+                            }
                         }
-                        // 카페
+                        
+                        // MARK: - 카페
                         else if responseURLs[i].imgType == "RECOMMEND_DRINK_DESSERT" {
                             let cafePUTs = responseURLs[i].putUrls
                             let cafeDELETEs = responseURLs[i].deleteUrls
+//
+//                            print("CAFE PUTs", cafePUTs)
+//                            print("CAFE DELETEs", cafeDELETEs)
                             
-                            print("CAFE PUTs", cafePUTs)
-                            print("CAFE DELETEs", cafeDELETEs)
+                            // 삭제 진행 후
+                            if !deleteCafeImages.isEmpty {
+                                var deleteArrays: [Int] = []
+
+                                for i in 0..<deleteCafeImages.count {
+                                    let tmp = deleteCafeImages[i].components(separatedBy: "/")
+                                    let deleteNum = tmp[tmp.count - 1].components(separatedBy: ".png")[0]
+
+                                    deleteArrays.append(Int(deleteNum)!)
+                                }
+                                deleteArrays = deleteArrays.sorted().reversed()
+
+                                for i in 0..<deleteArrays.count {
+                                    let deleteURL = URL(string: cafeDELETEs[deleteArrays[i]])!
+                                    var deleteRequest = URLRequest(url: deleteURL)
+
+                                    deleteRequest.httpMethod = "DELETE"
+                                    let deleteTask = URLSession.shared.dataTask(with: deleteRequest) { data, response, error in
+                                        guard let data = data, let response = response as? HTTPURLResponse, error == nil else {
+                                            print(error?.localizedDescription ?? "NO Data")
+                                            return
+                                        }
+                                    }
+                                    deleteTask.resume()
+                                }
+                            }
+                            
+                            // reUpload
+                            let startNum = cafeDELETEs.count - deleteCafeImages.count //
+                            for i in 0..<cafeImages.count {
+                                let putURL = URL(string: cafePUTs[i + startNum])!
+                                var putRequest = URLRequest(url: putURL)
+
+                                putRequest.httpMethod = "PUT"
+                                putRequest.addValue("image/png", forHTTPHeaderField: "Content-Type")
+
+                                putRequest.httpBody = cafeImages[i].image.jpegData(compressionQuality: 1) // error
+                                let putTask = URLSession.shared.dataTask(with: putRequest) { data, response, error in
+                                    guard let data = data else {
+                                        return
+                                    }
+                                }
+                                putTask.resume()
+                            }
                         }
-                        // 포토스팟
+                        
+                        // MARK: - 포토스팟
                         else {
                             let photoSpotsPUTs = responseURLs[i].putUrls
                             let photoSpotsDELETEs = responseURLs[i].deleteUrls
                             
-                            print("PHOTOSPOT PUTs", photoSpotsPUTs)
-                            print("PHOTOSPOT DELETEs", photoSpotsDELETEs)
+                            if !deletePhotoSpotImages.isEmpty {
+                                var deleteArrays: [Int] = []
+
+                                for i in 0..<deletePhotoSpotImages.count {
+                                    let tmp = deletePhotoSpotImages[i].components(separatedBy: "/")
+                                    let deleteNum = tmp[tmp.count - 1].components(separatedBy: ".png")[0]
+
+                                    deleteArrays.append(Int(deleteNum)!)
+                                }
+                                deleteArrays = deleteArrays.sorted().reversed()
+
+                                for i in 0..<deleteArrays.count {
+                                    let deleteURL = URL(string: photoSpotsDELETEs[deleteArrays[i]])!
+                                    var deleteRequest = URLRequest(url: deleteURL)
+
+                                    deleteRequest.httpMethod = "DELETE"
+                                    let deleteTask = URLSession.shared.dataTask(with: deleteRequest) { data, response, error in
+                                        guard let data = data, let response = response as? HTTPURLResponse, error == nil else {
+                                            print(error?.localizedDescription ?? "NO Data")
+                                            return
+                                        }
+                                    }
+                                    deleteTask.resume()
+                                }
+                            }
+                            
+                            // reUpload
+                            let startNum = photoSpotsDELETEs.count - deletePhotoSpotImages.count //
+                            for i in 0..<photoSpotImages.count {
+                                let putURL = URL(string: photoSpotsPUTs[i + startNum])!
+                                var putRequest = URLRequest(url: putURL)
+
+                                putRequest.httpMethod = "PUT"
+                                putRequest.addValue("image/png", forHTTPHeaderField: "Content-Type")
+
+                                putRequest.httpBody = photoSpotImages[i].image.jpegData(compressionQuality: 1) // error
+                                let putTask = URLSession.shared.dataTask(with: putRequest) { data, response, error in
+                                    guard let data = data else {
+                                        return
+                                    }
+                                }
+                                putTask.resume()
+                            }
                         }
                     }
                 } catch {
@@ -344,3 +468,4 @@ struct imgURL: Decodable {
     var putUrls: [String]
     var deleteUrls: [String]
 }
+
