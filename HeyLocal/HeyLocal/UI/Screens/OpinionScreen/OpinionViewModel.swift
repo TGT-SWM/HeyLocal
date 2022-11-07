@@ -59,6 +59,13 @@ extension OpinionComponent {
         @Published var photoSpotImages: [SelectedImage] = []
         
         
+        // 이미지 URL
+        @Published var generalImagesURL: [String] = []
+        @Published var foodImagesURL: [String] = []
+        @Published var cafeImagesURL: [String] = []
+        @Published var photoSpotImagesURL: [String] = []
+        
+        
         var cancellable: AnyCancellable?
         init() {
             self.opinions = [Opinion()]
@@ -109,9 +116,7 @@ extension OpinionComponent {
                                 for i in 0 ..< self.waitingInt {
                                     self.waitingArray[i] = true
                                 }
-                                
-                                
-                                
+                                self.generalImagesURL = self.opinions[i].generalImgDownloadImgUrl
                                 
                                 // 음식점
                                 if self.opinion.place.category == "FD6" {
@@ -120,6 +125,9 @@ extension OpinionComponent {
                                             self.restaurantMood[i] = true
                                             break
                                         }
+                                    }
+                                    if let imagesURL = self.opinion.foodImgDownloadImgUrl {
+                                        self.foodImagesURL = imagesURL
                                     }
                                 }
                                 
@@ -140,6 +148,9 @@ extension OpinionComponent {
                                             break
                                         }
                                     }
+                                    if let imagesURL = self.opinion.drinkAndDessertImgDownloadImgUrl {
+                                        self.cafeImagesURL = imagesURL
+                                    }
                                 }
                                 
                                 
@@ -155,8 +166,13 @@ extension OpinionComponent {
                                     }
                                 }
                                 
-                                
-                                
+                                // 문화시설, 관광명소
+                                else if self.opinion.place.category == "CT1" || self.opinion.place.category == "AT4" {
+                                    if let imagesURL = self.opinion.photoSpotImgDownloadImgUrl {
+                                        self.photoSpotImagesURL = imagesURL
+                                    }
+                                }
+
                                 break
                             }
                         }
@@ -175,8 +191,10 @@ extension OpinionComponent {
         }
         
         // 답변 수정
-        func updateOpinion(travelOnId: Int, opinionId: Int, opinionData: Opinion) {
-            return opinionService.updateOpinion(travelOnId: travelOnId, opinionId: opinionId, opinionData: opinionData)
+        func updateOpinion(travelOnId: Int, opinionId: Int, opinionData: Opinion,
+                           generalImages: [SelectedImage], foodImages: [SelectedImage], cafeImages: [SelectedImage], photoSpotImages: [SelectedImage],
+                           deleteImages: [String], deleteFoodImages: [String], deleteCafeImages: [String], deletePhotoSpotImages: [String]) {
+            return opinionService.updateOpinion(travelOnId: travelOnId, opinionId: opinionId, opinionData: opinionData, generalImages: generalImages, foodImages: foodImages, cafeImages: cafeImages, photoSpotImages: photoSpotImages, deleteImages: deleteImages, deleteFoodImages: deleteFoodImages, deleteCafeImages: deleteCafeImages, deletePhotoSpotImages: deletePhotoSpotImages)
         }
         
         // Likert to Int

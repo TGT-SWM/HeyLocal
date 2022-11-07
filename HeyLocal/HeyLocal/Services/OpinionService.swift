@@ -28,7 +28,10 @@ struct OpinionService {
     }
     
     // 답변 수정
-    func updateOpinion(travelOnId: Int, opinionId: Int, opinionData: Opinion) {
-        return opinionRepository.updateOpinion(travelOnId: travelOnId, opinionId: opinionId, opinionData: opinionData)
+    func updateOpinion(travelOnId: Int, opinionId: Int, opinionData: Opinion,
+                       generalImages: [SelectedImage], foodImages: [SelectedImage], cafeImages: [SelectedImage], photoSpotImages: [SelectedImage],
+                       deleteImages: [String], deleteFoodImages: [String], deleteCafeImages: [String], deletePhotoSpotImages: [String]) {
+        return opinionRepository.updateOpinion(travelOnId: travelOnId, opinionId: opinionId, opinionData: opinionData,
+                                               generalImages: generalImages, foodImages: foodImages, cafeImages: cafeImages, photoSpotImages: photoSpotImages, deleteImages: deleteImages, deleteFoodImages: deleteFoodImages, deleteCafeImages: deleteCafeImages, deletePhotoSpotImages: deletePhotoSpotImages)
     }
 }

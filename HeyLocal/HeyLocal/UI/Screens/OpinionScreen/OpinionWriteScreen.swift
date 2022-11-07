@@ -47,7 +47,13 @@ struct OpinionWriteScreen: View {
                 else {
                     Button(action: {
                         makeJsonData()
-                        viewModel.updateOpinion(travelOnId: travelOnId, opinionId: opinionId!, opinionData: opinionData)
+                        
+                        // 삭제 이미지 확인
+                        deleteImage = deleteImage.sorted().reversed()
+                        
+                        viewModel.updateOpinion(travelOnId: travelOnId, opinionId: opinionId!, opinionData: opinionData,
+                                                generalImages: generalImages, foodImages: foodImages, cafeImages: cafeImages, photoSpotImages: photoSpotImages,
+                                                deleteImages: deleteImage, deleteFoodImages: deleteFoodImage, deleteCafeImages: deleteCafeImage, deletePhotoSpotImages: deletePhotoSpotImage)
                         dismiss()
                     }) {
                         Text("수정 완료")
@@ -255,6 +261,7 @@ struct OpinionWriteScreen: View {
     // MARK: - 공통 · 필수 질문
     @State var showGeneralImagePicker: Bool = false
     @State var generalImages: [SelectedImage] = []
+    @State var deleteImage: [String] = []
     var placeOpinion: some View {
         VStack(alignment: .leading) {
             /// 장소
@@ -295,12 +302,12 @@ struct OpinionWriteScreen: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     ZStack {
                         HStack {
-                            // 이미지 추가 버튼
+                            // 사진 추가 버튼
                             Button(action: {
-                                if generalImages.count < 3 {
+                                if (viewModel.opinion.generalImgDownloadImgUrl.count + generalImages.count - deleteImage.count) < 3 {
                                     showGeneralImagePicker.toggle()
                                 }
-                            }) {
+                            }){
                                 ZStack(alignment: .center) {
                                     Rectangle()
                                         .fill(Color.white)
@@ -313,17 +320,69 @@ struct OpinionWriteScreen: View {
                                         Image(systemName: "camera")
                                             .padding(EdgeInsets(top: 0, leading: 0, bottom: 3, trailing: 0))
                                         
-                                        Text("\(generalImages.count) / 3")
+                                        Text("\(viewModel.opinion.generalImgDownloadImgUrl.count + generalImages.count - deleteImage.count) / 3")
                                             .font(.system(size: 12))
                                     }
                                     .foregroundColor(Color("gray"))
                                 }
                             }
                             
-                            // 이미지 View
+                            // 기존 사진
+                            ForEach(viewModel.generalImagesURL, id: \.self) { url in
+                                if !deleteImage.contains(url.components(separatedBy: "?")[0]) {
+                                    ZStack(alignment: .topTrailing) {
+                                        // 이미지
+                                        AsyncImage(url: URL(string: url)) { phash in
+                                            if let image = phash.image {
+                                                image
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fill)
+                                                    .frame(width: 100, height: 100)
+                                                    .cornerRadius(10)
+                                                    .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
+                                            }
+                                            else {
+                                                Rectangle()
+                                                    .fill(Color("lightGray"))
+                                                    .frame(width: 100, height: 100)
+                                                    .cornerRadius(10)
+                                                    .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
+                                            }
+                                        }
+                                        .onAppear {
+                                            print(url)
+                                        }
+                                        
+                                        
+                                        // 삭제버튼
+                                        Button(action: {
+                                            if let index = viewModel.generalImagesURL.firstIndex(of: url) {
+                                                viewModel.generalImagesURL.remove(at: index)
+                                                
+                                                let deleteUrl = url.components(separatedBy: "?")
+                                                deleteImage.append(deleteUrl[0])
+                                            }
+                                        }) {
+                                            ZStack {
+                                                Circle()
+                                                    .fill(Color("orange"))
+                                                    .frame(width: 18, height: 18)
+                                                
+                                                Image(systemName: "multiply")
+                                                    .resizable()
+                                                    .foregroundColor(Color.white)
+                                                    .frame(width: 10, height: 10)
+                                            }
+                                        }
+                                        
+                                    }
+                                }
+                            }
+                            
+                            // 추가 이미지
                             ForEach(generalImages, id:\.self) { img in
                                 ZStack(alignment: .topTrailing) {
-                                    /// 이미지
+                                    // 사진
                                     Image(uiImage: img.image)
                                         .resizable()
                                         .aspectRatio(contentMode: .fill)
@@ -331,7 +390,7 @@ struct OpinionWriteScreen: View {
                                         .cornerRadius(10)
                                         .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
                                     
-                                    /// 이미지 삭제버튼
+                                    // 사진 삭제 버튼
                                     Button(action: {
                                         if let index = generalImages.firstIndex(of: img) {
                                             generalImages.remove(at: index)
@@ -353,7 +412,9 @@ struct OpinionWriteScreen: View {
                         }
                         
                         if self.showGeneralImagePicker {
-                            NavigationLink("", destination: CustomImagePicker(selectedImages: self.$generalImages, showingPicker: self.$showGeneralImagePicker), isActive: $showGeneralImagePicker)
+                            NavigationLink("", destination: CustomImagePicker(selectedImages: self.$generalImages,
+                                                                              showingPicker: self.$showGeneralImagePicker,
+                                                                              nowImages: (viewModel.opinion.generalImgDownloadImgUrl.count - deleteImage.count)), isActive: $showGeneralImagePicker)
                         }
                     }
                 }
@@ -760,6 +821,7 @@ struct OpinionWriteScreen: View {
     // MARK: - 음식점  변수 · View
     @State var showFoodImagePicker: Bool = false
     @State var foodImages: [SelectedImage] = []
+    @State var deleteFoodImage: [String] = []
     var restaurantOpinion: some View {
         VStack(alignment: .leading){
             /// 가게 분위기
@@ -859,7 +921,7 @@ struct OpinionWriteScreen: View {
                     HStack {
                         // 이미지 추가 버튼
                         Button(action: {
-                            if foodImages.count < 3 {
+                            if (viewModel.opinion.foodImgDownloadImgUrl!.count + foodImages.count - deleteFoodImage.count) < 3 {
                                 showFoodImagePicker.toggle()
                             }
                         }) {
@@ -876,12 +938,58 @@ struct OpinionWriteScreen: View {
                                         .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 3, trailing: 0))
                                     
-                                    Text("\(foodImages.count) / 3")
+                                    Text("\(viewModel.opinion.foodImgDownloadImgUrl!.count + foodImages.count - deleteFoodImage.count) / 3")
                                         .font(.system(size: 12))
                                         .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                                 }
                             }
                         }
+                        
+                        // 기존 이미지
+                        ForEach(viewModel.foodImagesURL, id:\.self) { url in
+                            if !deleteFoodImage.contains(url.components(separatedBy: "?")[0]) {
+                                ZStack(alignment: .topTrailing) {
+                                    AsyncImage(url: URL(string: url)) { phash in
+                                        if let image = phash.image {
+                                            image
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                                .frame(width: 100, height: 100)
+                                                .cornerRadius(10)
+                                                .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
+                                        }
+                                        else {
+                                            Rectangle()
+                                                .fill(Color("lightGray"))
+                                                .frame(width: 100, height: 100)
+                                                .cornerRadius(10)
+                                                .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
+                                        }
+                                    }
+                                    
+                                    Button(action: {
+                                        if let index = viewModel.foodImagesURL.firstIndex(of: url) {
+                                            viewModel.foodImagesURL.remove(at: index)
+                                            
+                                            let deleteUrl = url.components(separatedBy: "?")
+                                            deleteFoodImage.append(deleteUrl[0])
+                                        }
+                                    }) {
+                                        ZStack {
+                                            Circle()
+                                                .fill(Color("orange"))
+                                                .frame(width: 18, height: 18)
+                                            
+                                            Image(systemName: "multiply")
+                                                .resizable()
+                                                .foregroundColor(Color.white)
+                                                .frame(width: 10, height: 10)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
                         
                         // 이미지 View
                         ForEach(foodImages, id:\.self) { img in
@@ -914,7 +1022,9 @@ struct OpinionWriteScreen: View {
                         }
                         
                         if self.showFoodImagePicker {
-                            NavigationLink("", destination: CustomImagePicker(selectedImages: self.$foodImages, showingPicker: self.$showFoodImagePicker), isActive: $showFoodImagePicker)
+                            NavigationLink("", destination: CustomImagePicker(selectedImages: self.$foodImages,
+                                                                              showingPicker: self.$showFoodImagePicker,
+                                                                              nowImages: (viewModel.opinion.foodImgDownloadImgUrl!.count - deleteFoodImage.count)), isActive: $showFoodImagePicker)
                         }
                     }
                 }
@@ -951,6 +1061,7 @@ struct OpinionWriteScreen: View {
     // MARK: - 카페  변수 · View
     @State var showCafeImagePicker: Bool = false
     @State var cafeImages: [SelectedImage] = []
+    @State var deleteCafeImage: [String] = []
     var cafeOpinion: some View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading){
@@ -1020,7 +1131,7 @@ struct OpinionWriteScreen: View {
                     HStack {
                         // 이미지 추가 버튼
                         Button(action: {
-                            if cafeImages.count < 3 {
+                            if (viewModel.opinion.drinkAndDessertImgDownloadImgUrl!.count + cafeImages.count - deleteCafeImage.count < 3) {
                                 showCafeImagePicker.toggle()
                             }
                         }) {
@@ -1037,12 +1148,61 @@ struct OpinionWriteScreen: View {
                                         .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 3, trailing: 0))
                                     
-                                    Text("\(cafeImages.count) / 3")
+                                    Text("\(viewModel.opinion.drinkAndDessertImgDownloadImgUrl!.count + cafeImages.count - deleteCafeImage.count) / 3")
                                         .font(.system(size: 12))
                                         .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                                 }
                             }
                         }
+                        
+                        
+                        // 기존 이미지
+                        ForEach(viewModel.cafeImagesURL, id:\.self) { url in
+                            if !deleteCafeImage.contains(url.components(separatedBy: "?")[0]) {
+                                ZStack(alignment: .topTrailing) {
+                                    // 이미지
+                                    AsyncImage(url: URL(string: url)) { phash in
+                                        if let image = phash.image {
+                                            image
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                                .frame(width: 100, height: 100)
+                                                .cornerRadius(10)
+                                                .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
+                                        }
+                                        else {
+                                            Rectangle()
+                                                .fill(Color("lightGray"))
+                                                .frame(width: 100, height: 100)
+                                                .cornerRadius(10)
+                                                .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
+                                        }
+                                    }
+                                    
+                                    // 삭제버튼
+                                    Button(action: {
+                                        if let index = viewModel.cafeImagesURL.firstIndex(of: url) {
+                                            viewModel.cafeImagesURL.remove(at: index)
+                                            
+                                            let deleteUrl = url.components(separatedBy: "?")
+                                            deleteCafeImage.append(deleteUrl[0])
+                                        }
+                                    }) {
+                                        ZStack {
+                                            Circle()
+                                                .fill(Color("orange"))
+                                                .frame(width: 18, height: 18)
+                                            
+                                            Image(systemName: "multiply")
+                                                .resizable()
+                                                .foregroundColor(Color.white)
+                                                .frame(width: 10, height: 10)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    
                         
                         // 이미지 View
                         ForEach(cafeImages, id:\.self) { img in
@@ -1075,7 +1235,9 @@ struct OpinionWriteScreen: View {
                         }
                         
                         if self.showCafeImagePicker {
-                            NavigationLink("", destination: CustomImagePicker(selectedImages: self.$cafeImages, showingPicker: self.$showCafeImagePicker), isActive: $showCafeImagePicker)
+                            NavigationLink("", destination: CustomImagePicker(selectedImages: self.$cafeImages,
+                                                                              showingPicker: self.$showCafeImagePicker,
+                                                                              nowImages: (viewModel.opinion.drinkAndDessertImgDownloadImgUrl!.count - deleteCafeImage.count)), isActive: $showCafeImagePicker)
                         }
                     }
                 }
@@ -1182,6 +1344,7 @@ struct OpinionWriteScreen: View {
     // MARK: - 관광명소 및 문화시설  변수 · View
     @State var showPhotoSpotImagePicker: Bool = false
     @State var photoSpotImages: [SelectedImage] = []
+    @State var deletePhotoSpotImage: [String] = []
     var sightseeingOpinion: some View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading){
@@ -1257,7 +1420,7 @@ struct OpinionWriteScreen: View {
                     HStack {
                         // 이미지 추가 버튼
                         Button(action: {
-                            if photoSpotImages.count < 3 {
+                            if (viewModel.opinion.photoSpotImgDownloadImgUrl!.count + photoSpotImages.count - deletePhotoSpotImage.count) < 3 {
                                 showPhotoSpotImagePicker.toggle()
                             }
                         }) {
@@ -1274,9 +1437,54 @@ struct OpinionWriteScreen: View {
                                         .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
                                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 3, trailing: 0))
                                     
-                                    Text("\(photoSpotImages.count) / 3")
+                                    Text("\(viewModel.opinion.photoSpotImgDownloadImgUrl!.count + photoSpotImages.count - deletePhotoSpotImage.count) / 3")
                                         .font(.system(size: 12))
                                         .foregroundColor(Color(red: 121/255, green: 119/255, blue: 117/255))
+                                }
+                            }
+                        }
+                        
+                        // 기존 이미지
+                        ForEach(viewModel.photoSpotImagesURL, id:\.self) { url in
+                            if !deletePhotoSpotImage.contains(url.components(separatedBy: "?")[0]) {
+                                ZStack(alignment: .topTrailing) {
+                                    AsyncImage(url: URL(string: url)) { phash in
+                                        if let image = phash.image {
+                                            image
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                                .frame(width: 100, height: 100)
+                                                .cornerRadius(10)
+                                                .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
+                                        }
+                                        else {
+                                            Rectangle()
+                                                .fill(Color("lightGray"))
+                                                .frame(width: 100, height: 100)
+                                                .cornerRadius(10)
+                                                .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
+                                        }
+                                    }
+                                    
+                                    Button(action: {
+                                        if let index = viewModel.photoSpotImagesURL.firstIndex(of: url) {
+                                            viewModel.photoSpotImagesURL.remove(at: index)
+                                            
+                                            let deleteUrl = url.components(separatedBy: "?")
+                                            deletePhotoSpotImage.append(deleteUrl[0])
+                                        }
+                                    }) {
+                                        ZStack {
+                                            Circle()
+                                                .fill(Color("orange"))
+                                                .frame(width: 18, height: 18)
+                                            
+                                            Image(systemName: "multiply")
+                                                .resizable()
+                                                .foregroundColor(Color.white)
+                                                .frame(width: 10, height: 10)
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -1312,7 +1520,9 @@ struct OpinionWriteScreen: View {
                         }
                         
                         if self.showPhotoSpotImagePicker {
-                            NavigationLink("", destination: CustomImagePicker(selectedImages: self.$photoSpotImages, showingPicker: self.$showPhotoSpotImagePicker), isActive: $showPhotoSpotImagePicker)
+                            NavigationLink("", destination: CustomImagePicker(selectedImages: self.$photoSpotImages,
+                                                                              showingPicker: self.$showPhotoSpotImagePicker,
+                                                                              nowImages: (viewModel.opinion.photoSpotImgDownloadImgUrl!.count - deletePhotoSpotImage.count)), isActive: $showPhotoSpotImagePicker)
                         }
                     }
                 }

@@ -17,6 +17,7 @@ struct CustomImagePicker: View {
     
     @State var grid: [[Images]] = []
     @State var disabled = false
+    @State var nowImages: Int = 0
     
     var body: some View {
         VStack {
@@ -27,7 +28,7 @@ struct CustomImagePicker: View {
                         ForEach(self.grid, id:\.self) { i in
                             HStack {
                                 ForEach(i, id:\.self) { j in
-                                    Card(data: j, selectedImages: self.$selectedImages)
+                                    Card(data: j, selectedImages: self.$selectedImages, limit: self.nowImages)
                                 }
                             }
                         }
@@ -110,6 +111,7 @@ struct CustomImagePicker: View {
 struct Card: View {
     @State var data: Images
     @Binding var selectedImages: [SelectedImage]
+    @State var limit: Int
     
     var body: some View {
         ZStack {
@@ -132,7 +134,7 @@ struct Card: View {
         .onTapGesture{
             if !self.data.selected {
                 /// 전체 사진 갯수가 3개 미만일 시
-                if self.selectedImages.count < 3{
+                if (limit + self.selectedImages.count) < 3{
                     self.data.selected = true
                     DispatchQueue.global(qos: .background).async {
                         let options = PHImageRequestOptions()

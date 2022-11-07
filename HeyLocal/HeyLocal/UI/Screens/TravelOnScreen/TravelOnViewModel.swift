@@ -13,10 +13,13 @@ import Combine
 extension TravelOnListScreen {
     class ViewModel: ObservableObject {
         private var travelOnService = TravelOnService()
+        private var userServie = UserService()
+        
         @Published var travelOns: [TravelOn]
         @Published var travelOn: TravelOn
         @Published var travelOnArray: TravelOnArray
         @Published var region: Region
+        @Published var profile: Author
         
         
         // 페이징 관련 변수
@@ -30,6 +33,7 @@ extension TravelOnListScreen {
             self.travelOns = [TravelOn]()
             self.travelOnArray = TravelOnArray()
             self.region = Region()
+            self.profile = Author()
         }
         
         // Travel On 전체 목록
@@ -83,6 +87,15 @@ extension TravelOnListScreen {
                                          travelOns: bind(\.travelOns))
         }
         
+        // 내 정보 가져오기
+        func getMyProfile() {
+            cancellable = userServie.loadUserInfo(userId: AuthManager.shared.authorized!.id)
+                .sink(receiveCompletion: { _ in
+                }, receiveValue: { author in
+                    self.profile = author
+                })
+        }
+        
         // Travel On 상세조회
         func fetchTravelOn(travelOnId: Int) {
             cancellable = travelOnService.getTravelOn(travelOnId: travelOnId)
@@ -94,6 +107,7 @@ extension TravelOnListScreen {
                     self.travelOnArray.title = self.travelOn.title
                     self.travelOnArray.regionId = self.travelOn.region.id
 //                    self.region = getRegion(regionId: self.travelOn.region.id)
+                    
                     
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "yyyy-MM-dd"
