@@ -439,11 +439,42 @@ struct TravelOnDetailScreen: View {
                 
                 // 내 프로필 · 답변 쓰기 버튼
                 HStack {
-                    // TODO: 프로필 사진으로 변경
-                    Circle()
-                        .fill(Color("lightGray"))
-                        .frame(width: 44, height: 44)
-                        .shadow(color: Color("gray"), radius: 1)
+                    if viewModel.travelOn.author.profileImgDownloadUrl != nil {
+                        AsyncImage(url: URL(string: viewModel.travelOn.author.profileImgDownloadUrl!)) { phash in
+                            if let image = phash.image {
+                                image
+                                    .resizable()
+                                    .clipShape(Circle())
+                                    .frame(width: 44, height: 44)
+                            }
+                            else {
+                                ZStack {
+                                    Circle()
+                                        .fill(Color("lightGray"))
+                                        .frame(width: 44, height: 44)
+                                        .shadow(color: Color("gray"), radius: 1)
+                                    
+                                    Image(systemName: "person.fill")
+                                        .resizable()
+                                        .frame(width: 25, height: 25)
+                                        .foregroundColor(Color("gray"))
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        ZStack {
+                            Circle()
+                                .fill(Color("lightGray"))
+                                .frame(width: 44, height: 44)
+                                .shadow(color: Color("gray"), radius: 1)
+                            
+                            Image(systemName: "person.fill")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                                .foregroundColor(Color("gray"))
+                        }
+                    }
                     
                     Spacer()
                         .frame(width: 12)
