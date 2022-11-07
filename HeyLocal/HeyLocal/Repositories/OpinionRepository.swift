@@ -227,21 +227,24 @@ struct OpinionRepository {
                 let resultString = String(data: resultLen, encoding: .utf8) ?? ""
                 
                 let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary
-                let generalURL = jsonObject!["GENERAL"] as? NSArray
-                let foodURL = jsonObject!["RECOMMEND_FOOD"] as? NSArray
-                let cafeURL = jsonObject!["RECOMMEND_DRINK_DESSERT"] as? NSArray
-                let photoSpotURL = jsonObject!["PHOTO_SPOT"] as? NSArray
+                if jsonObject != nil {
+                    let generalURL = jsonObject!["GENERAL"] as? NSArray
+                    let foodURL = jsonObject!["RECOMMEND_FOOD"] as? NSArray
+                    let cafeURL = jsonObject!["RECOMMEND_DRINK_DESSERT"] as? NSArray
+                    let photoSpotURL = jsonObject!["PHOTO_SPOT"] as? NSArray
+                    
+                    print("generalString : ", generalURL!)
+                    print("foodString : ", foodURL!)
+                    print("cafeString : ", cafeURL!)
+                    print("photoString : ", photoSpotURL!)
+                }
+
                 print("")
                 print("====================================")
                 print("[requestPOST : http post 요청 성공]")
                 print("resultCode : ", resultCode)
                 print("resultLen : ", resultLen)
                 print("resultString : ", resultString)
-                print("generalString : ", generalURL!)
-                print("foodString : ", foodURL!)
-                print("cafeString : ", cafeURL!)
-                print("photoString : ", photoSpotURL!)
-                
                 
             } else {
                 print("\(error?.localizedDescription)")
