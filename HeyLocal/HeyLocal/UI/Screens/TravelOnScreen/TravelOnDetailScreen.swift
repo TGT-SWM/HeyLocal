@@ -612,17 +612,6 @@ extension TravelOnDetailScreen {
                         NavigationLink(destination: OpinionWriteScreen(travelOnId: travelOnId), isActive: $opinionWriteActive) {
                             Text("")
                         }
-//                        NavigationLink(destination: OpinionWriteScreen(travelOnId: travelOnId)) {
-//                            ZStack {
-//                                RoundedRectangle(cornerRadius: 100)
-//                                    .fill(Color("orange"))
-//                                    .frame(width: 294, height: 44)
-//
-//                                Text("나도 추천하기")
-//                                    .font(.system(size: 16))
-//                                    .foregroundColor(.white)
-//                            }
-//                        }
                     }
                     .padding(EdgeInsets(top: 0, leading: 20, bottom: 10, trailing: 20))
                 }

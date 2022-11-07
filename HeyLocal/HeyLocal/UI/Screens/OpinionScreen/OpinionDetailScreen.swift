@@ -24,6 +24,7 @@ struct OpinionDetailScreen: View {
     @StateObject var viewModel = OpinionComponent.ViewModel()
     var travelOnId: Int
     var opinionId: Int
+    
     var body: some View {
         ZStack(alignment: .center) {
             if navigationLinkActive {
@@ -926,11 +927,5 @@ struct OpinionDetailScreen: View {
             result = ""
         }
         return result
-    }
-}
-
-struct OpinionDetailScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        OpinionDetailScreen(travelOnId: 32, opinionId: 12)
     }
 }

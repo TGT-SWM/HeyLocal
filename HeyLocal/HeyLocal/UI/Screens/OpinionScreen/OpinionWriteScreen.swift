@@ -1914,8 +1914,3 @@ struct OpinionWriteScreen: View {
     }
 }
 
-struct OpinionWriteScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        OpinionWriteScreen(travelOnId: 12)
-    }
-}

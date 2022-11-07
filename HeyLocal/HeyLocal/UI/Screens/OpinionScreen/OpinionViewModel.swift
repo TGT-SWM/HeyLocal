@@ -20,6 +20,7 @@ extension OpinionComponent {
         
         private var opinionService = OpinionService()
         private var kakaoService = KakaoAPIService()
+        
         @Published var opinions: [Opinion]
         @Published var opinion: Opinion
         
@@ -70,7 +71,6 @@ extension OpinionComponent {
         init() {
             self.opinions = [Opinion()]
             self.opinion = Opinion()
-            
         }
         
         // 답변 목록조회
