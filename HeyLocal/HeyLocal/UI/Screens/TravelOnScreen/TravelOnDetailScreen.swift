@@ -17,6 +17,7 @@ struct TravelOnDetailScreen: View {
     @State var showingSheet = false
     @State var showingAlert = false
     @State var showingReportAlert = false
+    @State var showingModal = false
     @State var navigationLinkActive = false
     
     var body: some View {
@@ -39,7 +40,7 @@ struct TravelOnDetailScreen: View {
                 Spacer()
                     .frame(height: 8)
                 
-                TravelOnOpinion(travelOnId: travelOnId)
+                TravelOnOpinion(travelOnId: travelOnId, showingModal: $showingModal, regionId: viewModel.travelOn.region.id)
                     .alert(isPresented: $showingReportAlert) {
                         Alert(title: Text("여행On 신고"),
                               message: Text("해당 여행On을 신고할까요?"),
@@ -59,6 +60,13 @@ struct TravelOnDetailScreen: View {
                             rightButtonAction: {
                     viewModel.deleteTravelOn(travelOnId: viewModel.travelOn.id) },
                             destinationView: AnyView(TravelOnListScreen()))
+            }
+            
+            // 예외처리
+            if showingModal {
+                ConfirmModal(title: "안내",
+                             message: "지역이 같은 사용자만 답변 등록이 가능합니다.",
+                             showModal: $showingModal)
             }
             
         }
@@ -515,7 +523,11 @@ struct TravelOnDetailScreen: View {
 extension TravelOnDetailScreen {
     struct TravelOnOpinion: View {
         @StateObject var viewModel = TravelOnListScreen.ViewModel()
+        
         var travelOnId: Int
+        @Binding var showingModal: Bool
+        var regionId: Int
+        @State var opinionWriteActive: Bool = false
         
         var body: some View {
             VStack(alignment: .leading) {
@@ -571,7 +583,21 @@ extension TravelOnDetailScreen {
                             .frame(width: 12)
                         
                         // 답변쓰기 버튼
-                        NavigationLink(destination: OpinionWriteScreen(travelOnId: travelOnId)) {
+                        Button(action: {
+                            if let region = viewModel.profile.activityRegion {
+                                if region.id == regionId {
+                                    opinionWriteActive.toggle()
+                                }
+                                else {
+                                    // 지역이 같은 유저만 가능한 ~
+                                    showingModal.toggle()
+                                }
+                            } else {
+                                // 지역 설정이 필요 , 또한 지역이 같은 유저만 가능한 ~
+                                showingModal.toggle()
+                            }
+                        }) {
+                            // Label
                             ZStack {
                                 RoundedRectangle(cornerRadius: 100)
                                     .fill(Color("orange"))
@@ -582,6 +608,21 @@ extension TravelOnDetailScreen {
                                     .foregroundColor(.white)
                             }
                         }
+                        
+                        NavigationLink(destination: OpinionWriteScreen(travelOnId: travelOnId), isActive: $opinionWriteActive) {
+                            Text("")
+                        }
+//                        NavigationLink(destination: OpinionWriteScreen(travelOnId: travelOnId)) {
+//                            ZStack {
+//                                RoundedRectangle(cornerRadius: 100)
+//                                    .fill(Color("orange"))
+//                                    .frame(width: 294, height: 44)
+//
+//                                Text("나도 추천하기")
+//                                    .font(.system(size: 16))
+//                                    .foregroundColor(.white)
+//                            }
+//                        }
                     }
                     .padding(EdgeInsets(top: 0, leading: 20, bottom: 10, trailing: 20))
                 }
