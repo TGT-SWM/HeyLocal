@@ -39,7 +39,6 @@ struct TravelOnDetailScreen: View {
                 Spacer()
                     .frame(height: 8)
                 
-//                opinions
                 TravelOnOpinion(travelOnId: travelOnId)
                     .alert(isPresented: $showingReportAlert) {
                         Alert(title: Text("여행On 신고"),
@@ -421,85 +420,6 @@ struct TravelOnDetailScreen: View {
                 }
             }
             .padding()
-        }
-        .background(.white)
-    }
-    
-    
-    // 답변
-    var opinions: some View {
-        VStack(alignment: .leading) {
-            Group {
-                Text("이런 곳은 어때요?")
-                    .font(.system(size: 16))
-                    .fontWeight(.medium)
-                    .padding()
-                
-                Spacer()
-                    .frame(height: 0)
-                
-                // 내 프로필 · 답변 쓰기 버튼
-                HStack {
-                    if viewModel.profile.profileImgDownloadUrl != nil {
-                        AsyncImage(url: URL(string: viewModel.profile.profileImgDownloadUrl!)) { phash in
-                            if let image = phash.image {
-                                image
-                                    .resizable()
-                                    .clipShape(Circle())
-                                    .frame(width: 44, height: 44)
-                            }
-                            else {
-                                ZStack {
-                                    Circle()
-                                        .fill(Color("lightGray"))
-                                        .frame(width: 44, height: 44)
-                                        .shadow(color: Color("gray"), radius: 1)
-                                    
-                                    Image(systemName: "person.fill")
-                                        .resizable()
-                                        .frame(width: 25, height: 25)
-                                        .foregroundColor(Color("gray"))
-                                }
-                            }
-                        }
-                    }
-                    else {
-                        ZStack {
-                            Circle()
-                                .fill(Color("lightGray"))
-                                .frame(width: 44, height: 44)
-                                .shadow(color: Color("gray"), radius: 1)
-                            
-                            Image(systemName: "person.fill")
-                                .resizable()
-                                .frame(width: 25, height: 25)
-                                .foregroundColor(Color("gray"))
-                        }
-                    }
-                    
-                    Spacer()
-                        .frame(width: 12)
-                    
-                    // 답변쓰기 버튼
-                    NavigationLink(destination: OpinionWriteScreen(travelOnId: travelOnId)) {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 100)
-                                .fill(Color("orange"))
-                                .frame(width: 294, height: 44)
-                            
-                            Text("나도 추천하기")
-                                .font(.system(size: 16))
-                                .foregroundColor(.white)
-                        }
-                    }
-                }
-                .padding(EdgeInsets(top: 0, leading: 20, bottom: 10, trailing: 20))
-            }
-        
-            Divider()
-            
-            //해당 여행On 답변 출력
-            OpinionListScreen(travelOnId: travelOnId)
         }
         .background(.white)
     }
