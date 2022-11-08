@@ -130,8 +130,24 @@ struct ProfileSettingScreen: View {
             
             Spacer()
                 .frame(height: 10)
+			
+			// 이용약관
+			NavigationLink(destination: TOSScreen()) {
+				HStack {
+					Text("이용약관")
+						.font(.system(size: 16))
+					
+					Spacer()
+					
+					Image(systemName: "chevron.right")
+				}
+				.foregroundColor(Color.black)
+			}
+			
+			Spacer()
+				.frame(height: 10)
             
-            /// 개인정보 처리방침
+            // 개인정보 처리방침
             NavigationLink(destination: PrivacyPolicyScreen()) {
                 HStack {
                     Text("개인정보 처리방침")
