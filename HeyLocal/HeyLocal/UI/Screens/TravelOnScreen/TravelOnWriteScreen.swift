@@ -232,8 +232,8 @@ struct TravelOnWriteScreen: View {
                                 cancelMessage: "아니요,작성할래요",
                                 confirmMessage: "네,취소할래요",
                                 cancelWidth: 134,
-                                confirmWidth: 109)
-//                                rightButtonAction: { dismiss() })
+                                confirmWidth: 109,
+                                rightButtonAction: { dismiss() })
                 }
                 
                 /// 작성하기 취소 -> List 화면으로 이동
@@ -244,8 +244,7 @@ struct TravelOnWriteScreen: View {
                                 confirmMessage: "네,취소할래요",
                                 cancelWidth: 134,
                                 confirmWidth: 109,
-                                rightButtonAction: { dismiss() },
-                                destinationView: AnyView(TravelOnListScreen()))
+                                rightButtonAction: { dismiss() })
                 }
             }
         }

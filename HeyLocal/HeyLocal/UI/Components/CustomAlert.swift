@@ -20,6 +20,7 @@ struct CustomAlert: View {
     var rightButtonAction: (() -> ())?  // 오른쪽 버튼 클릭 시 실행할 함수
     var destinationView: AnyView?       // 오른쪽 버튼 클릭 시 함수 실행 후 이동할 화면
     
+    @State var navigationActive: Bool = false
     var body: some View {
         ZStack(alignment: .center) {
             Color.black.opacity(0.15)
@@ -56,14 +57,28 @@ struct CustomAlert: View {
                         .frame(width: 15)
                     
                     // 확인 버튼 -> rightButtonAction
-                    NavigationLink(destination: destinationView){
-                        Text("\(confirmMessage)")
-                    }.simultaneousGesture(TapGesture().onEnded{
-                        rightButtonAction?()
+//                    NavigationLink(destination: destinationView){
+//                        Text("\(confirmMessage)")
+//                    }.simultaneousGesture(TapGesture().onEnded{
+//                        rightButtonAction?()
 //                        dismiss()
-                    })
+//                    })
+//                    .buttonStyle(AlertCustomButton(value: true, width: confirmWidth))
+//
+                    Button(action: {
+                        navigationActive.toggle()
+                        rightButtonAction?()
+                        dismiss()
+                    }) {
+                        Text("\(confirmMessage)")
+                    }
                     .buttonStyle(AlertCustomButton(value: true, width: confirmWidth))
-                    
+                   
+                    if let destination = destinationView {
+                        NavigationLink(destination: destination, isActive: $navigationActive) {
+                            Text("")
+                        }
+                    }
                 }
             }
 
