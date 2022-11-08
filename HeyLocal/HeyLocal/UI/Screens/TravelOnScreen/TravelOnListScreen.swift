@@ -49,11 +49,14 @@ struct TravelOnListScreen: View {
                         emptyView
                     }
                     // 글쓰기 버튼
-                    NavigationLink(destination: TravelOnWriteScreen()) {
-                        Text("+")
-                    }
-                    .buttonStyle(WriteButtonStyle())
-                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 10))
+                    NavigationLink(destination: TravelOnWriteScreen()) { FAB() }
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 50, trailing: 20))
+                    
+//                    NavigationLink(destination: TravelOnWriteScreen()) {
+//                        Text("+")
+//                    }
+//                    .buttonStyle(WriteButtonStyle())
+//                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 10))
                 }
             }
             .navigationBarTitle("", displayMode: .automatic)
