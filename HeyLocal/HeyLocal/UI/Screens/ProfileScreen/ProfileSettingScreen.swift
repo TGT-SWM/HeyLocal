@@ -159,6 +159,21 @@ struct ProfileSettingScreen: View {
                 }
                 .foregroundColor(Color.black)
             }
+			
+			Spacer()
+				.frame(height: 10)
+			
+			// 개발자에게 문의하기
+			HStack {
+				Text("개발자에게 문의하기")
+					.font(.system(size: 16))
+				
+				Spacer()
+				
+				Text("tgt.heylocal@gmail.com")
+					.font(.system(size: 12))
+					.foregroundColor(Color("gray"))
+			}
         }
     }
 }
