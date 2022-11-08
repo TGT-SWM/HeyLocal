@@ -132,6 +132,14 @@ extension PlaceDetailScreen {
 				}
 			}
 			.padding(.vertical, 16)
+			
+			HStack {
+				Spacer()
+				Text("정보 제공 : 카카오맵")
+					.font(.system(size: 12))
+					.fontWeight(.medium)
+					.foregroundColor(Color("gray"))
+			}
 		}
 		.padding(.horizontal, 20)
 	}
