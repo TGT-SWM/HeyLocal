@@ -52,6 +52,9 @@ extension SignUpScreen {
 			passwordField
 			rePasswordField
 			
+			// 이용약관
+			tosLink
+			
 			// 회원가입 버튼
 			submitButton
 		}
@@ -120,7 +123,7 @@ extension SignUpScreen {
 				RoundedRectangle(cornerRadius: 22)
 					.fill(Color("orange"))
 					.frame(height: 44)
-				Text("회원가입")
+				Text("약관 동의 및 회원가입")
 					.foregroundColor(.white)
 					.font(.system(size: 14))
 					.fontWeight(.medium)
@@ -154,6 +157,28 @@ extension SignUpScreen {
 				.shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 1)
 				.shadow(color: .black.opacity(0.3), radius: 6, x: 0, y: 2)
 		}
+	}
+}
+
+
+// MARK: - 이용약관 확인
+
+extension SignUpScreen {
+	/// 이용약관을 확인하기 위한 버튼입니다.
+	var tosLink: some View {
+		HStack {
+			Spacer()
+			NavigationLink(destination: TOSScreen()) {
+				HStack {
+					Text("서비스 이용약관 확인하기")
+						.fontWeight(.medium)
+					Image(systemName: "chevron.right")
+				}
+				.font(.system(size: 12))
+			}
+			.foregroundColor(Color("orange"))
+		}
+		.padding(.horizontal, 20)
 	}
 }
 

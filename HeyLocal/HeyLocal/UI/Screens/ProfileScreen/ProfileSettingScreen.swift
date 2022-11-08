@@ -134,7 +134,7 @@ struct ProfileSettingScreen: View {
 			// 이용약관
 			NavigationLink(destination: TOSScreen()) {
 				HStack {
-					Text("이용약관")
+					Text("서비스 이용약관")
 						.font(.system(size: 16))
 					
 					Spacer()

@@ -337,7 +337,7 @@ struct PrivacyPolicyScreen: View {
         .onAppear {
             displayTabBar(false)
         }
-        .navigationTitle("서비스 이용약관")
+        .navigationTitle("개인정보 처리방침")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: BackButton() )

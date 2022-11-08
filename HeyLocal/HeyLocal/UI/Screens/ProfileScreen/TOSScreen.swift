@@ -16,6 +16,10 @@ struct TOSScreen: View {
 			}
 			.padding(20)
 		}
+		.navigationTitle("서비스 이용약관")
+		.navigationBarTitleDisplayMode(.inline)
+		.navigationBarBackButtonHidden(true)
+		.navigationBarItems(leading: BackButton() )
     }
 	
 	let content = """
