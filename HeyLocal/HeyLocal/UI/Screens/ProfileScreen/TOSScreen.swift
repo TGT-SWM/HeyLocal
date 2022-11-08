@@ -8,12 +8,22 @@
 import SwiftUI
 
 struct TOSScreen: View {
+	init() {
+		let arr = content.components(separatedBy: "\n\n")
+		for s in arr {
+			print(s)
+			print()
+		}
+	}
+	
     var body: some View {
 		ScrollView {
-			VStack {
-				Text(.init(content))
-					.font(.system(size: 12))
+			VStack(alignment: .leading, spacing: 12) {
+				ForEach(contentArray, id: \.self) {
+					Text(.init($0))
+				}
 			}
+			.font(.system(size: 12))
 			.padding(20)
 		}
 		.navigationTitle("서비스 이용약관")
@@ -22,6 +32,13 @@ struct TOSScreen: View {
 		.navigationBarItems(leading: BackButton() )
     }
 	
+	/// SwiftUI의 마크다운 렌더링 속도가 느린 문제를 해결하기 위해,
+	/// 이용약관의 내용을 여러 문자열로 쪼개 출력합니다.
+	var contentArray: [String] {
+		content.components(separatedBy: "\n\n")
+	}
+	
+	/// 이용약관의 내용입니다.
 	let content = """
 	**제 1 장 총칙**
 
