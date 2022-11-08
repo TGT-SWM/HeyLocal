@@ -177,16 +177,24 @@ struct ProfileSettingScreen: View {
 					
 					Spacer()
 					
-					Text("tgt.heylocal@gmail.com")
+					Text(verbatim: "tgt.heylocal@gmail.com")
 						.font(.system(size: 12))
+						.foregroundColor(Color("gray"))
 				}
 			}
 			.buttonStyle(PlainButtonStyle())
 			.sheet(isPresented: $viewModel.showMailView) {
 				MailView(
 					to: "tgt.heylocal@gmail.com",
-					subject: "",
-					content: ""
+					subject: "[현지야] 문의합니다",
+					content: """
+					⬤ 아이디 : \(AuthManager.shared.authorized?.accountId ?? "")
+					
+					⬤ 닉네임 : \(AuthManager.shared.authorized?.nickname ?? "")
+					
+					⬤ 문의 내용을 적어주세요
+					
+					"""
 				)
 			}
         }
