@@ -318,12 +318,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A80213D128BF2C0700B6359E /* TravelOnList */ = {
+		A80213D128BF2C0700B6359E /* TravelOnComponent */ = {
 			isa = PBXGroup;
 			children = (
 				A80B903B28CA105F0026866A /* TravelOnComponent.swift */,
 			);
-			path = TravelOnList;
+			path = TravelOnComponent;
 			sourceTree = "<group>";
 		};
 		A813CA2C28B4EE13000F0ADF /* Utils */ = {
@@ -627,7 +627,7 @@
 				A8212BB528F1E2E900FD4063 /* OpinionComponent */,
 				A8AF3DEA28D407D7009B68BE /* RegionComponent */,
 				A87F6CA028C0A1EE0076046E /* ProfileComponent */,
-				A80213D128BF2C0700B6359E /* TravelOnList */,
+				A80213D128BF2C0700B6359E /* TravelOnComponent */,
 				A87F6C9E28C0A1050076046E /* TopTabs.swift */,
 				A836925728C6F48D00DBDB06 /* SearchBar.swift */,
 				EF4DD9A028E24CAE00E0D072 /* FAB.swift */,
@@ -1078,7 +1078,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 20221107;
 				DEVELOPMENT_ASSET_PATHS = "\"HeyLocal/Preview Content\"";
-				DEVELOPMENT_TEAM = 3X3P9744G9;
+				DEVELOPMENT_TEAM = 5B94TFMJJ4;
 				ENABLE_PREVIEWS = YES;
 				EXCLUDED_ARCHS = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
@@ -1126,7 +1126,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 20221107;
 				DEVELOPMENT_ASSET_PATHS = "\"HeyLocal/Preview Content\"";
-				DEVELOPMENT_TEAM = 3X3P9744G9;
+				DEVELOPMENT_TEAM = 5B94TFMJJ4;
 				ENABLE_PREVIEWS = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
