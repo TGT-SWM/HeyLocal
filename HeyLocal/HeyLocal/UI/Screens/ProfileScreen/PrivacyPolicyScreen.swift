@@ -1,5 +1,5 @@
 //
-//  TOSScreen.swift
+//  PrivacyPolicyScreen.swift
 //  HeyLocal
 //  Terms of Service terms of use (이용약관 페이지)
 //
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct TOSScreen: View {
+struct PrivacyPolicyScreen: View {
     @Environment(\.displayTabBar) var displayTabBar
     
     let intro : String = "<SWM-TGT>\n('https://heylocal.p-e.kr'이하 '현지야')은(는) 「개인정보 보호법」 제30조에 따라 정보주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보 처리방침을 수립·공개합니다."
@@ -344,8 +344,8 @@ struct TOSScreen: View {
     }
 }
 
-struct TOSScreen_Previews: PreviewProvider {
+struct PrivacyPolicyScreen_Previews: PreviewProvider {
     static var previews: some View {
-        TOSScreen()
+        PrivacyPolicyScreen()
     }
 }

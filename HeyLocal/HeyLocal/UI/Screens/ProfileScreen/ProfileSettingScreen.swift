@@ -131,10 +131,10 @@ struct ProfileSettingScreen: View {
             Spacer()
                 .frame(height: 10)
             
-            /// 이용약관
-            NavigationLink(destination: TOSScreen()) {
+            /// 개인정보 처리방침
+            NavigationLink(destination: PrivacyPolicyScreen()) {
                 HStack {
-                    Text("이용약관")
+                    Text("개인정보 처리방침")
                         .font(.system(size: 16))
                     
                     Spacer()

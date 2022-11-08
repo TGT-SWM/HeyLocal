@@ -20,7 +20,7 @@
 		A814DF7B28ED5D5500DBF383 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A814DF7A28ED5D5500DBF383 /* CustomAlert.swift */; };
 		A814DF7D28ED60B300DBF383 /* AlertCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A814DF7C28ED60B300DBF383 /* AlertCustomButton.swift */; };
 		A8212BB728F1E2FD00FD4063 /* OpinionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8212BB628F1E2FD00FD4063 /* OpinionComponent.swift */; };
-		A825D9F62914AEC700D7E197 /* TOSScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A825D9F52914AEC700D7E197 /* TOSScreen.swift */; };
+		A825D9F62914AEC700D7E197 /* PrivacyPolicyScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A825D9F52914AEC700D7E197 /* PrivacyPolicyScreen.swift */; };
 		A836925828C6F48D00DBDB06 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A836925728C6F48D00DBDB06 /* SearchBar.swift */; };
 		A836925A28C72A0500DBDB06 /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = A836925928C72A0500DBDB06 /* Region.swift */; };
 		A83972EA28E430AB000E323E /* CustomToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83972E928E430AB000E323E /* CustomToggleStyle.swift */; };
@@ -160,7 +160,7 @@
 		A814DF7A28ED5D5500DBF383 /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
 		A814DF7C28ED60B300DBF383 /* AlertCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertCustomButton.swift; sourceTree = "<group>"; };
 		A8212BB628F1E2FD00FD4063 /* OpinionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionComponent.swift; sourceTree = "<group>"; };
-		A825D9F52914AEC700D7E197 /* TOSScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOSScreen.swift; sourceTree = "<group>"; };
+		A825D9F52914AEC700D7E197 /* PrivacyPolicyScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyScreen.swift; sourceTree = "<group>"; };
 		A836925728C6F48D00DBDB06 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		A836925928C72A0500DBDB06 /* Region.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Region.swift; sourceTree = "<group>"; };
 		A83972E928E430AB000E323E /* CustomToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToggleStyle.swift; sourceTree = "<group>"; };
@@ -377,7 +377,7 @@
 				A87F6C9C28C099EE0076046E /* ProfileScreen.swift */,
 				A87F6CA328C0A37A0076046E /* ProfileReviseScreen.swift */,
 				A87F6CA528C0A3AB0076046E /* ProfileSettingScreen.swift */,
-				A825D9F52914AEC700D7E197 /* TOSScreen.swift */,
+				A825D9F52914AEC700D7E197 /* PrivacyPolicyScreen.swift */,
 				A862E3CD290261B1007EFCD6 /* ProfileViewModel.swift */,
 			);
 			path = ProfileScreen;
@@ -905,7 +905,7 @@
 				A89943A528EEC6140059AAC6 /* RegionPickerScreen.swift in Sources */,
 				A87F6C9D28C099EE0076046E /* ProfileScreen.swift in Sources */,
 				EFBCFDDD290F220D00834DEE /* BottomSheet.swift in Sources */,
-				A825D9F62914AEC700D7E197 /* TOSScreen.swift in Sources */,
+				A825D9F62914AEC700D7E197 /* PrivacyPolicyScreen.swift in Sources */,
 				EFAA2AC528BBC48400B56A3C /* AuthService.swift in Sources */,
 				EFAA2AC928BBCF6E00B56A3C /* Auth.swift in Sources */,
 				A87F6CA428C0A37A0076046E /* ProfileReviseScreen.swift in Sources */,
