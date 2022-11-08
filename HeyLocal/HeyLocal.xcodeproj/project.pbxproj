@@ -74,6 +74,7 @@
 		EF4DD99D28E23CF500E0D072 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF4DD99C28E23CF500E0D072 /* Colors.xcassets */; };
 		EF4DD9A128E24CAE00E0D072 /* FAB.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4DD9A028E24CAE00E0D072 /* FAB.swift */; };
 		EF4E6B70291A4BD400A580F4 /* TOSScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4E6B6F291A4BD400A580F4 /* TOSScreen.swift */; };
+		EF4E6B72291A5B0700A580F4 /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4E6B71291A5B0700A580F4 /* MailView.swift */; };
 		EF4EDB8D290B09CF00068196 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EF4EDB8B290B09CF00068196 /* CoreDataModel.xcdatamodeld */; };
 		EF4EDBAF290B10A500068196 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4EDBAE290B10A500068196 /* PersistenceController.swift */; };
 		EF4EDBB1290B165300068196 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4EDBB0290B165300068196 /* ContentView.swift */; };
@@ -217,6 +218,7 @@
 		EF4DD99C28E23CF500E0D072 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		EF4DD9A028E24CAE00E0D072 /* FAB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAB.swift; sourceTree = "<group>"; };
 		EF4E6B6F291A4BD400A580F4 /* TOSScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOSScreen.swift; sourceTree = "<group>"; };
+		EF4E6B71291A5B0700A580F4 /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
 		EF4EDB8C290B09CF00068196 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		EF4EDBAE290B10A500068196 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		EF4EDBB0290B165300068196 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -382,6 +384,7 @@
 				EF4E6B6F291A4BD400A580F4 /* TOSScreen.swift */,
 				A825D9F52914AEC700D7E197 /* PrivacyPolicyScreen.swift */,
 				A862E3CD290261B1007EFCD6 /* ProfileViewModel.swift */,
+				EF4E6B71291A5B0700A580F4 /* MailView.swift */,
 			);
 			path = ProfileScreen;
 			sourceTree = "<group>";
@@ -911,6 +914,7 @@
 				A825D9F62914AEC700D7E197 /* PrivacyPolicyScreen.swift in Sources */,
 				EFAA2AC528BBC48400B56A3C /* AuthService.swift in Sources */,
 				EFAA2AC928BBCF6E00B56A3C /* Auth.swift in Sources */,
+				EF4E6B72291A5B0700A580F4 /* MailView.swift in Sources */,
 				A87F6CA428C0A37A0076046E /* ProfileReviseScreen.swift in Sources */,
 				EFF223B028F4A03E00E6781D /* FlatLinkStyle.swift in Sources */,
 				A83F100D28BCCCE000978711 /* TravelOnListScreen.swift in Sources */,

@@ -23,6 +23,8 @@ extension ProfileScreen {
 		@Published var showAlert = false
 		@Published var alertTitle = "" // Alert 제목
 		@Published var handleAlertConfirm: (() -> ()) = {} // 확인 버튼 핸들러
+		
+		@Published var showMailView = false // 메일 전송 뷰를 띄울 것인지
         
         // 페이징
         let size = 15

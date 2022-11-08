@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import MessageUI
 
 struct ProfileSettingScreen: View {
     @Environment(\.displayTabBar) var displayTabBar
@@ -164,15 +165,29 @@ struct ProfileSettingScreen: View {
 				.frame(height: 10)
 			
 			// 개발자에게 문의하기
-			HStack {
-				Text("개발자에게 문의하기")
-					.font(.system(size: 16))
+			Button {
+				if MFMailComposeViewController.canSendMail() {
+					viewModel.showMailView = true
+				}
 				
-				Spacer()
-				
-				Text("tgt.heylocal@gmail.com")
-					.font(.system(size: 12))
-					.foregroundColor(Color("gray"))
+			} label: {
+				HStack {
+					Text("개발자에게 문의하기")
+						.font(.system(size: 16))
+					
+					Spacer()
+					
+					Text("tgt.heylocal@gmail.com")
+						.font(.system(size: 12))
+				}
+			}
+			.buttonStyle(PlainButtonStyle())
+			.sheet(isPresented: $viewModel.showMailView) {
+				MailView(
+					to: "tgt.heylocal@gmail.com",
+					subject: "",
+					content: ""
+				)
 			}
         }
     }
