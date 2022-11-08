@@ -41,19 +41,17 @@ struct TravelOnWriteScreen: View {
                     })
                 }
                 else {
-                    NavigationLink(destination: TravelOnListScreen()
-                        .navigationBarTitle("")
-                        .navigationBarHidden(true)){
-                        Text("작성 완료")
-                            .font(.system(size: 16))
-                            .foregroundColor(Color(red: 255/255, green: 153/255, blue: 0/255))
-                    }.simultaneousGesture(TapGesture().onEnded{
+                    Button(action: {
                         makeTravelOnJsonData()
                         if viewModel.postTravelOn(travelOnData: travelOnData) == 201 {
                             viewModel.fetchTravelOnList(keyword: "", regionId: nil, sortBy: "DATE", withOpinions: false)
                         }
                         dismiss()
-                    })
+                    }) {
+                        Text("작성 완료")
+                            .font(.system(size: 16))
+                            .foregroundColor(Color(red: 255/255, green: 153/255, blue: 0/255))
+                    }
                 }
             }
             else {
