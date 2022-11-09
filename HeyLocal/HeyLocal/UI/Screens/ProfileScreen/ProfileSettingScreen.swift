@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import MessageUI
 
 struct ProfileSettingScreen: View {
     @Environment(\.displayTabBar) var displayTabBar
@@ -130,11 +131,27 @@ struct ProfileSettingScreen: View {
             
             Spacer()
                 .frame(height: 10)
+			
+			// 이용약관
+			NavigationLink(destination: TOSScreen()) {
+				HStack {
+					Text("서비스 이용약관")
+						.font(.system(size: 16))
+					
+					Spacer()
+					
+					Image(systemName: "chevron.right")
+				}
+				.foregroundColor(Color.black)
+			}
+			
+			Spacer()
+				.frame(height: 10)
             
-            /// 이용약관
-            NavigationLink(destination: TOSScreen()) {
+            // 개인정보 처리방침
+            NavigationLink(destination: PrivacyPolicyScreen()) {
                 HStack {
-                    Text("이용약관")
+                    Text("개인정보 처리방침")
                         .font(.system(size: 16))
                     
                     Spacer()
@@ -143,6 +160,43 @@ struct ProfileSettingScreen: View {
                 }
                 .foregroundColor(Color.black)
             }
+			
+			Spacer()
+				.frame(height: 10)
+			
+			// 개발자에게 문의하기
+			Button {
+				if MFMailComposeViewController.canSendMail() {
+					viewModel.showMailView = true
+				}
+				
+			} label: {
+				HStack {
+					Text("개발자에게 문의하기")
+						.font(.system(size: 16))
+					
+					Spacer()
+					
+					Text(verbatim: "tgt.heylocal@gmail.com")
+						.font(.system(size: 12))
+						.foregroundColor(Color("gray"))
+				}
+			}
+			.buttonStyle(PlainButtonStyle())
+			.sheet(isPresented: $viewModel.showMailView) {
+				MailView(
+					to: "tgt.heylocal@gmail.com",
+					subject: "[현지야] 문의합니다",
+					content: """
+					⬤ 아이디 : \(AuthManager.shared.authorized?.accountId ?? "")
+					
+					⬤ 닉네임 : \(AuthManager.shared.authorized?.nickname ?? "")
+					
+					⬤ 문의 내용을 적어주세요
+					
+					"""
+				)
+			}
         }
     }
 }
