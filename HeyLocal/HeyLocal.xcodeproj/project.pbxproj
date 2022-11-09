@@ -20,7 +20,7 @@
 		A814DF7B28ED5D5500DBF383 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A814DF7A28ED5D5500DBF383 /* CustomAlert.swift */; };
 		A814DF7D28ED60B300DBF383 /* AlertCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A814DF7C28ED60B300DBF383 /* AlertCustomButton.swift */; };
 		A8212BB728F1E2FD00FD4063 /* OpinionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8212BB628F1E2FD00FD4063 /* OpinionComponent.swift */; };
-		A825D9F62914AEC700D7E197 /* TOSScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A825D9F52914AEC700D7E197 /* TOSScreen.swift */; };
+		A825D9F62914AEC700D7E197 /* PrivacyPolicyScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A825D9F52914AEC700D7E197 /* PrivacyPolicyScreen.swift */; };
 		A836925828C6F48D00DBDB06 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A836925728C6F48D00DBDB06 /* SearchBar.swift */; };
 		A836925A28C72A0500DBDB06 /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = A836925928C72A0500DBDB06 /* Region.swift */; };
 		A83972EA28E430AB000E323E /* CustomToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83972E928E430AB000E323E /* CustomToggleStyle.swift */; };
@@ -73,6 +73,8 @@
 		EF3FCF1C28C135B200D48F9E /* PlaceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3FCF1B28C135B200D48F9E /* PlaceList.swift */; };
 		EF4DD99D28E23CF500E0D072 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF4DD99C28E23CF500E0D072 /* Colors.xcassets */; };
 		EF4DD9A128E24CAE00E0D072 /* FAB.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4DD9A028E24CAE00E0D072 /* FAB.swift */; };
+		EF4E6B70291A4BD400A580F4 /* TOSScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4E6B6F291A4BD400A580F4 /* TOSScreen.swift */; };
+		EF4E6B72291A5B0700A580F4 /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4E6B71291A5B0700A580F4 /* MailView.swift */; };
 		EF4EDB8D290B09CF00068196 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EF4EDB8B290B09CF00068196 /* CoreDataModel.xcdatamodeld */; };
 		EF4EDBAF290B10A500068196 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4EDBAE290B10A500068196 /* PersistenceController.swift */; };
 		EF4EDBB1290B165300068196 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4EDBB0290B165300068196 /* ContentView.swift */; };
@@ -160,7 +162,7 @@
 		A814DF7A28ED5D5500DBF383 /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
 		A814DF7C28ED60B300DBF383 /* AlertCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertCustomButton.swift; sourceTree = "<group>"; };
 		A8212BB628F1E2FD00FD4063 /* OpinionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionComponent.swift; sourceTree = "<group>"; };
-		A825D9F52914AEC700D7E197 /* TOSScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOSScreen.swift; sourceTree = "<group>"; };
+		A825D9F52914AEC700D7E197 /* PrivacyPolicyScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyScreen.swift; sourceTree = "<group>"; };
 		A836925728C6F48D00DBDB06 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		A836925928C72A0500DBDB06 /* Region.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Region.swift; sourceTree = "<group>"; };
 		A83972E928E430AB000E323E /* CustomToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToggleStyle.swift; sourceTree = "<group>"; };
@@ -215,6 +217,8 @@
 		EF3FCF1B28C135B200D48F9E /* PlaceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceList.swift; sourceTree = "<group>"; };
 		EF4DD99C28E23CF500E0D072 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		EF4DD9A028E24CAE00E0D072 /* FAB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAB.swift; sourceTree = "<group>"; };
+		EF4E6B6F291A4BD400A580F4 /* TOSScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOSScreen.swift; sourceTree = "<group>"; };
+		EF4E6B71291A5B0700A580F4 /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
 		EF4EDB8C290B09CF00068196 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		EF4EDBAE290B10A500068196 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		EF4EDBB0290B165300068196 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -377,8 +381,10 @@
 				A87F6C9C28C099EE0076046E /* ProfileScreen.swift */,
 				A87F6CA328C0A37A0076046E /* ProfileReviseScreen.swift */,
 				A87F6CA528C0A3AB0076046E /* ProfileSettingScreen.swift */,
-				A825D9F52914AEC700D7E197 /* TOSScreen.swift */,
+				EF4E6B6F291A4BD400A580F4 /* TOSScreen.swift */,
+				A825D9F52914AEC700D7E197 /* PrivacyPolicyScreen.swift */,
 				A862E3CD290261B1007EFCD6 /* ProfileViewModel.swift */,
+				EF4E6B71291A5B0700A580F4 /* MailView.swift */,
 			);
 			path = ProfileScreen;
 			sourceTree = "<group>";
@@ -905,9 +911,10 @@
 				A89943A528EEC6140059AAC6 /* RegionPickerScreen.swift in Sources */,
 				A87F6C9D28C099EE0076046E /* ProfileScreen.swift in Sources */,
 				EFBCFDDD290F220D00834DEE /* BottomSheet.swift in Sources */,
-				A825D9F62914AEC700D7E197 /* TOSScreen.swift in Sources */,
+				A825D9F62914AEC700D7E197 /* PrivacyPolicyScreen.swift in Sources */,
 				EFAA2AC528BBC48400B56A3C /* AuthService.swift in Sources */,
 				EFAA2AC928BBCF6E00B56A3C /* Auth.swift in Sources */,
+				EF4E6B72291A5B0700A580F4 /* MailView.swift in Sources */,
 				A87F6CA428C0A37A0076046E /* ProfileReviseScreen.swift in Sources */,
 				EFF223B028F4A03E00E6781D /* FlatLinkStyle.swift in Sources */,
 				A83F100D28BCCCE000978711 /* TravelOnListScreen.swift in Sources */,
@@ -919,6 +926,7 @@
 				A87F6CA228C0A22B0076046E /* RankingProfileComponent.swift in Sources */,
 				EF3C061228E0EDC4003F3188 /* KakaoAPIService.swift in Sources */,
 				A84E841228B8C28600128D9B /* SignInScreen.swift in Sources */,
+				EF4E6B70291A4BD400A580F4 /* TOSScreen.swift in Sources */,
 				EF26CD8A28C0EECA006D0D27 /* PlanService.swift in Sources */,
 				EFF223B228F4B33F00E6781D /* BackButton.swift in Sources */,
 				A877D99C28F265F000527E21 /* OpinionService.swift in Sources */,
@@ -1076,7 +1084,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20221107;
+				CURRENT_PROJECT_VERSION = 20221109;
 				DEVELOPMENT_ASSET_PATHS = "\"HeyLocal/Preview Content\"";
 				DEVELOPMENT_TEAM = 5B94TFMJJ4;
 				ENABLE_PREVIEWS = YES;
@@ -1107,7 +1115,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tgt.HeyLocal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1124,7 +1132,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20221107;
+				CURRENT_PROJECT_VERSION = 20221109;
 				DEVELOPMENT_ASSET_PATHS = "\"HeyLocal/Preview Content\"";
 				DEVELOPMENT_TEAM = 5B94TFMJJ4;
 				ENABLE_PREVIEWS = YES;
@@ -1154,7 +1162,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tgt.HeyLocal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

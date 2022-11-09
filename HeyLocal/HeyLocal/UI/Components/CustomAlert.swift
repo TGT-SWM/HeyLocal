@@ -68,7 +68,6 @@ struct CustomAlert: View {
                     Button(action: {
                         navigationActive.toggle()
                         rightButtonAction?()
-                        dismiss()
                     }) {
                         Text("\(confirmMessage)")
                     }
