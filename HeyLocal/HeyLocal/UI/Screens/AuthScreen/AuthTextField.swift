@@ -23,8 +23,10 @@ struct AuthTextField: View {
 			
 			ZStack {
 				RoundedRectangle(cornerRadius: 10)
+					.fill(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
+				
+				RoundedRectangle(cornerRadius: 10)
 					.stroke(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255), lineWidth: 1)
-					.background(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
 				
 				if secured {
 					SecureField(placeholder, text: $value)
