@@ -12,6 +12,7 @@ import SwiftUI
 struct TravelOnDetailScreen: View {
     @State var travelOnId: Int
     @StateObject var viewModel = TravelOnListScreen.ViewModel()
+	@Environment(\.dismiss) var dismiss
     @Environment(\.displayTabBar) var displayTabBar
     
     @State var showingSheet = false
@@ -58,7 +59,9 @@ struct TravelOnDetailScreen: View {
                             cancelWidth: 134,
                             confirmWidth: 109,
                             rightButtonAction: {
-                    viewModel.deleteTravelOn(travelOnId: viewModel.travelOn.id) },
+                    			viewModel.deleteTravelOn(travelOnId: viewModel.travelOn.id)
+								dismiss()
+							},
                             destinationView: AnyView(TravelOnListScreen()))
             }
             

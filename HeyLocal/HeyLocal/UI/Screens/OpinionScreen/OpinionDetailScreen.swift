@@ -59,7 +59,11 @@ struct OpinionDetailScreen: View {
                             confirmMessage: "네,삭제할래요",
                             cancelWidth: 134,
                             confirmWidth: 109,
-                            rightButtonAction: { viewModel.deleteOpinion(travelOnId: travelOnId, opinionId: opinionId) })
+                            rightButtonAction: {
+								viewModel.deleteOpinion(travelOnId: travelOnId, opinionId: opinionId)
+								dismiss()
+							}
+				)
             }
         }
         .background(Color("lightGray"))
