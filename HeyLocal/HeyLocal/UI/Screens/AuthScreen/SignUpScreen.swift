@@ -52,8 +52,9 @@ extension SignUpScreen {
 			passwordField
 			rePasswordField
 			
-			// 이용약관
+			// 약관
 			tosLink
+			privacyPolicyLink
 			
 			// 회원가입 버튼
 			submitButton
@@ -161,7 +162,7 @@ extension SignUpScreen {
 }
 
 
-// MARK: - 이용약관 확인
+// MARK: - 약관 확인
 
 extension SignUpScreen {
 	/// 이용약관을 확인하기 위한 버튼입니다.
@@ -171,6 +172,23 @@ extension SignUpScreen {
 			NavigationLink(destination: TOSScreen()) {
 				HStack {
 					Text("서비스 이용약관 확인하기")
+						.fontWeight(.medium)
+					Image(systemName: "chevron.right")
+				}
+				.font(.system(size: 12))
+			}
+			.foregroundColor(Color("orange"))
+		}
+		.padding(.horizontal, 20)
+	}
+	
+	/// 개인정보 처리방침을 확인하기 위한 버튼입니다.
+	var privacyPolicyLink: some View {
+		HStack {
+			Spacer()
+			NavigationLink(destination: PrivacyPolicyScreen()) {
+				HStack {
+					Text("개인정보 처리방침 확인하기")
 						.fontWeight(.medium)
 					Image(systemName: "chevron.right")
 				}
