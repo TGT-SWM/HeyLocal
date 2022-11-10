@@ -17,6 +17,31 @@ struct ProfileScreen: View {
     let userId: Int
     let showingTab: Bool // tab == ture: 내 프로필 탭 ! // false : 다른 Component 타고 들어옴
     
+
+    @State var showingSheet: Bool = false
+    @State var showingAlert: Bool = false
+    
+    var moreBtn: some View {
+        Button(action: {
+            showingSheet.toggle()
+        }) {
+            Image(systemName: "ellipsis")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 14)
+                .foregroundColor(.black)
+                .rotationEffect(.degrees(-90))
+        }
+        .confirmationDialog("", isPresented: $showingSheet, titleVisibility: .hidden) {
+            Button("사용자 차단", role: .destructive) {
+                showingAlert.toggle()
+            }
+            Button("취소", role: .cancel) {
+                
+            }
+        }
+    }
+
     @StateObject var viewModel = ViewModel()
     var body: some View {
         VStack {
@@ -31,14 +56,32 @@ struct ProfileScreen: View {
                 }
             }
             else {
-                otherProfile
-                    .onAppear {
-                        displayTabBar(false)
-                    }
-                    .navigationTitle("")
-                    .navigationBarTitleDisplayMode(.inline)
-                    .navigationBarBackButtonHidden(true)
-                    .navigationBarItems(leading: BackButton() )
+                if userId == AuthManager.shared.authorized!.id  {
+                    otherProfile
+                        .onAppear {
+                            displayTabBar(false)
+                        }
+                        .navigationTitle("")
+                        .navigationBarTitleDisplayMode(.inline)
+                        .navigationBarBackButtonHidden(true)
+                        .navigationBarItems(leading: BackButton())
+                }
+                else {
+                    otherProfile
+                        .alert(isPresented: $showingAlert){
+                            Alert(title: Text("사용자 차단"),
+                                  message: Text("해당 사용자를 차단할까요?"),
+                                  primaryButton: .destructive(Text("차단"), action: {}),
+                                  secondaryButton: .cancel(Text("취소")))
+                        }
+                        .onAppear {
+                            displayTabBar(false)
+                        }
+                        .navigationTitle("")
+                        .navigationBarTitleDisplayMode(.inline)
+                        .navigationBarBackButtonHidden(true)
+                        .navigationBarItems(leading: BackButton(), trailing: moreBtn )
+                }
             }
         }
     }
@@ -135,6 +178,7 @@ struct UserTravelOn: View {
 struct UserComponent: View {
     let userId: Int
     @StateObject var viewModel = ProfileScreen.ViewModel()
+    @State var showingBlock: Bool = false
     
     var body: some View {
         VStack(alignment: .center) {
@@ -239,10 +283,6 @@ struct UserComponent: View {
                     Text("\(regionNameFormatter(region: viewModel.author.activityRegion!))")
                         .font(.system(size: 12))
                 }
-//                else {
-//                    Text("주 활동지역 없음")
-//                        .font(.system(size: 12))
-//                }
                 
                 Spacer()
                     .frame(height: 3)
@@ -256,12 +296,7 @@ struct UserComponent: View {
                         .font(.system(size: 12))
                         .foregroundColor(Color("gray"))
                 }
-//                else {
-//                    Text("자기소개 없음")
-//                        .font(.system(size: 12))
-//                        .foregroundColor(Color("gray"))
-//                }
-//                
+ 
                 Spacer()
                     .frame(height: 30)
             }
