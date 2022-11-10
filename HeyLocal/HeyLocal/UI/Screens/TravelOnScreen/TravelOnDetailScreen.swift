@@ -24,8 +24,12 @@ struct TravelOnDetailScreen: View {
     var body: some View {
         ZStack(alignment: .center) {
             // 게시글 수정
-            if navigationLinkActive {
-                NavigationLink("", destination: TravelOnWriteScreen(isRevise: true, travelOnID: viewModel.travelOn.id), isActive: $navigationLinkActive)
+//            if navigationLinkActive {
+//                NavigationLink("", destination: TravelOnWriteScreen(isRevise: true, travelOnID: viewModel.travelOn.id), isActive: $navigationLinkActive)
+//            }
+//            
+            NavigationLink(destination: TravelOnWriteScreen(isRevise: true, travelOnID: viewModel.travelOn.id), isActive: $navigationLinkActive) {
+                Text("")
             }
             
             ScrollView {
