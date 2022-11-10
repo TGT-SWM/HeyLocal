@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct HomeScreen: View {
+    @Environment(\.displayTabBar) var displayTabBar
     @StateObject var viewModel = ViewModel()
     
     var alarmButton: some View {
@@ -79,6 +80,9 @@ struct HomeScreen: View {
                     
                     Ranking()
                 }
+            }
+            .onAppear {
+                displayTabBar(true)
             }
             .background(Color("lightGray"))
             .navigationBarTitle("", displayMode: .automatic)

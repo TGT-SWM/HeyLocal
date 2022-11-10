@@ -11,7 +11,7 @@ import SwiftUI
 struct RankingProfileComponent: View {
     var author: Author
     var body: some View {
-        NavigationLink(destination: ProfileScreen(userId: author.id)) {
+        NavigationLink(destination: ProfileScreen(userId: author.id, showingTab: false)) {
             VStack(alignment: .center) {
                 ZStack(alignment: .bottom) {
                     if author.profileImgDownloadUrl == nil {
