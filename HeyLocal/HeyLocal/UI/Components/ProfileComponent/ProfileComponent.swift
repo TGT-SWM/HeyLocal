@@ -67,7 +67,7 @@ struct ProfileComponent: View {
                             .frame(height: 7)
                         
                         // 프로필화면으로 이동
-                        NavigationLink(destination: ProfileScreen(userId: author.id)) {
+                        NavigationLink(destination: ProfileScreen(userId: author.id, showingTab: false)) {
                             HStack {
                                 Text("\(author.nickname)")
                                     .font(.system(size: 16))

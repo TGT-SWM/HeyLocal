@@ -15,49 +15,90 @@ struct ProfileScreen: View {
     let tabs: [String] = ["내가 쓴 여행On", "내 답변"]
     let otherTabs: [String] = ["작성한 여행On", "답변 목록"]
     let userId: Int
+    let showingTab: Bool // tab == ture: 내 프로필 탭 ! // false : 다른 Component 타고 들어옴
     
     @StateObject var viewModel = ViewModel()
     var body: some View {
-        NavigationView {
-            VStack {
-                UserComponent(userId: self.userId)
-                    .padding(EdgeInsets(top: 20, leading: 0, bottom: 0, trailing: 0))
-                
-                GeometryReader { geo in
-                    VStack {
-                        /// 내 프로필
-                        
-                        if userId == AuthManager.shared.authorized!.id {
-                            TopTabs(tabs: tabs, geoWidth: geo.size.width, selectedTab: $selectedTab)
+        VStack {
+            if showingTab {
+                NavigationView {
+                    myProfile
+                        .onAppear {
+                            displayTabBar(true)
                         }
-                        else {
-                            TopTabs(tabs: otherTabs, geoWidth: geo.size.width, selectedTab: $selectedTab)
-                        }
-                        
-                        TabView(selection: $selectedTab, content: {
-                            UserTravelOn(userId: self.userId)
-                                .tag(0)
-                            
-                            UserOpinion(userId: self.userId)
-                                .tag(1)
-                        })
-                        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                    }
+                        .navigationBarTitle("", displayMode: .automatic)
+                        .navigationBarHidden(true)
                 }
-                .ignoresSafeArea()
             }
-            .onAppear {
-                if AuthManager.shared.authorized != nil  {
-                    if userId == AuthManager.shared.authorized!.id {
-                        displayTabBar(true)
-                    }
-                    else {
+            else {
+                otherProfile
+                    .onAppear {
                         displayTabBar(false)
                     }
+                    .navigationTitle("")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .navigationBarBackButtonHidden(true)
+                    .navigationBarItems(leading: BackButton() )
+            }
+        }
+    }
+    
+    // 나의 프로필일 때
+    var myProfile: some View {
+        VStack {
+            UserComponent(userId: self.userId)
+                .padding(EdgeInsets(top: 20, leading: 0, bottom: 0, trailing: 0))
+            
+            GeometryReader { geo in
+                VStack {
+                    /// 내 프로필
+                    if userId == AuthManager.shared.authorized!.id {
+                        TopTabs(tabs: tabs, geoWidth: geo.size.width, selectedTab: $selectedTab)
+                    }
+                    else {
+                        TopTabs(tabs: otherTabs, geoWidth: geo.size.width, selectedTab: $selectedTab)
+                    }
+                    
+                    TabView(selection: $selectedTab, content: {
+                        UserTravelOn(userId: self.userId)
+                            .tag(0)
+                        
+                        UserOpinion(userId: self.userId)
+                            .tag(1)
+                    })
+                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                 }
             }
-            .navigationBarTitle("", displayMode: .automatic)
-            .navigationBarHidden(true)
+            .ignoresSafeArea()
+        }
+    }
+    
+    var otherProfile: some View {
+        VStack {
+            UserComponent(userId: self.userId)
+                .padding(EdgeInsets(top: 20, leading: 0, bottom: 0, trailing: 0))
+            
+            GeometryReader { geo in
+                VStack {
+                    /// 내 프로필
+                    if userId == AuthManager.shared.authorized!.id {
+                        TopTabs(tabs: tabs, geoWidth: geo.size.width, selectedTab: $selectedTab)
+                    }
+                    else {
+                        TopTabs(tabs: otherTabs, geoWidth: geo.size.width, selectedTab: $selectedTab)
+                    }
+                    
+                    TabView(selection: $selectedTab, content: {
+                        UserTravelOn(userId: self.userId)
+                            .tag(0)
+                        
+                        UserOpinion(userId: self.userId)
+                            .tag(1)
+                    })
+                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                }
+            }
+            .ignoresSafeArea()
         }
     }
 }
@@ -88,6 +129,8 @@ struct UserTravelOn: View {
         }
     }
 }
+
+
 
 struct UserComponent: View {
     let userId: Int

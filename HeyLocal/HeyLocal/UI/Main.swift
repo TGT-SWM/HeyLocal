@@ -89,7 +89,7 @@ extension TabBar {
 				.tag(Tab.myPlan)
 //            HomeScreen()
 //				.tag(Tab.message)
-            ProfileScreen(userId: AuthManager.shared.authorized!.id)
+            ProfileScreen(userId: AuthManager.shared.authorized!.id, showingTab: true)
 				.tag(Tab.myInfo)
 		}
 		.padding(.bottom, _displayTabBar ? tabBarHeight : 0)
