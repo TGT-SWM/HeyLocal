@@ -24,7 +24,6 @@ class LocationService: NSObject, CLLocationManagerDelegate {
 	func requestLocation(completion: @escaping ((CLLocationCoordinate2D) -> (Void))) {
 		completionHandler = completion
 		manager.requestLocation()
-		
 	}
 	
 	/// 위치 정보 업데이트를 중단합니다.

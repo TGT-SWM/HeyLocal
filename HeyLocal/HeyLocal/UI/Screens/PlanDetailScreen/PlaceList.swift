@@ -57,10 +57,19 @@ extension PlanDetailScreen {
 extension PlanDetailScreen {
 	/// 리스트에 들어갈 항목들을 반환합니다.
 	func listItems(day: Int) -> some View {
-		ForEach(viewModel.scheduleOf(day: day).indices, id: \.self) { index in
+		let isToday = viewModel.isToday(day: day) // 오늘 일자의 스케줄인지 확인합니다.
+		let isCurrentPlaceByIdx = { (idx: Int) -> Bool in // 현재 있는 장소인지 확인하는 클로저입니다.
+			return viewModel.isCurrentPlace(
+				lat: viewModel.placeOf(day: day, index: idx).lat.wrappedValue,
+				lng: viewModel.placeOf(day: day, index: idx).lng.wrappedValue
+			)
+		}
+		
+		return ForEach(viewModel.scheduleOf(day: day).indices, id: \.self) { index in
 			listItem(
 				index: index,
-				place: viewModel.placeOf(day: day, index: index)
+				place: viewModel.placeOf(day: day, index: index),
+				isCurrentPlace: isToday && isCurrentPlaceByIdx(index)
 			)
 			
 			// 마지막 항목이 아니라면, 자신과 다음 장소 사이의 거리 정보를 출력합니다.
@@ -75,10 +84,12 @@ extension PlanDetailScreen {
 	}
 	
 	/// 리스트의 항목 뷰를 반환합니다.
-	func listItem(index: Int, place: Binding<Place>) -> some View {
-		HStack(alignment: .center) {
-			placeOrder(order: index + 1)
+	func listItem(index: Int, place: Binding<Place>, isCurrentPlace: Bool) -> some View {
+		return HStack(alignment: .center) {
+			// 순서
+			placeOrder(order: index + 1, isCurrentPlace: isCurrentPlace)
 			
+			// 장소 정보
 			VStack(alignment: .leading) {
 				HStack {
 					if let arrivalTime = place.wrappedValue.arrivalTime {
@@ -97,6 +108,11 @@ extension PlanDetailScreen {
 			}
 			
 			Spacer()
+			
+			// 도착 예상 (ex. 늦을 수 있어요)
+			if isCurrentPlace {
+				
+			}
 		}
 		.frame(height: 72)
 		.padding(.horizontal, 20)
@@ -173,7 +189,7 @@ extension PlanDetailScreen {
 	}
 	
 	/// 스케줄 안에서 장소의 순서를 출력합니다.
-	func placeOrder(order: Int) -> some View {
+	func placeOrder(order: Int, isCurrentPlace: Bool) -> some View {
 		Text("\(order)")
 			.font(.system(size: 14))
 			.fontWeight(.medium)
@@ -182,7 +198,11 @@ extension PlanDetailScreen {
 			.background(
 				Circle()
 					.frame(width: 24, height: 24)
-					.foregroundColor(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+					.foregroundColor(
+						isCurrentPlace
+						? Color(red: 126 / 255, green: 0, blue: 217 / 255)
+						: Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255)
+					)
 			)
 	}
 	
