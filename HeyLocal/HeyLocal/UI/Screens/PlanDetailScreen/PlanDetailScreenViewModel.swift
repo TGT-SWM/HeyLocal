@@ -18,7 +18,7 @@ extension PlanDetailScreen {
 		let planService = PlanService()
 		let odsayAPIService = ODsayAPIService()
 		let ncpAPIService = NcpAPIService()
-		var plan: Plan
+		let locationService = LocationService()
 		
 		// 상태 값
 		@Published var showMapView = false // 지도 뷰를 보여줄 것인지
@@ -37,8 +37,14 @@ extension PlanDetailScreen {
 		@Published var arrivalTimeEdited = Date()
 		var schedulesBackUp: [DaySchedule] = [] // 스케줄 수정 취소를 위한 임시 저장
 		
+		@Published var lat: Double = 0 // 현재 사용자 위도
+		@Published var lng: Double = 0 // 현재 사용자 경도
+		
 		// Combine
 		var cancellable: AnyCancellable?
+		
+		// 파라미터
+		var plan: Plan
 		
 		init(plan: Plan) {
 			self.plan = plan
@@ -310,7 +316,13 @@ extension PlanDetailScreen.ViewModel {
 			
 			for j in places.indices {
 				for k in (j + 1)..<places.count {
-					let dist = distanceBetween(places[j], places[k])
+					let dist = distanceBetween(
+						lat1: places[j].lat,
+						lng1: places[j].lng,
+						lat2: places[k].lat,
+						lng2: places[k].lng
+					)
+					
 					distances[i][j][k] = dist
 					distances[i][k][j] = dist
 				}
@@ -321,7 +333,7 @@ extension PlanDetailScreen.ViewModel {
 	/// 두 장소간 이동 시간과 거리를 계산해 반환합니다.
 	/// 이동 거리는 Haversine 공식을 사용해 계산하며,
 	/// 이동 거리를 기준 속도(40km/h)로 나누어 이동 시간을 계산합니다.
-	func distanceBetween(_ a: Place, _ b: Place) -> Distance {
+	func distanceBetween(lat1: Double, lng1: Double, lat2: Double, lng2: Double) -> Distance {
 		var distance = 0.0 // 이동 거리
 		var time = 0.0 // 이동 시간
 		
@@ -329,14 +341,14 @@ extension PlanDetailScreen.ViewModel {
 		let radiusOfEarth = 6371e3
 		let degToRadian = Double.pi / 180
 		
-		let deltaLat = abs(a.lat - b.lat) * degToRadian
-		let deltaLng = abs(a.lng - b.lng) * degToRadian
+		let deltaLat = abs(lat1 - lat2) * degToRadian
+		let deltaLng = abs(lng1 - lng2) * degToRadian
 		
 		let sinDeltaLat = sin(deltaLat / 2)
 		let sinDeltaLng = sin(deltaLng / 2)
 		let sqrted = sqrt(
 			pow(sinDeltaLat, 2) +
-			cos(a.lat * degToRadian) * cos(b.lat * degToRadian) * pow(sinDeltaLng, 2)
+			cos(lat1 * degToRadian) * cos(lat2 * degToRadian) * pow(sinDeltaLng, 2)
 		)
 		
 		distance = 2 * radiusOfEarth * asin(sqrted)
@@ -397,5 +409,48 @@ extension PlanDetailScreen.ViewModel {
 		
 		// 서버에 반영
 		updateSchedules()
+	}
+}
+
+
+// MARK: - 현재 위치 관련 기능
+
+extension PlanDetailScreen.ViewModel {
+	/// 사용자의 현재 위치를 요청합니다.
+	func fetchCurrentLocation() {
+		locationService.requestLocation { coord in
+			self.lat = coord.latitude
+			self.lng = coord.longitude
+			
+			print("Current location")
+			print(self.lat)
+			print(self.lng)
+		}
+	}
+	
+	/// 넘겨 받은 일자의 날짜가 오늘과 일치하는지 검사합니다.
+	func isToday(day: Int) -> Bool {
+		let startDate = DateFormat.strToDate(plan.startDate, "yyyy-MM-dd")
+		let timeInt = TimeInterval((day - 1) * 24 * 60 * 60)
+		let advancedDate = startDate.advanced(by: timeInt)
+		
+		let advancedDateStr = DateFormat.dateToStr(advancedDate, "yyyy-MM-dd")
+		let todayDateStr = DateFormat.dateToStr(Date(), "yyyy-MM-dd")
+		
+		return advancedDateStr == todayDateStr
+	}
+	
+	/// 장소의 위도와 경도를 넘겨 받아, 현재 이 장소에 있는지의 여부를 판단합니다.
+	/// 판단의 기준은 직선 거리 2km 이내입니다.
+	func isCurrentPlace(lat: Double, lng: Double) -> Bool {
+		let threshold = 2.0
+		let distance = distanceBetween(
+			lat1: lat,
+			lng1: lng,
+			lat2: self.lat,
+			lng2: self.lng
+		).distance
+		
+		return distance <= threshold
 	}
 }

@@ -57,10 +57,52 @@ extension PlanDetailScreen {
 extension PlanDetailScreen {
 	/// 리스트에 들어갈 항목들을 반환합니다.
 	func listItems(day: Int) -> some View {
-		ForEach(viewModel.scheduleOf(day: day).indices, id: \.self) { index in
+		let schedule = viewModel.scheduleOf(day: day)
+		var currentPlaceIdx: Int?
+		
+		// 금일 스케줄인지 확인
+		let isToday = viewModel.isToday(day: day)
+		
+		// 현재 장소에 해당하는 인덱스 값 구하기
+		if isToday {
+			for idx in schedule.indices {
+				let place = schedule[idx].wrappedValue
+				if viewModel.isCurrentPlace(lat: place.lat, lng: place.lng) {
+					currentPlaceIdx = idx
+				}
+			}
+		}
+		
+		// 현재 스케줄 내 어떤 장소에 있는 경우, 다음 장소까지의 예상 도착 시간 계산
+		var nextPlaceIdx: Int?
+		var maybeLate = false
+		
+		if let idx = currentPlaceIdx { // 현재 스케줄 내 장소에 위치한 경우
+			let distances = viewModel.apiDistances[day - 1]
+			
+			if idx >= 0 && idx < distances.count { // 거리 정보가 존재하는 경우
+				nextPlaceIdx = idx + 1
+				let nextPlace = viewModel.placeOf(day: day, index: idx + 1).wrappedValue
+				let timeInt = TimeInterval(distances[idx].time * 60)
+				
+				if let until = nextPlace.arrivalTime { // 도착 시간 정보가 존재하는 경우 (HH:mm:ss 포맷)
+					let arrivalTime = Date().advanced(by: timeInt)
+					let arrival = DateFormat.dateToStr(arrivalTime, "HH:mm:ss")
+					print("until : " + until)
+					print("arrival : " + arrival)
+					if until < arrival { // 도착 시간에 늦는 경우
+						maybeLate = true
+					}
+				}
+			}
+		}
+		
+		return ForEach(schedule.indices, id: \.self) { index in
 			listItem(
 				index: index,
-				place: viewModel.placeOf(day: day, index: index)
+				place: viewModel.placeOf(day: day, index: index),
+				isCurrentPlace: index == currentPlaceIdx,
+				maybeLate: (index == nextPlaceIdx) && maybeLate
 			)
 			
 			// 마지막 항목이 아니라면, 자신과 다음 장소 사이의 거리 정보를 출력합니다.
@@ -75,10 +117,14 @@ extension PlanDetailScreen {
 	}
 	
 	/// 리스트의 항목 뷰를 반환합니다.
-	func listItem(index: Int, place: Binding<Place>) -> some View {
-		HStack(alignment: .center) {
-			placeOrder(order: index + 1)
+	func listItem(index: Int, place: Binding<Place>, isCurrentPlace: Bool, maybeLate: Bool) -> some View {
+		print(place.wrappedValue)
+		print(maybeLate)
+		return HStack(alignment: .center) {
+			// 순서
+			placeOrder(order: index + 1, isCurrentPlace: isCurrentPlace)
 			
+			// 장소 정보
 			VStack(alignment: .leading) {
 				HStack {
 					if let arrivalTime = place.wrappedValue.arrivalTime {
@@ -97,6 +143,16 @@ extension PlanDetailScreen {
 			}
 			
 			Spacer()
+			
+			// 도착 예상 (ex. 늦을 수 있어요)
+			if maybeLate {
+				HStack {
+					Text("늦을 수 있어요")
+					Image(systemName: "exclamationmark.circle.fill")
+				}
+				.font(.system(size: 12))
+				.foregroundColor(Color(red: 220 / 255, green: 46 / 255, blue: 56 / 255))
+			}
 		}
 		.frame(height: 72)
 		.padding(.horizontal, 20)
@@ -173,7 +229,7 @@ extension PlanDetailScreen {
 	}
 	
 	/// 스케줄 안에서 장소의 순서를 출력합니다.
-	func placeOrder(order: Int) -> some View {
+	func placeOrder(order: Int, isCurrentPlace: Bool) -> some View {
 		Text("\(order)")
 			.font(.system(size: 14))
 			.fontWeight(.medium)
@@ -182,7 +238,11 @@ extension PlanDetailScreen {
 			.background(
 				Circle()
 					.frame(width: 24, height: 24)
-					.foregroundColor(Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255))
+					.foregroundColor(
+						isCurrentPlace
+						? Color(red: 126 / 255, green: 0, blue: 217 / 255)
+						: Color(red: 217 / 255, green: 217 / 255, blue: 217 / 255)
+					)
 			)
 	}
 	

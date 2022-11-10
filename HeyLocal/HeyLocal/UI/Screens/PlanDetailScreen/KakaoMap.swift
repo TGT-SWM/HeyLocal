@@ -11,13 +11,21 @@ import UIKit
 
 struct KakaoMap: UIViewRepresentable {
 	@Binding var places: [Place]
+	var showCurrentLocation = false
 	
 	func makeUIView(context: Context) -> MTMapView {
 		// 참고 : http://susemi99.kr/6131/
 		// TODO: 다른 화면으로 이동해도 메모리 해제가 이루어지지 않을 수 있음. 해당 문제 확인하여 수정 필요.
 		let view = MTMapView(frame: .zero)
-		view.currentLocationTrackingMode = .off
-		view.showCurrentLocationMarker = true
+		
+		// 현재 위치 마커
+		if showCurrentLocation {
+			view.currentLocationTrackingMode = .onWithoutHeading
+			view.showCurrentLocationMarker = true
+		} else {
+			view.currentLocationTrackingMode = .off
+			view.showCurrentLocationMarker = false
+		}
 		
 		// 마커 추가
 		addMarkers(view)
@@ -26,7 +34,9 @@ struct KakaoMap: UIViewRepresentable {
 		addLines(view)
 		
 		// 지도 센터와 줌 레벨 설정
-		setMapCenter(view)
+		if !showCurrentLocation {
+			setMapCenter(view)
+		}
 		
 		return view
 	}
@@ -42,7 +52,9 @@ struct KakaoMap: UIViewRepresentable {
 		addLines(view)
 		
 		// 지도 센터와 줌 레벨 설정
-		setMapCenter(view)
+		if !showCurrentLocation {
+			setMapCenter(view)
+		}
 	}
 	
 	/// 지도에 마커를 추가합니다.
@@ -55,8 +67,16 @@ struct KakaoMap: UIViewRepresentable {
 			let mapPoint = MTMapPoint(geoCoord: MTMapPointGeo(latitude: place.lat, longitude: place.lng))
 			marker.mapPoint = mapPoint
 			
+			// 마커 이미지
+			var markerImage = "marker-etc"
+			if markerImages.indices.contains(idx) {
+				markerImage = markerImages[idx]
+			}
+			
 			// 기타 설정
-			marker.markerType = .redPin
+			marker.markerType = .customImage
+			marker.customImageName = markerImage
+			marker.customImageAnchorPointOffset = MTMapImageOffset(offsetX: 24, offsetY: 24)
 			marker.itemName = "\(idx + 1). \(place.name)"
 			marker.tag = idx
 			
@@ -111,4 +131,17 @@ struct KakaoMap: UIViewRepresentable {
 			animated: true
 		)
 	}
+	
+	/// 마커 이미지 에셋의 배열입니다.
+	let markerImages = [
+		"marker-1",
+		"marker-2",
+		"marker-3",
+		"marker-4",
+		"marker-5",
+		"marker-6",
+		"marker-7",
+		"marker-8",
+		"marker-9"
+	]
 }

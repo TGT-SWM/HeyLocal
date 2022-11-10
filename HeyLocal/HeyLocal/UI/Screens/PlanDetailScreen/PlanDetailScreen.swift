@@ -47,6 +47,7 @@ struct PlanDetailScreen: View {
 			if viewModel.schedules.isEmpty {
 				viewModel.fetchPlaces()
 			}
+			viewModel.fetchCurrentLocation()
 		}
     }
 	
@@ -189,9 +190,15 @@ extension PlanDetailScreen {
 	var mapView: some View {
 		VStack {
 			if !viewModel.schedules.isEmpty {
-				KakaoMap(places: $viewModel.schedules[viewModel.currentDay - 1].places)
+				KakaoMap(
+					places: $viewModel.schedules[viewModel.currentDay - 1].places,
+					showCurrentLocation: viewModel.isToday(day: viewModel.currentDay)
+				)
 			} else {
-				KakaoMap(places: .constant([]))
+				KakaoMap(
+					places: .constant([]),
+					showCurrentLocation: viewModel.isToday(day: viewModel.currentDay)
+				)
 			}
 		}
 	}
