@@ -193,7 +193,7 @@ extension OpinionComponent {
         // 답변 수정
         func updateOpinion(travelOnId: Int, opinionId: Int, opinionData: Opinion,
                            generalImages: [SelectedImage], foodImages: [SelectedImage], cafeImages: [SelectedImage], photoSpotImages: [SelectedImage],
-                           deleteImages: [String], deleteFoodImages: [String], deleteCafeImages: [String], deletePhotoSpotImages: [String]) {
+                           deleteImages: [Int], deleteFoodImages: [Int], deleteCafeImages: [Int], deletePhotoSpotImages: [Int]) {
             return opinionService.updateOpinion(travelOnId: travelOnId, opinionId: opinionId, opinionData: opinionData, generalImages: generalImages, foodImages: foodImages, cafeImages: cafeImages, photoSpotImages: photoSpotImages, deleteImages: deleteImages, deleteFoodImages: deleteFoodImages, deleteCafeImages: deleteCafeImages, deletePhotoSpotImages: deletePhotoSpotImages)
         }
         

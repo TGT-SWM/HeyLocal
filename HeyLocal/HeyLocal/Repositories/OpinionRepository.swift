@@ -193,7 +193,7 @@ struct OpinionRepository {
     // 답변 수정
     func updateOpinion(travelOnId: Int, opinionId: Int, opinionData: Opinion,
                        generalImages: [SelectedImage], foodImages: [SelectedImage], cafeImages: [SelectedImage], photoSpotImages: [SelectedImage],
-                       deleteImages: [String], deleteFoodImages: [String], deleteCafeImages: [String], deletePhotoSpotImages: [String]) {
+                       deleteImages: [Int], deleteFoodImages: [Int], deleteCafeImages: [Int], deletePhotoSpotImages: [Int]) {
         
         // opinionData to JSON Encoding
         let encoder = JSONEncoder()
@@ -213,7 +213,6 @@ struct OpinionRepository {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
         
-        /// AuthManager.shared.
         request.httpBody = jsonData
         var httpResponseStatusCode: Int = 0
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -239,21 +238,19 @@ struct OpinionRepository {
                             let generalPUTs = responseURLs[i].putUrls
                             let generalDELETEs = responseURLs[i].deleteUrls
                             
+                            var running = false
+                            
+                            
+                            print("DELETE URLs", generalDELETEs)
                             // 삭제 진행 후
                             if !deleteImages.isEmpty {
-                                var deleteArrays: [Int] = []
-
+                                running = true
+                                
                                 for i in 0..<deleteImages.count {
-                                    let tmp = deleteImages[i].components(separatedBy: "/")
-                                    let deleteNum = tmp[tmp.count - 1].components(separatedBy: ".png")[0]
-
-                                    deleteArrays.append(Int(deleteNum)!)
-                                }
-                                deleteArrays = deleteArrays.sorted().reversed()
-
-                                for i in 0..<deleteArrays.count {
-                                    let deleteURL = URL(string: generalDELETEs[deleteArrays[i]])!
+                                    let deleteURL = URL(string: generalDELETEs[deleteImages[i]])!
                                     var deleteRequest = URLRequest(url: deleteURL)
+                                    
+                                    
 
                                     deleteRequest.httpMethod = "DELETE"
                                     let deleteTask = URLSession.shared.dataTask(with: deleteRequest) { data, response, error in
@@ -263,8 +260,18 @@ struct OpinionRepository {
                                         }
                                     }
                                     deleteTask.resume()
+                                    
+                                    sleep(UInt32(0.5))
                                 }
+                                running = false
                             }
+                            
+//                            // Delay
+//                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+//                                print("wait")
+//                            }
+                            while running {}
+                            
                             
                             // reUpload
                             let startNum = generalDELETEs.count - deleteImages.count //
@@ -292,18 +299,8 @@ struct OpinionRepository {
                             
                             // 삭제 진행 후
                             if !deleteFoodImages.isEmpty {
-                                var deleteArrays: [Int] = []
-
                                 for i in 0..<deleteFoodImages.count {
-                                    let tmp = deleteFoodImages[i].components(separatedBy: "/")
-                                    let deleteNum = tmp[tmp.count - 1].components(separatedBy: ".png")[0]
-
-                                    deleteArrays.append(Int(deleteNum)!)
-                                }
-                                deleteArrays = deleteArrays.sorted().reversed()
-
-                                for i in 0..<deleteArrays.count {
-                                    let deleteURL = URL(string: foodDELETEs[deleteArrays[i]])!
+                                    let deleteURL = URL(string: foodDELETEs[deleteFoodImages[i]])!
                                     var deleteRequest = URLRequest(url: deleteURL)
 
                                     deleteRequest.httpMethod = "DELETE"
@@ -314,6 +311,7 @@ struct OpinionRepository {
                                         }
                                     }
                                     deleteTask.resume()
+                                    sleep(UInt32(0.5))
                                 }
                             }
                             
@@ -340,24 +338,11 @@ struct OpinionRepository {
                         else if responseURLs[i].imgType == "RECOMMEND_DRINK_DESSERT" {
                             let cafePUTs = responseURLs[i].putUrls
                             let cafeDELETEs = responseURLs[i].deleteUrls
-//
-//                            print("CAFE PUTs", cafePUTs)
-//                            print("CAFE DELETEs", cafeDELETEs)
                             
                             // 삭제 진행 후
                             if !deleteCafeImages.isEmpty {
-                                var deleteArrays: [Int] = []
-
                                 for i in 0..<deleteCafeImages.count {
-                                    let tmp = deleteCafeImages[i].components(separatedBy: "/")
-                                    let deleteNum = tmp[tmp.count - 1].components(separatedBy: ".png")[0]
-
-                                    deleteArrays.append(Int(deleteNum)!)
-                                }
-                                deleteArrays = deleteArrays.sorted().reversed()
-
-                                for i in 0..<deleteArrays.count {
-                                    let deleteURL = URL(string: cafeDELETEs[deleteArrays[i]])!
+                                    let deleteURL = URL(string: cafeDELETEs[deleteCafeImages[i]])!
                                     var deleteRequest = URLRequest(url: deleteURL)
 
                                     deleteRequest.httpMethod = "DELETE"
@@ -368,6 +353,7 @@ struct OpinionRepository {
                                         }
                                     }
                                     deleteTask.resume()
+                                    sleep(UInt32(0.5))
                                 }
                             }
                             
@@ -396,18 +382,8 @@ struct OpinionRepository {
                             let photoSpotsDELETEs = responseURLs[i].deleteUrls
                             
                             if !deletePhotoSpotImages.isEmpty {
-                                var deleteArrays: [Int] = []
-
                                 for i in 0..<deletePhotoSpotImages.count {
-                                    let tmp = deletePhotoSpotImages[i].components(separatedBy: "/")
-                                    let deleteNum = tmp[tmp.count - 1].components(separatedBy: ".png")[0]
-
-                                    deleteArrays.append(Int(deleteNum)!)
-                                }
-                                deleteArrays = deleteArrays.sorted().reversed()
-
-                                for i in 0..<deleteArrays.count {
-                                    let deleteURL = URL(string: photoSpotsDELETEs[deleteArrays[i]])!
+                                    let deleteURL = URL(string: photoSpotsDELETEs[deletePhotoSpotImages[i]])!
                                     var deleteRequest = URLRequest(url: deleteURL)
 
                                     deleteRequest.httpMethod = "DELETE"
@@ -418,6 +394,7 @@ struct OpinionRepository {
                                         }
                                     }
                                     deleteTask.resume()
+                                    sleep(UInt32(0.5))
                                 }
                             }
                             

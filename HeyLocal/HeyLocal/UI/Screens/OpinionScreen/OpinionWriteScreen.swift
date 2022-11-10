@@ -50,6 +50,14 @@ struct OpinionWriteScreen: View {
                         
                         // 삭제 이미지 확인
                         deleteImage = deleteImage.sorted().reversed()
+                        deleteFoodImage = deleteFoodImage.sorted().reversed()
+                        deleteCafeImage = deleteCafeImage.sorted().reversed()
+                        deletePhotoSpotImage = deletePhotoSpotImage.sorted().reversed()
+                        
+                        print("Delete GENERAL Image", deleteImage)
+                        print("Delete FOOD Image", deleteFoodImage)
+                        print("Delete CAFE Image", deleteCafeImage)
+                        print("Delete PHOTOSPOT Image", deletePhotoSpotImage)
                         
                         viewModel.updateOpinion(travelOnId: travelOnId, opinionId: opinionId!, opinionData: opinionData,
                                                 generalImages: generalImages, foodImages: foodImages, cafeImages: cafeImages, photoSpotImages: photoSpotImages,
@@ -261,7 +269,8 @@ struct OpinionWriteScreen: View {
     // MARK: - 공통 · 필수 질문
     @State var showGeneralImagePicker: Bool = false
     @State var generalImages: [SelectedImage] = []
-    @State var deleteImage: [String] = []
+    @State var tmpDelete: [String] = []
+    @State var deleteImage: [Int] = []
     var placeOpinion: some View {
         VStack(alignment: .leading) {
             /// 장소
@@ -329,7 +338,7 @@ struct OpinionWriteScreen: View {
                             
                             // 기존 사진
                             ForEach(viewModel.generalImagesURL, id: \.self) { url in
-                                if !deleteImage.contains(url.components(separatedBy: "?")[0]) {
+                                if !tmpDelete.contains(url.components(separatedBy: "?")[0]) {
                                     ZStack(alignment: .topTrailing) {
                                         // 이미지
                                         AsyncImage(url: URL(string: url)) { phash in
@@ -359,8 +368,11 @@ struct OpinionWriteScreen: View {
                                             if let index = viewModel.generalImagesURL.firstIndex(of: url) {
                                                 viewModel.generalImagesURL.remove(at: index)
                                                 
-                                                let deleteUrl = url.components(separatedBy: "?")
-                                                deleteImage.append(deleteUrl[0])
+                                                let deleteURL = url.components(separatedBy: "?")[0].components(separatedBy: "/")
+                                                let deleteNum = deleteURL[deleteURL.count - 1].components(separatedBy: ".png")[0]
+                                                deleteImage.append(Int(deleteNum)!)
+                                                
+                                                tmpDelete.append(url.components(separatedBy: "?")[0])
                                             }
                                         }) {
                                             ZStack {
@@ -821,7 +833,8 @@ struct OpinionWriteScreen: View {
     // MARK: - 음식점  변수 · View
     @State var showFoodImagePicker: Bool = false
     @State var foodImages: [SelectedImage] = []
-    @State var deleteFoodImage: [String] = []
+    @State var tmpFoodDelete: [String] = []
+    @State var deleteFoodImage: [Int] = []
     var restaurantOpinion: some View {
         VStack(alignment: .leading){
             /// 가게 분위기
@@ -947,7 +960,7 @@ struct OpinionWriteScreen: View {
                         
                         // 기존 이미지
                         ForEach(viewModel.foodImagesURL, id:\.self) { url in
-                            if !deleteFoodImage.contains(url.components(separatedBy: "?")[0]) {
+                            if !tmpFoodDelete.contains(url.components(separatedBy: "?")[0]) {
                                 ZStack(alignment: .topTrailing) {
                                     AsyncImage(url: URL(string: url)) { phash in
                                         if let image = phash.image {
@@ -971,8 +984,11 @@ struct OpinionWriteScreen: View {
                                         if let index = viewModel.foodImagesURL.firstIndex(of: url) {
                                             viewModel.foodImagesURL.remove(at: index)
                                             
-                                            let deleteUrl = url.components(separatedBy: "?")
-                                            deleteFoodImage.append(deleteUrl[0])
+                                            let deleteURL = url.components(separatedBy: "?")[0].components(separatedBy: "/")
+                                            let deleteNum = deleteURL[deleteURL.count - 1].components(separatedBy: ".png")[0]
+                                            deleteFoodImage.append(Int(deleteNum)!)
+                                            
+                                            tmpFoodDelete.append(url.components(separatedBy: "?")[0])
                                         }
                                     }) {
                                         ZStack {
@@ -1061,7 +1077,8 @@ struct OpinionWriteScreen: View {
     // MARK: - 카페  변수 · View
     @State var showCafeImagePicker: Bool = false
     @State var cafeImages: [SelectedImage] = []
-    @State var deleteCafeImage: [String] = []
+    @State var deleteCafeImage: [Int] = []
+    @State var tmpCafeDelete: [String] = []
     var cafeOpinion: some View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading){
@@ -1158,7 +1175,7 @@ struct OpinionWriteScreen: View {
                         
                         // 기존 이미지
                         ForEach(viewModel.cafeImagesURL, id:\.self) { url in
-                            if !deleteCafeImage.contains(url.components(separatedBy: "?")[0]) {
+                            if !tmpCafeDelete.contains(url.components(separatedBy: "?")[0]) {
                                 ZStack(alignment: .topTrailing) {
                                     // 이미지
                                     AsyncImage(url: URL(string: url)) { phash in
@@ -1184,8 +1201,11 @@ struct OpinionWriteScreen: View {
                                         if let index = viewModel.cafeImagesURL.firstIndex(of: url) {
                                             viewModel.cafeImagesURL.remove(at: index)
                                             
-                                            let deleteUrl = url.components(separatedBy: "?")
-                                            deleteCafeImage.append(deleteUrl[0])
+                                            let deleteURL = url.components(separatedBy: "?")[0].components(separatedBy: "/")
+                                            let deleteNum = deleteURL[deleteURL.count - 1].components(separatedBy: ".png")[0]
+                                            deleteCafeImage.append(Int(deleteNum)!)
+                                            
+                                            tmpCafeDelete.append(url.components(separatedBy: "?")[0])
                                         }
                                     }) {
                                         ZStack {
@@ -1344,7 +1364,8 @@ struct OpinionWriteScreen: View {
     // MARK: - 관광명소 및 문화시설  변수 · View
     @State var showPhotoSpotImagePicker: Bool = false
     @State var photoSpotImages: [SelectedImage] = []
-    @State var deletePhotoSpotImage: [String] = []
+    @State var tmpPhotoSpotDelete: [String] = []
+    @State var deletePhotoSpotImage: [Int] = []
     var sightseeingOpinion: some View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading){
@@ -1446,7 +1467,7 @@ struct OpinionWriteScreen: View {
                         
                         // 기존 이미지
                         ForEach(viewModel.photoSpotImagesURL, id:\.self) { url in
-                            if !deletePhotoSpotImage.contains(url.components(separatedBy: "?")[0]) {
+                            if !tmpPhotoSpotDelete.contains(url.components(separatedBy: "?")[0]) {
                                 ZStack(alignment: .topTrailing) {
                                     AsyncImage(url: URL(string: url)) { phash in
                                         if let image = phash.image {
@@ -1470,8 +1491,11 @@ struct OpinionWriteScreen: View {
                                         if let index = viewModel.photoSpotImagesURL.firstIndex(of: url) {
                                             viewModel.photoSpotImagesURL.remove(at: index)
                                             
-                                            let deleteUrl = url.components(separatedBy: "?")
-                                            deletePhotoSpotImage.append(deleteUrl[0])
+                                            let deleteURL = url.components(separatedBy: "?")[0].components(separatedBy: "/")
+                                            let deleteNum = deleteURL[deleteURL.count - 1].components(separatedBy: ".png")[0]
+                                            deletePhotoSpotImage.append(Int(deleteNum)!)
+                                            
+                                            tmpPhotoSpotDelete.append(url.components(separatedBy: "?")[0])
                                         }
                                     }) {
                                         ZStack {
