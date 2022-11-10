@@ -57,19 +57,52 @@ extension PlanDetailScreen {
 extension PlanDetailScreen {
 	/// 리스트에 들어갈 항목들을 반환합니다.
 	func listItems(day: Int) -> some View {
-		let isToday = viewModel.isToday(day: day) // 오늘 일자의 스케줄인지 확인합니다.
-		let isCurrentPlaceByIdx = { (idx: Int) -> Bool in // 현재 있는 장소인지 확인하는 클로저입니다.
-			return viewModel.isCurrentPlace(
-				lat: viewModel.placeOf(day: day, index: idx).lat.wrappedValue,
-				lng: viewModel.placeOf(day: day, index: idx).lng.wrappedValue
-			)
+		let schedule = viewModel.scheduleOf(day: day)
+		var currentPlaceIdx: Int?
+		
+		// 금일 스케줄인지 확인
+		let isToday = viewModel.isToday(day: day)
+		
+		// 현재 장소에 해당하는 인덱스 값 구하기
+		if isToday {
+			for idx in schedule.indices {
+				let place = schedule[idx].wrappedValue
+				if viewModel.isCurrentPlace(lat: place.lat, lng: place.lng) {
+					currentPlaceIdx = idx
+				}
+			}
 		}
 		
-		return ForEach(viewModel.scheduleOf(day: day).indices, id: \.self) { index in
+		// 현재 스케줄 내 어떤 장소에 있는 경우, 다음 장소까지의 예상 도착 시간 계산
+		var nextPlaceIdx: Int?
+		var maybeLate = false
+		
+		if let idx = currentPlaceIdx { // 현재 스케줄 내 장소에 위치한 경우
+			let distances = viewModel.apiDistances[day - 1]
+			
+			if idx >= 0 && idx < distances.count { // 거리 정보가 존재하는 경우
+				nextPlaceIdx = idx + 1
+				let nextPlace = viewModel.placeOf(day: day, index: idx + 1).wrappedValue
+				let timeInt = TimeInterval(distances[idx].time * 60)
+				
+				if let until = nextPlace.arrivalTime { // 도착 시간 정보가 존재하는 경우 (HH:mm:ss 포맷)
+					let arrivalTime = Date().advanced(by: timeInt)
+					let arrival = DateFormat.dateToStr(arrivalTime, "HH:mm:ss")
+					print("until : " + until)
+					print("arrival : " + arrival)
+					if until < arrival { // 도착 시간에 늦는 경우
+						maybeLate = true
+					}
+				}
+			}
+		}
+		
+		return ForEach(schedule.indices, id: \.self) { index in
 			listItem(
 				index: index,
 				place: viewModel.placeOf(day: day, index: index),
-				isCurrentPlace: isToday && isCurrentPlaceByIdx(index)
+				isCurrentPlace: index == currentPlaceIdx,
+				maybeLate: (index == nextPlaceIdx) && maybeLate
 			)
 			
 			// 마지막 항목이 아니라면, 자신과 다음 장소 사이의 거리 정보를 출력합니다.
@@ -84,7 +117,9 @@ extension PlanDetailScreen {
 	}
 	
 	/// 리스트의 항목 뷰를 반환합니다.
-	func listItem(index: Int, place: Binding<Place>, isCurrentPlace: Bool) -> some View {
+	func listItem(index: Int, place: Binding<Place>, isCurrentPlace: Bool, maybeLate: Bool) -> some View {
+		print(place.wrappedValue)
+		print(maybeLate)
 		return HStack(alignment: .center) {
 			// 순서
 			placeOrder(order: index + 1, isCurrentPlace: isCurrentPlace)
@@ -110,8 +145,13 @@ extension PlanDetailScreen {
 			Spacer()
 			
 			// 도착 예상 (ex. 늦을 수 있어요)
-			if isCurrentPlace {
-				
+			if maybeLate {
+				HStack {
+					Text("늦을 수 있어요")
+					Image(systemName: "exclamationmark.circle.fill")
+				}
+				.font(.system(size: 12))
+				.foregroundColor(Color(red: 220 / 255, green: 46 / 255, blue: 56 / 255))
 			}
 		}
 		.frame(height: 72)
