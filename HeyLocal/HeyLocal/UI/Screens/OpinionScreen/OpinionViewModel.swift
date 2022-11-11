@@ -69,7 +69,7 @@ extension OpinionComponent {
         
         var cancellable: AnyCancellable?
         init() {
-            self.opinions = [Opinion()]
+            self.opinions = [Opinion]()
             self.opinion = Opinion()
         }
         
