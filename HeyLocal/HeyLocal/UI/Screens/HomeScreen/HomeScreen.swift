@@ -87,7 +87,11 @@ struct HomeScreen: View {
             .background(Color("lightGray"))
             .navigationBarTitle("", displayMode: .automatic)
             .navigationBarItems(
-				leading: Image("logo").resizable().frame(width: 93, height: 36)
+				leading: Image("login-symbol")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 36)
+                    .padding(EdgeInsets(top: 0, leading: 5, bottom: 5, trailing: 0))
 //				,trailing: alarmButton // TODO: 알림 기능
 			)
             .navigationViewStyle(StackNavigationViewStyle())
