@@ -126,6 +126,7 @@ extension HomeScreen {
             VStack(alignment: .leading) {
                 Text("요즘 HOT한 장소🔥")
                     .font(.system(size: 16))
+                    .fontWeight(.semibold)
                     .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 0))
                 
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -155,6 +156,7 @@ extension HomeScreen {
             VStack(alignment: .leading) {
                 Text("현지인의 추천이 궁금해요😮")
                     .font(.system(size: 16))
+                    .fontWeight(.semibold)
                     .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 20))
                 
                 ForEach(viewModel.travelOns) { travelOn in
@@ -181,6 +183,7 @@ extension HomeScreen {
                 HStack {
                     Text("노하우 랭킹👑")
                         .font(.system(size: 16))
+                        .fontWeight(.semibold)
                     
                     Spacer()
                     
