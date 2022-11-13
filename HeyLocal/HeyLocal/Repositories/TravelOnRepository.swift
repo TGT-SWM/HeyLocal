@@ -90,6 +90,35 @@ struct TravelOnRepository {
         return agent.run(request)
     }
     
+    // 여행On에 등록된 플랜 조회
+    func getPlan(travelOnId: Int, plan: Binding<Plan>) {
+        let urlString = "\(travelonUrl)/\(travelOnId)/plan"
+        let url = URL(string: urlString)!
+        var request = URLRequest(url: url)
+        
+        // HTTP 헤더 구성
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, let httpResponse = response as? HTTPURLResponse, error == nil else {
+                print(error?.localizedDescription ?? "No DATA")
+                return
+            }
+            
+            if httpResponse.statusCode == 200 {
+                do {
+                    let result = try JSONDecoder().decode(Plan.self, from: data)
+                    plan.wrappedValue = result
+                    print("\(result.regionId)")
+                } catch {
+                    print("ERROR")
+                }
+            }
+        }.resume()
+    }
     
     // 여행On 등록 API
     func postTravelOn(travelOnData: TravelOnPost) -> Int {

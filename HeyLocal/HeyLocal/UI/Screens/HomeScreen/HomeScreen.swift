@@ -87,7 +87,11 @@ struct HomeScreen: View {
             .background(Color("lightGray"))
             .navigationBarTitle("", displayMode: .automatic)
             .navigationBarItems(
-				leading: Image("logo").resizable().frame(width: 93, height: 36)
+				leading: Image("login-symbol")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 36)
+                    .padding(EdgeInsets(top: 0, leading: 5, bottom: 5, trailing: 0))
 //				,trailing: alarmButton // TODO: 알림 기능
 			)
             .navigationViewStyle(StackNavigationViewStyle())
@@ -122,6 +126,7 @@ extension HomeScreen {
             VStack(alignment: .leading) {
                 Text("요즘 HOT한 장소🔥")
                     .font(.system(size: 16))
+                    .fontWeight(.semibold)
                     .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 0))
                 
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -151,6 +156,7 @@ extension HomeScreen {
             VStack(alignment: .leading) {
                 Text("현지인의 추천이 궁금해요😮")
                     .font(.system(size: 16))
+                    .fontWeight(.semibold)
                     .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 20))
                 
                 ForEach(viewModel.travelOns) { travelOn in
@@ -177,6 +183,7 @@ extension HomeScreen {
                 HStack {
                     Text("노하우 랭킹👑")
                         .font(.system(size: 16))
+                        .fontWeight(.semibold)
                     
                     Spacer()
                     

@@ -13,7 +13,6 @@ struct OpinionComponent: View {
     
     var body: some View {
         HStack(alignment: .top) {
-            // TODO: 답변 사진으로 대체
             if opinion.generalImgDownloadImgUrl.isEmpty {
                 if opinion.place.thumbnailUrl != nil {
                     AsyncImage(url: URL(string: opinion.place.thumbnailUrl!)) { phash in
@@ -22,7 +21,8 @@ struct OpinionComponent: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: 100, height: 100)
-                                .cornerRadius(10.0)   
+                                .clipped()
+                                .cornerRadius(10.0)
                         }
                         else {
                             Rectangle()
@@ -44,8 +44,9 @@ struct OpinionComponent: View {
                         image
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .cornerRadius(10.0)
                             .frame(width: 100, height: 100)
+                            .clipped()
+                            .cornerRadius(10.0)
                     }
                     else {
                         Rectangle()

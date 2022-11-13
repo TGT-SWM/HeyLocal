@@ -7,12 +7,13 @@
 //
 
 import SwiftUI
+import AVFAudio
 
 //TravelOnDetailScreen
 struct TravelOnDetailScreen: View {
     @State var travelOnId: Int
     @StateObject var viewModel = TravelOnListScreen.ViewModel()
-	@Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) var dismiss
     @Environment(\.displayTabBar) var displayTabBar
     
     @State var showingSheet = false
@@ -27,7 +28,7 @@ struct TravelOnDetailScreen: View {
 //            if navigationLinkActive {
 //                NavigationLink("", destination: TravelOnWriteScreen(isRevise: true, travelOnID: viewModel.travelOn.id), isActive: $navigationLinkActive)
 //            }
-//            
+//
             NavigationLink(destination: TravelOnWriteScreen(isRevise: true, travelOnID: viewModel.travelOn.id), isActive: $navigationLinkActive) {
                 Text("")
             }
@@ -45,7 +46,7 @@ struct TravelOnDetailScreen: View {
                 Spacer()
                     .frame(height: 8)
                 
-                TravelOnOpinion(travelOnId: travelOnId, showingModal: $showingModal, regionId: viewModel.travelOn.region.id)
+                TravelOnOpinion(travelon: viewModel.travelOn, travelOnId: travelOnId, showingModal: $showingModal, regionId: viewModel.travelOn.region.id)
                     .alert(isPresented: $showingReportAlert) {
                         Alert(title: Text("여행On 신고"),
                               message: Text("해당 여행On을 신고할까요?"),
@@ -63,9 +64,9 @@ struct TravelOnDetailScreen: View {
                             cancelWidth: 134,
                             confirmWidth: 109,
                             rightButtonAction: {
-                    			viewModel.deleteTravelOn(travelOnId: viewModel.travelOn.id)
-								dismiss()
-							},
+                                viewModel.deleteTravelOn(travelOnId: viewModel.travelOn.id)
+                                dismiss()
+                            },
                             destinationView: AnyView(TravelOnListScreen()))
             }
             
@@ -527,14 +528,28 @@ struct TravelOnDetailScreen: View {
     }
 }
 
+
+
 extension TravelOnDetailScreen {
     struct TravelOnOpinion: View {
         @StateObject var viewModel = TravelOnListScreen.ViewModel()
+        @StateObject var planViewModel = PlanCreateScreen.ViewModel()
+        var travelOnRepository = TravelOnRepository()
         
+        
+        var travelon: TravelOn
         var travelOnId: Int
         @Binding var showingModal: Bool
         var regionId: Int
         @State var opinionWriteActive: Bool = false
+        @State var planNavigationActive: Bool = false
+        @State var plan: Plan = Plan(id: 0,
+                                     title: "마이플랜",
+                                     regionId: 0,
+                                     regionState: "",
+                                     startDate: "2022-11-13",
+                                     endDate: "2022-11-13",
+                                     transportationType: "OWN_CAR")
         
         var body: some View {
             VStack(alignment: .leading) {
@@ -587,32 +602,73 @@ extension TravelOnDetailScreen {
                         }
                         
                         Spacer()
-                            .frame(width: 12)
+                            .frame(width: 20)
                         
-                        // 답변쓰기 버튼
-                        Button(action: {
-                            if let region = viewModel.profile.activityRegion {
-                                if region.id == regionId {
-                                    opinionWriteActive.toggle()
+                        if viewModel.profile.id == travelon.author.id {
+                            // 마이플랜 생성 
+                            Button(action: {
+                                planViewModel.selected = travelon
+                                planViewModel.submit{
+                                    travelOnRepository.getPlan(travelOnId: travelOnId, plan: Binding(get: { plan },
+                                                                                                     set: { plan = $0 }))
+                                    
+                                    planNavigationActive.toggle()
+                                    print("\(planNavigationActive.description)")
+                                } onError : { error in
+                                    let apiError: APIError = error as! APIError
+                                    planViewModel.displayAlert(apiError.description)
+                                    
+                                    travelOnRepository.getPlan(travelOnId: travelOnId, plan: Binding(get: { plan },
+                                                                                                     set: { plan = $0 }))
+                                    
+                                    planNavigationActive.toggle()
+                                    print("\(planNavigationActive.description)")
                                 }
-                                else {
-                                    // 지역이 같은 유저만 가능한 ~
+                            }) {
+                                // Label
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 100)
+                                        .fill(Color("orange"))
+                                        .frame(width: 294, height: 44)
+                                    
+                                    Text("해당 마이플랜으로 이동하기")
+                                        .font(.system(size: 16))
+                                        .foregroundColor(.white)
+                                }
+                            }
+                        }
+                        else {
+                            // 답변쓰기 버튼
+                            Button(action: {
+                                if let region = viewModel.profile.activityRegion {
+                                    if region.id == regionId {
+                                        opinionWriteActive.toggle()
+                                    }
+                                    else {
+                                        // 지역이 같은 유저만 가능한 ~
+                                        showingModal.toggle()
+                                    }
+                                } else {
+                                    // 지역 설정이 필요 , 또한 지역이 같은 유저만 가능한 ~
                                     showingModal.toggle()
                                 }
-                            } else {
-                                // 지역 설정이 필요 , 또한 지역이 같은 유저만 가능한 ~
-                                showingModal.toggle()
+                            }) {
+                                // Label
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 100)
+                                        .fill(Color("orange"))
+                                        .frame(width: 294, height: 44)
+                                    
+                                    Text("나도 추천하기")
+                                        .font(.system(size: 16))
+                                        .foregroundColor(.white)
+                                }
                             }
-                        }) {
-                            // Label
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 100)
-                                    .fill(Color("orange"))
-                                    .frame(width: 294, height: 44)
-                                
-                                Text("나도 추천하기")
-                                    .font(.system(size: 16))
-                                    .foregroundColor(.white)
+                        }
+                        
+                        if planNavigationActive {
+                            NavigationLink(destination: PlanDetailScreen(plan: plan), isActive: $planNavigationActive){
+                                Text("")
                             }
                         }
                         

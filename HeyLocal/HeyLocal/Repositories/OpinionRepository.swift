@@ -238,13 +238,13 @@ struct OpinionRepository {
                             let generalPUTs = responseURLs[i].putUrls
                             let generalDELETEs = responseURLs[i].deleteUrls
                             
-                            var running = false
+//                            var running = false
                             
                             
                             print("DELETE URLs", generalDELETEs)
                             // 삭제 진행 후
                             if !deleteImages.isEmpty {
-                                running = true
+//                                running = true
                                 
                                 for i in 0..<deleteImages.count {
                                     let deleteURL = URL(string: generalDELETEs[deleteImages[i]])!
@@ -263,14 +263,14 @@ struct OpinionRepository {
                                     
                                     sleep(UInt32(0.5))
                                 }
-                                running = false
+//                                running = false
                             }
                             
 //                            // Delay
 //                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
 //                                print("wait")
 //                            }
-                            while running {}
+//                            while running {}
                             
                             
                             // reUpload
