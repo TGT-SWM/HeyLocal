@@ -1090,7 +1090,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 20221111;
 				DEVELOPMENT_ASSET_PATHS = "\"HeyLocal/Preview Content\"";
-				DEVELOPMENT_TEAM = 3X3P9744G9;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				EXCLUDED_ARCHS = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
@@ -1138,7 +1138,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 20221111;
 				DEVELOPMENT_ASSET_PATHS = "\"HeyLocal/Preview Content\"";
-				DEVELOPMENT_TEAM = 3X3P9744G9;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (

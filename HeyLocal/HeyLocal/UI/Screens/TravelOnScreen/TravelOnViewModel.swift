@@ -311,7 +311,6 @@ func getRegion(regionId: Int) -> String {
 
     task.resume()
     
-    task.resume()
     result = regionNameFormatter(region: resultRegion)
     print("===========\(resultRegion.state)======")
     return result

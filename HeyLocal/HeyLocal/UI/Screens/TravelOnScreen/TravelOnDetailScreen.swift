@@ -528,16 +528,28 @@ struct TravelOnDetailScreen: View {
     }
 }
 
+
+
 extension TravelOnDetailScreen {
     struct TravelOnOpinion: View {
         @StateObject var viewModel = TravelOnListScreen.ViewModel()
         @StateObject var planViewModel = PlanCreateScreen.ViewModel()
+        var travelOnRepository = TravelOnRepository()
+        
         
         var travelon: TravelOn
         var travelOnId: Int
         @Binding var showingModal: Bool
         var regionId: Int
         @State var opinionWriteActive: Bool = false
+        @State var planNavigationActive: Bool = false
+        @State var plan: Plan = Plan(id: 0,
+                                     title: "마이플랜",
+                                     regionId: 0,
+                                     regionState: "",
+                                     startDate: "2022-11-13",
+                                     endDate: "2022-11-13",
+                                     transportationType: "OWN_CAR")
         
         var body: some View {
             VStack(alignment: .leading) {
@@ -597,11 +609,20 @@ extension TravelOnDetailScreen {
                             Button(action: {
                                 planViewModel.selected = travelon
                                 planViewModel.submit{
+                                    travelOnRepository.getPlan(travelOnId: travelOnId, plan: Binding(get: { plan },
+                                                                                                     set: { plan = $0 }))
                                     
-                                    // 페이지 이동 ?
+                                    planNavigationActive.toggle()
+                                    print("\(planNavigationActive.description)")
                                 } onError : { error in
                                     let apiError: APIError = error as! APIError
                                     planViewModel.displayAlert(apiError.description)
+                                    
+                                    travelOnRepository.getPlan(travelOnId: travelOnId, plan: Binding(get: { plan },
+                                                                                                     set: { plan = $0 }))
+                                    
+                                    planNavigationActive.toggle()
+                                    print("\(planNavigationActive.description)")
                                 }
                             }) {
                                 // Label
@@ -610,7 +631,7 @@ extension TravelOnDetailScreen {
                                         .fill(Color("orange"))
                                         .frame(width: 294, height: 44)
                                     
-                                    Text("해당 마이플랜 보러가기")
+                                    Text("해당 마이플랜으로 이동하기")
                                         .font(.system(size: 16))
                                         .foregroundColor(.white)
                                 }
@@ -642,6 +663,12 @@ extension TravelOnDetailScreen {
                                         .font(.system(size: 16))
                                         .foregroundColor(.white)
                                 }
+                            }
+                        }
+                        
+                        if planNavigationActive {
+                            NavigationLink(destination: PlanDetailScreen(plan: plan), isActive: $planNavigationActive){
+                                Text("")
                             }
                         }
                         
