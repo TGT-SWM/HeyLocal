@@ -1087,10 +1087,30 @@ struct TravelOnWriteScreen: View {
                     .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color("mediumGray"), style: StrokeStyle(lineWidth: 1.0)))
                     .cornerRadius(10)
                 
-                TextField("현지님이 원하시는 여행스타일, 취향을 말해주세요!", text: $viewModel.travelOnArray.description)
-                    .padding()
-                    .font(.system(size: 12))
-                    .foregroundColor(Color("gray"))
+//                TextField("현지님이 원하시는 여행스타일, 취향을 말해주세요!", text: $viewModel.travelOnArray.description)
+//                    .frame(minWidth: 0, maxWidth: 340, minHeight: 0, maxHeight: 90)
+//                    .lineLimit(2)
+//                    .padding()
+//                    .font(.system(size: 12))
+//                    .foregroundColor(Color("gray"))
+                
+                ZStack(alignment: .topLeading) {
+                    TextEditor(text: $viewModel.travelOnArray.description)
+                        .foregroundColor(Color("gray"))
+                        .font(.system(size: 12))
+                        .lineSpacing(3)
+                        .lineLimit(5)
+                        .background(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
+                        .frame(minWidth: 0, maxWidth: 330, minHeight: 0, maxHeight: 100)
+                        .padding()
+                    
+                    if viewModel.travelOnArray.description == "" {
+                        Text("현지님이 원하시는 여행 스타일, 취향을 말해주세요!")
+                            .font(.system(size: 12))
+                            .foregroundColor(Color("gray"))
+                            .padding(EdgeInsets(top: 25, leading: 20, bottom: 0, trailing: 0))
+                    }
+                }
             }
             
         }
