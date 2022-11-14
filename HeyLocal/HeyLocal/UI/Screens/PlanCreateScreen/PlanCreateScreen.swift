@@ -18,9 +18,15 @@ struct PlanCreateScreen: View {
 		ScrollView { travelOnList }
 			.navigationTitle("여행 On 선택")
 			.navigationBarTitleDisplayMode(.inline)
+			.navigationBarBackButtonHidden(true)
 			.toolbar {
-				if viewModel.selected != nil { // 선택한 항목이 있으면 확인 버튼을 표시합니다.
-					confirmButton
+				ToolbarItem(placement: .navigationBarLeading) {
+					BackButton()
+				}
+				ToolbarItem(placement: .navigationBarTrailing) {
+					if viewModel.selected != nil { // 선택한 항목이 있으면 확인 버튼을 표시합니다.
+						confirmButton
+					}
 				}
 			}
 			.alert(isPresented: $viewModel.showAlert) {
