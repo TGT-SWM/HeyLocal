@@ -43,12 +43,6 @@ class TravelOnService {
                 if $0.count < pageSize {
                     isEnd.wrappedValue = true
                 }
-                
-                /// 지역 이미지 로딩
-                for i in 0..<travelOns.wrappedValue.count {
-                    self.kakaoService.getRegionImage(region: Binding(get: { travelOns.wrappedValue[i].region },
-                                                                     set: { travelOns.wrappedValue[i].region = $0 }))
-                }
             }
         )
         .store(in: &cancelBag)

@@ -12,7 +12,6 @@
 		A80213D728BF2C9800B6359E /* TravelOn.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80213D628BF2C9800B6359E /* TravelOn.swift */; };
 		A80213D928BF2D6C00B6359E /* Author.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80213D828BF2D6C00B6359E /* Author.swift */; };
 		A80213DB28BF2EA100B6359E /* TravelOnService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80213DA28BF2EA100B6359E /* TravelOnService.swift */; };
-		A80213DD28BF326D00B6359E /* WebImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80213DC28BF326D00B6359E /* WebImage.swift */; };
 		A80B903628C9EA200026866A /* TravelOnDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B903528C9EA200026866A /* TravelOnDetailScreen.swift */; };
 		A80B903A28CA0FFB0026866A /* ToggleButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B903928CA0FFB0026866A /* ToggleButtonStyle.swift */; };
 		A80B903C28CA105F0026866A /* TravelOnComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B903B28CA105F0026866A /* TravelOnComponent.swift */; };
@@ -155,7 +154,6 @@
 		A80213D628BF2C9800B6359E /* TravelOn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOn.swift; sourceTree = "<group>"; };
 		A80213D828BF2D6C00B6359E /* Author.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Author.swift; sourceTree = "<group>"; };
 		A80213DA28BF2EA100B6359E /* TravelOnService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOnService.swift; sourceTree = "<group>"; };
-		A80213DC28BF326D00B6359E /* WebImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImage.swift; sourceTree = "<group>"; };
 		A80B903528C9EA200026866A /* TravelOnDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOnDetailScreen.swift; sourceTree = "<group>"; };
 		A80B903928CA0FFB0026866A /* ToggleButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleButtonStyle.swift; sourceTree = "<group>"; };
 		A80B903B28CA105F0026866A /* TravelOnComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelOnComponent.swift; sourceTree = "<group>"; };
@@ -601,7 +599,6 @@
 			children = (
 				EF4EDBB0290B165300068196 /* ContentView.swift */,
 				EF8FF27328B4D2D100C053B7 /* Main.swift */,
-				A80213DC28BF326D00B6359E /* WebImage.swift */,
 				EF74BBF828B52CF200E09450 /* LaunchScreen.storyboard */,
 				EF8FF26F28B4D1D000C053B7 /* Components */,
 				EF8FF26E28B4D1C400C053B7 /* Screens */,
@@ -859,7 +856,6 @@
 				EF3FCF1728C12D0800D48F9E /* PlanDetailScreenViewModel.swift in Sources */,
 				A80213D328BF2C2100B6359E /* TravelOnViewModel.swift in Sources */,
 				A862E3CE290261B1007EFCD6 /* ProfileViewModel.swift in Sources */,
-				A80213DD28BF326D00B6359E /* WebImage.swift in Sources */,
 				A836925A28C72A0500DBDB06 /* Region.swift in Sources */,
 				A8647C3A28BDA48B00D284B6 /* WriteButtonStyle.swift in Sources */,
 				A877D99E28F2662100527E21 /* OpinionRepository.swift in Sources */,
@@ -869,7 +865,6 @@
 				EFBCFDE2290F726700834DEE /* PlaceDetailScreen.swift in Sources */,
 				EF6A3FC628E93A44003F474B /* PlanCreateScreen.swift in Sources */,
 				A80213D328BF2C2100B6359E /* TravelOnViewModel.swift in Sources */,
-				A80213DD28BF326D00B6359E /* WebImage.swift in Sources */,
 				A8647C3A28BDA48B00D284B6 /* WriteButtonStyle.swift in Sources */,
 				EFBCFDE4290F72EF00834DEE /* PlaceDetailViewModel.swift in Sources */,
 				A813CA2E28B4EE2B000F0ADF /* ScreenSize.swift in Sources */,

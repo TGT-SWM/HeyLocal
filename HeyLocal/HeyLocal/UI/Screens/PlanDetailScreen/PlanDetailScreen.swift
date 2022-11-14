@@ -88,7 +88,7 @@ extension PlanDetailScreen {
 	
 	/// 플랜의 썸네일을 출력합니다.
 	var thumbnail: some View {
-		WebImage(url: "https://www.busan.go.kr/resource/img/geopark/sub/busantour/busantour1.jpg")
+		AsyncImage(url: URL(string: plan.regionImageURL)!)
 			.frame(width: 56, height: 56)
 			.cornerRadius(.infinity)
 	}

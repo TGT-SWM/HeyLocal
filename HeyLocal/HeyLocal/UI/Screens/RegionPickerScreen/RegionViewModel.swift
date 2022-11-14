@@ -62,14 +62,6 @@ extension RegionPickerScreen {
                 .sink(receiveCompletion: { _ in
                 }, receiveValue: { regions in
                     self.regions = regions
-                    
-                    // 썸네일 이미지 가져오기
-                    if self.regions[0].thumbnailUrl == nil {
-                        for i in 0..<self.regions.count {
-                            self.kakaoService.getRegionImage(region: Binding(get: { self.regions[i] },
-                                                                             set: { self.regions[i] = $0 }))
-                        }
-                    }
                 })
         }
         
