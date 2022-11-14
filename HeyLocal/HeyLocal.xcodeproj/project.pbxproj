@@ -43,6 +43,8 @@
 		A89943A528EEC6140059AAC6 /* RegionPickerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89943A428EEC6140059AAC6 /* RegionPickerScreen.swift */; };
 		A89943A728EED89E0059AAC6 /* RegionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89943A628EED89E0059AAC6 /* RegionViewModel.swift */; };
 		A89EB76B28F69D2500257C83 /* OpinionPlacePickerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89EB76A28F69D2500257C83 /* OpinionPlacePickerScreen.swift */; };
+		A8A77D5329221EF700627395 /* WebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A77D5229221EF700627395 /* WebViewModel.swift */; };
+		A8A77D5529221F3B00627395 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A77D5429221F3B00627395 /* WebView.swift */; };
 		A8AF3DEC28D407E9009B68BE /* RegionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AF3DEB28D407E9009B68BE /* RegionComponent.swift */; };
 		A8B0E7392907A4C9005B585F /* UserRankingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B0E7382907A4C9005B585F /* UserRankingScreen.swift */; };
 		A8B0E73E2907E01C005B585F /* HotPlaceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B0E73D2907E01C005B585F /* HotPlaceComponent.swift */; };
@@ -186,6 +188,8 @@
 		A89943A428EEC6140059AAC6 /* RegionPickerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionPickerScreen.swift; sourceTree = "<group>"; };
 		A89943A628EED89E0059AAC6 /* RegionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionViewModel.swift; sourceTree = "<group>"; };
 		A89EB76A28F69D2500257C83 /* OpinionPlacePickerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionPlacePickerScreen.swift; sourceTree = "<group>"; };
+		A8A77D5229221EF700627395 /* WebViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewModel.swift; sourceTree = "<group>"; };
+		A8A77D5429221F3B00627395 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		A8AF3DEB28D407E9009B68BE /* RegionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionComponent.swift; sourceTree = "<group>"; };
 		A8B0E7382907A4C9005B585F /* UserRankingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRankingScreen.swift; sourceTree = "<group>"; };
 		A8B0E73D2907E01C005B585F /* HotPlaceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotPlaceComponent.swift; sourceTree = "<group>"; };
@@ -407,6 +411,15 @@
 			path = RegionPickerScreen;
 			sourceTree = "<group>";
 		};
+		A8A77D5129221EDC00627395 /* WebViewScreen */ = {
+			isa = PBXGroup;
+			children = (
+				A8A77D5429221F3B00627395 /* WebView.swift */,
+				A8A77D5229221EF700627395 /* WebViewModel.swift */,
+			);
+			path = WebViewScreen;
+			sourceTree = "<group>";
+		};
 		A8AF3DEA28D407D7009B68BE /* RegionComponent */ = {
 			isa = PBXGroup;
 			children = (
@@ -610,6 +623,7 @@
 		EF8FF26E28B4D1C400C053B7 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				A8A77D5129221EDC00627395 /* WebViewScreen */,
 				EFBCFDDB290F1AEA00834DEE /* PlanSelectScreen */,
 				A89943A328EEC5FD0059AAC6 /* RegionPickerScreen */,
 				EF3C060A28E0E52F003F3188 /* PlaceSearchScreen */,
@@ -857,6 +871,7 @@
 				A80213D328BF2C2100B6359E /* TravelOnViewModel.swift in Sources */,
 				A862E3CE290261B1007EFCD6 /* ProfileViewModel.swift in Sources */,
 				A836925A28C72A0500DBDB06 /* Region.swift in Sources */,
+				A8A77D5529221F3B00627395 /* WebView.swift in Sources */,
 				A8647C3A28BDA48B00D284B6 /* WriteButtonStyle.swift in Sources */,
 				A877D99E28F2662100527E21 /* OpinionRepository.swift in Sources */,
 				EF3FCF1528C12A3900D48F9E /* PlanDetailScreen.swift in Sources */,
@@ -890,6 +905,7 @@
 				EF26CD9328C0F15E006D0D27 /* MyPlanListViewModel.swift in Sources */,
 				A80B903628C9EA200026866A /* TravelOnDetailScreen.swift in Sources */,
 				A877D99828F2607D00527E21 /* Opinion.swift in Sources */,
+				A8A77D5329221EF700627395 /* WebViewModel.swift in Sources */,
 				A8B0E7442907E8C1005B585F /* PlaceService.swift in Sources */,
 				A80B903C28CA105F0026866A /* TravelOnComponent.swift in Sources */,
 				EFDC441B28C0735400E8747C /* PlanRepository.swift in Sources */,
