@@ -35,20 +35,39 @@ extension PlanDetailScreen {
 	
 	/// 장소가 비어 있을 때 출력할 뷰입니다.
 	var emptyView: some View {
-		List {
-			HStack(alignment: .center) {
-				Spacer()
-				Text("여행 장소를 추가해보세요.")
+		VStack(alignment: .center, spacing: 0) {
+			VStack(spacing: 28) {
+				Text("현지인들이 추천하는 여행 명소를 찾아보세요")
 					.font(.system(size: 16))
 					.fontWeight(.medium)
 					.listRowSeparator(.hidden)
 					.listRowInsets(EdgeInsets())
-				Spacer()
+				
+				NavigationLink(destination: TravelOnListScreen()) {
+					Text("여행 On 바로가기")
+						.font(.system(size: 14))
+						.fontWeight(.medium)
+						.foregroundColor(.white)
+						.background(
+							RoundedRectangle(cornerRadius: 100)
+								.fill(Color("orange"))
+								.frame(width: 150, height: 38)
+						)
+				}
+				.buttonStyle(PlainButtonStyle())
+				
+				HStack { Spacer() }
 			}
 			.frame(height: 200)
-			scheduleToolbar(day: nil)
+			.background(Color.white)
+			
+			List {
+				scheduleToolbar(day: nil)
+			}
+			.listStyle(PlainListStyle())
+			
+			Spacer()
 		}
-		.listStyle(PlainListStyle())
 	}
 }
 
