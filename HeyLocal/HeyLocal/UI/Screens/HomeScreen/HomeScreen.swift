@@ -22,6 +22,9 @@ struct HomeScreen: View {
     }
     let imageLink: [String] = ["https://postfiles.pstatic.net/MjAyMjA5MTJfMjk5/MDAxNjYyOTU2Mjg2NDY5.FfTMyD4FSV-ooPxEGMON2gow3ILfTT4ijs_3aVERYZYg.ukQaBMf37JyfJxjx_dCSE8Cqe2MvRczKsziVZnrC998g.JPEG.leeja5139/1662944966705.jpg?type=w966", "https://postfiles.pstatic.net/MjAyMjA3MDZfMjIx/MDAxNjU3MDY3MjU0NzU4.3GmYfVz_sYzXPDDumlexvRTnNkpsBy-vEw5zv7OQuWUg.1tK3R3mWfxE70fdFKbNJpICtftdGBPEVlelvQb7r0Z0g.JPEG.leeja5139/20220608%EF%BC%BF132217%EF%BC%BF03%EF%BC%BFsaved.jpg?type=w966", "https://postfiles.pstatic.net/MjAyMjA3MTRfNTYg/MDAxNjU3NzYyMTY3NTgw.NXycV5T9PyOaM5lqpufNLsV--dJxAy3dRCnG_b1qQbcg.oBmo2RD9Ow2748GD44ag4oUjrn6fAeCjOoAn6cc2FXsg.JPEG.leeja5139/20220713%EF%BC%BF152002.jpg?type=w966"]
     let textArray: [String] = ["떠나요 나주\n사진찍기 좋은 곳으로", "경남 사천에서 즐기는\n가을여행 Best 8", "둘이 걸어요\n순창 편백숲길"]
+    let blogLink: [String] = ["https://blog.naver.com/leeja5139/222872754954", "https://blog.naver.com/leeja5139/222866369185", "https://blog.naver.com/leeja5139/222876263557"]
+    @State var blogUrl: String = ""
+    @State var showingWebView: Bool = false
     var body: some View {
         NavigationView {
             ScrollView {
@@ -50,6 +53,9 @@ struct HomeScreen: View {
                                         else {
                                             Text("")
                                         }
+                                    }.onTapGesture {
+                                        blogUrl = blogLink[idx]
+                                        showingWebView.toggle()
                                     }
                                     
                                     
@@ -79,6 +85,12 @@ struct HomeScreen: View {
                     RecentTravelOn()
                     
                     Ranking()
+                    
+                    if showingWebView {
+                        NavigationLink(destination: WebViewScreen(url: blogUrl), isActive: $showingWebView) {
+                            Text("")
+                        }
+                    }
                 }
             }
             .onAppear {
