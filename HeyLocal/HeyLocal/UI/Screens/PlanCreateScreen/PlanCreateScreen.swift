@@ -32,6 +32,7 @@ struct PlanCreateScreen: View {
 			}
 			.onAppear {
 				displayTabBar(true)
+				viewModel.clearStates()
 			}
 			.alert(isPresented: $viewModel.showAlert) {
 				alertModal // 에러 발생 시 Alert 메시지 출력
@@ -58,6 +59,7 @@ extension PlanCreateScreen {
 				ProgressView()
 					.onAppear {
 						viewModel.fetchTravelOns()
+						print("onAppear")
 					}
 			}
 		}

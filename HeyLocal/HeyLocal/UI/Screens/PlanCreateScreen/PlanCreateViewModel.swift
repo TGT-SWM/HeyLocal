@@ -26,7 +26,15 @@ extension PlanCreateScreen {
 		// 페이징 관련 상태
 		var lastItemId: Int?
 		let size = 15
-		var isEnd = false
+		@Published var isEnd = false
+		
+		// 상태를 초기화합니다.
+		func clearStates() {
+			travelOns = []
+			selected = nil
+			lastItemId = nil
+			isEnd = false
+		}
 	}
 }
 
@@ -34,6 +42,7 @@ extension PlanCreateScreen {
 // MARK: - fetchTravelOns (작성한 여행 On 불러오기)
 
 extension PlanCreateScreen.ViewModel {
+	/// 작성한 여행 On을 불러옵니다.
 	func fetchTravelOns() {
 		guard let userId = AuthManager.shared.authorized?.id else { return }
 		userService.loadTravelOnsByUser(
@@ -52,8 +61,6 @@ extension PlanCreateScreen.ViewModel {
 				set: { self.isEnd = $0 }
 			)
 		)
-		
-		
 	}
 }
 
