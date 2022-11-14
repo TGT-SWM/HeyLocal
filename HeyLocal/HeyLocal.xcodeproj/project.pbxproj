@@ -45,6 +45,7 @@
 		A89EB76B28F69D2500257C83 /* OpinionPlacePickerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89EB76A28F69D2500257C83 /* OpinionPlacePickerScreen.swift */; };
 		A8A77D5329221EF700627395 /* WebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A77D5229221EF700627395 /* WebViewModel.swift */; };
 		A8A77D5529221F3B00627395 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A77D5429221F3B00627395 /* WebView.swift */; };
+		A8A77D5729221FBC00627395 /* WebViewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A77D5629221FBC00627395 /* WebViewScreen.swift */; };
 		A8AF3DEC28D407E9009B68BE /* RegionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8AF3DEB28D407E9009B68BE /* RegionComponent.swift */; };
 		A8B0E7392907A4C9005B585F /* UserRankingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B0E7382907A4C9005B585F /* UserRankingScreen.swift */; };
 		A8B0E73E2907E01C005B585F /* HotPlaceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B0E73D2907E01C005B585F /* HotPlaceComponent.swift */; };
@@ -190,6 +191,7 @@
 		A89EB76A28F69D2500257C83 /* OpinionPlacePickerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpinionPlacePickerScreen.swift; sourceTree = "<group>"; };
 		A8A77D5229221EF700627395 /* WebViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewModel.swift; sourceTree = "<group>"; };
 		A8A77D5429221F3B00627395 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		A8A77D5629221FBC00627395 /* WebViewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewScreen.swift; sourceTree = "<group>"; };
 		A8AF3DEB28D407E9009B68BE /* RegionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionComponent.swift; sourceTree = "<group>"; };
 		A8B0E7382907A4C9005B585F /* UserRankingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRankingScreen.swift; sourceTree = "<group>"; };
 		A8B0E73D2907E01C005B585F /* HotPlaceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotPlaceComponent.swift; sourceTree = "<group>"; };
@@ -414,6 +416,7 @@
 		A8A77D5129221EDC00627395 /* WebViewScreen */ = {
 			isa = PBXGroup;
 			children = (
+				A8A77D5629221FBC00627395 /* WebViewScreen.swift */,
 				A8A77D5429221F3B00627395 /* WebView.swift */,
 				A8A77D5229221EF700627395 /* WebViewModel.swift */,
 			);
@@ -914,6 +917,7 @@
 				EF3C060E28E0E666003F3188 /* PlaceSearchViewModel.swift in Sources */,
 				A885F111290B5964006EF018 /* CustomImagePicker.swift in Sources */,
 				EF6ADB9D2901D9FC00A14D26 /* NcpAPIService.swift in Sources */,
+				A8A77D5729221FBC00627395 /* WebViewScreen.swift in Sources */,
 				A877D99A28F2654800527E21 /* OpinionViewModel.swift in Sources */,
 				EF4EDBAF290B10A500068196 /* PersistenceController.swift in Sources */,
 				EF6A3FCA28EB3D9B003F474B /* View+Extensions.swift in Sources */,
