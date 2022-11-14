@@ -570,18 +570,18 @@ extension TravelOnDetailScreen {
                                     image
                                         .resizable()
                                         .clipShape(Circle())
-                                        .frame(width: 44, height: 44)
+                                        .frame(width: 48, height: 48)
                                 }
                                 else {
                                     ZStack {
                                         Circle()
                                             .fill(Color("lightGray"))
-                                            .frame(width: 44, height: 44)
+                                            .frame(width: 48, height: 48)
                                             .shadow(color: Color("gray"), radius: 1)
                                         
                                         Image(systemName: "person.fill")
                                             .resizable()
-                                            .frame(width: 25, height: 25)
+                                            .frame(width: 27, height: 27)
                                             .foregroundColor(Color("gray"))
                                     }
                                 }
@@ -591,18 +591,17 @@ extension TravelOnDetailScreen {
                             ZStack {
                                 Circle()
                                     .fill(Color("lightGray"))
-                                    .frame(width: 44, height: 44)
+                                    .frame(width: 48, height: 48)
                                     .shadow(color: Color("gray"), radius: 1)
                                 
                                 Image(systemName: "person.fill")
                                     .resizable()
-                                    .frame(width: 25, height: 25)
+                                    .frame(width: 27, height: 27)
                                     .foregroundColor(Color("gray"))
                             }
                         }
                         
                         Spacer()
-                            .frame(width: 20)
                         
                         if viewModel.profile.id == travelon.author.id {
                             // 마이플랜 생성 
@@ -629,7 +628,7 @@ extension TravelOnDetailScreen {
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 100)
                                         .fill(Color("orange"))
-                                        .frame(width: 294, height: 44)
+                                        .frame(width: 300, height: 44)
                                     
                                     Text("해당 마이플랜으로 이동하기")
                                         .font(.system(size: 16))
@@ -657,7 +656,7 @@ extension TravelOnDetailScreen {
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 100)
                                         .fill(Color("orange"))
-                                        .frame(width: 294, height: 44)
+                                        .frame(width: 300, height: 44)
                                     
                                     Text("나도 추천하기")
                                         .font(.system(size: 16))
