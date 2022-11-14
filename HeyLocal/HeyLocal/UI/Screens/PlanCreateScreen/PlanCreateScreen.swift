@@ -13,6 +13,7 @@ import SwiftUI
 struct PlanCreateScreen: View {
 	@ObservedObject var viewModel = ViewModel()
 	@Environment(\.presentationMode) var presentationMode
+	@Environment(\.displayTabBar) var displayTabBar
 	
     var body: some View {
 		ScrollView { travelOnList }
@@ -28,6 +29,9 @@ struct PlanCreateScreen: View {
 						confirmButton
 					}
 				}
+			}
+			.onAppear {
+				displayTabBar(true)
 			}
 			.alert(isPresented: $viewModel.showAlert) {
 				alertModal // 에러 발생 시 Alert 메시지 출력
@@ -72,9 +76,30 @@ extension PlanCreateScreen {
 	
 	/// 여행 On이 없는 경우에 보여지는 뷰입니다.
 	var emptyView: some View {
-		VStack(alignment: center) {
-			
+		HStack(alignment: .center) {
+			VStack(alignment: .center, spacing: 28) {
+				Text("플랜을 만들기 전에 먼저 여행 On을 작성해보세요")
+					.foregroundColor(Color("gray"))
+					.font(.system(size: 16))
+					.fontWeight(.medium)
+					.listRowSeparator(.hidden)
+					.listRowInsets(EdgeInsets())
+				
+				NavigationLink(destination: TravelOnWriteScreen()) {
+					Text("여행 On 작성")
+						.font(.system(size: 14))
+						.fontWeight(.medium)
+						.foregroundColor(.white)
+						.background(
+							RoundedRectangle(cornerRadius: 100)
+								.fill(Color("orange"))
+								.frame(width: 150, height: 38)
+						)
+				}
+				.buttonStyle(PlainButtonStyle())
+			}
 		}
+		.frame(height: 400)
 	}
 }
 
