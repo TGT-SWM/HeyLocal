@@ -55,7 +55,7 @@ extension HomeScreen {
                                                                        set: { self.hotplaces[i] = $0 }))
                         
                         if self.hotplaces[i].thumbnailUrl != nil {
-                            print("Hot Place Thumbnail Image !!", self.hotplaces[i].thumbnailUrl! )
+                            print("Hot Place Thumbnail Image !!", self.hotplaces[i].thumbnailUrl )
                         }
                     }
                 })

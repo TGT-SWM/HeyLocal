@@ -89,7 +89,7 @@ struct ProfileScreen: View {
     // 나의 프로필일 때
     var myProfile: some View {
         VStack {
-            UserComponent(userId: self.userId)
+            UserComponent(userId: self.userId, showingTab: showingTab)
                 .padding(EdgeInsets(top: 20, leading: 0, bottom: 0, trailing: 0))
             
             GeometryReader { geo in
@@ -118,7 +118,7 @@ struct ProfileScreen: View {
     
     var otherProfile: some View {
         VStack {
-            UserComponent(userId: self.userId)
+            UserComponent(userId: self.userId, showingTab: showingTab)
                 .padding(EdgeInsets(top: 20, leading: 0, bottom: 0, trailing: 0))
             
             GeometryReader { geo in
@@ -177,6 +177,7 @@ struct UserTravelOn: View {
 
 struct UserComponent: View {
     let userId: Int
+    let showingTab: Bool
     @StateObject var viewModel = ProfileScreen.ViewModel()
     @State var showingBlock: Bool = false
     
@@ -240,38 +241,38 @@ struct UserComponent: View {
                         HStack{
                             Spacer()
                             
-                            VStack(alignment: .trailing) {
-                                // 프로필 설정화면으로 이동
-                                NavigationLink(destination: ProfileSettingScreen()) {
-                                    Image("ios-settings")
-                                        .resizable()
-                                        .frame(width: 21, height: 21)
-                                }
-                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
-                                
-                                Spacer()
-                                
-                                // 프로필 수정화면으로 이동
-                                NavigationLink(destination: ProfileReviseScreen()) {
-                                    HStack {
-                                        Image("edit-pencil_yellow")
+                            if showingTab {
+                                VStack(alignment: .trailing) {
+                                    // 프로필 설정화면으로 이동
+                                    NavigationLink(destination: ProfileSettingScreen()) {
+                                        Image("ios-settings")
                                             .resizable()
-                                            .frame(width: 16, height: 16)
-                                        
-                                        Spacer()
-                                            .frame(width: 2)
-                                        
-                                        Text("편집하기")
-                                            .underline()
-                                            .font(.system(size: 12))
-                                            .foregroundColor(Color("orange"))
+                                            .frame(width: 21, height: 21)
                                     }
+                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 15))
+                                    
+                                    Spacer()
+                                    
+                                    // 프로필 수정화면으로 이동
+                                    NavigationLink(destination: ProfileReviseScreen()) {
+                                        HStack {
+                                            Image("edit-pencil_yellow")
+                                                .resizable()
+                                                .frame(width: 16, height: 16)
+                                            
+                                            Spacer()
+                                                .frame(width: 2)
+                                            
+                                            Text("편집하기")
+                                                .underline()
+                                                .font(.system(size: 12))
+                                                .foregroundColor(Color("orange"))
+                                        }
+                                    }
+                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 15))
                                 }
-                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
                             }
-                            
                         }
-                        .padding()
                     }
                 }
                 .frame(height: 96)

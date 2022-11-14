@@ -78,9 +78,11 @@ class KakaoAPIService {
                 do {
                     let result = try JSONDecoder().decode(KakaoImageResponse.self, from: data)
 					DispatchQueue.main.async {
-                        if !result.documents.map(\.image_url).isEmpty {
-                            place.wrappedValue.thumbnailUrl = result.documents.map(\.image_url)[0]
+                        if place.wrappedValue.thumbnailUrl == nil {
+                            place.wrappedValue.thumbnailUrl = ""
+                            place.wrappedValue.thumbnailUrl = result.documents[0].image_url
                         }
+                        place.wrappedValue.thumbnailUrl = result.documents[0].image_url
 					}
                 } catch {
                     print("error")

@@ -12,20 +12,10 @@ struct RegionPickerScreen: View {
     @State var regionName: String = ""
     @StateObject var viewModel = ViewModel()
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.displayTabBar) var displayTabBar
     @Binding var regionID: Int?
     var forSort: Bool
-    
-    var btnBack : some View {
-        Button(action: {
-            dismiss()
-        }) {
-            Image(systemName: "chevron.left")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 10)
-                .foregroundColor(.black)
-        }
-    }
+
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -57,12 +47,13 @@ struct RegionPickerScreen: View {
             }
         }
         .onAppear {
+            displayTabBar(false)
             viewModel.fetchRegions()
         }
         .navigationTitle("여행지 선택")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: btnBack)
+        .navigationBarItems(leading: BackButton() )
     }
 }
 
