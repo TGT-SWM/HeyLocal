@@ -43,7 +43,10 @@ extension PlanDetailScreen {
 					.listRowSeparator(.hidden)
 					.listRowInsets(EdgeInsets())
 				
-				NavigationLink(destination: TravelOnListScreen()) {
+				Button {
+					print(plan.regionId)
+					searchTravelOnByRegion(plan.regionId)
+				} label: {
 					Text("여행 On 바로가기")
 						.font(.system(size: 14))
 						.fontWeight(.medium)

@@ -26,7 +26,13 @@ struct TravelOnListScreen: View {
         
         var id: String { self.rawValue }
     }
+	
+	init() {}
     
+	init(regionId: Int?) {
+		self.regionId = regionId
+		print("TravelOnListScreen(regionId: \(regionId))")
+	}
     
     var body: some View {
         NavigationView {
