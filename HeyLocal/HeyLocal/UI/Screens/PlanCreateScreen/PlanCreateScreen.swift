@@ -13,15 +13,26 @@ import SwiftUI
 struct PlanCreateScreen: View {
 	@ObservedObject var viewModel = ViewModel()
 	@Environment(\.presentationMode) var presentationMode
+	@Environment(\.displayTabBar) var displayTabBar
 	
     var body: some View {
 		ScrollView { travelOnList }
 			.navigationTitle("여행 On 선택")
 			.navigationBarTitleDisplayMode(.inline)
+			.navigationBarBackButtonHidden(true)
 			.toolbar {
-				if viewModel.selected != nil { // 선택한 항목이 있으면 확인 버튼을 표시합니다.
-					confirmButton
+				ToolbarItem(placement: .navigationBarLeading) {
+					BackButton()
 				}
+				ToolbarItem(placement: .navigationBarTrailing) {
+					if viewModel.selected != nil { // 선택한 항목이 있으면 확인 버튼을 표시합니다.
+						confirmButton
+					}
+				}
+			}
+			.onAppear {
+				displayTabBar(true)
+				viewModel.clearStates()
 			}
 			.alert(isPresented: $viewModel.showAlert) {
 				alertModal // 에러 발생 시 Alert 메시지 출력
@@ -38,11 +49,17 @@ extension PlanCreateScreen {
 		LazyVStack {
 			ForEach(viewModel.travelOns, id: \.id) { listItem($0) }
 			
+			// 여행 On이 없는 경우
+			if viewModel.travelOns.isEmpty && viewModel.isEnd {
+				emptyView
+			}
+			
 			// 더 이상 로드할 컨텐츠가 없는 경우 표시하지 않습니다.
 			if !viewModel.isEnd {
 				ProgressView()
 					.onAppear {
 						viewModel.fetchTravelOns()
+						print("onAppear")
 					}
 			}
 		}
@@ -57,6 +74,34 @@ extension PlanCreateScreen {
 			.if(travelOn.id == viewModel.selected?.id) { view in
 				view.background(Color("lightGray"))
 			}
+	}
+	
+	/// 여행 On이 없는 경우에 보여지는 뷰입니다.
+	var emptyView: some View {
+		HStack(alignment: .center) {
+			VStack(alignment: .center, spacing: 28) {
+				Text("플랜을 만들기 전에 먼저 여행 On을 작성해보세요")
+					.foregroundColor(Color("gray"))
+					.font(.system(size: 16))
+					.fontWeight(.medium)
+					.listRowSeparator(.hidden)
+					.listRowInsets(EdgeInsets())
+				
+				NavigationLink(destination: TravelOnWriteScreen()) {
+					Text("여행 On 작성")
+						.font(.system(size: 14))
+						.fontWeight(.medium)
+						.foregroundColor(.white)
+						.background(
+							RoundedRectangle(cornerRadius: 100)
+								.fill(Color("orange"))
+								.frame(width: 150, height: 38)
+						)
+				}
+				.buttonStyle(PlainButtonStyle())
+			}
+		}
+		.frame(height: 400)
 	}
 }
 
