@@ -53,50 +53,6 @@ class KakaoAPIService {
 				isLastPage.wrappedValue = resp.meta.isEnd
 			})
 	}
-
-    /// 지역 Thumbanail Image
-    func getRegionImage(region: Binding<Region>) {
-        var regionName = region.wrappedValue.state
-        if region.wrappedValue.city != nil {
-            regionName.append(" ")
-            regionName.append(region.wrappedValue.city!)
-        }
-        regionName.append(" 여행지")
-        
-        print(regionName)
-        
-        // URL 구성
-        var components = URLComponents(string: "\(Config.kakaoRestURL)/v2/search/image")!
-        components.queryItems = [
-            URLQueryItem(name: "query", value: regionName),
-            URLQueryItem(name: "sort", value: "accuracy")
-        ]
-        
-        guard let url = components.url else { return }
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("KakaoAK \(Config.kakaoRestKey)", forHTTPHeaderField: "Authorization")
- 
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data, let httpResponse = response as? HTTPURLResponse, error == nil else {
-                print(error?.localizedDescription ?? "NO Data")
-                return
-            }
-            if httpResponse.statusCode == 200 {
-                do {
-                    let result = try JSONDecoder().decode(KakaoImageResponse.self, from: data)
-					DispatchQueue.main.async {
-						region.wrappedValue.thumbnailUrl = result.documents.map(\.image_url)[0]
-					}
-                } catch {
-                    print("error")
-                }
-            }
-        }.resume()
-    }
-    
     
     func getPlaceImage(place: Binding<Place>) {
         // URL 구성
