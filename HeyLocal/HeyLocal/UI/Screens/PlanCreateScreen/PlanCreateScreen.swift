@@ -44,6 +44,11 @@ extension PlanCreateScreen {
 		LazyVStack {
 			ForEach(viewModel.travelOns, id: \.id) { listItem($0) }
 			
+			// 여행 On이 없는 경우
+			if viewModel.travelOns.isEmpty && viewModel.isEnd {
+				emptyView
+			}
+			
 			// 더 이상 로드할 컨텐츠가 없는 경우 표시하지 않습니다.
 			if !viewModel.isEnd {
 				ProgressView()
@@ -63,6 +68,13 @@ extension PlanCreateScreen {
 			.if(travelOn.id == viewModel.selected?.id) { view in
 				view.background(Color("lightGray"))
 			}
+	}
+	
+	/// 여행 On이 없는 경우에 보여지는 뷰입니다.
+	var emptyView: some View {
+		VStack(alignment: center) {
+			
+		}
 	}
 }
 
