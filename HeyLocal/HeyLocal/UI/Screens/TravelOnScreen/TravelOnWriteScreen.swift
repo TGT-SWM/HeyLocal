@@ -274,10 +274,11 @@ struct TravelOnWriteScreen: View {
                     Spacer()
                         .frame(height: 3)
                     
-                    TextField("  제목 입력", text: $viewModel.travelOnArray.title)
+                    TextField("제목 입력", text: $viewModel.travelOnArray.title)
                         .font(.system(size: 12))
+                        .padding()
                         .foregroundColor(Color("gray"))
-                        .frame(width: 360, height: 36)
+                        .frame(width: ScreenSize.width*0.95, height: 36)
                         .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color("mediumGray"), style: StrokeStyle(lineWidth: 1.0)))
                         .background(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
                         .cornerRadius(10)
@@ -302,24 +303,26 @@ struct TravelOnWriteScreen: View {
                         ZStack(alignment: .leading) {
                             Rectangle()
                                 .fill(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
-                                .frame(width: 360, height: 36)
+                                .frame(width: ScreenSize.width * 0.95, height: 36)
                                 .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color("mediumGray"), style: StrokeStyle(lineWidth: 1.0)))
                                 .cornerRadius(10)
                                 
                             
                             HStack {
                                 if viewModel.travelOnArray.regionId == nil {
-                                    Text("  여행지 입력")
+                                    Text("여행지 입력")
+                                        .padding()
                                 }
                                 else {
                                     Text("\(regionViewModel.regionName)")
+                                        .padding()
                                 }
                                 
                                 Spacer()
                                 
                                 Image(systemName: "magnifyingglass")
                                     .font(.system(size: 15))
-                                    .padding()
+                                    .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 25))
                             }
                             .font(.system(size: 12))
                             .foregroundColor(Color("gray"))
@@ -341,7 +344,7 @@ struct TravelOnWriteScreen: View {
                 HStack {
                     /// 여행 출발일
                     VStack(alignment: .leading) {
-                        Text("여행 출발일")
+                        Text("여행 시작일")
                             .font(.system(size: 14))
                             .fontWeight(.medium)
                         
@@ -359,7 +362,7 @@ struct TravelOnWriteScreen: View {
                                ZStack(alignment: .leading) {
                                    Rectangle()
                                        .fill(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
-                                       .frame(width: 171, height: 36)
+                                       .frame(width: 180, height: 36)
                                        .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color("mediumGray"), style: StrokeStyle(lineWidth: 1.0)))
                                        .cornerRadius(10)
                                        
@@ -385,7 +388,7 @@ struct TravelOnWriteScreen: View {
                     Spacer()
                     
                     VStack(alignment: .leading) {
-                        Text("여행 도착일")
+                        Text("여행 종료일")
                             .font(.system(size: 14))
                             .fontWeight(.medium)
                         
@@ -403,7 +406,7 @@ struct TravelOnWriteScreen: View {
                                ZStack(alignment: .leading) {
                                    Rectangle()
                                        .fill(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
-                                       .frame(width: 171, height: 36)
+                                       .frame(width: 180, height: 36)
                                        .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color("mediumGray"), style: StrokeStyle(lineWidth: 1.0)))
                                        .cornerRadius(10)
                                    
@@ -431,8 +434,8 @@ struct TravelOnWriteScreen: View {
                         .onChange(of: viewModel.travelOnArray.startDate, perform: { (value) in
                             showStartDatePicker = false
                         })
-                        .accentColor(Color(red: 255/255, green: 153/255, blue: 0/255))
-                        .frame(width: 350)
+                        .accentColor(Color("orange"))
+                        .frame(width: ScreenSize.width*0.95)
                         .background(Color.white)
                 }
                 
@@ -442,8 +445,8 @@ struct TravelOnWriteScreen: View {
                         .onChange(of: viewModel.travelOnArray.endDate, perform: { (value) in
                             showEndDatePicker = false
                         })
-                        .accentColor(Color(red: 255/255, green: 153/255, blue: 0/255))
-                        .frame(width: 350)
+                        .accentColor(Color("orange"))
+                        .frame(width: ScreenSize.width*0.95)
                         .background(Color.white)
                 }
             }
@@ -1083,7 +1086,7 @@ struct TravelOnWriteScreen: View {
             ZStack(alignment: .topLeading) {
                 Rectangle()
                     .fill(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
-                    .frame(width: 360, height: 100)
+                    .frame(width: ScreenSize.width*0.95, height: 100)
                     .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color("mediumGray"), style: StrokeStyle(lineWidth: 1.0)))
                     .cornerRadius(10)
                 
@@ -1101,7 +1104,7 @@ struct TravelOnWriteScreen: View {
                         .lineSpacing(3)
                         .lineLimit(5)
                         .background(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
-                        .frame(minWidth: 0, maxWidth: 330, minHeight: 0, maxHeight: 100)
+                        .frame(minWidth: 0, maxWidth: ScreenSize.width*0.9, minHeight: 0, maxHeight: 100)
                         .padding()
                     
                     if viewModel.travelOnArray.description == "" {
