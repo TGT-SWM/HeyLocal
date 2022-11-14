@@ -14,5 +14,7 @@ struct Region: Codable, Identifiable, Hashable {
     var id: Int = 0
     var city: String? = nil
     var state: String = ""
-    var thumbnailUrl: String? = nil
+	var thumbnailUrl: String {
+		"\(Config.apiURL)/static/regions/img/\(id).jpeg"
+	}
 }

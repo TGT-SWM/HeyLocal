@@ -22,11 +22,7 @@ class UserService {
 			lastItemId: lastItemId.wrappedValue,
 			size: size
 		).sink(
-			receiveCompletion: { _ in
-				for i in travelOns.indices {
-					self.kakaoAPIService.getRegionImage(region: travelOns[i].region)
-				}
-			},
+			receiveCompletion: { _ in },
 			receiveValue: {
 				travelOns.wrappedValue.append(contentsOf: $0)
 				lastItemId.wrappedValue = $0.last?.id

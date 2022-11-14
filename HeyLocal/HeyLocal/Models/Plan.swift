@@ -22,7 +22,9 @@ struct Plan: Decodable {
 	var regionId: Int
 	var regionState: String
 	var regionCity: String?
-	var regionImageURL: String?
+	var regionImageURL: String {
+		"\(Config.apiURL)/static/regions/img/\(regionId).jpeg"
+	}
 	var startDate: String
 	var endDate: String
 	var transportationType: String

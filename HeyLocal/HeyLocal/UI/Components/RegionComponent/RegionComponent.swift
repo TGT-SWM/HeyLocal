@@ -30,7 +30,7 @@ struct RegionComponent: View {
                 }
                 else {
                     if region?.thumbnailUrl != nil {
-                        AsyncImage(url: URL(string: (region?.thumbnailUrl!)!)) { phash in
+						AsyncImage(url: URL(string: (region?.thumbnailUrl)!)) { phash in
                             if let image = phash.image {
                                 image
                                     .resizable()
