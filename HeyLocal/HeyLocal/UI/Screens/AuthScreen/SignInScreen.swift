@@ -37,11 +37,11 @@ struct SignInScreen: View {
 	
 	/// 서비스 로고 이미지에 대한 뷰입니다.
 	var logo: some View {
-		Image("logo")
+		Image("login-symbol")
 			.resizable()
 			.scaledToFit()
-			.frame(height: 32)
-			.padding(.vertical, 80)
+			.frame(height: 60)
+			.padding(.vertical, 60)
 	}
 	
 	/// 회원가입 화면으로 이동하는 버튼에 대한 뷰입니다.
