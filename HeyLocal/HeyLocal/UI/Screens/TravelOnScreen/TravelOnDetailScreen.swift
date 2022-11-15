@@ -137,7 +137,7 @@ struct TravelOnDetailScreen: View {
             HStack {
                 VStack(alignment: .leading) {
                     let startDate = viewModel.travelOn.travelStartDate!.components(separatedBy: "-")
-                    Text("여행 출발일")
+                    Text("여행 시작일")
                         .font(.system(size: 14))
                     
                     Spacer()
@@ -169,7 +169,7 @@ struct TravelOnDetailScreen: View {
                 
                 VStack(alignment: .leading) {
                     let endDate = viewModel.travelOn.travelEndDate!.components(separatedBy: "-")
-                    Text("여행 도착일")
+                    Text("여행 종료일")
                         .font(.system(size: 14))
                     
                     Spacer()
