@@ -176,6 +176,11 @@ extension PlaceDetailScreen {
 					opinionListItem(opinion: $0)
 				}
 				
+				// 작성된 답변이 없는 경우 표시됩니다.
+				if vm.opinions.isEmpty && vm.isEnd {
+					emptyView
+				}
+				
 				// 더 이상 로드할 컨텐츠가 없는 경우 표시하지 않습니다.
 				if !vm.isEnd {
 					ProgressView()
@@ -214,6 +219,19 @@ extension PlaceDetailScreen {
 					.foregroundColor(.white)
 			}
 		}
+	}
+	
+	/// 작성된 답변이 없는 경우 표시되는 뷰입니다.
+	var emptyView: some View {
+		HStack(alignment: .center) {
+			Text("아직 관련된 답변이 없습니다")
+				.foregroundColor(Color("gray"))
+				.font(.system(size: 16))
+				.fontWeight(.medium)
+				.listRowSeparator(.hidden)
+				.listRowInsets(EdgeInsets())
+		}
+		.frame(height: 100)
 	}
 }
 
