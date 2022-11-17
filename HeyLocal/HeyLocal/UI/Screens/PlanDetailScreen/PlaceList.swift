@@ -38,6 +38,7 @@ extension PlanDetailScreen {
 		VStack(alignment: .center, spacing: 0) {
 			VStack(spacing: 28) {
 				Text("현지인들이 추천하는 여행 명소를 찾아보세요")
+					.foregroundColor(Color("gray"))
 					.font(.system(size: 16))
 					.fontWeight(.medium)
 					.listRowSeparator(.hidden)

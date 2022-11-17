@@ -27,18 +27,16 @@ struct TravelOnWriteScreen: View {
         HStack {
             if checkIsFill() {
                 if ((isRevise) != nil) {
-                    NavigationLink(destination: TravelOnListScreen()
-                        .navigationBarTitle("")
-                        .navigationBarHidden(true)){
-                        Text("수정 완료")
-                            .font(.system(size: 16))
-                            .foregroundColor(Color(red: 255/255, green: 153/255, blue: 0/255))
-                    }.simultaneousGesture(TapGesture().onEnded{
-                        makeTravelOnJsonData()
-                        viewModel.updateTravelOn(travelOnId: travelOnID!, travelOnData: travelOnData)
-                        viewModel.fetchTravelOn(travelOnId: travelOnID!)
-                        dismiss()
-                    })
+					Button {
+						makeTravelOnJsonData()
+						viewModel.updateTravelOn(travelOnId: travelOnID!, travelOnData: travelOnData)
+						viewModel.fetchTravelOn(travelOnId: travelOnID!)
+						dismiss()
+					} label: {
+						Text("수정 완료")
+							.font(.system(size: 16))
+							.foregroundColor(Color(red: 255/255, green: 153/255, blue: 0/255))
+					}
                 }
                 else {
                     Button(action: {

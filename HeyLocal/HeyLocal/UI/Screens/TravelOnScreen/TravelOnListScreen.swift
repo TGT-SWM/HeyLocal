@@ -15,7 +15,7 @@ struct TravelOnListScreen: View {
     
     // 필터링요소
     @State var sortBy: SortType = .byDate
-    @State var regionId: Int? = nil
+    @Binding var regionId: Int?
     @State var withOpinions = false
     @State var keyword: String = ""
     @State var selectedRegion: String = "지역별"
@@ -26,12 +26,9 @@ struct TravelOnListScreen: View {
         
         var id: String { self.rawValue }
     }
-	
-	init() {}
     
-	init(regionId: Int?) {
-		self.regionId = regionId
-		print("TravelOnListScreen(regionId: \(regionId))")
+	init(regionId: Binding<Int?>) {
+		self._regionId = regionId
 	}
     
     var body: some View {
@@ -71,8 +68,16 @@ struct TravelOnListScreen: View {
             .onAppear {
                 viewModel.removeTravelOns()
                 viewModel.fetchTravelOns(keyword: keyword, regionId: regionId, sortBy: sortBy.rawValue, withOpinions: withOpinions)
+				
+				if let regionId = self.regionId {
+					regionViewModel.getRegion(regionId: regionId)
+				}
+				
                 displayTabBar(true)
             }
+			.onChange(of: regionId) { value in
+				print("regionId changed to \(value)")
+			}
         }
     }
     
@@ -240,6 +245,6 @@ struct TravelOnListScreen: View {
 
 struct TravelOnListScreen_Previews: PreviewProvider {
     static var previews: some View {
-        TravelOnListScreen()
+		TravelOnListScreen(regionId: .constant(267))
     }
 }

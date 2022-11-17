@@ -91,7 +91,7 @@ extension TabBar {
 		TabView(selection: $selection) {
 			HomeScreen()
 				.tag(Tab.home)
-			TravelOnListScreen(regionId: searchedRegionId)
+			TravelOnListScreen(regionId: $searchedRegionId)
 				.tag(Tab.travelOn)
 			MyPlanScreen()
 				.tag(Tab.myPlan)
