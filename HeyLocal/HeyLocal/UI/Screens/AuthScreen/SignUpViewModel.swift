@@ -102,14 +102,14 @@ extension SignUpScreen.ViewModel {
 		// 모든 필드가 입력되었나
 		if !checkFormFilled() { return }
 		
-		// 입력 형식에 문제가 없나
-		if !checkFormat() { return }
-		
 		// 확인 비밀번호를 잘 입력했나
 		if !confirmPassword() {
 			self.alert(message: "확인 비밀번호의 값이 다릅니다.")
 			return
 		}
+		
+		// 입력 형식에 문제가 없나
+		if !checkFormat() { return }
 		
 		// 회원가입 요청
 		authService.signUp(
