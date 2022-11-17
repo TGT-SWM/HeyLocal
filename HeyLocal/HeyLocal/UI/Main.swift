@@ -174,7 +174,8 @@ extension TabBar {
 extension TabBar {
 	/// 탭 바를 출력할 것인지, 숨길 것인지 설정합니다.
 	func displayTabBar(_ _displayTabBar: Bool) {
-		self._displayTabBar = _displayTabBar
+		// iOS 16 이상에서 여행 On 상세 화면 -> 수정 화면 이동 시 뒤로 돌아오는 문제 유발
+//		self._displayTabBar = _displayTabBar
 	}
 }
 
