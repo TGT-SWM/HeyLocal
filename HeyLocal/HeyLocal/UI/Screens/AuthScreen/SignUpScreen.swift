@@ -75,6 +75,7 @@ extension SignUpScreen {
 				AuthTextField(name: "아이디", value: $vm.id, placeholder: "영문, 숫자 조합 5자 ~ 20자", secured: false)
 					.keyboardType(.asciiCapable)
 					.autocapitalization(.none)
+				
 				Button {
 					vm.confirmDuplicateId()
 				} label: {
@@ -86,8 +87,9 @@ extension SignUpScreen {
 				.frame(width: 80, height: 44)
 				.background(
 					RoundedRectangle(cornerRadius: 10)
-						.fill(Color("orange"))
+						.fill(vm.isIdFormatValid ? Color("orange") : Color("lightGray"))
 				)
+				.disabled(!vm.isIdFormatValid)
 			}
 			
 			if let showMsgForDupId = vm.isDuplicateId {

@@ -68,19 +68,19 @@ extension SignUpScreen.ViewModel {
 	/// 입력 형식을 체크합니다.
 	func checkFormat() -> Bool {
 		// 닉네임 입력 형식 체크
-		if !nicknameValidator.evaluate(with: nickname) {
+		if !isNicknameFormatValid {
 			alert(message: "닉네임 형식이 잘못되었습니다.")
 			return false
 		}
 		
 		// 아이디 입력 형식 체크
-		if !idValidator.evaluate(with: id) {
+		if !isIdFormatValid {
 			alert(message: "아이디 형식이 잘못되었습니다.")
 			return false
 		}
 		
 		// 패스워드 입력 형식 체크
-		if !passwordValidator.evaluate(with: password) {
+		if !isPasswordFormatValid {
 			alert(message: "패스워드 형식이 잘못되었습니다.")
 			return false
 		}
@@ -92,6 +92,11 @@ extension SignUpScreen.ViewModel {
 	func confirmPassword() -> Bool {
 		return password == rePassword
 	}
+	
+	// 정규표현식으로 형식을 체크하여 반환하는 프로퍼티들입니다.
+	var isNicknameFormatValid: Bool { nicknameValidator.evaluate(with: nickname) }
+	var isIdFormatValid: Bool { idValidator.evaluate(with: id) }
+	var isPasswordFormatValid: Bool { passwordValidator.evaluate(with: password) }
 }
 
 
@@ -101,6 +106,12 @@ extension SignUpScreen.ViewModel {
 	func signUp(onSuccess: @escaping () -> Void) {
 		// 모든 필드가 입력되었나
 		if !checkFormFilled() { return }
+		
+		// 아이디 중복 확인을 했나
+		if isDuplicateId == nil {
+			self.alert(message: "아이디 중복 확인이 필요합니다.")
+			return
+		}
 		
 		// 확인 비밀번호를 잘 입력했나
 		if !confirmPassword() {
