@@ -12,11 +12,11 @@ import SwiftUI
 struct PlaceDetailScreen: View {
 	@Environment(\.displayTabBar) var displayTabBar
 	var place: Place
-	@ObservedObject var vm: ViewModel
+	@StateObject var vm: ViewModel
 	
 	init(place: Place) {
 		self.place = place
-		self.vm = ViewModel(place: place)
+		self._vm = StateObject(wrappedValue: ViewModel(place: place))
 	}
 	
     var body: some View {
