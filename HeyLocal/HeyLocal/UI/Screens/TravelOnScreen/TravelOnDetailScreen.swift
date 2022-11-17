@@ -66,8 +66,7 @@ struct TravelOnDetailScreen: View {
                             rightButtonAction: {
                                 viewModel.deleteTravelOn(travelOnId: viewModel.travelOn.id)
                                 dismiss()
-                            },
-                            destinationView: AnyView(TravelOnListScreen()))
+                            })
             }
             
             // 예외처리

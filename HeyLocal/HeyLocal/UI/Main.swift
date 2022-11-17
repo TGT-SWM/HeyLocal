@@ -22,8 +22,15 @@ struct Main: View {
 struct TabBar: View {
 	let tabBarHeight: CGFloat = 55
 	
+	/// 현재 보고 있는 탭을 나타냅니다.
 	@State private var selection = Tab.home
+	
+	/// 탭 바를 보여주는지에 대한 상태입니다.
+	/// displayTabBar() 메서드를 통해 제어할 수 있습니다.
 	@State var _displayTabBar = true
+	
+	/// 특정 지역을 검색하며 여행 On으로 이동할 때 지역 ID를 담기 위해 사용합니다.
+	@State var searchedRegionId: Int?
 	
 	init() {
 		UITabBar.appearance().isHidden = true // 기본 탭 바 숨기기
@@ -33,6 +40,7 @@ struct TabBar: View {
 		ZStack(alignment: .bottom) {
 			baseTabBar
 				.environment(\.displayTabBar, displayTabBar)
+				.environment(\.navigateToTravelOnWithRegion, navigateToTravelOnWithRegion)
 			
 			if (_displayTabBar) {
 				styledTabBar
@@ -83,7 +91,7 @@ extension TabBar {
 		TabView(selection: $selection) {
 			HomeScreen()
 				.tag(Tab.home)
-			TravelOnListScreen()
+			TravelOnListScreen(regionId: $searchedRegionId)
 				.tag(Tab.travelOn)
 			MyPlanScreen()
 				.tag(Tab.myPlan)
@@ -179,6 +187,28 @@ extension EnvironmentValues {
 	var displayTabBar: (Bool) -> Void {
 		get { self[DisplayTabBar.self] }
 		set { self[DisplayTabBar.self] = newValue }
+	}
+}
+
+
+// MARK: - 특정 지역 검색 옵션을 갖고 여행 On 화면으로 이동하기
+
+extension TabBar {
+	/// 여행 On 탭으로 이동하여 해당 지역의 검색 결과를 출력합니다.
+	func navigateToTravelOnWithRegion(regionId: Int) {
+		searchedRegionId = regionId
+		selection = .travelOn
+	}
+}
+
+struct NavigateToTravelOnWithRegion: EnvironmentKey {
+	static var defaultValue: (Int) -> Void = { _ in }
+}
+
+extension EnvironmentValues {
+	var navigateToTravelOnWithRegion: (Int) -> Void {
+		get { self[NavigateToTravelOnWithRegion.self] }
+		set { self[NavigateToTravelOnWithRegion.self] = newValue }
 	}
 }
 
