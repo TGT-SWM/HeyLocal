@@ -102,7 +102,7 @@ struct HomeScreen: View {
 				leading: Image("login-symbol")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 36)
+                    .frame(height: 32)
                     .padding(EdgeInsets(top: 0, leading: 5, bottom: 5, trailing: 0))
 //				,trailing: alarmButton // TODO: 알림 기능
 			)
