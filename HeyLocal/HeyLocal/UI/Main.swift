@@ -40,7 +40,7 @@ struct TabBar: View {
 		ZStack(alignment: .bottom) {
 			baseTabBar
 				.environment(\.displayTabBar, displayTabBar)
-				.environment(\.searchTravelOnByRegion, searchTravelOnByRegion)
+				.environment(\.navigateToTravelOnWithRegion, navigateToTravelOnWithRegion)
 			
 			if (_displayTabBar) {
 				styledTabBar
@@ -195,20 +195,20 @@ extension EnvironmentValues {
 
 extension TabBar {
 	/// 여행 On 탭으로 이동하여 해당 지역의 검색 결과를 출력합니다.
-	func searchTravelOnByRegion(regionId: Int) {
+	func navigateToTravelOnWithRegion(regionId: Int) {
 		searchedRegionId = regionId
 		selection = .travelOn
 	}
 }
 
-struct SearchTravelOnByRegion: EnvironmentKey {
+struct NavigateToTravelOnWithRegion: EnvironmentKey {
 	static var defaultValue: (Int) -> Void = { _ in }
 }
 
 extension EnvironmentValues {
-	var searchTravelOnByRegion: (Int) -> Void {
-		get { self[SearchTravelOnByRegion.self] }
-		set { self[SearchTravelOnByRegion.self] = newValue }
+	var navigateToTravelOnWithRegion: (Int) -> Void {
+		get { self[NavigateToTravelOnWithRegion.self] }
+		set { self[NavigateToTravelOnWithRegion.self] = newValue }
 	}
 }
 

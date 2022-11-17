@@ -46,7 +46,7 @@ extension PlanDetailScreen {
 				
 				Button {
 					print(plan.regionId)
-					searchTravelOnByRegion(plan.regionId)
+					navigateToTravelOnWithRegion(plan.regionId)
 				} label: {
 					Text("여행 On 바로가기")
 						.font(.system(size: 14))

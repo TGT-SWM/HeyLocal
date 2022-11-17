@@ -16,7 +16,7 @@ struct PlanDetailScreen: View {
 	
 	@Environment(\.dismiss) var dismiss
 	@Environment(\.displayTabBar) var displayTabBar
-	@Environment(\.searchTravelOnByRegion) var searchTravelOnByRegion
+	@Environment(\.navigateToTravelOnWithRegion) var navigateToTravelOnWithRegion
 	
 	init(plan: Plan) {
 		self.plan = plan
