@@ -31,6 +31,10 @@ struct SignInScreen: View {
 						showModal: $vm.showAlert
 					)
 				}
+				
+				if vm.showLoadingSpinner {
+					RectangleProgressView()
+				}
 			}
         }
     }

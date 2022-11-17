@@ -19,9 +19,10 @@ extension SignInScreen {
 		@Published var id = ""
 		@Published var password = ""
 		
-		// 상태 (알림 모달)
+		// 상태 (UI)
 		@Published var showAlert = false
 		@Published var alertMsg = ""
+		@Published var showLoadingSpinner = false
 	}
 }
 
@@ -31,6 +32,7 @@ extension SignInScreen {
 extension SignInScreen.ViewModel {
 	/// 입력한 아이디와 패스워드로 로그인을 요청합니다.
 	func signIn() {
+		showLoadingSpinner = true
 		authService.signIn(accountId: id, password: password) { errMsg in
 			if let msg = errMsg { // 로그인 실패
 				self.alert(message: msg)
