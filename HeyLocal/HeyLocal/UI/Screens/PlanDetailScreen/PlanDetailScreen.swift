@@ -18,6 +18,7 @@ struct PlanDetailScreen: View {
 	@Environment(\.displayTabBar) var displayTabBar
 	@Environment(\.navigateToTravelOnWithRegion) var navigateToTravelOnWithRegion
 	
+	
 	init(plan: Plan) {
 		self.plan = plan
 		self._viewModel = StateObject(wrappedValue: ViewModel(plan: plan))

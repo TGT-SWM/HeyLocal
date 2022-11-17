@@ -82,6 +82,7 @@ struct OpinionRepository {
         var httpResponseStatusCode: Int = 0
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
+			print(error)
             guard let data = data, let httpResponse = response as? HTTPURLResponse, error == nil else {
                 print(error?.localizedDescription ?? "No Data")
                 return

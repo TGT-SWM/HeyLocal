@@ -122,62 +122,61 @@ extension PlanDetailScreen {
 		
 		return ForEach(schedule.indices, id: \.self) { index in
 			listItem(
+				day: day,
 				index: index,
 				place: viewModel.placeOf(day: day, index: index),
 				isCurrentPlace: index == currentPlaceIdx,
 				maybeLate: (index == nextPlaceIdx) && maybeLate
 			)
-			
-			// 마지막 항목이 아니라면, 자신과 다음 장소 사이의 거리 정보를 출력합니다.
-			if index != viewModel.scheduleOf(day: day).count - 1 {
-				distanceItem(day: day, index: index)
-					.deleteDisabled(true)
-					.moveDisabled(true)
-			}
 		}
 		.onDelete(perform: deleteHandler(day: day))
 		.onMove(perform: moveHandler(day: day))
 	}
 	
 	/// 리스트의 항목 뷰를 반환합니다.
-	func listItem(index: Int, place: Binding<Place>, isCurrentPlace: Bool, maybeLate: Bool) -> some View {
-		print(place.wrappedValue)
-		print(maybeLate)
-		return HStack(alignment: .center) {
-			// 순서
-			placeOrder(order: index + 1, isCurrentPlace: isCurrentPlace)
-			
-			// 장소 정보
-			VStack(alignment: .leading) {
-				HStack {
-					if let arrivalTime = place.wrappedValue.arrivalTime {
-						Text("\(DateFormat.format(arrivalTime, from: "HH:mm:ss", to: "a hh:mm")) 도착")
-							.font(.system(size: 12))
-					} else {
-						Text("도착 시간을 정해주세요")
-							.font(.system(size: 12))
+	func listItem(day: Int, index: Int, place: Binding<Place>, isCurrentPlace: Bool, maybeLate: Bool) -> some View {
+		VStack(alignment: .leading) {
+			HStack(alignment: .center) {
+				// 순서
+				placeOrder(order: index + 1, isCurrentPlace: isCurrentPlace)
+				
+				// 장소 정보
+				VStack(alignment: .leading) {
+					HStack {
+						if let arrivalTime = place.wrappedValue.arrivalTime {
+							Text("\(DateFormat.format(arrivalTime, from: "HH:mm:ss", to: "a hh:mm")) 도착")
+								.font(.system(size: 12))
+						} else {
+							Text("도착 시간을 정해주세요")
+								.font(.system(size: 12))
+						}
+						arrivalTimeEditButton(place: place)
 					}
-					arrivalTimeEditButton(place: place)
+					
+					Text(place.wrappedValue.name) // 이름
+						.font(.system(size: 16))
+						.fontWeight(.medium)
 				}
 				
-				Text(place.wrappedValue.name) // 이름
-					.font(.system(size: 16))
-					.fontWeight(.medium)
-			}
-			
-			Spacer()
-			
-			// 도착 예상 (ex. 늦을 수 있어요)
-			if maybeLate {
-				HStack {
-					Text("늦을 수 있어요")
-					Image(systemName: "exclamationmark.circle.fill")
+				Spacer()
+				
+				// 도착 예상 (ex. 늦을 수 있어요)
+				if maybeLate {
+					HStack {
+						Text("늦을 수 있어요")
+						Image(systemName: "exclamationmark.circle.fill")
+					}
+					.font(.system(size: 12))
+					.foregroundColor(Color(red: 220 / 255, green: 46 / 255, blue: 56 / 255))
 				}
-				.font(.system(size: 12))
-				.foregroundColor(Color(red: 220 / 255, green: 46 / 255, blue: 56 / 255))
+			}
+			.frame(height: 72)
+			
+			// 마지막 항목이 아니라면, 자신과 다음 장소 사이의 거리 정보를 출력합니다.
+			if viewModel.editMode != .active && index != viewModel.scheduleOf(day: day).count - 1 {
+				distanceItem(day: day, index: index)
 			}
 		}
-		.frame(height: 72)
 		.padding(.horizontal, 20)
 		.listRowSeparator(.hidden)
 		.listRowInsets(EdgeInsets())
@@ -219,34 +218,32 @@ extension PlanDetailScreen {
 		let url = URL(string: urlStr)!
 		
 		return HStack(alignment: .center, spacing: 0) {
-			Image("vertical_stripe_icon")
+			Image("vertical-stripe")
 				.frame(height: 40)
-				.padding(.horizontal, 32)
+				.padding(.trailing, 32)
 			
 			Text("\(distStr) / \(timeStr)")
 				.font(.system(size: 12))
 			
 			Spacer()
 			
-			Button {
-				// 카카오맵으로 이동
+			// 길찾기 버튼 (카카오맵 연동)
+			HStack {
+				Image("maps-arrow")
+					.frame(width: 20, height: 20)
+				Text("길찾기")
+					.font(.system(size: 14))
+					.fontWeight(.medium)
+			}
+			.onTapGesture {
 				if UIApplication.shared.canOpenURL(url) {
 					UIApplication.shared.open(url)
 				} else {
 					UIApplication.shared.open(URL(string: "itms-apps://itunes.apple.com/app/id304608425")!)
 				}
-			} label: {
-				HStack {
-					Image("maps-arrow")
-						.frame(width: 20, height: 20)
-					Text("길찾기")
-						.font(.system(size: 14))
-						.fontWeight(.medium)
-				}
-				
 			}
-			.padding(.trailing, 20)
 		}
+		.padding(.horizontal, 12)
 		.frame(height: 40)
 		.listRowInsets(EdgeInsets())
 	}
@@ -358,12 +355,11 @@ extension PlanDetailScreen {
 extension PlanDetailScreen {
 	/// 장소의 도착 시간을 수정하기 위한 버튼입니다.
 	func arrivalTimeEditButton(place: Binding<Place>) -> some View {
-		Button {
-			viewModel.editArrivalTimeOf(place: place)
-		} label: {
-			Image(systemName: "pencil")
-				.font(.system(size: 12))
-		}
+		Image(systemName: "pencil")
+			.font(.system(size: 12))
+			.onTapGesture {
+				viewModel.editArrivalTimeOf(place: place)
+			}
 	}
 	
 	/// 장소의 도착 시간을 수정하는 뷰입니다.
