@@ -102,6 +102,7 @@
 		EFAA2AC328BBC30E00B56A3C /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA2AC228BBC30E00B56A3C /* AuthRepository.swift */; };
 		EFAA2AC528BBC48400B56A3C /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA2AC428BBC48400B56A3C /* AuthService.swift */; };
 		EFAA2AC928BBCF6E00B56A3C /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAA2AC828BBCF6E00B56A3C /* Auth.swift */; };
+		EFBA314A2926AB1B00D443A4 /* RectangleProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBA31492926AB1B00D443A4 /* RectangleProgressView.swift */; };
 		EFBCFDD8290F16BB00834DEE /* PlanSelectScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBCFDD7290F16BB00834DEE /* PlanSelectScreen.swift */; };
 		EFBCFDDA290F171300834DEE /* PlanSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBCFDD9290F171300834DEE /* PlanSelectViewModel.swift */; };
 		EFBCFDDD290F220D00834DEE /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBCFDDC290F220D00834DEE /* BottomSheet.swift */; };
@@ -251,6 +252,7 @@
 		EFAA2AC228BBC30E00B56A3C /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		EFAA2AC428BBC48400B56A3C /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		EFAA2AC828BBCF6E00B56A3C /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
+		EFBA31492926AB1B00D443A4 /* RectangleProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleProgressView.swift; sourceTree = "<group>"; };
 		EFBCFDD7290F16BB00834DEE /* PlanSelectScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanSelectScreen.swift; sourceTree = "<group>"; };
 		EFBCFDD9290F171300834DEE /* PlanSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanSelectViewModel.swift; sourceTree = "<group>"; };
 		EFBCFDDC290F220D00834DEE /* BottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
@@ -661,6 +663,7 @@
 				A8F1EA08290387CD0049C72B /* MoreButton.swift */,
 				A885F110290B5964006EF018 /* CustomImagePicker.swift */,
 				EFBCFDDC290F220D00834DEE /* BottomSheet.swift */,
+				EFBA31492926AB1B00D443A4 /* RectangleProgressView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -942,6 +945,7 @@
 				EFBCFDE6290F7EBA00834DEE /* ObservableObject+Extensions.swift in Sources */,
 				A87F6CA228C0A22B0076046E /* RankingProfileComponent.swift in Sources */,
 				A87F6CA228C0A22B0076046E /* RankingProfileComponent.swift in Sources */,
+				EFBA314A2926AB1B00D443A4 /* RectangleProgressView.swift in Sources */,
 				EF3C061228E0EDC4003F3188 /* KakaoAPIService.swift in Sources */,
 				A84E841228B8C28600128D9B /* SignInScreen.swift in Sources */,
 				EF4E6B70291A4BD400A580F4 /* TOSScreen.swift in Sources */,

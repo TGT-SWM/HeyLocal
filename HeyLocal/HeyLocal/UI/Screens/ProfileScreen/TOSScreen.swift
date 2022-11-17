@@ -8,14 +8,6 @@
 import SwiftUI
 
 struct TOSScreen: View {
-	init() {
-		let arr = content.components(separatedBy: "\n\n")
-		for s in arr {
-			print(s)
-			print()
-		}
-	}
-	
     var body: some View {
 		ScrollView {
 			VStack(alignment: .leading, spacing: 12) {

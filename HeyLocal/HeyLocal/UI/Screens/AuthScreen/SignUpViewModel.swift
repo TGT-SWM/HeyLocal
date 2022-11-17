@@ -24,6 +24,7 @@ extension SignUpScreen {
 		@Published var isDuplicateId: Bool?
 		@Published var showAlert = false
 		@Published var alertMsg = ""
+		@Published var showLoadingSpinner = false
 		
 		// 정규표현식
 		let nicknameValidator = NSPredicate(format: "SELF MATCHES %@", "^[a-zA-Z0-9가-힣]{2,20}$")
@@ -68,19 +69,19 @@ extension SignUpScreen.ViewModel {
 	/// 입력 형식을 체크합니다.
 	func checkFormat() -> Bool {
 		// 닉네임 입력 형식 체크
-		if !nicknameValidator.evaluate(with: nickname) {
+		if !isNicknameFormatValid {
 			alert(message: "닉네임 형식이 잘못되었습니다.")
 			return false
 		}
 		
 		// 아이디 입력 형식 체크
-		if !idValidator.evaluate(with: id) {
+		if !isIdFormatValid {
 			alert(message: "아이디 형식이 잘못되었습니다.")
 			return false
 		}
 		
 		// 패스워드 입력 형식 체크
-		if !passwordValidator.evaluate(with: password) {
+		if !isPasswordFormatValid {
 			alert(message: "패스워드 형식이 잘못되었습니다.")
 			return false
 		}
@@ -92,18 +93,26 @@ extension SignUpScreen.ViewModel {
 	func confirmPassword() -> Bool {
 		return password == rePassword
 	}
+	
+	// 정규표현식으로 형식을 체크하여 반환하는 프로퍼티들입니다.
+	var isNicknameFormatValid: Bool { nicknameValidator.evaluate(with: nickname) }
+	var isIdFormatValid: Bool { idValidator.evaluate(with: id) }
+	var isPasswordFormatValid: Bool { passwordValidator.evaluate(with: password) }
 }
 
 
 // MARK: - 회원가입 기능
 extension SignUpScreen.ViewModel {
 	/// 회원가입을 요청합니다.
-	func signUp(onSuccess: @escaping () -> Void) {
+	func signUp() {
 		// 모든 필드가 입력되었나
 		if !checkFormFilled() { return }
 		
-		// 입력 형식에 문제가 없나
-		if !checkFormat() { return }
+		// 아이디 중복 확인을 했나
+		if isDuplicateId == nil {
+			self.alert(message: "아이디 중복 확인이 필요합니다.")
+			return
+		}
 		
 		// 확인 비밀번호를 잘 입력했나
 		if !confirmPassword() {
@@ -111,7 +120,11 @@ extension SignUpScreen.ViewModel {
 			return
 		}
 		
+		// 입력 형식에 문제가 없나
+		if !checkFormat() { return }
+		
 		// 회원가입 요청
+		showLoadingSpinner = true
 		authService.signUp(
 			accountId: id,
 			nickname: nickname,
@@ -119,10 +132,24 @@ extension SignUpScreen.ViewModel {
 		) { errMsg in
 			if let msg = errMsg { // 회원가입 실패
 				self.alert(message: msg)
-			} else { // 회원가입 성공
-				onSuccess()
+			} else { // 회원가입 성공 시, 바로 로그인
+				self.authService.signIn(
+					accountId: self.id,
+					password: self.password
+				) { _ in
+					self.showLoadingSpinner = false
+				}
 			}
 		}
+	}
+	
+	/// 폼에 입력된 값들을 모두 초기화합니다.
+	func clearForm() {
+		nickname = ""
+		id = ""
+		password = ""
+		rePassword = ""
+		isDuplicateId = nil
 	}
 }
 

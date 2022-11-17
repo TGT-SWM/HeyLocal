@@ -30,6 +30,10 @@ struct SignUpScreen: View {
 					showModal: $vm.showAlert
 				)
 			}
+			
+			if vm.showLoadingSpinner {
+				RectangleProgressView()
+			}
 		}
 		.navigationTitle("회원가입")
 		.navigationBarTitleDisplayMode(.inline)
@@ -64,7 +68,7 @@ extension SignUpScreen {
 	
 	/// 닉네임 입력 필드에 대한 뷰입니다.
 	var nicknameField: some View {
-		AuthTextField(name: "닉네임", value: $vm.nickname, placeholder: "2-10자 이내로 입력해주세요", secured: false)
+		AuthTextField(name: "닉네임", value: $vm.nickname, placeholder: "영문, 한글, 숫자 조합 2자 ~ 20자", secured: false)
 			.padding(.horizontal, 20)
 	}
 	
@@ -72,9 +76,13 @@ extension SignUpScreen {
 	var idField: some View {
 		VStack(alignment: .leading) {
 			HStack(alignment: .bottom) {
-				AuthTextField(name: "아이디", value: $vm.id, placeholder: "영문, 숫자  15자 이내", secured: false)
+				AuthTextField(name: "아이디", value: $vm.id, placeholder: "영문, 숫자 조합 5자 ~ 20자", secured: false)
 					.keyboardType(.asciiCapable)
 					.autocapitalization(.none)
+					.onChange(of: vm.id) { _ in
+						vm.isDuplicateId = nil
+					}
+				
 				Button {
 					vm.confirmDuplicateId()
 				} label: {
@@ -86,8 +94,9 @@ extension SignUpScreen {
 				.frame(width: 80, height: 44)
 				.background(
 					RoundedRectangle(cornerRadius: 10)
-						.fill(Color("orange"))
+						.fill(vm.isIdFormatValid ? Color("orange") : Color("lightGray"))
 				)
+				.disabled(!vm.isIdFormatValid)
 			}
 			
 			if let showMsgForDupId = vm.isDuplicateId {
@@ -103,22 +112,20 @@ extension SignUpScreen {
 	
 	/// 패스워드 입력 필드에 대한 뷰입니다.
 	var passwordField: some View {
-		AuthTextField(name: "비밀번호", value: $vm.password, placeholder: "10-20자 이내로 입력해주세요", secured: true)
+		AuthTextField(name: "비밀번호", value: $vm.password, placeholder: "숫자, 영어, 특수 문자 조합 8자 이상", secured: true)
 			.padding(.horizontal, 20)
 	}
 	
 	/// 패스워드 재입력 필드에 대한 뷰입니다.
 	var rePasswordField: some View {
-		AuthTextField(name: "비밀번호 확인", value: $vm.rePassword, placeholder: "10-20자 이내로 입력해주세요", secured: true)
+		AuthTextField(name: "비밀번호 확인", value: $vm.rePassword, placeholder: "비밀번호를 한번 더 입력해주세요", secured: true)
 			.padding(.horizontal, 20)
 	}
 	
 	/// 회원가입 버튼 뷰입니다.
 	var submitButton: some View {
 		Button {
-			vm.signUp {
-				dismiss()
-			}
+			vm.signUp()
 		} label: {
 			ZStack {
 				RoundedRectangle(cornerRadius: 22)
