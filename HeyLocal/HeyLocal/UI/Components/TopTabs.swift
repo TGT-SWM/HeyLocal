@@ -52,7 +52,8 @@ struct TopTabs: View {
         }
         .frame(height: 55)
         .onAppear(perform: {
-            UIScrollView.appearance().backgroundColor = UIColor(Color.white)
+			// 앱 전체의 스크롤 뷰에 영향
+			// 내 정보 -> 마이 플랜 이동 시 마이 플랜 화면에서 bounce 안되는 문제
             UIScrollView.appearance().bounces = fixed ? false : true
         })
         .onDisappear(perform: {
