@@ -121,8 +121,18 @@ extension SignUpScreen.ViewModel {
 				self.alert(message: msg)
 			} else { // 회원가입 성공
 				onSuccess()
+				self.clearForm()
 			}
 		}
+	}
+	
+	/// 폼에 입력된 값들을 모두 초기화합니다.
+	func clearForm() {
+		nickname = ""
+		id = ""
+		password = ""
+		rePassword = ""
+		isDuplicateId = nil
 	}
 }
 
