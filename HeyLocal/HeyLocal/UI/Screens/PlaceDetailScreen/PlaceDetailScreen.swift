@@ -12,11 +12,11 @@ import SwiftUI
 struct PlaceDetailScreen: View {
 	@Environment(\.displayTabBar) var displayTabBar
 	var place: Place
-	@ObservedObject var vm: ViewModel
+	@StateObject var vm: ViewModel
 	
 	init(place: Place) {
 		self.place = place
-		self.vm = ViewModel(place: place)
+		self._vm = StateObject(wrappedValue: ViewModel(place: place))
 	}
 	
     var body: some View {
@@ -92,7 +92,7 @@ extension PlaceDetailScreen {
 	
 	/// 장소의 영업 시간에 대한 뷰입니다.
 	var openingTimeView: some View {
-		HStack {
+		HStack(alignment: .top) {
 			Image("clock-outline")
 				.font(.system(size: 10))
 			
@@ -101,7 +101,7 @@ extension PlaceDetailScreen {
 					.font(.system(size: 12))
 					.foregroundColor(Color("gray"))
 			} else {
-				VStack {
+				VStack(alignment: .leading) {
 					ForEach(vm.openingTimes, id: \.self) {
 						Text($0)
 							.font(.system(size: 12))
@@ -176,6 +176,11 @@ extension PlaceDetailScreen {
 					opinionListItem(opinion: $0)
 				}
 				
+				// 작성된 답변이 없는 경우 표시됩니다.
+				if vm.opinions.isEmpty && vm.isEnd {
+					emptyView
+				}
+				
 				// 더 이상 로드할 컨텐츠가 없는 경우 표시하지 않습니다.
 				if !vm.isEnd {
 					ProgressView()
@@ -214,6 +219,19 @@ extension PlaceDetailScreen {
 					.foregroundColor(.white)
 			}
 		}
+	}
+	
+	/// 작성된 답변이 없는 경우 표시되는 뷰입니다.
+	var emptyView: some View {
+		HStack(alignment: .center) {
+			Text("아직 관련된 답변이 없습니다")
+				.foregroundColor(Color("gray"))
+				.font(.system(size: 16))
+				.fontWeight(.medium)
+				.listRowSeparator(.hidden)
+				.listRowInsets(EdgeInsets())
+		}
+		.frame(height: 100)
 	}
 }
 
