@@ -209,7 +209,7 @@ class TSPScheduleEngine: ScheduleEngine {
 			}
 		}
 		
-		if !isLastDay {
+		if !isLastDay && _places[0].category == "AD5" {
 			path.append(_places[0]) // 숙소를 마지막에 추가
 		}
 		
