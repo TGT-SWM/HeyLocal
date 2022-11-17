@@ -227,20 +227,19 @@ extension PlanDetailScreen {
 			
 			Spacer()
 			
-			Button {
-				// 카카오맵으로 이동
+			// 길찾기 버튼 (카카오맵 연동)
+			HStack {
+				Image("maps-arrow")
+					.frame(width: 20, height: 20)
+				Text("길찾기")
+					.font(.system(size: 14))
+					.fontWeight(.medium)
+			}
+			.onTapGesture {
 				if UIApplication.shared.canOpenURL(url) {
 					UIApplication.shared.open(url)
 				} else {
 					UIApplication.shared.open(URL(string: "itms-apps://itunes.apple.com/app/id304608425")!)
-				}
-			} label: {
-				HStack {
-					Image("maps-arrow")
-						.frame(width: 20, height: 20)
-					Text("길찾기")
-						.font(.system(size: 14))
-						.fontWeight(.medium)
 				}
 			}
 		}
@@ -356,12 +355,11 @@ extension PlanDetailScreen {
 extension PlanDetailScreen {
 	/// 장소의 도착 시간을 수정하기 위한 버튼입니다.
 	func arrivalTimeEditButton(place: Binding<Place>) -> some View {
-		Button {
-			viewModel.editArrivalTimeOf(place: place)
-		} label: {
-			Image(systemName: "pencil")
-				.font(.system(size: 12))
-		}
+		Image(systemName: "pencil")
+			.font(.system(size: 12))
+			.onTapGesture {
+				viewModel.editArrivalTimeOf(place: place)
+			}
 	}
 	
 	/// 장소의 도착 시간을 수정하는 뷰입니다.
