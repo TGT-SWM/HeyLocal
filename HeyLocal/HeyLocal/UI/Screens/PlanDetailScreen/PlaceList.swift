@@ -237,7 +237,7 @@ extension PlanDetailScreen {
 				}
 			} label: {
 				HStack {
-					Image("maps_arrow_icon")
+					Image("maps-arrow")
 						.frame(width: 20, height: 20)
 					Text("길찾기")
 						.font(.system(size: 14))
