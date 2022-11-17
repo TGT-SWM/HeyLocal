@@ -91,7 +91,7 @@ struct TravelOnRepository {
     }
     
     // 여행On에 등록된 플랜 조회
-    func getPlan(travelOnId: Int, plan: Binding<Plan>) {
+	func getPlan(travelOnId: Int, onReceive: @escaping (Plan) -> Void) {
         let urlString = "\(travelonUrl)/\(travelOnId)/plan"
         let url = URL(string: urlString)!
         var request = URLRequest(url: url)
@@ -111,8 +111,7 @@ struct TravelOnRepository {
             if httpResponse.statusCode == 200 {
                 do {
                     let result = try JSONDecoder().decode(Plan.self, from: data)
-                    plan.wrappedValue = result
-                    print("\(result.regionId)")
+                    onReceive(result)
                 } catch {
                     print("ERROR")
                 }
