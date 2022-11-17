@@ -441,9 +441,9 @@ extension PlanDetailScreen.ViewModel {
 	}
 	
 	/// 장소의 위도와 경도를 넘겨 받아, 현재 이 장소에 있는지의 여부를 판단합니다.
-	/// 판단의 기준은 직선 거리 2km 이내입니다.
+	/// 판단의 기준은 직선 거리 1km 이내입니다.
 	func isCurrentPlace(lat: Double, lng: Double) -> Bool {
-		let threshold = 2.0
+		let threshold = 1000.0
 		let distance = distanceBetween(
 			lat1: lat,
 			lng1: lng,
