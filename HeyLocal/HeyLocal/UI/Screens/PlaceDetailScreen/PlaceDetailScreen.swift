@@ -92,7 +92,7 @@ extension PlaceDetailScreen {
 	
 	/// 장소의 영업 시간에 대한 뷰입니다.
 	var openingTimeView: some View {
-		HStack {
+		HStack(alignment: .top) {
 			Image("clock-outline")
 				.font(.system(size: 10))
 			
@@ -101,7 +101,7 @@ extension PlaceDetailScreen {
 					.font(.system(size: 12))
 					.foregroundColor(Color("gray"))
 			} else {
-				VStack {
+				VStack(alignment: .leading) {
 					ForEach(vm.openingTimes, id: \.self) {
 						Text($0)
 							.font(.system(size: 12))
