@@ -75,6 +75,9 @@ extension SignUpScreen {
 				AuthTextField(name: "아이디", value: $vm.id, placeholder: "영문, 숫자 조합 5자 ~ 20자", secured: false)
 					.keyboardType(.asciiCapable)
 					.autocapitalization(.none)
+					.onChange(of: vm.id) { _ in
+						vm.isDuplicateId = nil
+					}
 				
 				Button {
 					vm.confirmDuplicateId()
