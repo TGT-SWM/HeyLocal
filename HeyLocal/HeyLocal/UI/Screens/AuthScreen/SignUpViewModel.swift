@@ -24,6 +24,7 @@ extension SignUpScreen {
 		@Published var isDuplicateId: Bool?
 		@Published var showAlert = false
 		@Published var alertMsg = ""
+		@Published var showLoadingSpinner = false
 		
 		// 정규표현식
 		let nicknameValidator = NSPredicate(format: "SELF MATCHES %@", "^[a-zA-Z0-9가-힣]{2,20}$")
@@ -103,7 +104,7 @@ extension SignUpScreen.ViewModel {
 // MARK: - 회원가입 기능
 extension SignUpScreen.ViewModel {
 	/// 회원가입을 요청합니다.
-	func signUp(onSuccess: @escaping () -> Void) {
+	func signUp() {
 		// 모든 필드가 입력되었나
 		if !checkFormFilled() { return }
 		
@@ -123,6 +124,7 @@ extension SignUpScreen.ViewModel {
 		if !checkFormat() { return }
 		
 		// 회원가입 요청
+		showLoadingSpinner = true
 		authService.signUp(
 			accountId: id,
 			nickname: nickname,
@@ -130,9 +132,13 @@ extension SignUpScreen.ViewModel {
 		) { errMsg in
 			if let msg = errMsg { // 회원가입 실패
 				self.alert(message: msg)
-			} else { // 회원가입 성공
-				onSuccess()
-				self.clearForm()
+			} else { // 회원가입 성공 시, 바로 로그인
+				self.authService.signIn(
+					accountId: self.id,
+					password: self.password
+				) { _ in
+					self.showLoadingSpinner = false
+				}
 			}
 		}
 	}

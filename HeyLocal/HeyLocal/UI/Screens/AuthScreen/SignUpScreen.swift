@@ -30,6 +30,10 @@ struct SignUpScreen: View {
 					showModal: $vm.showAlert
 				)
 			}
+			
+			if vm.showLoadingSpinner {
+				RectangleProgressView()
+			}
 		}
 		.navigationTitle("회원가입")
 		.navigationBarTitleDisplayMode(.inline)
@@ -121,9 +125,7 @@ extension SignUpScreen {
 	/// 회원가입 버튼 뷰입니다.
 	var submitButton: some View {
 		Button {
-			vm.signUp {
-				dismiss()
-			}
+			vm.signUp()
 		} label: {
 			ZStack {
 				RoundedRectangle(cornerRadius: 22)
