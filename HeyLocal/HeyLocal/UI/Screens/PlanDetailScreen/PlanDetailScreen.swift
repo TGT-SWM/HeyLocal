@@ -11,7 +11,7 @@ import SwiftUI
 // MARK: - PlanDetailScreen (플랜 상세 화면)
 
 struct PlanDetailScreen: View {
-	@ObservedObject var viewModel: ViewModel // 뷰 모델
+	@StateObject var viewModel: ViewModel // 뷰 모델
 	var plan: Plan // 대상이 되는 플랜 객체
 	
 	@Environment(\.dismiss) var dismiss
@@ -20,7 +20,7 @@ struct PlanDetailScreen: View {
 	
 	init(plan: Plan) {
 		self.plan = plan
-		self.viewModel = ViewModel(plan: plan)
+		self._viewModel = StateObject(wrappedValue: ViewModel(plan: plan))
 	}
 	
     var body: some View {

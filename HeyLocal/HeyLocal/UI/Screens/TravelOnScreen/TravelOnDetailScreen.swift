@@ -607,20 +607,19 @@ extension TravelOnDetailScreen {
                             Button(action: {
                                 planViewModel.selected = travelon
                                 planViewModel.submit{
-                                    travelOnRepository.getPlan(travelOnId: travelOnId, plan: Binding(get: { plan },
-                                                                                                     set: { plan = $0 }))
+									travelOnRepository.getPlan(travelOnId: travelOnId) { plan in
+										self.plan = plan
+										planNavigationActive.toggle()
+									}
                                     
-                                    planNavigationActive.toggle()
-                                    print("\(planNavigationActive.description)")
                                 } onError : { error in
                                     let apiError: APIError = error as! APIError
                                     planViewModel.displayAlert(apiError.description)
                                     
-                                    travelOnRepository.getPlan(travelOnId: travelOnId, plan: Binding(get: { plan },
-                                                                                                     set: { plan = $0 }))
-                                    
-                                    planNavigationActive.toggle()
-                                    print("\(planNavigationActive.description)")
+									travelOnRepository.getPlan(travelOnId: travelOnId) { plan in
+										self.plan = plan
+										planNavigationActive.toggle()
+									}
                                 }
                             }) {
                                 // Label
