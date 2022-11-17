@@ -97,7 +97,7 @@ struct HomeScreen: View {
                 displayTabBar(true)
             }
             .background(Color("lightGray"))
-            .navigationBarTitle("", displayMode: .automatic)
+			.navigationBarTitle("", displayMode: .inline)
             .navigationBarItems(
 				leading: Image("login-symbol")
                     .resizable()
