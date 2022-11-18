@@ -1048,25 +1048,15 @@ struct OpinionWriteScreen: View {
                 Spacer()
                     .frame(height: 5)
                 
-                ZStack(alignment: .leading) {
-                    TextField("", text: $viewModel.opinion.recommendFoodDescription)
-                        .multilineTextAlignment(TextAlignment.leading)
-                        .font(.system(size: 12))
-                        .foregroundColor(Color("gray"))
-                        .frame(width: 360, height: 40)
-                        .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color("mediumGray"), style: StrokeStyle(lineWidth: 1.0)))
-                        .background(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
-                        .cornerRadius(10)
-                    
-                    if viewModel.opinion.recommendFoodDescription == "" {
-                        VStack(alignment: .leading) {
-                            Text("25자 이내로 작성해주세요")
-                        }
-                        .padding()
-                        .font(.system(size: 12))
-                        .foregroundColor(Color("gray"))
-                    }
-                }
+				TextField("25자 이내로 작성해주세요", text: $viewModel.opinion.recommendFoodDescription)
+					.multilineTextAlignment(TextAlignment.leading)
+					.font(.system(size: 12))
+					.foregroundColor(Color("gray"))
+					.frame(width: 360, height: 40)
+					.padding(.leading, 8)
+					.overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color("mediumGray"), style: StrokeStyle(lineWidth: 1.0)))
+					.background(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
+					.cornerRadius(10)
             }
         }
         .padding()
@@ -1264,26 +1254,16 @@ struct OpinionWriteScreen: View {
                 
                 Spacer()
                     .frame(height: 5)
-                
-                ZStack(alignment: .leading) {
-                    TextField("", text: $viewModel.opinion.recommendDrinkAndDessertDescription)
-                        .multilineTextAlignment(TextAlignment.leading)
-                        .font(.system(size: 12))
-                        .foregroundColor(Color("gray"))
-                        .frame(width: 360, height: 40)
-                        .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color("mediumGray"), style: StrokeStyle(lineWidth: 1.0)))
-                        .background(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
-                        .cornerRadius(10)
-                    
-                    if viewModel.opinion.recommendDrinkAndDessertDescription == "" {
-                        VStack(alignment: .leading) {
-                            Text("25자 이내로 작성해주세요")
-                        }
-                        .padding()
-                        .font(.system(size: 12))
-                        .foregroundColor(Color("gray"))
-                    }
-                }
+				
+				TextField("25자 이내로 작성해주세요", text: $viewModel.opinion.recommendDrinkAndDessertDescription)
+					.multilineTextAlignment(TextAlignment.leading)
+					.font(.system(size: 12))
+					.foregroundColor(Color("gray"))
+					.frame(width: 360, height: 40)
+					.padding(.leading, 8)
+					.overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color("mediumGray"), style: StrokeStyle(lineWidth: 1.0)))
+					.background(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
+					.cornerRadius(10)
             }
             
             Spacer()
