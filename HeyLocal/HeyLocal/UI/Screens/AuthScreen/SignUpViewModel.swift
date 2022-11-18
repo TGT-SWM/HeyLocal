@@ -136,10 +136,10 @@ extension SignUpScreen.ViewModel {
 				self.authService.signIn(
 					accountId: self.id,
 					password: self.password
-				) { _ in
-					self.showLoadingSpinner = false
-				}
+				) { _ in }
 			}
+			
+			self.showLoadingSpinner = false
 		}
 	}
 	

@@ -37,6 +37,8 @@ extension SignInScreen.ViewModel {
 			if let msg = errMsg { // 로그인 실패
 				self.alert(message: msg)
 			}
+			
+			self.showLoadingSpinner = false
 		}
 	}
 }
