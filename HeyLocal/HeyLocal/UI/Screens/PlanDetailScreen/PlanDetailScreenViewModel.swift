@@ -48,6 +48,7 @@ extension PlanDetailScreen {
 		
 		init(plan: Plan) {
 			self.plan = plan
+            print(plan)
 		}
 	}
 }

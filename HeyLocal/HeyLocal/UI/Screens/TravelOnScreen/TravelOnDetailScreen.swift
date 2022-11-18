@@ -549,7 +549,7 @@ extension TravelOnDetailScreen {
                                      startDate: "2022-11-13",
                                      endDate: "2022-11-13",
                                      transportationType: "OWN_CAR")
-        
+
         var body: some View {
             VStack(alignment: .leading) {
                 Group {
@@ -668,7 +668,7 @@ extension TravelOnDetailScreen {
                                 Text("")
                             }
                         }
-                        
+
                         NavigationLink(destination: OpinionWriteScreen(travelOnId: travelOnId), isActive: $opinionWriteActive) {
                             Text("")
                         }

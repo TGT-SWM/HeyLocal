@@ -272,14 +272,20 @@ struct TravelOnWriteScreen: View {
                     Spacer()
                         .frame(height: 3)
                     
-                    TextField("제목 입력", text: $viewModel.travelOnArray.title)
-                        .font(.system(size: 12))
-                        .padding()
-                        .foregroundColor(Color("gray"))
-                        .frame(width: ScreenSize.width*0.95, height: 36)
-                        .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color("mediumGray"), style: StrokeStyle(lineWidth: 1.0)))
-                        .background(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
-                        .cornerRadius(10)
+                    ZStack(alignment: .leading) {
+                        Rectangle()
+                            .fill(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
+                            .frame(width: ScreenSize.width*0.95, height: 36)
+                            .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color("mediumGray"), style: StrokeStyle(lineWidth: 1.0)))
+                            .cornerRadius(10)
+                       
+                        TextField("제목 입력", text: $viewModel.travelOnArray.title)
+                            .background(.clear)
+                            .font(.system(size: 12))
+                            .padding()
+                            .foregroundColor(Color("gray"))
+                            .frame(width: ScreenSize.width*0.95, height: 36)
+                    }
                 }
             }
             
