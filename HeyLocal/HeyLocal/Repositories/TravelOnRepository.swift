@@ -181,11 +181,12 @@ struct TravelOnRepository {
         }.resume()
     }
     
-    func updateTravelOn(travelOnId: Int, travelOnData: TravelOnPost) {
+	func updateTravelOn(travelOnId: Int, travelOnData: TravelOnPost, onComplete: @escaping (Int) -> Void) {
         // travelOnData -> JSON Encoding
         let encoder = JSONEncoder()
         let jsonData = try? encoder.encode(travelOnData)
         var jsonStr: String = ""
+		var httpResponseStatusCode = 0
 
         if let jsonData = jsonData, let jsonString = String(data: jsonData, encoding: .utf8) {
             jsonStr = jsonString
@@ -202,17 +203,13 @@ struct TravelOnRepository {
         
         request.httpBody = jsonData
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data, let httpResponse = response as? HTTPURLResponse, error == nil else {
-                print(error?.localizedDescription ?? "No data")
-                return
+            if let data = data, let httpResponse = response as? HTTPURLResponse, error == nil {
+				httpResponseStatusCode = httpResponse.statusCode
             }
-//        
-            if httpResponse.statusCode == 201 {
-                self.getTravelOnLists(lastItemId: nil, pageSize: 15, keyword: nil, regionId: nil, sortBy: "DATE", withOpinions: false)
-            } else {
-                print(error)
-                return
-            }
+			
+			DispatchQueue.main.async {
+				onComplete(httpResponseStatusCode)
+			}
         }
         task.resume()
     }

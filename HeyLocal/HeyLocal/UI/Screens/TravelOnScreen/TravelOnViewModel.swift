@@ -258,8 +258,8 @@ extension TravelOnListScreen {
         }
         
         // Travel On 수정
-        func updateTravelOn(travelOnId: Int, travelOnData: TravelOnPost) {
-            return travelOnService.updateTravelOn(travelOnID: travelOnId, travelOnData: travelOnData)
+        func updateTravelOn(travelOnId: Int, travelOnData: TravelOnPost, onComplete: @escaping (Int) -> Void) {
+            return travelOnService.updateTravelOn(travelOnID: travelOnId, travelOnData: travelOnData, onComplete: onComplete)
         }
     }
 }
