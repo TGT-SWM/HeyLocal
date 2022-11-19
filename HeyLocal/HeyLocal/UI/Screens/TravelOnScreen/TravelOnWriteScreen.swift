@@ -29,9 +29,10 @@ struct TravelOnWriteScreen: View {
                 if ((isRevise) != nil) {
 					Button {
 						makeTravelOnJsonData()
-						viewModel.updateTravelOn(travelOnId: travelOnID!, travelOnData: travelOnData)
-						viewModel.fetchTravelOn(travelOnId: travelOnID!)
-						dismiss()
+						viewModel.updateTravelOn(travelOnId: travelOnID!, travelOnData: travelOnData) { _ in
+							viewModel.fetchTravelOn(travelOnId: travelOnID!)
+							dismiss()
+						}
 					} label: {
 						Text("수정 완료")
 							.font(.system(size: 16))
@@ -41,10 +42,10 @@ struct TravelOnWriteScreen: View {
                 else {
                     Button(action: {
                         makeTravelOnJsonData()
-                        if viewModel.postTravelOn(travelOnData: travelOnData) == 201 {
-                            viewModel.fetchTravelOnList(keyword: "", regionId: nil, sortBy: "DATE", withOpinions: false)
-                        }
-                        dismiss()
+						viewModel.postTravelOn(travelOnData: travelOnData) { _ in
+							viewModel.fetchTravelOnList(keyword: "", regionId: nil, sortBy: "DATE", withOpinions: false)
+							dismiss()
+						}
                     }) {
                         Text("작성 완료")
                             .font(.system(size: 16))

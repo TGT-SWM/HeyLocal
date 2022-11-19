@@ -64,8 +64,9 @@ struct TravelOnDetailScreen: View {
                             cancelWidth: 134,
                             confirmWidth: 109,
                             rightButtonAction: {
-                                viewModel.deleteTravelOn(travelOnId: viewModel.travelOn.id)
-                                dismiss()
+								viewModel.deleteTravelOn(travelOnId: viewModel.travelOn.id) {
+									dismiss()
+								}
                             })
             }
             

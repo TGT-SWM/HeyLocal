@@ -120,7 +120,7 @@ struct TravelOnRepository {
     }
     
     // 여행On 등록 API
-    func postTravelOn(travelOnData: TravelOnPost) -> Int {
+	func postTravelOn(travelOnData: TravelOnPost, onComplete: @escaping (Int) -> Void) {
         // travelOnData -> JSON Encoding
         let encoder = JSONEncoder()
         let jsonData = try? encoder.encode(travelOnData)
@@ -141,32 +141,19 @@ struct TravelOnRepository {
         
         request.httpBody = jsonData
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data, let httpResponse = response as? HTTPURLResponse, error == nil else {
-                print(error?.localizedDescription ?? "No data")
-                return
+            if let data = data, let httpResponse = response as? HTTPURLResponse, error == nil {
+				httpResponseStatusCode = httpResponse.statusCode
             }
-            print(httpResponse.statusCode)
-            print(type(of: httpResponse.statusCode))
-            httpResponseStatusCode = httpResponse.statusCode
-        
-            if httpResponse.statusCode == 201 {
-                self.getTravelOnLists(lastItemId: nil, pageSize: 15, keyword: "", regionId: nil, sortBy: "DATE", withOpinions: false)
-            } else {
-                print(error)
-                return
-            }
-//            guard let response = response as? HTTPURLResponse, response.statusCode == 200 {
-//                self.getTravelOnLists(lastItemId: nil, pageSize: 5, regionId: nil, sortBy: "DATE", withOpinions: false)
-//            } else {
-//                return
-//            }
+			
+			DispatchQueue.main.async {
+				onComplete(httpResponseStatusCode)
+			}
         }
         task.resume()
-        return httpResponseStatusCode
     }
     
     // 여행On 삭제 API
-    func deleteTravelOn(travelOnId: Int) {
+	func deleteTravelOn(travelOnId: Int, onComplete: @escaping () -> ()) {
         let urlString = "\(travelonUrl)/\(travelOnId)"
         let url = URL(string: urlString)!
         var request = URLRequest(url: url)
@@ -177,28 +164,34 @@ struct TravelOnRepository {
         
         
         URLSession.shared.dataTask(with: request) { data, response, error in
-            guard error == nil else {
+            if error != nil {
                 print("ERROR: error calling DELETE")
+				DispatchQueue.main.async { onComplete() }
                 return
             }
             
             guard let data = data else {
                 print("ERROR: Did not receive data")
+				DispatchQueue.main.async { onComplete() }
                 return
             }
             
             guard let response = response as? HTTPURLResponse, (200 ..< 299) ~= response.statusCode else {
                 print("ERROR: HTTP request failed")
+				DispatchQueue.main.async { onComplete() }
                 return
             }
+			
+			DispatchQueue.main.async { onComplete() }
         }.resume()
     }
     
-    func updateTravelOn(travelOnId: Int, travelOnData: TravelOnPost) {
+	func updateTravelOn(travelOnId: Int, travelOnData: TravelOnPost, onComplete: @escaping (Int) -> Void) {
         // travelOnData -> JSON Encoding
         let encoder = JSONEncoder()
         let jsonData = try? encoder.encode(travelOnData)
         var jsonStr: String = ""
+		var httpResponseStatusCode = 0
 
         if let jsonData = jsonData, let jsonString = String(data: jsonData, encoding: .utf8) {
             jsonStr = jsonString
@@ -215,17 +208,13 @@ struct TravelOnRepository {
         
         request.httpBody = jsonData
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data, let httpResponse = response as? HTTPURLResponse, error == nil else {
-                print(error?.localizedDescription ?? "No data")
-                return
+            if let data = data, let httpResponse = response as? HTTPURLResponse, error == nil {
+				httpResponseStatusCode = httpResponse.statusCode
             }
-//        
-            if httpResponse.statusCode == 201 {
-                self.getTravelOnLists(lastItemId: nil, pageSize: 15, keyword: nil, regionId: nil, sortBy: "DATE", withOpinions: false)
-            } else {
-                print(error)
-                return
-            }
+			
+			DispatchQueue.main.async {
+				onComplete(httpResponseStatusCode)
+			}
         }
         task.resume()
     }

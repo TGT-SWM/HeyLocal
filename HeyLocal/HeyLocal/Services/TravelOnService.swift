@@ -54,17 +54,17 @@ class TravelOnService {
     }
     
     // 여행On 삭제
-    func deleteTravelOn(travelOnId: Int) {
-        return travelOnRepository.deleteTravelOn(travelOnId: travelOnId)
+    func deleteTravelOn(travelOnId: Int, onComplete: @escaping () -> ()) {
+        return travelOnRepository.deleteTravelOn(travelOnId: travelOnId, onComplete: onComplete)
     }
     
     // 여행On 등록
-    func postTravelOn(travelOnData: TravelOnPost) -> Int {
-        return travelOnRepository.postTravelOn(travelOnData: travelOnData)
+	func postTravelOn(travelOnData: TravelOnPost, onComplete: @escaping (Int) -> Void) {
+        travelOnRepository.postTravelOn(travelOnData: travelOnData, onComplete: onComplete)
     }
     
     // 여행On 수정
-    func updateTravelOn(travelOnID: Int, travelOnData: TravelOnPost) {
-        return travelOnRepository.updateTravelOn(travelOnId: travelOnID, travelOnData: travelOnData)
+    func updateTravelOn(travelOnID: Int, travelOnData: TravelOnPost, onComplete: @escaping (Int) -> Void) {
+        return travelOnRepository.updateTravelOn(travelOnId: travelOnID, travelOnData: travelOnData, onComplete: onComplete)
     }
 }
