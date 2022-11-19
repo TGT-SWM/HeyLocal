@@ -54,8 +54,8 @@ class TravelOnService {
     }
     
     // 여행On 삭제
-    func deleteTravelOn(travelOnId: Int) {
-        return travelOnRepository.deleteTravelOn(travelOnId: travelOnId)
+    func deleteTravelOn(travelOnId: Int, onComplete: @escaping () -> ()) {
+        return travelOnRepository.deleteTravelOn(travelOnId: travelOnId, onComplete: onComplete)
     }
     
     // 여행On 등록

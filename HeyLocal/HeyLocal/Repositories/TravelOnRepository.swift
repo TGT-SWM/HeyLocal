@@ -153,7 +153,7 @@ struct TravelOnRepository {
     }
     
     // 여행On 삭제 API
-    func deleteTravelOn(travelOnId: Int) {
+	func deleteTravelOn(travelOnId: Int, onComplete: @escaping () -> ()) {
         let urlString = "\(travelonUrl)/\(travelOnId)"
         let url = URL(string: urlString)!
         var request = URLRequest(url: url)
@@ -164,20 +164,25 @@ struct TravelOnRepository {
         
         
         URLSession.shared.dataTask(with: request) { data, response, error in
-            guard error == nil else {
+            if error != nil {
                 print("ERROR: error calling DELETE")
+				DispatchQueue.main.async { onComplete() }
                 return
             }
             
             guard let data = data else {
                 print("ERROR: Did not receive data")
+				DispatchQueue.main.async { onComplete() }
                 return
             }
             
             guard let response = response as? HTTPURLResponse, (200 ..< 299) ~= response.statusCode else {
                 print("ERROR: HTTP request failed")
+				DispatchQueue.main.async { onComplete() }
                 return
             }
+			
+			DispatchQueue.main.async { onComplete() }
         }.resume()
     }
     

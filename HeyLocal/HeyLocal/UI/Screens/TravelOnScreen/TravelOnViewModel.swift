@@ -248,8 +248,8 @@ extension TravelOnListScreen {
         }
         
         // Travel On 삭제
-        func deleteTravelOn(travelOnId: Int) {
-            travelOnService.deleteTravelOn(travelOnId: travelOnId)
+        func deleteTravelOn(travelOnId: Int, onComplete: @escaping () -> ()) {
+            travelOnService.deleteTravelOn(travelOnId: travelOnId, onComplete: onComplete)
         }
         
         // Travel On 등록
