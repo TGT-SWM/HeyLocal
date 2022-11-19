@@ -47,12 +47,9 @@ extension PlanCreateScreen {
 	/// 여행 On 리스트 뷰입니다.
 	var travelOnList: some View {
 		LazyVStack {
-			ForEach(viewModel.travelOns, id: \.id) { listItem($0) }
+			writeTravelOnView
 			
-			// 여행 On이 없는 경우
-			if viewModel.travelOns.isEmpty && viewModel.isEnd {
-				emptyView
-			}
+			ForEach(viewModel.travelOns, id: \.id) { listItem($0) }
 			
 			// 더 이상 로드할 컨텐츠가 없는 경우 표시하지 않습니다.
 			if !viewModel.isEnd {
@@ -76,11 +73,11 @@ extension PlanCreateScreen {
 			}
 	}
 	
-	/// 여행 On이 없는 경우에 보여지는 뷰입니다.
-	var emptyView: some View {
+	/// 여행 On 작성 화면으로 이동하기 위한 뷰입니다.
+	var writeTravelOnView: some View {
 		HStack(alignment: .center) {
 			VStack(alignment: .center, spacing: 28) {
-				Text("플랜을 만들기 전에 먼저 여행 On을 작성해보세요")
+				Text("원하는 여행 On이 없다면?")
 					.foregroundColor(Color("gray"))
 					.font(.system(size: 16))
 					.fontWeight(.medium)
@@ -88,7 +85,7 @@ extension PlanCreateScreen {
 					.listRowInsets(EdgeInsets())
 				
 				NavigationLink(destination: TravelOnWriteScreen()) {
-					Text("여행 On 작성")
+					Text("여행 On 작성하기")
 						.font(.system(size: 14))
 						.fontWeight(.medium)
 						.foregroundColor(.white)
@@ -101,7 +98,7 @@ extension PlanCreateScreen {
 				.buttonStyle(PlainButtonStyle())
 			}
 		}
-		.frame(height: 400)
+		.frame(height: 200)
 	}
 }
 
