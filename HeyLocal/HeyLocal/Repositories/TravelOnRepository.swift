@@ -120,7 +120,7 @@ struct TravelOnRepository {
     }
     
     // 여행On 등록 API
-    func postTravelOn(travelOnData: TravelOnPost) -> Int {
+	func postTravelOn(travelOnData: TravelOnPost, onComplete: @escaping (Int) -> Void) {
         // travelOnData -> JSON Encoding
         let encoder = JSONEncoder()
         let jsonData = try? encoder.encode(travelOnData)
@@ -141,28 +141,15 @@ struct TravelOnRepository {
         
         request.httpBody = jsonData
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data, let httpResponse = response as? HTTPURLResponse, error == nil else {
-                print(error?.localizedDescription ?? "No data")
-                return
+            if let data = data, let httpResponse = response as? HTTPURLResponse, error == nil {
+				httpResponseStatusCode = httpResponse.statusCode
             }
-            print(httpResponse.statusCode)
-            print(type(of: httpResponse.statusCode))
-            httpResponseStatusCode = httpResponse.statusCode
-        
-            if httpResponse.statusCode == 201 {
-                self.getTravelOnLists(lastItemId: nil, pageSize: 15, keyword: "", regionId: nil, sortBy: "DATE", withOpinions: false)
-            } else {
-                print(error)
-                return
-            }
-//            guard let response = response as? HTTPURLResponse, response.statusCode == 200 {
-//                self.getTravelOnLists(lastItemId: nil, pageSize: 5, regionId: nil, sortBy: "DATE", withOpinions: false)
-//            } else {
-//                return
-//            }
+			
+			DispatchQueue.main.async {
+				onComplete(httpResponseStatusCode)
+			}
         }
         task.resume()
-        return httpResponseStatusCode
     }
     
     // 여행On 삭제 API

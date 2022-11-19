@@ -59,8 +59,8 @@ class TravelOnService {
     }
     
     // 여행On 등록
-    func postTravelOn(travelOnData: TravelOnPost) -> Int {
-        return travelOnRepository.postTravelOn(travelOnData: travelOnData)
+	func postTravelOn(travelOnData: TravelOnPost, onComplete: @escaping (Int) -> Void) {
+        travelOnRepository.postTravelOn(travelOnData: travelOnData, onComplete: onComplete)
     }
     
     // 여행On 수정

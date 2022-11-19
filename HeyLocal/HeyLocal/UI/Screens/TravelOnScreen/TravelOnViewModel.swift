@@ -253,8 +253,8 @@ extension TravelOnListScreen {
         }
         
         // Travel On 등록
-        func postTravelOn(travelOnData: TravelOnPost) -> Int {
-            return travelOnService.postTravelOn(travelOnData: travelOnData)
+		func postTravelOn(travelOnData: TravelOnPost, onComplete: @escaping (Int) -> Void) {
+            travelOnService.postTravelOn(travelOnData: travelOnData, onComplete: onComplete)
         }
         
         // Travel On 수정
