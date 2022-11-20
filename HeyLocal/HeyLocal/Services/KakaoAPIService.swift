@@ -74,15 +74,12 @@ class KakaoAPIService {
                 print(error?.localizedDescription ?? "NO Data")
                 return
             }
+			
             if httpResponse.statusCode == 200 {
                 do {
                     let result = try JSONDecoder().decode(KakaoImageResponse.self, from: data)
 					DispatchQueue.main.async {
-                        if place.wrappedValue.thumbnailUrl == nil { // ?? out of range
-                            place.wrappedValue.thumbnailUrl = ""
-                            place.wrappedValue.thumbnailUrl = result.documents[0].image_url
-                        }
-                        place.wrappedValue.thumbnailUrl = result.documents[0].image_url
+						place.wrappedValue.thumbnailUrl = result.documents.first?.image_url
 					}
                 } catch {
                     print("error")

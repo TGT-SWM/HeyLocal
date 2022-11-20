@@ -22,7 +22,7 @@ struct Place: Codable, Identifiable, Hashable {
 	var itemIndex: Int?
 	var arrivalTime: String?
     var region: Region?
-    var thumbnailUrl: String? = ""
+    var thumbnailUrl: String?
     
 	/// 카테고리의 이름 (ex. 음식점)
 	var categoryName: String {
