@@ -10,6 +10,8 @@ import SwiftUI
 
 struct OpinionPlacePickerScreen: View {
     @Environment(\.dismiss) private var dismiss
+	let travelOnService = TravelOnService()
+	
     var btnBack : some View { Button(action: {
         dismiss()
         }) {
@@ -21,21 +23,35 @@ struct OpinionPlacePickerScreen: View {
         }
     }
     
+	var travelOnId: Int
     @Binding var place: Place
+	
     @ObservedObject var viewModel = PlaceSearchScreen.ViewModel()
+	@State var showModal = false
+	
     var body: some View {
-        VStack(alignment: .leading) {
-            SearchBar(placeholder: "", searchText: $viewModel.query) { _ in
-                viewModel.search()
-            }
-                .padding(EdgeInsets(top: 0, leading: 20, bottom: 10, trailing: 0))
-            
-            ZStack(alignment: .bottom) {
-                ScrollView {
-                    content
-                }
-            }
-        }
+		ZStack {
+			VStack(alignment: .leading) {
+				SearchBar(placeholder: "", searchText: $viewModel.query) { _ in
+					viewModel.search()
+				}
+					.padding(EdgeInsets(top: 0, leading: 20, bottom: 10, trailing: 0))
+				
+				ZStack(alignment: .bottom) {
+					ScrollView {
+						content
+					}
+				}
+			}
+			
+			if showModal {
+				ConfirmModal(
+					title: "안내",
+					message: "여행 On과 같은 지역의 장소만 추천할 수 있어요.",
+					showModal: $showModal
+				)
+			}
+		}
         .navigationTitle("장소 선택")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
@@ -59,9 +75,14 @@ struct OpinionPlacePickerScreen: View {
     func searchedItem(_ item: Place) -> some View {
         HStack(alignment: .center, spacing: 0) {
             Button(action: {
-                self.place = item
-                print("\(item.address)")
-                dismiss()
+				travelOnService.checkAddressWithTravelOn(travelOnId: travelOnId, address: item.address) { isSame in
+					if isSame {
+						self.place = item
+						dismiss()
+					} else {
+						showModal = true
+					}
+				}
             }) {
                 // 썸네일
                 if let imageURL = item.thumbnailUrl {

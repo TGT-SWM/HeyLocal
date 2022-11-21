@@ -19,6 +19,7 @@ extension OpinionComponent {
         let coffeeStr: [String] = ["BITTER", "SOUR", "GENERAL"]
         
         private var opinionService = OpinionService()
+		private var travelOnService = TravelOnService()
         private var kakaoService = KakaoAPIService()
         
         @Published var opinions: [Opinion]
@@ -206,5 +207,13 @@ extension OpinionComponent {
             }
             return 0
         }
+		
+		func checkAddressWithTravelOn(travelOnId: Int, address: String, onComplete: @escaping (Bool) -> Void) {
+			travelOnService.checkAddressWithTravelOn(
+				travelOnId: travelOnId,
+				address: address,
+				onComplete: onComplete
+			)
+		}
     }
 }
