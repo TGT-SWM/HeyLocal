@@ -269,15 +269,15 @@ struct TravelOnDetailScreen: View {
                         /// 숙소형태
                         HStack {
                             // 가격 상관 없어요 선택 시
-                            if viewModel.travelOn.accommodationMaxCost == 0 {
-                                Text("가격 상관없이")
-                            }
-                            else {
-                                Text("\(viewModel.travelOn.accommodationMaxCost! / 10000)만원 이하의 ")
-                            }
-                            
-                            Spacer()
-                                .frame(width: 2)
+//                            if viewModel.travelOn.accommodationMaxCost == 0 {
+//                                Text("가격 상관없이")
+//                            }
+//                            else {
+//                                Text("\(viewModel.travelOn.accommodationMaxCost! / 10000)만원 이하의 ")
+//                            }
+//
+//                            Spacer()
+//                                .frame(width: 2)
     
                             // 숙소 어디든 선택 시
                             if viewModel.travelOn.hopeAccommodationSet![0].type == "ALL" {
@@ -287,6 +287,9 @@ struct TravelOnDetailScreen: View {
                                 Group {
                                     ForEach(viewModel.travelOn.hopeAccommodationSet!) { accom in
                                         Text("\(accomToString(accom: accom.type))")
+                                        
+                                        Spacer()
+                                            .frame(width: 1)
                                         
                                         if accom.type != viewModel.travelOn.hopeAccommodationSet![viewModel.travelOn.hopeAccommodationSet!.count - 1].type {
                                             Text(", ")
@@ -689,11 +692,3 @@ extension TravelOnDetailScreen {
         }
     }
 }
-
-struct TravelOnDetailScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        TravelOnDetailScreen(travelOnId: 32)
-    }
-}
-
-

@@ -133,20 +133,7 @@ struct TravelOnWriteScreen: View {
             travelOnData.travelTypeGroup.snsTasteType = "NO"
         }
 
-        switch viewModel.travelOnArray.accomPrice {
-        case .ten:
-            travelOnData.accommodationMaxCost = 100000
-        case .twenty:
-            travelOnData.accommodationMaxCost = 200000
-        case .thirty:
-            travelOnData.accommodationMaxCost = 300000
-        case .forty:
-            travelOnData.accommodationMaxCost = 400000
-        case .etc:
-            travelOnData.accommodationMaxCost = 0
-        case .none:
-            travelOnData.accommodationMaxCost = 0
-        }
+        travelOnData.accommodationMaxCost = 0
     }
 
     
@@ -161,7 +148,7 @@ struct TravelOnWriteScreen: View {
         let checkFoodArray =  checkArray(array: viewModel.travelOnArray.foodSet)
         let checkDrinkArray =  checkArray(array: viewModel.travelOnArray.drinkSet)
         
-        if viewModel.travelOnArray.title != "" && viewModel.travelOnArray.regionId != nil && viewModel.travelOnArray.description != "" && checkAccomArray && checkMemberArray && checkTransArray && checkFoodArray && checkDrinkArray && viewModel.travelOnArray.accomPrice != nil && (viewModel.travelOnArray.place != viewModel.travelOnArray.fresh) && (viewModel.travelOnArray.sns != viewModel.travelOnArray.noSNS) && (viewModel.travelOnArray.activity != viewModel.travelOnArray.lazy) {
+        if viewModel.travelOnArray.title != "" && viewModel.travelOnArray.regionId != nil && viewModel.travelOnArray.description != "" && checkAccomArray && checkMemberArray && checkTransArray && checkFoodArray && checkDrinkArray && (viewModel.travelOnArray.place != viewModel.travelOnArray.fresh) && (viewModel.travelOnArray.sns != viewModel.travelOnArray.noSNS) && (viewModel.travelOnArray.activity != viewModel.travelOnArray.lazy) {
             result = true
         }
         
@@ -566,81 +553,81 @@ struct TravelOnWriteScreen: View {
                     
                     Spacer()
                     
-                    Menu {
-                        Picker(selection: $viewModel.travelOnArray.accomPrice) {
-                            ForEach(Price.allCases, id:\.id) { value in
-                                switch value {
-                                case .ten:
-                                    Text("10만원 이하")
-                                        .tag(value as Price?)
-                                        .font(.system(size: 12))
-                                    
-                                case .twenty:
-                                    Text("20만원 이하")
-                                        .tag(value as Price?)
-                                        .font(.system(size: 12))
-                                    
-                                case .thirty:
-                                    Text("30만원 이하")
-                                        .tag(value as Price?)
-                                        .font(.system(size: 12))
-                                    
-                                case .forty:
-                                    Text("40만원 이하")
-                                        .tag(value as Price?)
-                                        .font(.system(size: 12))
-                                    
-                                case .etc:
-                                    Text("상관없어요")
-                                        .tag(value as Price?)
-                                        .font(.system(size: 12))
-                                }
-                            }
-                        } label: {}
-                    } label : {
-                        HStack {
-                            switch viewModel.travelOnArray.accomPrice {
-                            case .ten:
-                                Text("10만원 이하")
-                                    .font(.system(size: 12))
-                                    .foregroundColor(Color("orange"))
-                                
-                            case .twenty:
-                                Text("20만원 이하")
-                                    .font(.system(size: 12))
-                                    .foregroundColor(Color("orange"))
-                                
-                            case .thirty:
-                                Text("30만원 이하")
-                                    .font(.system(size: 12))
-                                    .foregroundColor(Color("orange"))
-                                
-                            case .forty:
-                                Text("40만원 이하")
-                                    .font(.system(size: 12))
-                                    .foregroundColor(Color("orange"))
-                                
-                            case .etc:
-                                Text("상관없어요")
-                                    .font(.system(size: 12))
-                                    .foregroundColor(Color("orange"))
-                                
-                            default:
-                                Text("가격대 선택")
-                                    .font(.system(size: 12))
-                                    .foregroundColor(Color("orange"))
-                            }
-                            
-                            Spacer()
-                                .frame(width: 3)
-                            
-                            Image(systemName: "chevron.down")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 10)
-                                .foregroundColor(Color("orange"))
-                        }
-                    }.id(viewModel.travelOnArray.accomPrice)
+//                    Menu {
+//                        Picker(selection: $viewModel.travelOnArray.accomPrice) {
+//                            ForEach(Price.allCases, id:\.id) { value in
+//                                switch value {
+//                                case .ten:
+//                                    Text("10만원 이하")
+//                                        .tag(value as Price?)
+//                                        .font(.system(size: 12))
+//
+//                                case .twenty:
+//                                    Text("20만원 이하")
+//                                        .tag(value as Price?)
+//                                        .font(.system(size: 12))
+//
+//                                case .thirty:
+//                                    Text("30만원 이하")
+//                                        .tag(value as Price?)
+//                                        .font(.system(size: 12))
+//
+//                                case .forty:
+//                                    Text("40만원 이하")
+//                                        .tag(value as Price?)
+//                                        .font(.system(size: 12))
+//
+//                                case .etc:
+//                                    Text("상관없어요")
+//                                        .tag(value as Price?)
+//                                        .font(.system(size: 12))
+//                                }
+//                            }
+//                        } label: {}
+//                    } label : {
+//                        HStack {
+//                            switch viewModel.travelOnArray.accomPrice {
+//                            case .ten:
+//                                Text("10만원 이하")
+//                                    .font(.system(size: 12))
+//                                    .foregroundColor(Color("orange"))
+//
+//                            case .twenty:
+//                                Text("20만원 이하")
+//                                    .font(.system(size: 12))
+//                                    .foregroundColor(Color("orange"))
+//
+//                            case .thirty:
+//                                Text("30만원 이하")
+//                                    .font(.system(size: 12))
+//                                    .foregroundColor(Color("orange"))
+//
+//                            case .forty:
+//                                Text("40만원 이하")
+//                                    .font(.system(size: 12))
+//                                    .foregroundColor(Color("orange"))
+//
+//                            case .etc:
+//                                Text("상관없어요")
+//                                    .font(.system(size: 12))
+//                                    .foregroundColor(Color("orange"))
+//
+//                            default:
+//                                Text("가격대 선택")
+//                                    .font(.system(size: 12))
+//                                    .foregroundColor(Color("orange"))
+//                            }
+//
+//                            Spacer()
+//                                .frame(width: 3)
+//
+//                            Image(systemName: "chevron.down")
+//                                .resizable()
+//                                .scaledToFit()
+//                                .frame(width: 10)
+//                                .foregroundColor(Color("orange"))
+//                        }
+//                    }.id(viewModel.travelOnArray.accomPrice)
                 }
                 
                 ScrollView(.horizontal, showsIndicators: false) {
