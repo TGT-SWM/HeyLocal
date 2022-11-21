@@ -89,10 +89,10 @@ struct CustomImagePicker: View {
             let options = PHImageRequestOptions()
             options.isSynchronous = true
             
-            for i in stride(from: 0, to: req.count, by: 3) {
+            for i in stride(from: req.count, to: 0, by: -3) {
                 var iteration: [Images] = []
                 
-                for j in i..<i+3 {
+                for j in i-3..<i {
                     if j < req.count {
                         PHCachingImageManager.default().requestImage(for: req[j], targetSize: CGSize(width: 150, height: 150), contentMode: .default, options: options) { (image, _) in
                             
