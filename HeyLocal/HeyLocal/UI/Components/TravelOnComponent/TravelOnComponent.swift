@@ -58,6 +58,7 @@ struct TravelOnComponent: View {
                 Text("\(travelOn.title)")
                     .font(.system(size: 14))
                     .fontWeight(.medium)
+                    .multilineTextAlignment(.leading)
                 
                 Spacer()
                     .frame(height: 10)
