@@ -96,3 +96,7 @@ struct TravelTypeGroup: Decodable, Identifiable {
     var activityTasteType: String = "HARD"
     var snsTasteType: String = "YES"
 }
+
+struct CheckAddressWithTravelOnResponse: Decodable {
+	var sameRegionAddress: Bool
+}
