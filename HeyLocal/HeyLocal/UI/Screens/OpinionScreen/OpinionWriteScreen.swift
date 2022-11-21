@@ -275,7 +275,7 @@ struct OpinionWriteScreen: View {
         VStack(alignment: .leading) {
             /// 장소
             VStack(alignment: .leading) {
-                NavigationLink(destination: OpinionPlacePickerScreen(place: $viewModel.opinion.place)) {
+				NavigationLink(destination: OpinionPlacePickerScreen(travelOnId: travelOnId, place: $viewModel.opinion.place)) {
                     
                     ZStack(alignment: .leading) {
                         Rectangle()

@@ -218,4 +218,19 @@ struct TravelOnRepository {
         }
         task.resume()
     }
+	
+	/// 여행 On의 지역과 주소에 해당하는 지역이 일치하는지에 대한 결과를 요청합니다.
+	func checkAddressWithTravelOn(travelOnId: Int, address: String) -> AnyPublisher<CheckAddressWithTravelOnResponse, Error> {
+		let urlStr = "\(travelonUrl)/\(travelOnId)/address?targetAddress=\(address)"
+		let encodedUrlStr = urlStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+		let url = URL(string: encodedUrlStr)!
+		var request = URLRequest(url: url)
+		
+		request.httpMethod = "GET"
+		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+		request.addValue("application/json", forHTTPHeaderField: "Accept")
+		request.addValue("Bearer \(AuthManager.shared.accessToken)", forHTTPHeaderField: "Authorization")
+		
+		return agent.run(request)
+	}
 }

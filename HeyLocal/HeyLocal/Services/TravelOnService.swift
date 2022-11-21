@@ -67,4 +67,16 @@ class TravelOnService {
     func updateTravelOn(travelOnID: Int, travelOnData: TravelOnPost, onComplete: @escaping (Int) -> Void) {
         return travelOnRepository.updateTravelOn(travelOnId: travelOnID, travelOnData: travelOnData, onComplete: onComplete)
     }
+	
+	/// 여행 On의 지역과 주소의 지역이 같은지 검사합니다.
+	func checkAddressWithTravelOn(travelOnId: Int, address: String, onComplete: @escaping (Bool) -> Void) {
+		travelOnRepository.checkAddressWithTravelOn(travelOnId: travelOnId, address: address)
+			.sink(
+				receiveCompletion: { _ in },
+				receiveValue: {
+					onComplete($0.sameRegionAddress)
+				}
+			)
+			.store(in: &cancelBag)
+	}
 }
