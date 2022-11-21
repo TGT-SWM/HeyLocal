@@ -25,12 +25,18 @@ struct ProfileScreen: View {
         Button(action: {
             showingSheet.toggle()
         }) {
-            Image(systemName: "ellipsis")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 14)
-                .foregroundColor(.black)
-                .rotationEffect(.degrees(-90))
+            ZStack(alignment: .trailing) {
+                Rectangle()
+                    .fill(.clear)
+                    .frame(width: 50, height: 15)
+                
+                Image(systemName: "ellipsis")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 14)
+                    .foregroundColor(.black)
+                    .rotationEffect(.degrees(-90))
+            }
         }
         .confirmationDialog("", isPresented: $showingSheet, titleVisibility: .hidden) {
             Button("사용자 차단", role: .destructive) {
