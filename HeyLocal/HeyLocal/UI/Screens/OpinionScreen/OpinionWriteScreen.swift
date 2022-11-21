@@ -445,17 +445,31 @@ struct OpinionWriteScreen: View {
             
             /// 한줄평
             VStack(alignment: .leading) {
+                
                 ZStack(alignment: .topLeading) {
                     Rectangle()
                         .fill(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
-                        .frame(width: 360, height: 100)
+                        .frame(width: ScreenSize.width*0.9, height: 100)
                         .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color("mediumGray"), style: StrokeStyle(lineWidth: 1.0)))
                         .cornerRadius(10)
                     
-                    TextField("한줄평을 작성해주세요!", text: $viewModel.opinion.description)
-                        .padding()
-                        .font(.system(size: 12))
-                        .foregroundColor(Color("gray"))
+                    ZStack(alignment: .topLeading) {
+                        TextEditor(text: $viewModel.opinion.description)
+                            .foregroundColor(Color("gray"))
+                            .font(.system(size: 12))
+                            .lineSpacing(3)
+                            .lineLimit(5)
+                            .background(Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255))
+                            .frame(minWidth: 0, maxWidth: ScreenSize.width*0.85, minHeight: 0, maxHeight: 100)
+                            .padding()
+                        
+                        if viewModel.opinion.description == "" {
+                            Text("한줄평을 작성해주세요!")
+                                .font(.system(size: 12))
+                                .foregroundColor(Color("gray"))
+                                .padding(EdgeInsets(top: 25, leading: 20, bottom: 0, trailing: 0))
+                        }
+                    }
                 }
             }
             .padding(EdgeInsets(top: 0, leading: 20, bottom: 20, trailing: 0))
