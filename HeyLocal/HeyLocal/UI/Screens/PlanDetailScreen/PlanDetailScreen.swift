@@ -45,12 +45,18 @@ struct PlanDetailScreen: View {
 			}
 		}
 		.onAppear {
-            
 			displayTabBar(false)
 			if viewModel.schedules.isEmpty {
 				viewModel.fetchPlaces()
 			}
-			viewModel.fetchCurrentLocation()
+			if viewModel.shouldFetchCurrentLocation {
+				viewModel.fetchCurrentLocation()
+			}
+		}
+		.onChange(of: viewModel.shouldFetchCurrentLocation) { shouldFetch in
+			if shouldFetch {
+				viewModel.fetchCurrentLocation()
+			}
 		}
     }
 	
@@ -160,11 +166,26 @@ extension PlanDetailScreen {
 					.fontWeight(.medium)
 					.foregroundColor(Color("gray"))
 				Spacer()
+				
+				if viewModel.loadingLocation {
+					loadingLocationMessage
+				}
 			}
 			.padding(.horizontal, 27)
 		}
 		.frame(height: 40)
 		.padding(.bottom, 7)
+	}
+	
+	var loadingLocationMessage: some View {
+		HStack(spacing: 4) {
+			ProgressView()
+				.scaleEffect(0.7, anchor: .center)
+			Text("위치 로딩 중...")
+				.font(.system(size: 14))
+				.fontWeight(.medium)
+				.foregroundColor(Color("gray"))
+		}
 	}
 }
 
