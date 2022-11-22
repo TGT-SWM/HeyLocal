@@ -1123,7 +1123,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "현지야";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "지도를 통해 현재 위치를 제공하기 위해 위치 권한이 필요합니다.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진 업로드를 위해 라이브러리 접근 권한이 필요합니다.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "여행 사진이나 프로필 사진을 업로드하려면 사진 라이브러리 접근 권한이 필요해요. 업로드한 사진은 현지야 서버에 안전하게 저장되며, 원하면 언제든지 직접 삭제할 수 있어요.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1170,7 +1170,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "현지야";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "지도를 통해 현재 위치를 제공하기 위해 위치 권한이 필요합니다.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진 업로드를 위해 라이브러리 접근 권한이 필요합니다.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "여행 사진이나 프로필 사진을 업로드하려면 사진 라이브러리 접근 권한이 필요해요. 업로드한 사진은 현지야 서버에 안전하게 저장되며, 원하면 언제든지 직접 삭제할 수 있어요.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
