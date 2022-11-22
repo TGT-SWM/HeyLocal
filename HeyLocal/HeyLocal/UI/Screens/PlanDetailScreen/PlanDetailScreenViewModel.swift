@@ -37,6 +37,7 @@ extension PlanDetailScreen {
 		@Published var arrivalTimeEdited = Date()
 		var schedulesBackUp: [DaySchedule] = [] // 스케줄 수정 취소를 위한 임시 저장
 		
+		@Published var loadingLocation = false
 		@Published var lat: Double = 0 // 현재 사용자 위도
 		@Published var lng: Double = 0 // 현재 사용자 경도
 		
@@ -419,13 +420,11 @@ extension PlanDetailScreen.ViewModel {
 extension PlanDetailScreen.ViewModel {
 	/// 사용자의 현재 위치를 요청합니다.
 	func fetchCurrentLocation() {
+		loadingLocation = true
 		locationService.requestLocation { coord in
 			self.lat = coord.latitude
 			self.lng = coord.longitude
-			
-			print("Current location")
-			print(self.lat)
-			print(self.lng)
+			self.loadingLocation = false
 		}
 	}
 	
