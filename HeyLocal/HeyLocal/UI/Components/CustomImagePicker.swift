@@ -24,7 +24,7 @@ struct CustomImagePicker: View {
             if !self.grid.isEmpty {
                 /// 사진 grid
                 ScrollView(.vertical, showsIndicators: false) {
-                    VStack(spacing: 20) {
+                    VStack(alignment: .leading, spacing: 20) {
                         ForEach(self.grid, id:\.self) { i in
                             HStack {
                                 ForEach(i, id:\.self) { j in
@@ -89,14 +89,29 @@ struct CustomImagePicker: View {
             let options = PHImageRequestOptions()
             options.isSynchronous = true
             
-            for i in stride(from: req.count, to: 0, by: -3) {
+            for i in stride(from: req.count - 1, to: (req.count % 3), by: -3) {
                 var iteration: [Images] = []
                 
-                for j in i-3..<i {
-                    if j < req.count {
+                if i >= 3 {
+                    for j in stride(from: i, to: i-3, by: -1) {
                         PHCachingImageManager.default().requestImage(for: req[j], targetSize: CGSize(width: 150, height: 150), contentMode: .default, options: options) { (image, _) in
                             
                             let data1 = Images(selected: false, asset: req[j], image: image!)
+                            
+                            iteration.append(data1)
+                        }
+                    }
+                }
+                self.grid.append(iteration)
+            }
+            
+            if (req.count % 3) != 0 {
+                var iteration: [Images] = []
+                for i in stride(from:(req.count % 3) - 1, to: -1, by: -1) {
+                    if i >= 0 {
+                        PHCachingImageManager.default().requestImage(for: req[i], targetSize: CGSize(width: 150, height: 150), contentMode: .default, options: options) { (image, _) in
+                            
+                            let data1 = Images(selected: false, asset: req[i], image: image!)
                             
                             iteration.append(data1)
                         }
@@ -181,3 +196,4 @@ struct Indicator: UIViewRepresentable {
     
     func updateUIView(_ uiView: UIActivityIndicatorView, context: Context) { }
 }
+
