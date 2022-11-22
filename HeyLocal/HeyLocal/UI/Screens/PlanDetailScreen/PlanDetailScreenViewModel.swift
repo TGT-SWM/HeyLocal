@@ -428,6 +428,17 @@ extension PlanDetailScreen.ViewModel {
 		}
 	}
 	
+	/// 여행 기간 중 오늘이 포함되면 true를 반환합니다.
+	var shouldFetchCurrentLocation: Bool {
+		if schedules.isEmpty { return false }
+		
+		for day in 1...schedules.count {
+			if isToday(day: day) { return true }
+		}
+		
+		return false
+	}
+	
 	/// 넘겨 받은 일자의 날짜가 오늘과 일치하는지 검사합니다.
 	func isToday(day: Int) -> Bool {
 		let startDate = DateFormat.strToDate(plan.startDate, "yyyy-MM-dd")

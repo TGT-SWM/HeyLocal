@@ -45,12 +45,18 @@ struct PlanDetailScreen: View {
 			}
 		}
 		.onAppear {
-            
 			displayTabBar(false)
 			if viewModel.schedules.isEmpty {
 				viewModel.fetchPlaces()
 			}
-			viewModel.fetchCurrentLocation()
+			if viewModel.shouldFetchCurrentLocation {
+				viewModel.fetchCurrentLocation()
+			}
+		}
+		.onChange(of: viewModel.shouldFetchCurrentLocation) { shouldFetch in
+			if shouldFetch {
+				viewModel.fetchCurrentLocation()
+			}
 		}
     }
 	
