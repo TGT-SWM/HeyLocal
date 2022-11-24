@@ -68,18 +68,35 @@ struct OpinionComponent: View {
                     .frame(height: 7)
                 
                 /// 장소 지역
-                HStack {
-                    Image("location")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 12)
-                    
-                    Spacer()
-                        .frame(width: 3)
-                    
-                    Text("\(opinion.place.roadAddress)")
-                        .font(.system(size: 12))
-                        .foregroundColor(Color("gray"))
+                if opinion.place.roadAddress != "" {
+                    HStack {
+                        Image("location")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 12)
+                        
+                        Spacer()
+                            .frame(width: 3)
+                        
+                        Text("\(opinion.place.roadAddress)")
+                            .font(.system(size: 12))
+                            .foregroundColor(Color("gray"))
+                    }
+                }
+                else if opinion.place.address != "" {
+                    HStack {
+                        Image("location")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 12)
+                        
+                        Spacer()
+                            .frame(width: 3)
+                        
+                        Text("\(opinion.place.address)")
+                            .font(.system(size: 12))
+                            .foregroundColor(Color("gray"))
+                    }
                 }
                 
                 Spacer()
